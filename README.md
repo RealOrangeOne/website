@@ -2,10 +2,12 @@
 
 ## Installation
 
-1. Create a virtual environment
-2. `pip install -r requirements.txt`
-3. Create [`.env` file](#env-file)
-4. `./manage.py runserver`
+This project handles commands using [`just`](https://github.com/casey/just).
+
+1. `just install`
+2. Create [`.env` file](#env-file)
+3. `just migrate`
+4. `just start`
 
 ### `.env` file
 
