@@ -46,5 +46,7 @@ test_python:
     - static
   before_script:
     - source env/bin/activate
+  variables:
+    SECRET_KEY: super-secret
   script:
     - ./manage.py test
