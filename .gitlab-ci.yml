@@ -1,0 +1,45 @@
+stages:
+  - build
+  - test
+
+static:
+  image: node:alpine
+  stage: build
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - .npm
+      - .cache
+  script:
+    - npm ci --cache .npm --prefer-offline
+    - npm run build
+  artifacts:
+    name: '$CI_JOB_ID-node_modules'
+    paths:
+      - ./node_modules
+      - ./static/build
+    expire_in: 30 mins
+
+pip:
+  image: python:3.9-slim
+  stage: build
+  script:
+    - python -m venv env
+    - source env/bin/activate
+    - pip install -r dev-requirements.txt
+  artifacts:
+    name: 'pip-$CI_JOB_ID'
+    paths:
+      - ./env/
+    expire_in: 30 mins
+
+test_python:
+  image: python:3.9-slim
+  stage: test
+  dependencies:
+    - pip
+    - static
+  before_script:
+    - source env/bin/activate
+  script:
+    - ./manage.py test
