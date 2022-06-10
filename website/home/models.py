@@ -1,7 +1,4 @@
-from django.db import models
+from website.common.models import BasePage
 
-from wagtail.models import Page
-
-
-class HomePage(Page):
+class HomePage(BasePage):
     pass
