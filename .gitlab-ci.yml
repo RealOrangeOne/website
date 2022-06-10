@@ -45,6 +45,7 @@ pip:
   dependencies:
     - pip
     - collect_static
+    - static
   before_script:
     - source env/bin/activate
   variables:
