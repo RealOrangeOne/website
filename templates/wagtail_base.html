@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+
+{% block body_class %}{{ page.body_class }}{% endblock %}
+
+{% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
