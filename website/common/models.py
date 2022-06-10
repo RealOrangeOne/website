@@ -7,6 +7,7 @@ class BasePage(Page):
     class Meta:
         abstract = True
 
+    @classmethod
     @property
-    def body_class(self):
-        return "page-" + self._meta.db_table.replace("_", "-")
+    def body_class(cls):
+        return "page-" + cls._meta.db_table.replace("_", "-")

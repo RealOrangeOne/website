@@ -23,3 +23,6 @@ install:
 
 @collectstatic:
   ./manage.py collectstatic --noinput -v2
+
+test *ARGS:
+  ./manage.py test {{ ARGS }}
