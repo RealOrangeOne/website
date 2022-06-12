@@ -9,6 +9,8 @@ static:
     key: npm-$CI_COMMIT_REF_SLUG
     paths:
       - "$CI_PROJECT_DIR/.npm-cache"
+  before_script:
+    - apk add --no-cache bash
   script:
     - npm ci --cache .npm-cache --prefer-offline
     - npm run build
