@@ -7,7 +7,7 @@ cd $(dirname $0)/..
 
 CONTRIB_DIR=$PWD/static/build/contrib
 
-rm -r $CONTRIB_DIR
+rm -rf $CONTRIB_DIR
 mkdir -p $CONTRIB_DIR
 
 mkcontrib() {
