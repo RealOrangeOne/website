@@ -40,28 +40,14 @@ pip:
       - ./env/
     expire_in: 30 mins
 
-just:
-  stage: build
-  before_script:
-    - apt-get update && apt-get install -y curl
-  script:
-    - curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to $CI_PROJECT_DIR/.just-bin
-  artifacts:
-    name: 'pip-$CI_JOB_ID'
-    paths:
-      - $CI_PROJECT_DIR/.just-bin
-    expire_in: 30 mins
-
 .python_test_template: &python_test_template
   stage: test
   dependencies:
     - pip
     - collect_static
     - static
-    - just
   before_script:
     - source env/bin/activate
-    - mv $CI_PROJECT_DIR/.just-bin/just /usr/local/bin/just
   variables:
     SECRET_KEY: super-secret
 
@@ -71,11 +57,9 @@ collect_static:
   dependencies:
     - pip
     - static
-    - just
   needs:
     - pip
     - static
-    - just
   script:
     - ./manage.py collectstatic --noinput -v2 --clear
   artifacts:
@@ -97,7 +81,22 @@ django_checks:
     - ./manage.py check
     - ./manage.py makemigrations --check --noinput
 
-python_lint:
+black:
   <<: *python_test_template
   script:
-    - just lint
+    - black --check website
+
+isort:
+  <<: *python_test_template
+  script:
+    - isort --check website
+
+flake8:
+  <<: *python_test_template
+  script:
+    - flake8 website
+
+mypy:
+  <<: *python_test_template
+  script:
+    - mypy website

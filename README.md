@@ -11,9 +11,4 @@ This project handles commands using [`just`](https://github.com/casey/just).
 
 ### `.env` file
 
-Local development secrets are stored in a `.env` file.
-
-These values are required for the application to load
-
-- `DEBUG` set to `false`
-- `SECRET_KEY` set to [something](https://django-secret-key-generator.netlify.app/) semi-random
+Local development secrets are stored in a `.env` file. This file is automatically loaded by `just`.
