@@ -1,0 +1,20 @@
+@import "variables";
+
+@import "bulma/sass/utilities/_all";
+@import "bulma/sass/base/_all";
+@import "bulma/sass/helpers/_all";
+@import "bulma/sass/grid/_all";
+@import "bulma/sass/components/navbar";
+
+@import "navbar";
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-y: auto;
+}

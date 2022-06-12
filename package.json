@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:js": "esbuild static/src/js/*.js --bundle --outdir=static/build/js --minify --sourcemap",
-    "build:css": "sass --style=compressed static/src/scss:static/build/css",
+    "build:css": "sass --style=compressed --load-path=$PWD/node_modules static/src/scss:static/build/css",
+    "build:contrib": "./scripts/copy-npm-contrib.sh",
     "build": "npm-run-all build:*"
   },
   "author": "Jake Howard",
@@ -14,5 +15,9 @@
     "esbuild": "^0.14.43",
     "npm-run-all": "^4.1.5",
     "sass": "^1.52.3"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "bulma": "^0.9.4"
   }
 }
