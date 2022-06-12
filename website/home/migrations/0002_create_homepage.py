@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations
+from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-def create_homepage(apps, schema_editor):
+def create_homepage(
+    apps: migrations.state.StateApps, schema_editor: BaseDatabaseSchemaEditor
+) -> None:
     # Get models
     ContentType = apps.get_model("contenttypes.ContentType")
     Page = apps.get_model("wagtailcore.Page")
@@ -34,7 +37,9 @@ def create_homepage(apps, schema_editor):
     Site.objects.create(hostname="localhost", root_page=homepage, is_default_site=True)
 
 
-def remove_homepage(apps, schema_editor):
+def remove_homepage(
+    apps: migrations.state.StateApps, schema_editor: BaseDatabaseSchemaEditor
+) -> None:
     # Get models
     ContentType = apps.get_model("contenttypes.ContentType")
     HomePage = apps.get_model("home.HomePage")

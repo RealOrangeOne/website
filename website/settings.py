@@ -1,19 +1,17 @@
 from pathlib import Path
+
 import environ
 
 BASE_DIR = Path(__file__).parent.parent
 
-env = environ.Env(
-    DEBUG=(bool, False),
-    BASE_HOSTNAME=(str, "example.com")
-)
+env = environ.Env(DEBUG=(bool, False), BASE_HOSTNAME=(str, "example.com"))
 
 # Read local secrets
-environ.Env.read_env(BASE_DIR / '.env')
+environ.Env.read_env(BASE_DIR / ".env")
 
-DEBUG = env('DEBUG')
+DEBUG = env("DEBUG")
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -80,9 +78,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "website.wsgi.application"
 
 
-DATABASES = {
-    'default': env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")
-}
+DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -132,5 +128,5 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-BASE_HOSTNAME = env('BASE_HOSTNAME')
+BASE_HOSTNAME = env("BASE_HOSTNAME")
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"

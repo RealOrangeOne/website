@@ -21,5 +21,18 @@ install:
 @manage +ARGS:
   ./manage.py {{ ARGS }}
 
+@pip +ARGS:
+  pip {{ ARGS }}
+
 test *ARGS:
   ./manage.py test {{ ARGS }}
+
+format:
+  black website
+  isort website
+
+lint:
+  black --check website
+  isort --check website
+  flake8 website
+  mypy website
