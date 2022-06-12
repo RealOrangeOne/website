@@ -110,7 +110,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static" / "build",
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATIC_ROOT = BASE_DIR / "collected-static"
 STATIC_URL = "/static/"

@@ -21,8 +21,5 @@ install:
 @manage +ARGS:
   ./manage.py {{ ARGS }}
 
-@collectstatic:
-  ./manage.py collectstatic --noinput -v2 --clear
-
 test *ARGS:
   ./manage.py test {{ ARGS }}
