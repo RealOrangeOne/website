@@ -44,33 +44,16 @@ pip:
   stage: test
   dependencies:
     - pip
-    - collect_static
     - static
   before_script:
     - source env/bin/activate
   variables:
     SECRET_KEY: super-secret
 
-collect_static:
-  <<: *python_test_template
-  stage: build
-  dependencies:
-    - pip
-    - static
-  needs:
-    - pip
-    - static
-  script:
-    - ./manage.py collectstatic --noinput -v2 --clear
-  artifacts:
-    name: 'static-$CI_JOB_ID'
-    paths:
-      - ./collected-static/
-    expire_in: 30 mins
-
 test_python:
   <<: *python_test_template
   script:
+    - ./manage.py collectstatic --noinput --clear
     - ./manage.py test
 
 django_checks:
