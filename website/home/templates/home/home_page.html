@@ -1,7 +1,13 @@
 {% extends "wagtail_base.html" %}
 
 {% block content %}
+<h1>{{ page.heading }}</h1>
 
-Content
+<input id="search-input" class="input" type="text" placeholder="Search">
 
+<div class="box latest">
+  <strong>Latest Post</strong>: <a href="#">Do thing good, and other thing better</a> &rarr;
+</div>
 {% endblock content %}
+
+{% block darkmode %}{% endblock %}

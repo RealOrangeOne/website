@@ -1,0 +1,51 @@
+body.page-home-homepage {
+  display: flex;
+  flex-direction: column;
+
+  main {
+    // TODO: Image background
+    background-color: orange;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: $white;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .latest {
+    padding: 0.25rem 0.5rem;
+    margin-top: 2rem;
+    background-color: transparentize($black, 0.2);
+
+    &,
+    strong,
+    a {
+      color: $white !important;
+    }
+  }
+
+  input#search-input {
+    margin-top: 15px;
+    max-width: 25% !important;
+    text-align: center;
+    background-color: transparentize($black, 0.2) !important;
+    color: $white !important;
+
+    &::placeholder {
+      color: rgba(214, 210, 205, 0.8) !important;
+    }
+
+    &:focus {
+      border-color: initial !important;
+    }
+  }
+
+  #to-top {
+    display: none;
+  }
+}

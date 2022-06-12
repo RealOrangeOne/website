@@ -2,34 +2,42 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}{% endblock %}
-            {% block title_suffix %}
-            {% wagtail_site as current_site %}
-            {% if current_site and current_site.site_name %}:: {{ current_site.site_name }}{% endif %}
-            {% endblock %}
-        </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% block title %}{% endblock %}
+      {% block title_suffix %}
+      {% wagtail_site as current_site %}
+      {% if current_site and current_site.site_name %}:: {{ current_site.site_name }}{% endif %}
+      {% endblock %}
+    </title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'contrib/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'contrib/fontawesome/css/all.min.css' %}">
 
-        {% block extra_css %}{% endblock %}
-    </head>
+    {% block extra_css %}{% endblock %}
+  </head>
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+  <body class="{% block body_class %}{% endblock %}">
+    {% wagtailuserbar %}
 
-        {% include "navbar.html" %}
+    {% include "navbar.html" %}
 
-        {% block content %}{% endblock %}
+    <main>
+      {% block content %}{% endblock %}
+    </main>
 
-        <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>
-        <script async defer type="text/javascript" src="{% static 'js/darkmode.js' %}"></script>
+    {% include "footer.html" %}
 
-        {% block extra_js %}{% endblock %}
-    </body>
+    <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>
+
+    {% block darkmode %}
+      <script async defer type="text/javascript" src="{% static 'js/darkmode.js' %}"></script>
+    {% endblock %}
+
+    {% block extra_js %}{% endblock %}
+
+  </body>
 </html>
