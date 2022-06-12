@@ -1,5 +1,3 @@
-image: python:3.10-slim
-
 stages:
   - build
   - test
@@ -41,6 +39,7 @@ pip:
     expire_in: 30 mins
 
 .python_test_template: &python_test_template
+  image: python:3.10-slim
   stage: test
   dependencies:
     - pip
@@ -49,6 +48,12 @@ pip:
     - source env/bin/activate
   variables:
     SECRET_KEY: super-secret
+
+.node_test_template: &node_test_template
+  image: node:alpine
+  stage: test
+  dependencies:
+    - static
 
 test_python:
   <<: *python_test_template
@@ -81,3 +86,8 @@ mypy:
   <<: *python_test_template
   script:
     - mypy website
+
+prettier:
+  <<: *node_test_template
+  script:
+    - npm run lint

@@ -30,9 +30,15 @@ test *ARGS:
 format:
   black website
   isort website
+  npm run format
 
-lint:
+lint: lint_python lint_node
+
+lint_python:
   black --check website
   isort --check website
   flake8 website
   mypy website
+
+@lint_node:
+  npm run lint

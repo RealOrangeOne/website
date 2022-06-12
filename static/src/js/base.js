@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   navbarBurger.addEventListener("click", () => {
     console.log("click");
-    navbarBurger.classList.toggle('is-active');
-    navbar.classList.toggle('is-active');
-  })
+    navbarBurger.classList.toggle("is-active");
+    navbar.classList.toggle("is-active");
+  });
 });

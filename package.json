@@ -8,12 +8,15 @@
     "build:js": "esbuild static/src/js/*.js --bundle --outdir=static/build/js --minify --sourcemap",
     "build:css": "sass --style=compressed --load-path=$PWD/node_modules static/src/scss:static/build/css",
     "build:contrib": "./scripts/copy-npm-contrib.sh",
-    "build": "npm-run-all build:*"
+    "build": "npm-run-all build:*",
+    "lint": "prettier --check static/src",
+    "format": "prettier --write static/src"
   },
   "author": "Jake Howard",
   "devDependencies": {
     "esbuild": "^0.14.43",
     "npm-run-all": "^4.1.5",
+    "prettier": "2.6.2",
     "sass": "^1.52.3"
   },
   "dependencies": {
