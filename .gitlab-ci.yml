@@ -71,8 +71,6 @@ collect_static:
 test_python:
   <<: *python_test_template
   script:
-    - ./manage.py check
-    - ./manage.py makemigrations --check --noinput
     - ./manage.py test
 
 django_checks:
