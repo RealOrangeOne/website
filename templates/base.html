@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,13 +23,18 @@
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
 
-    {% include "navbar.html" %}
+    {% cache 3600 "navbar" page %}
+      {% navbar page %}
+    {% endcache %}
 
     <main>
       {% block content %}{% endblock %}
     </main>
 
-    {% include "footer.html" %}
+    {% cache 3600 "footer" %}
+      {% footer %}
+    {% endcache %}
+
 
     <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>
 

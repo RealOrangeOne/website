@@ -81,6 +81,9 @@ WSGI_APPLICATION = "website.wsgi.application"
 
 DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")}
 
+CACHES = {"default": env.cache(default="dummycache://")}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
