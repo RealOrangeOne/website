@@ -1,0 +1,43 @@
+section.hero {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin-top: 2.5rem;
+  padding-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  background-color: $white;
+
+  .hero-body {
+    padding: 0;
+  }
+
+  .dropdown-wrapper {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .dropdown {
+    li {
+      list-style: none !important;
+    }
+
+    .dropdown-content {
+      width: 17rem;
+      overflow-y: scroll;
+      max-height: 50vh;
+    }
+
+    ul {
+      margin: 0.5rem;
+    }
+
+    .menu-list li ul {
+      padding-left: initial;
+    }
+  }
+
+  .subtitle {
+    margin-bottom: 0.5rem;
+  }
+}

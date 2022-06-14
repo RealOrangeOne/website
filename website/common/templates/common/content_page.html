@@ -1,0 +1,42 @@
+{% extends "wagtail_base.html" %}
+
+{% block content %}
+<section class="hero container">
+  <div class="hero-body">
+    <div class="columns">
+      <div class="column">
+        <h1 class="title is-1">{{ page.title }}</h1>
+        {% if page.subtitle %}
+          <h2 class="subtitle">{{ page.subtitle }}</h2>
+        {% endif %}
+      </div>
+      <div class="column is-narrow dropdown-wrapper is-hidden-touch is-grouped">
+        <div class="dropdown is-hoverable is-right">
+          <div class="dropdown-trigger">
+            <button class="button is-radiusless" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span>Table of Contents</span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content menu">
+              <ul class="menu-list">
+                <li><a>Dashboard</a></li>
+              </ul>
+            </div>
+          </div>
+          <button class="button is-radiusless">Top</button>
+      </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="container content">
+  {% lorem 10 p %}
+</div>
+{% endblock content %}
