@@ -13,3 +13,8 @@ body {
   height: 100%;
   overflow-y: auto;
 }
+
+.darkmode-layer,
+.darkmode-toggle {
+  z-index: $navbar-z - 1;
+}
