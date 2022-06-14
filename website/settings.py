@@ -135,7 +135,16 @@ WAGTAILSEARCH_BACKENDS = {
 BASE_HOSTNAME = env("BASE_HOSTNAME")
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
 
-# Add `django-browser-reload`
 if DEBUG:
+    # Add django-browser-reload
     INSTALLED_APPS.append("django_browser_reload")
     MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
+
+    # Add django-debug-toolbar
+    INSTALLED_APPS.append("debug_toolbar")
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": "website.common.utils.show_toolbar_callback",
+        "RESULTS_CACHE_SIZE": 5,
+        "SHOW_COLLAPSED": True,
+    }
