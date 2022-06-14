@@ -14,6 +14,7 @@ export SECRET_KEY := "super-secret-key"
 install:
   python -m venv env
   pip install -r dev-requirements.txt
+  npm ci
 
 @start:
   honcho start
