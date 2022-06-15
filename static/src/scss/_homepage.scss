@@ -15,13 +15,22 @@ body.page-home-homepage {
   }
 
   h1 {
-    font-size: 3rem;
+    font-size: 5rem;
+  }
+
+  .heading-wrapper {
+    text-align: center;
   }
 
   .latest {
     padding: 0.25rem 0.5rem;
     margin-top: 2rem;
     background-color: transparentize($black, 0.2);
+    border-radius: $input-radius;
+    max-width: 75%;
+    overflow-x: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     &,
     strong,
@@ -31,8 +40,8 @@ body.page-home-homepage {
   }
 
   input#search-input {
+    width: 85%;
     margin-top: 15px;
-    max-width: 25% !important;
     text-align: center;
     background-color: transparentize($black, 0.2) !important;
     color: $white !important;

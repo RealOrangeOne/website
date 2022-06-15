@@ -4,9 +4,10 @@
 
 {% block main %}
 <main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
-  <h1>{{ page.heading }}</h1>
-
-  <input id="search-input" class="input" type="text" placeholder="Search">
+  <div class="heading-wrapper">
+    <h1>{{ page.heading }}</h1>
+    <input id="search-input" class="input" type="text" placeholder="Search">
+  </div>
 
   <div class="box latest">
     <strong>Latest Post</strong>: <a href="#">{% lorem 6 w random %}</a> &rarr;
