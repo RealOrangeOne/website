@@ -3,7 +3,9 @@
 {% load wagtailimages_tags %}
 
 {% block content %}
-<img class="hero" src="{% image_url page.hero_image 'width-1200' %}" alt="">
+{% if page.hero_image %}
+<img class="hero" src="{% image_url page.hero_image 'width-1200' %}">
+{% endif %}
 
 <section class="hero container">
   <div class="hero-body">

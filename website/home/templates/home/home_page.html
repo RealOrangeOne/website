@@ -3,7 +3,7 @@
 {% load wagtailimages_tags %}
 
 {% block main %}
-<main style="background-image: url({% image_url page.image 'width-1200' %})">
+<main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
   <h1>{{ page.heading }}</h1>
 
   <input id="search-input" class="input" type="text" placeholder="Search">
