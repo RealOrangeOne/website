@@ -3,8 +3,9 @@ body.page-home-homepage {
   flex-direction: column;
 
   main {
-    // TODO: Image background
-    background-color: orange;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
     height: 100%;
     display: flex;
     justify-content: center;

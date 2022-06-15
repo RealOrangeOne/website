@@ -27,9 +27,11 @@
       {% navbar page %}
     {% endcache %}
 
-    <main>
-      {% block content %}{% endblock %}
-    </main>
+    {% block main %}
+      <main>
+        {% block content %}{% endblock %}
+      </main>
+    {% endblock %}
 
     {% cache 3600 "footer" %}
       {% footer %}

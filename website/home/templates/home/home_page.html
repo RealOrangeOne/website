@@ -1,13 +1,17 @@
 {% extends "wagtail_base.html" %}
 
-{% block content %}
-<h1>{{ page.heading }}</h1>
+{% load wagtailimages_tags %}
 
-<input id="search-input" class="input" type="text" placeholder="Search">
+{% block main %}
+<main style="background-image: url({% image_url page.image 'width-1200' %})">
+  <h1>{{ page.heading }}</h1>
 
-<div class="box latest">
-  <strong>Latest Post</strong>: <a href="#">{% lorem 6 w random %}</a> &rarr;
-</div>
-{% endblock content %}
+  <input id="search-input" class="input" type="text" placeholder="Search">
+
+  <div class="box latest">
+    <strong>Latest Post</strong>: <a href="#">{% lorem 6 w random %}</a> &rarr;
+  </div>
+</main>
+{% endblock %}
 
 {% block darkmode %}{% endblock %}
