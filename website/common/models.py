@@ -6,6 +6,8 @@ from wagtail.models import Page
 
 
 class BasePage(Page):
+    show_in_menus_default = True
+
     class Meta:
         abstract = True
 
