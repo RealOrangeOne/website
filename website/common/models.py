@@ -8,6 +8,8 @@ from wagtail.models import Page
 class BasePage(Page):
     show_in_menus_default = True
 
+    HERO_IMAGE_SIZE = "width-1200"
+
     class Meta:
         abstract = True
 
