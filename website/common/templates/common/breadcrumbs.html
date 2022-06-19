@@ -6,7 +6,6 @@
       {% for parent in parents %}
         <li><a href="{% pageurl parent %}">{{ parent.title }}</a></li>
       {% endfor %}
-      <li class="is-active"><a href="{% pageurl page %}" aria-current="page">{{ page.title }}</a></li>
     </ul>
   </nav>
 {% endif %}
