@@ -2,10 +2,12 @@ from typing import Any
 
 from django.db import models
 from django.http.request import HttpRequest
-from django.utils.functional import classproperty
+from django.utils.functional import cached_property, classproperty
 from wagtail.admin.panels import FieldPanel
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
+
+from .utils import TocEntry, get_table_of_contents
 
 
 class BasePage(Page):
@@ -25,6 +27,10 @@ class BasePage(Page):
         Shim over the fact everything is in 1 tree
         """
         return self.get_ancestors().reverse().exclude(depth__lte=2)
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return get_table_of_contents()
 
 
 class BaseContentMixin(models.Model):
