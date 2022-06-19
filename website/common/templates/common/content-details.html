@@ -1,0 +1,7 @@
+{% if page.date %}
+  <span title="{{ page.date }}"><i class="far fa-calendar-alt"></i>{{ page.date|date:"Y-m-d" }}</span>
+{% endif %}
+<span><i class="far fa-clock"></i>4 minutes</span>
+{% if page.tags.all %}
+  <span class="is-family-code"><i class="fas fa-tags"></i>{% for tag in page.tags.all %}<a title="{{ tag.name }}">#{{ tag.slug }}</a>{% endfor %}</span>
+{% endif %}

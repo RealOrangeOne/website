@@ -1,3 +1,13 @@
 section.content {
   font-size: 1.25rem;
 }
+
+.content-details {
+  span + span {
+    margin-left: 0.5rem;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
