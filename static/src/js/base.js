@@ -6,4 +6,8 @@ window.addEventListener("load", () => {
     navbarBurger.classList.toggle("is-active");
     navbar.classList.toggle("is-active");
   });
+
+  document.getElementById("scroll-top").addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 });
