@@ -1,0 +1,31 @@
+.listing-item {
+  border-top: none !important;
+
+  .image-column {
+    display: flex;
+    align-items: center;
+  }
+
+  .media img {
+    object-fit: cover;
+    width: 100%;
+    height: 175px;
+  }
+
+  .media {
+    max-height: 175px;
+  }
+
+  .subtitle {
+    margin-bottom: 0.25rem !important;
+  }
+
+  .media-content .content {
+    overflow: hidden;
+  }
+
+  .media-content {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

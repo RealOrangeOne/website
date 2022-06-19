@@ -1,11 +1,13 @@
 {% extends "wagtail_base.html" %}
 
+{% load util_tags %}
+
 {% block content %}
 
 {% include "common/hero.html" %}
 
-<section class="container content">
-  {% lorem 10 p %}
-</section>
+{% for i in 3|range %}
+  {% include "common/listing-item.html" %}
+{% endfor %}
 
 {% endblock content %}
