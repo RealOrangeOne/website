@@ -28,10 +28,6 @@ class BasePage(Page):
         """
         return self.get_ancestors().reverse().exclude(depth__lte=2)
 
-    @cached_property
-    def table_of_contents(self) -> list[TocEntry]:
-        return get_table_of_contents()
-
 
 class BaseContentMixin(models.Model):
     subtitle = models.CharField(max_length=255, blank=True)
@@ -46,6 +42,18 @@ class BaseContentMixin(models.Model):
 
     class Meta:
         abstract = True
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return get_table_of_contents()
+
+    @cached_property
+    def reading_time(self) -> int:
+        return 4
+
+    @cached_property
+    def word_count(self) -> int:
+        return 1600
 
 
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
