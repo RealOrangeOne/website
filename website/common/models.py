@@ -21,7 +21,7 @@ class BasePage(Page):
 class ContentPage(BasePage):
     subtitle = models.CharField(max_length=255, blank=True)
     hero_image = models.ForeignKey(
-        get_image_model_string(), null=True, on_delete=models.SET_NULL
+        get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
     )
 
     content_panels = BasePage.content_panels + [
