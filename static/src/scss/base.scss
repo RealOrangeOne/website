@@ -16,8 +16,3 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-.darkmode-layer,
-.darkmode-toggle {
-  z-index: $navbar-z - 1;
-}
