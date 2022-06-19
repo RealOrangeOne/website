@@ -55,4 +55,14 @@ section.hero {
   nav.breadcrumb {
     margin-bottom: 0.5rem !important;
   }
+
+  .content-details {
+    span + span {
+      margin-left: 0.5rem;
+    }
+
+    i {
+      margin-right: 5px;
+    }
+  }
 }

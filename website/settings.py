@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "website.blog",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
+    "wagtail.contrib.modeladmin",
     "wagtail.embeds",
     "wagtail.sites",
     "wagtail.users",
@@ -135,6 +136,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 BASE_HOSTNAME = env("BASE_HOSTNAME")
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 if DEBUG:
     # Add django-browser-reload

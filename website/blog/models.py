@@ -1,6 +1,11 @@
 from typing import Any
 
+from django.db import models
 from django.http.request import HttpRequest
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalKey
+from taggit.models import ItemBase, TagBase
+from wagtail.admin.panels import FieldPanel
 
 from website.common.models import BaseContentMixin, BasePage
 
@@ -18,7 +23,31 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         return context
 
 
+class BlogPostTag(TagBase):
+    free_tagging = False
+
+    panels = [FieldPanel("name")]
+
+    class Meta:
+        verbose_name = "blog tag"
+        verbose_name_plural = "blog tags"
+
+
+class TaggedBlog(ItemBase):
+    tag = models.ForeignKey(
+        BlogPostTag, related_name="tagged_blogs", on_delete=models.CASCADE
+    )
+    content_object = ParentalKey(
+        "blog.BlogPostPage", on_delete=models.CASCADE, related_name="tagged_items"
+    )
+
+
 class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types: list[Any] = []
     parent_page_types = [BlogListPage]
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    tags = ClusterTaggableManager(through=TaggedBlog, blank=True)
+
+    content_panels = (
+        BasePage.content_panels + BaseContentMixin.content_panels + [FieldPanel("tags")]
+    )
