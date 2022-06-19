@@ -20,6 +20,12 @@ class BasePage(Page):
     def body_class(cls) -> str:
         return "page-" + cls._meta.db_table.replace("_", "-")
 
+    def get_parent_pages(self) -> models.QuerySet[Page]:
+        """
+        Shim over the fact everything is in 1 tree
+        """
+        return self.get_ancestors().reverse().exclude(depth__lte=2)
+
 
 class BaseContentMixin(models.Model):
     subtitle = models.CharField(max_length=255, blank=True)
