@@ -15,7 +15,9 @@
             <h2 class="subtitle">{{ page.subtitle }}</h2>
           {% endif %}
           <h3 class="is-size-6 content-details">
-            <span title="2022-04-15"><i class="far fa-calendar-alt"></i>2022-04-15</span>
+            {% if page.date %}
+              <span title="{{ page.date }}"><i class="far fa-calendar-alt"></i>{{ page.date|date:"Y-m-d" }}</span>
+            {% endif %}
             <span><i class="far fa-clock"></i>4 minutes</span>
             {% if page.tags.all %}
               <span class="is-family-code"><i class="fas fa-tags"></i>{% for tag in page.tags.all %}<a title="{{ tag.name }}">#{{ tag.slug }}</a>{% endfor %}</span>

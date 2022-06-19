@@ -2,6 +2,7 @@ from typing import Any
 
 from django.db import models
 from django.http.request import HttpRequest
+from django.utils import timezone
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import ItemBase, TagBase
@@ -47,7 +48,10 @@ class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     parent_page_types = [BlogListPage]
 
     tags = ClusterTaggableManager(through=TaggedBlog, blank=True)
+    date = models.DateField(default=timezone.now)
 
     content_panels = (
-        BasePage.content_panels + BaseContentMixin.content_panels + [FieldPanel("tags")]
+        BasePage.content_panels
+        + BaseContentMixin.content_panels
+        + [FieldPanel("date"), FieldPanel("tags")]
     )
