@@ -7,7 +7,7 @@
 {% include "common/hero.html" %}
 
 <div class="container">
-  {% for i in 9|range %}
+  {% for page in child_pages %}
     {% include "common/listing-item.html" %}
   {% endfor %}
 </div>

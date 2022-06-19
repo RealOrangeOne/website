@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.db import models
+from django.http.request import HttpRequest
 from django.utils.functional import classproperty
 from wagtail.admin.panels import FieldPanel
 from wagtail.images import get_image_model_string
@@ -42,3 +43,10 @@ class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
 
 class ListingPage(BasePage, BaseContentMixin):  # type: ignore[misc]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        context["child_pages"] = (
+            self.get_children().live().specific().select_related("hero_image")
+        )
+        return context
