@@ -6,8 +6,10 @@
 
 {% include "common/hero.html" %}
 
-{% for i in 3|range %}
-  {% include "common/listing-item.html" %}
-{% endfor %}
+<div class="container">
+  {% for i in 9|range %}
+    {% include "common/listing-item.html" %}
+  {% endfor %}
+</div>
 
 {% endblock content %}
