@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags static %}
 
 <footer class="footer">
   <div class="has-text-centered">
@@ -6,9 +6,16 @@
       &copy; <a href="{% pageurl homepage %}">TheOrangeOne</a> {% now "Y" %}
     </p>
   </div>
-  <div class="has-text-centered is-size-7" id="to-top">
+  <div class="has-text-centered is-size-7">
     <p>
-      <a href="">To top <em>in style</em></a>
+      <a class="scroll-top">To top</a>
+      <a
+        id="to-top-elevator"
+        data-main-audio="{% static 'contrib/elevator-js/elevator.mp3' %}"
+        data-end-audio="{% static 'contrib/elevator-js/ding.mp3' %}"
+      >
+        <em>in style</em>
+      </a>
     </p>
   </div>
 </footer>

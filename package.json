@@ -22,6 +22,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
     "bulma": "^0.9.4",
-    "darkreader": "^4.9.51"
+    "darkreader": "^4.9.51",
+    "elevator.js": "^1.0.1"
   }
 }
