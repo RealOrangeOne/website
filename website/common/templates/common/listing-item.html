@@ -3,9 +3,11 @@
 <article class="media listing-item">
   <div class="columns">
     <figure class="media-left column is-3 image-column">
-      <a href="{% pageurl page %}" class="image">
-        <img src="{% image_url page.hero_image 'width-300' %}">
-      </a>
+      {% if page.hero_image %}
+        <a href="{% pageurl page %}" class="image">
+          <img src="{% image_url page.hero_image 'width-300' %}">
+        </a>
+      {% endif %}
     </figure>
     <div class="media-content column">
       <div>
