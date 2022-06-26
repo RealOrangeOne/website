@@ -153,3 +153,6 @@ if DEBUG:
         "RESULTS_CACHE_SIZE": 5,
         "SHOW_COLLAPSED": True,
     }
+
+    # Add Wagtail styleguide
+    INSTALLED_APPS.append("wagtail.contrib.styleguide")
