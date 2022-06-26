@@ -20,8 +20,9 @@
     max-height: 175px;
   }
 
-  .subtitle {
-    margin-bottom: 0.25rem !important;
+  .content-details {
+    font-size: 80%;
+    margin-top: $subtitle-negative-margin;
   }
 
   .media-content .content {

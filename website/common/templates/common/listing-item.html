@@ -12,7 +12,7 @@
     <div class="media-content column">
       <div>
         <h2 class="title is-3"><a href="{% pageurl page %}">{{ page.title }}</a></h2>
-        <h3 class="subtitle is-6 content-details">{% include "common/content-details.html" %}</h3>
+        {% include "common/content-details.html" %}
         {% lorem 1 p %}
       </div>
     </div>

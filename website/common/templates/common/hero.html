@@ -14,9 +14,8 @@
           {% if page.subtitle %}
             <h2 class="subtitle">{{ page.subtitle }}</h2>
           {% endif %}
-          <h3 class="is-size-6 content-details">
-            {% include "common/content-details.html" %}
-          </h3>
+
+          {% include "common/content-details.html" %}
         </div>
         <div class="column is-narrow dropdown-wrapper is-hidden-touch is-grouped">
           {% if page.table_of_contents %}

@@ -1,20 +1,31 @@
-{% if page.date %}
-  <span title="{{ page.date }}"><i class="far fa-calendar-alt"></i>{{ page.date|date:"Y-m-d" }}</span>
-{% endif %}
+<div class="content-details field is-grouped is-grouped-multiline {{extra_classes}}">
 
-{% if page.reading_time %}
-  <span title="{{ page.word_count }} words"><i class="far fa-clock"></i>{{ page.reading_time }} minutes</span>
-{% endif %}
-
-{% spaceless %}
-  {% if page.tags.all %}
-    <span>
-      <i class="fas fa-tags"></i>
-      <div class="tags is-family-code">
-        {% for tag in page.tags.all %}
-          <span class="tag"><a title="{{ tag.name }}">#{{ tag.slug }}</a></span>
-        {% endfor%}
+  {% if page.date %}
+    <div class="control">
+      <div class="tags has-addons">
+        <span class="tag is-dark"><i class="far fa-calendar-alt"></i></span>
+        <span class="tag is-light">{{ page.date|date:"Y-m-d" }}</span>
       </div>
-    <span>
+    </div>
   {% endif %}
-{% endspaceless %}
+
+  {% if page.reading_time %}
+    <div class="control">
+      <div class="tags has-addons">
+        <span class="tag is-dark"><i class="far fa-clock"></i></span>
+        <span class="tag is-light" title="{{ page.word_count }} words">{{ page.reading_time }} minutes</span>
+      </div>
+    </div>
+  {% endif %}
+
+  {% if page.tags.all %}
+    <div class="control page-tags">
+      <div class="tags has-addons">
+        <span class="tag is-dark"><i class="fas fa-tags"></i></span>
+        {% for tag in page.tags.all %}
+          <span class="tag is-white"><a title="{{ tag.name }}">#{{ tag.slug }}</a></span>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
