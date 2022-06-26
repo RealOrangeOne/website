@@ -1,3 +1,4 @@
+import math
 from typing import Any
 
 from django.db import models
@@ -8,7 +9,7 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
-from .streamfield import get_blocks
+from .streamfield import get_blocks, get_word_count
 from .utils import TocEntry, get_table_of_contents
 
 
@@ -53,11 +54,14 @@ class BaseContentMixin(models.Model):
 
     @cached_property
     def reading_time(self) -> int:
-        return 4
+        """
+        https://help.medium.com/hc/en-us/articles/214991667-Read-time
+        """
+        return int(math.ceil(self.word_count / 265))
 
     @cached_property
     def word_count(self) -> int:
-        return 1600
+        return get_word_count(self.body)
 
 
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
