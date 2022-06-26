@@ -4,11 +4,27 @@ section.content {
 }
 
 .content-details {
-  span + span {
+  & > span + span {
     margin-left: 0.5rem;
   }
 
   i {
     margin-right: 5px;
+  }
+
+  .tags {
+    display: inline-flex;
+    margin-bottom: 0;
+
+    .tag {
+      background-color: unset;
+      font-size: inherit;
+      margin-bottom: 0;
+      padding: 0;
+
+      & &:not(:last-child) {
+        margin-right: 0.2rem !important;
+      }
+    }
   }
 }

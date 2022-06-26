@@ -6,6 +6,15 @@
   <span title="{{ page.word_count }} words"><i class="far fa-clock"></i>{{ page.reading_time }} minutes</span>
 {% endif %}
 
-{% if page.tags.all %}
-  <span class="is-family-code"><i class="fas fa-tags"></i>{% for tag in page.tags.all %}<a title="{{ tag.name }}">#{{ tag.slug }}</a>{% endfor %}</span>
-{% endif %}
+{% spaceless %}
+  {% if page.tags.all %}
+    <span>
+      <i class="fas fa-tags"></i>
+      <div class="tags is-family-code">
+        {% for tag in page.tags.all %}
+          <span class="tag"><a title="{{ tag.name }}">#{{ tag.slug }}</a></span>
+        {% endfor%}
+      </div>
+    <span>
+  {% endif %}
+{% endspaceless %}
