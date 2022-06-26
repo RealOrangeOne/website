@@ -3,18 +3,28 @@ from typing import Any
 from django.db import models
 from django.http.request import HttpRequest
 from django.utils import timezone
+from django.utils.functional import cached_property
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel
 
 from website.common.models import BaseContentMixin, BasePage
+from website.common.utils import TocEntry
 
 
 class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     max_count = 1
     subpage_types = ["blog.BlogPostPage"]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    @cached_property
+    def reading_time(self) -> int:
+        return 0
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return []
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
