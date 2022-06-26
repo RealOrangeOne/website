@@ -13,7 +13,7 @@
       <div>
         <h2 class="title is-3"><a href="{% pageurl page %}">{{ page.title }}</a></h2>
         {% include "common/content-details.html" %}
-        {% lorem 1 p %}
+        <p>{{ page.summary }}</p>
       </div>
     </div>
   </div>

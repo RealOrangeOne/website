@@ -6,7 +6,7 @@ from django.utils.text import smart_split
 from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
 
-IGNORE_WORDCOUNT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock)
+IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock)
 
 
 class LoremBlock(blocks.StructBlock):
@@ -35,9 +35,19 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
 
 def get_plain_text(value: blocks.StreamValue) -> Iterator[str]:
     for block in value:
-        if isinstance(block.block_type, IGNORE_WORDCOUNT_BLOCKS):
+        if isinstance(block.block_type, IGNORE_PLAINTEXT_BLOCKS):
             continue
         yield strip_tags(str(block))
+
+
+def truncate_streamfield(value: blocks.StreamValue, words: int) -> str:
+    collected_words: list[str] = []
+    for block_text in get_plain_text(value):
+        collected_words.extend(smart_split(block_text))
+        if len(collected_words) >= words:
+            break
+
+    return " ".join(collected_words[:words])
 
 
 def get_word_count(value: blocks.StreamValue) -> int:

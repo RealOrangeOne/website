@@ -9,7 +9,7 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
-from .streamfield import get_blocks, get_word_count
+from .streamfield import get_blocks, get_word_count, truncate_streamfield
 from .utils import TocEntry, get_table_of_contents
 
 
@@ -62,6 +62,10 @@ class BaseContentMixin(models.Model):
     @cached_property
     def word_count(self) -> int:
         return get_word_count(self.body)
+
+    @cached_property
+    def summary(self) -> str:
+        return truncate_streamfield(self.body, 50)
 
 
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
