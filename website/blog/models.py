@@ -19,7 +19,11 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["child_pages"] = (
-            self.get_children().live().specific().select_related("hero_image")
+            self.get_children()
+            .live()
+            .specific()
+            .select_related("hero_image")
+            .prefetch_related("tags")
         )
         return context
 
