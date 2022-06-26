@@ -1,4 +1,5 @@
-@import "variables";
+@use "variables" as *;
+@use "bulma_overrides" as *;
 
 @import "bulma/bulma";
 
