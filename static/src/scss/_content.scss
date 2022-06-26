@@ -22,3 +22,9 @@ section.content {
     }
   }
 }
+
+.container {
+  @include until($container-max-width) {
+    max-width: calc(99% - ($column-gap * 2));
+  }
+}

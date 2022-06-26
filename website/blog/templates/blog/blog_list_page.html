@@ -4,10 +4,10 @@
 
 {% include "common/hero.html" %}
 
-<div class="container">
+<section class="container">
   {% for page in child_pages %}
     {% include "common/listing-item.html" %}
   {% endfor %}
-</div>
+</section>
 
 {% endblock content %}
