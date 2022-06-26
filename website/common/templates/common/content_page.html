@@ -1,11 +1,13 @@
 {% extends "wagtail_base.html" %}
 
+{% load wagtailcore_tags %}
+
 {% block content %}
 
 {% include "common/hero.html" %}
 
 <section class="container content">
-  {% lorem 10 p %}
+  {% include_block page.body %}
 </section>
 
 {% endblock content %}

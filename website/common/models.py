@@ -4,9 +4,11 @@ from django.db import models
 from django.http.request import HttpRequest
 from django.utils.functional import cached_property, classproperty
 from wagtail.admin.panels import FieldPanel
+from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
+from .streamfield import get_blocks
 from .utils import TocEntry, get_table_of_contents
 
 
@@ -34,10 +36,12 @@ class BaseContentMixin(models.Model):
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
     )
+    body = StreamField(get_blocks(), blank=True, use_json_field=True)
 
     content_panels = [
         FieldPanel("subtitle"),
         FieldPanel("hero_image"),
+        FieldPanel("body"),
     ]
 
     class Meta:
