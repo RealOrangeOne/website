@@ -7,6 +7,8 @@ from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
+from website.contrib.code_block.blocks import CodeBlock
+
 IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock)
 
 RICH_TEXT_FEATURES = [
@@ -68,6 +70,7 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
         ("lorem", LoremBlock()),
         ("html", blocks.RawHTMLBlock()),
         ("image", ImageCaptionBlock()),
+        ("code", CodeBlock()),
     ]
 
 

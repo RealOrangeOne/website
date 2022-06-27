@@ -13,6 +13,10 @@ urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
+    path(
+        "static-pygments/",
+        include("website.contrib.code_block.urls", namespace="static-pygments"),
+    ),
     re_path(
         r"^images/([^/]*)/(\d*)/([^/]*)/[^/]*$",
         ServeView.as_view(action="redirect"),
