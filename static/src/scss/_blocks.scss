@@ -1,11 +1,9 @@
 div.block-image {
-  margin: 0.5rem 0;
-
   figcaption {
     font-size: 85%;
   }
 }
 
-div.block-rich_text {
+.content > div:not(:last-child) {
   margin-bottom: $content-block-margin-bottom;
 }
