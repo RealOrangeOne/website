@@ -1,0 +1,8 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+
+<figure>
+  <img src="{% image_url value.image 'width-1500' %}" alt="" />
+  <figcaption>
+    {{ value.caption|richtext }}
+  </figcaption>
+</figure>

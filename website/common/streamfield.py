@@ -5,6 +5,7 @@ from django.utils.html import format_html_join, strip_tags
 from django.utils.text import smart_split
 from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
 
 IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock)
 
@@ -19,6 +20,15 @@ RICH_TEXT_FEATURES = [
     "italic",
     "ol",
     "ul",
+    "link",
+    "document-link",
+    "code",
+    "strikethrough",
+]
+
+RICH_TEXT_FEATURES_SIMPLE = [
+    "bold",
+    "italic",
     "link",
     "document-link",
     "code",
@@ -41,12 +51,23 @@ class LoremBlock(blocks.StructBlock):
         label = "Lorem Ipsum"
 
 
+class ImageCaptionBlock(blocks.StructBlock):
+    image = ImageChooserBlock()
+    caption = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_SIMPLE)
+
+    class Meta:
+        icon = "image"
+        label = "Image with caption"
+        template = "common/blocks/image-caption.html"
+
+
 def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     return [
         ("embed", EmbedBlock()),
         ("rich_text", blocks.RichTextBlock(features=RICH_TEXT_FEATURES)),
         ("lorem", LoremBlock()),
         ("html", blocks.RawHTMLBlock()),
+        ("image", ImageCaptionBlock()),
     ]
 
 
