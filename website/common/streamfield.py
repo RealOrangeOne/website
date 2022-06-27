@@ -8,6 +8,23 @@ from wagtail.embeds.blocks import EmbedBlock
 
 IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock)
 
+RICH_TEXT_FEATURES = [
+    "h1",
+    "h2",
+    "h3",
+    "h4",
+    "h5",
+    "h6",
+    "bold",
+    "italic",
+    "ol",
+    "ul",
+    "link",
+    "document-link",
+    "code",
+    "strikethrough",
+]
+
 
 class LoremBlock(blocks.StructBlock):
     paragraphs = blocks.IntegerBlock(min_value=1)
@@ -27,7 +44,7 @@ class LoremBlock(blocks.StructBlock):
 def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     return [
         ("embed", EmbedBlock()),
-        ("rich_text", blocks.RichTextBlock()),
+        ("rich_text", blocks.RichTextBlock(features=RICH_TEXT_FEATURES)),
         ("lorem", LoremBlock()),
         ("html", blocks.RawHTMLBlock()),
     ]
