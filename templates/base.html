@@ -16,8 +16,6 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'contrib/fontawesome/css/all.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/lite-youtube-embed.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% url 'static-pygments:styles' 'default' %}">
 
     {% block extra_css %}{% endblock %}
   </head>
@@ -41,7 +39,6 @@
 
 
     <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>
-    <script async defer type="text/javascript" src="{% static 'js/lite-youtube-embed.js' %}"></script>
 
     {% block darkmode %}
       <script type="text/javascript" src="{% static 'js/darkreader.js' %}"></script>
