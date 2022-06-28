@@ -1,9 +1,9 @@
 from django.db import models
-from wagtail.images.models import AbstractImage, AbstractRendition
+from wagtail.images.models import AbstractImage, AbstractRendition, Image
 
 
 class CustomImage(AbstractImage):
-    pass
+    admin_form_fields = Image.admin_form_fields
 
 
 class CustomRendition(AbstractRendition):
