@@ -1,17 +1,30 @@
+@mixin center-block {
+  width: $embed-width;
+  margin: 0 auto;
+
+  max-width: $embed-width;
+  min-width: $embed-width;
+}
+
 div.block-image {
   figcaption {
     font-size: 85%;
+    margin-top: 5px;
+  }
+
+  figure {
+    @include center-block;
   }
 }
 
-.content > div:not(:last-child) {
-  margin-bottom: $content-block-margin-bottom;
+.content > div[class^="block-"] {
+  &:not(:last-child) {
+    margin-bottom: $content-block-margin-bottom;
+  }
 }
 
 div.block-embed {
   lite-youtube {
-    max-width: $embed_width;
-    min-width: $embed_width;
-    margin: 0 auto;
+    @include center-block;
   }
 }
