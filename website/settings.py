@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "website.home",
     "website.search",
     "website.blog",
+    "website.images",
     "website.contrib.code_block",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -140,6 +141,8 @@ BASE_HOSTNAME = env("BASE_HOSTNAME")
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+
+WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
 
 if DEBUG:
     # Add django-browser-reload
