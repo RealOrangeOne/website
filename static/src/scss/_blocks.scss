@@ -1,9 +1,15 @@
-@mixin center-block {
-  width: $embed-width;
+@mixin center-block($width: 85%, $mobile-width: 90%) {
+  width: $width;
   margin: 0 auto;
 
-  max-width: $embed-width;
-  min-width: $embed-width;
+  max-width: $width;
+  min-width: $width;
+
+  @include touch {
+    max-width: $mobile-width;
+    min-width: $mobile-width;
+    width: $mobile-width;
+  }
 }
 
 div.block-image {
@@ -25,6 +31,6 @@ div.block-image {
 
 div.block-embed {
   lite-youtube {
-    @include center-block;
+    @include center-block(50%);
   }
 }
