@@ -1,5 +1,6 @@
 from django.test import SimpleTestCase
 
+from .embed import YouTubeLiteEmbedFinder
 from .models import BasePage
 from .utils import get_page_models
 
@@ -15,3 +16,15 @@ class BasePageTestCase(SimpleTestCase):
                 issubclass(page_model, BasePage),
                 f"{page_model} does not inherit from {BasePage}.",
             )
+
+
+class YouTubeLiteEmbedFinderTestCase(SimpleTestCase):
+    def test_finds_video_id(self) -> None:
+        self.assertEqual(
+            YouTubeLiteEmbedFinder._get_video_id(
+                '<iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title=""></iframe>'
+            ),
+            "dQw4w9WgXcQ",
+        )
+        with self.assertRaises(ValueError):
+            YouTubeLiteEmbedFinder._get_video_id("something-else")

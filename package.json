@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-free": "^6.1.1",
     "bulma": "^0.9.4",
     "darkreader": "^4.9.51",
-    "elevator.js": "^1.0.1"
+    "elevator.js": "^1.0.1",
+    "lite-youtube-embed": "^0.2.0"
   }
 }

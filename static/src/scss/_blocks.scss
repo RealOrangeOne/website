@@ -7,3 +7,11 @@ div.block-image {
 .content > div:not(:last-child) {
   margin-bottom: $content-block-margin-bottom;
 }
+
+div.block-embed {
+  lite-youtube {
+    max-width: $embed_width;
+    min-width: $embed_width;
+    margin: 0 auto;
+  }
+}

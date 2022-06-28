@@ -144,6 +144,16 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
 
+WAGTAILEMBEDS_FINDERS = [
+    {
+        "class": "website.common.embed.YouTubeLiteEmbedFinder",
+    },
+    {
+        "class": "wagtail.embeds.finders.oembed",
+    },
+]
+
+
 if DEBUG:
     # Add django-browser-reload
     INSTALLED_APPS.append("django_browser_reload")
