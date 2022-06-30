@@ -1,7 +1,8 @@
 from typing import Iterator
 
+from bs4 import BeautifulSoup
 from django.utils import lorem_ipsum
-from django.utils.html import format_html_join, strip_tags
+from django.utils.html import format_html_join
 from django.utils.text import smart_split
 from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
@@ -74,11 +75,15 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     ]
 
 
+def extract_text(html: str) -> str:
+    return " ".join(BeautifulSoup(html, "lxml").findAll(text=True))
+
+
 def get_plain_text(value: blocks.StreamValue) -> Iterator[str]:
     for block in value:
         if isinstance(block.block_type, IGNORE_PLAINTEXT_BLOCKS):
             continue
-        yield strip_tags(str(block))
+        yield extract_text(str(block))
 
 
 def truncate_streamfield(value: blocks.StreamValue, words: int) -> str:
