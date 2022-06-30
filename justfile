@@ -2,6 +2,7 @@ set dotenv-load
 
 # Load virtualenv
 export PATH := justfile_directory() + "/env/bin:" + env_var('PATH')
+export PYTHONUNBUFFERED := "true"
 
 # Dev environment
 export DEBUG := "true"
