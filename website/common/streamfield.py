@@ -76,14 +76,19 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
 
 
 def extract_text(html: str) -> str:
-    return " ".join(BeautifulSoup(html, "lxml").findAll(text=True))
+    return " ".join(BeautifulSoup(html, "lxml").find_all(text=True))
 
 
-def get_plain_text(value: blocks.StreamValue) -> Iterator[str]:
+def get_html(value: blocks.StreamValue) -> Iterator[str]:
     for block in value:
         if isinstance(block.block_type, IGNORE_PLAINTEXT_BLOCKS):
             continue
-        yield extract_text(str(block))
+        yield str(block)
+
+
+def get_plain_text(value: blocks.StreamValue) -> Iterator[str]:
+    for html_chunk in get_html(value):
+        yield extract_text(html_chunk)
 
 
 def truncate_streamfield(value: blocks.StreamValue, words: int) -> str:

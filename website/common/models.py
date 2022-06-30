@@ -9,7 +9,7 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
-from .streamfield import get_blocks, get_word_count, truncate_streamfield
+from .streamfield import get_blocks, get_html, get_word_count, truncate_streamfield
 from .utils import TocEntry, get_table_of_contents
 
 
@@ -50,7 +50,8 @@ class BaseContentMixin(models.Model):
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
-        return get_table_of_contents()
+        html = "".join(get_html(self.body))
+        return get_table_of_contents(html)
 
     @cached_property
     def reading_time(self) -> int:
