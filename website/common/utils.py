@@ -26,6 +26,10 @@ def get_table_of_contents(html: str) -> list[TocEntry]:
         TocEntry(tag.text, tag.text, int(tag.name[1]), []) for tag in headings
     ]
 
+    # Abort if there are no headings
+    if not heading_levels:
+        return []
+
     # Ensure heading levels are sequential
     for heading, next_heading in pairwise(heading_levels):
         if next_heading.level - heading.level > 1:
