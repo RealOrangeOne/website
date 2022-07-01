@@ -10,7 +10,7 @@ from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
 from .streamfield import get_blocks, get_html, get_word_count, truncate_streamfield
-from .utils import TocEntry, get_table_of_contents
+from .utils import TocEntry, add_heading_anchors, get_table_of_contents
 
 
 class BasePage(Page):
@@ -67,6 +67,10 @@ class BaseContentMixin(models.Model):
     @cached_property
     def summary(self) -> str:
         return truncate_streamfield(self.body, 50)
+
+    @cached_property
+    def body_html(self):
+        return add_heading_anchors(str(self.body))
 
 
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
