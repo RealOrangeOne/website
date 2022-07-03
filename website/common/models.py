@@ -9,8 +9,10 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
-from .streamfield import get_blocks, get_html, get_word_count, truncate_streamfield
-from .utils import TocEntry, add_heading_anchors, get_table_of_contents
+from website.common.utils import count_words
+
+from .streamfield import add_heading_anchors, get_blocks, get_content_html
+from .utils import TocEntry, extract_text, get_table_of_contents, truncate_string
 
 
 class BasePage(Page):
@@ -50,8 +52,7 @@ class BaseContentMixin(models.Model):
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
-        html = "".join(get_html(self.body))
-        return get_table_of_contents(html)
+        return get_table_of_contents(self.content_html)
 
     @cached_property
     def reading_time(self) -> int:
@@ -62,15 +63,23 @@ class BaseContentMixin(models.Model):
 
     @cached_property
     def word_count(self) -> int:
-        return get_word_count(self.body)
+        return count_words(self.plain_text)
 
     @cached_property
     def summary(self) -> str:
-        return truncate_streamfield(self.body, 50)
+        return truncate_string(self.plain_text, 50)
 
     @cached_property
     def body_html(self) -> str:
         return add_heading_anchors(str(self.body))
+
+    @cached_property
+    def content_html(self) -> str:
+        return get_content_html(self.body)
+
+    @cached_property
+    def plain_text(self) -> str:
+        return extract_text(self.content_html)
 
 
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]

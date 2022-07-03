@@ -1,16 +1,16 @@
-from typing import Iterator
+from itertools import product
+from typing import Iterable
 
 from bs4 import BeautifulSoup
 from django.utils import lorem_ipsum
 from django.utils.html import format_html_join
-from django.utils.text import smart_split
+from django.utils.text import slugify
 from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
+from website.common.utils import HEADER_TAGS
 from website.contrib.code_block.blocks import CodeBlock
-
-IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock)
 
 RICH_TEXT_FEATURES = [
     "h1",
@@ -64,6 +64,10 @@ class ImageCaptionBlock(blocks.StructBlock):
         template = "common/blocks/image-caption.html"
 
 
+IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock, ImageCaptionBlock)
+IGNORE_HEADING_BLOCKS = (*IGNORE_PLAINTEXT_BLOCKS, LoremBlock)
+
+
 def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     return [
         ("embed", EmbedBlock()),
@@ -75,34 +79,36 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     ]
 
 
-def extract_text(html: str) -> str:
-    return " ".join(BeautifulSoup(html, "lxml").find_all(text=True))
-
-
-def get_html(value: blocks.StreamValue) -> Iterator[str]:
+def get_content_blocks(value: blocks.StreamValue) -> Iterable[blocks.BaseBlock]:
     for block in value:
-        if isinstance(block.block_type, IGNORE_PLAINTEXT_BLOCKS):
-            continue
-        yield str(block)
+        if not isinstance(block.block_type, IGNORE_PLAINTEXT_BLOCKS):
+            yield block
 
 
-def get_plain_text(value: blocks.StreamValue) -> Iterator[str]:
-    for html_chunk in get_html(value):
-        yield extract_text(html_chunk)
+def get_content_html(value: blocks.StreamValue) -> str:
+    """
+    Get the HTML of just original content (eg not embeds etc)
+    """
+    html = ""
+    for block in get_content_blocks(value):
+        html += str(block)
+    return html
 
 
-def truncate_streamfield(value: blocks.StreamValue, words: int) -> str:
-    collected_words: list[str] = []
-    for block_text in get_plain_text(value):
-        collected_words.extend(smart_split(block_text))
-        if len(collected_words) >= words:
-            break
+def add_heading_anchors(html: str) -> str:
+    targets: list[str] = [
+        f".block-{block_name} {header_tag}"
+        for header_tag, block_name in product(
+            HEADER_TAGS,
+            [b[0] for b in get_blocks() if not isinstance(b[1], IGNORE_HEADING_BLOCKS)],
+        )
+    ]
 
-    return " ".join(collected_words[:words])
-
-
-def get_word_count(value: blocks.StreamValue) -> int:
-    count = 0
-    for chunk in get_plain_text(value):
-        count += len(list(smart_split(chunk)))
-    return count
+    soup = BeautifulSoup(html, "lxml")
+    for tag in soup.select(", ".join(targets)):
+        slug = slugify(tag.text)
+        anchor = soup.new_tag("a", href="#" + slug, id=slug)
+        anchor.string = "#"
+        anchor.attrs["class"] = "heading-anchor"
+        tag.insert(0, anchor)
+    return str(soup)
