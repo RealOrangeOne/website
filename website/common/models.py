@@ -69,7 +69,7 @@ class BaseContentMixin(models.Model):
         return truncate_streamfield(self.body, 50)
 
     @cached_property
-    def body_html(self):
+    def body_html(self) -> str:
         return add_heading_anchors(str(self.body))
 
 
