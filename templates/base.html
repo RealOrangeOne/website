@@ -23,8 +23,8 @@
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
 
-    {% cache 3600 "navbar" page %}
-      {% navbar page %}
+    {% cache 3600 "navbar" %}
+      {% navbar %}
     {% endcache %}
 
     {% block main %}
