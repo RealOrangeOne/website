@@ -13,7 +13,6 @@ from website.common.utils import HEADER_TAGS
 from website.contrib.code_block.blocks import CodeBlock
 
 RICH_TEXT_FEATURES = [
-    "h1",
     "h2",
     "h3",
     "h4",
