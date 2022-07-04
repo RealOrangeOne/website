@@ -8,7 +8,7 @@ section.content {
   h5,
   h6 {
     .heading-anchor {
-      scroll-margin-top: 160px;  // navbar height (ish)
+      scroll-margin-top: var(--hero-height); // navbar height (ish)
       margin-right: 0.5rem;
     }
   }

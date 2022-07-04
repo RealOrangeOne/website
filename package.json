@@ -26,6 +26,7 @@
     "elevator.js": "^1.0.1",
     "firacode": "^6.2.0",
     "lite-youtube-embed": "^0.2.0",
+    "lodash.debounce": "^4.0.8",
     "shareon": "^2.0.0"
   }
 }

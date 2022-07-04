@@ -1,4 +1,16 @@
 const Elevator = require("elevator.js");
+const debounce = require("lodash.debounce");
+
+const HERO = document.querySelector("section.hero");
+const ROOT = document.querySelector(":root");
+
+function getHeroHeight() {
+  return HERO.getBoundingClientRect().height;
+}
+
+function setHeroHeight() {
+  ROOT.style.setProperty("--hero-height", `${getHeroHeight()}px`);
+}
 
 window.addEventListener("load", () => {
   const navbarBurger = document.getElementById("navbar-burger");
@@ -15,6 +27,17 @@ window.addEventListener("load", () => {
     });
   });
 
+  document.querySelectorAll("#table-of-contents li a").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      const rect = document
+        .querySelector(event.target.hash)
+        .getBoundingClientRect();
+      const top = rect.top - getHeroHeight();
+      window.scrollBy({ top: top, behavior: "smooth" });
+    });
+  });
+
   const elevatorButton = document.getElementById("to-top-elevator");
   new Elevator({
     element: elevatorButton,
@@ -23,3 +46,6 @@ window.addEventListener("load", () => {
     preloadAudio: false,
   });
 });
+
+window.addEventListener("resize", debounce(setHeroHeight, 2000));
+window.addEventListener("load", setHeroHeight);
