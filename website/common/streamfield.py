@@ -1,7 +1,6 @@
 from itertools import product
-from typing import Iterable
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from django.utils import lorem_ipsum
 from django.utils.html import format_html_join
 from django.utils.text import slugify
@@ -78,20 +77,19 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     ]
 
 
-def get_content_blocks(value: blocks.StreamValue) -> Iterable[blocks.BaseBlock]:
-    for block in value:
-        if not isinstance(block.block_type, IGNORE_PLAINTEXT_BLOCKS):
-            yield block
-
-
-def get_content_html(value: blocks.StreamValue) -> str:
+def get_content_html(html: str) -> str:
     """
     Get the HTML of just original content (eg not embeds etc)
     """
-    html = ""
-    for block in get_content_blocks(value):
-        html += str(block)
-    return html
+    block_classes = [
+        f"block-{block_name}"
+        for block_name, block in get_blocks()
+        if not isinstance(block, IGNORE_PLAINTEXT_BLOCKS)
+    ]
+
+    return str(
+        BeautifulSoup(html, "lxml", parse_only=SoupStrainer(class_=block_classes))
+    )
 
 
 def add_heading_anchors(html: str) -> str:

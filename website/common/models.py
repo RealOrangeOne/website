@@ -75,7 +75,7 @@ class BaseContentMixin(models.Model):
 
     @cached_property
     def content_html(self) -> str:
-        return get_content_html(self.body)
+        return get_content_html(self.body_html)
 
     @cached_property
     def plain_text(self) -> str:
