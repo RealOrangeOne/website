@@ -2,7 +2,7 @@ from django.test import SimpleTestCase
 
 from .embed import YouTubeLiteEmbedFinder
 from .models import BasePage
-from .utils import extract_text, get_page_models, get_table_of_contents
+from .utils import count_words, extract_text, get_page_models, get_table_of_contents
 
 
 class BasePageTestCase(SimpleTestCase):
@@ -104,3 +104,10 @@ class ExtractTextTestCase(SimpleTestCase):
 
     def test_plain_text(self) -> None:
         self.assertEqual(extract_text("Hello there!"), "Hello there!")
+
+
+class CountWordsTestCase(SimpleTestCase):
+    def test_counts_words(self) -> None:
+        self.assertEqual(count_words("a b c"), 3)
+        self.assertEqual(count_words("Correct Horse Battery Staple"), 4)
+        self.assertEqual(count_words("Hello there! How are you?"), 5)
