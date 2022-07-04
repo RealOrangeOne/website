@@ -2,7 +2,7 @@ from django.test import SimpleTestCase
 
 from .embed import YouTubeLiteEmbedFinder
 from .models import BasePage
-from .utils import get_page_models, get_table_of_contents
+from .utils import extract_text, get_page_models, get_table_of_contents
 
 
 class BasePageTestCase(SimpleTestCase):
@@ -92,3 +92,15 @@ class TableOfContentsTestCase(SimpleTestCase):
         sub_entry = first_entry.children[1]
         self.assertEqual(len(sub_entry.children), 1)
         self.assertEqual([entry.title for entry in sub_entry.children], ["2.2.1"])
+
+
+class ExtractTextTestCase(SimpleTestCase):
+    def test_extracts_text(self) -> None:
+        self.assertEqual(extract_text("<p><b>Hello</b> there!</p>"), "Hello there!")
+        self.assertEqual(
+            extract_text("<p>Paragraph 1</p>\n<p>Paragraph 2</p>"),
+            "Paragraph 1 Paragraph 2",
+        )
+
+    def test_plain_text(self) -> None:
+        self.assertEqual(extract_text("Hello there!"), "Hello there!")
