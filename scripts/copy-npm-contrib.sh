@@ -17,3 +17,4 @@ mkcontrib() {
 
 mkcontrib fontawesome node_modules/@fortawesome/fontawesome-free/{css,webfonts}
 mkcontrib elevator-js node_modules/elevator.js/demo/music/*
+mkcontrib shareon node_modules/shareon/dist/{shareon.iife.*,shareon.min.css*}

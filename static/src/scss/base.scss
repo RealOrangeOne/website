@@ -10,6 +10,7 @@
 @import "content";
 @import "listing";
 @import "blocks";
+@import "shareon";
 
 html,
 body {
@@ -19,5 +20,5 @@ body {
 }
 
 main {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
