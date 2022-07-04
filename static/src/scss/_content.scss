@@ -26,6 +26,8 @@ section.content {
     }
 
     &.page-tags {
+      font-family: $family-code;
+
       .tag:not(:first-child) {
         padding-right: 0;
       }
