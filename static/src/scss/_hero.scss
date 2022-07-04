@@ -48,7 +48,9 @@ section.hero {
   }
 
   .title {
-    margin-bottom: 0.75rem;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+    font-size: 3.5rem;
   }
 
   .column {
@@ -56,11 +58,10 @@ section.hero {
   }
 
   nav.breadcrumb {
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0 !important;
   }
 
   .content-details {
-    font-size: 90%;
     margin-bottom: 0 !important;
   }
 }
