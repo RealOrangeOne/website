@@ -24,6 +24,7 @@
     "bulma": "^0.9.4",
     "darkreader": "^4.9.51",
     "elevator.js": "^1.0.1",
+    "firacode": "^6.2.0",
     "lite-youtube-embed": "^0.2.0",
     "shareon": "^2.0.0"
   }

@@ -34,3 +34,11 @@ div.block-embed {
     @include center-block(50%);
   }
 }
+
+div.block-code {
+  code,
+  pre {
+    font-family: "Fira Code", monospace;
+    font-variant-ligatures: none;
+  }
+}
