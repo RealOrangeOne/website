@@ -74,8 +74,10 @@ class TableOfContentsTestCase(SimpleTestCase):
         toc = get_table_of_contents(
             """
         <h2>2</h2>
+        <p>2 content</p>
         <h3>2.1</h3>
         <h3>2.2</h3>
+        <p>2.2 content</p>
         <h5>2.2.1</h5>
         <h3>2.3</h3>
         """

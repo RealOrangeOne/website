@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from itertools import islice, pairwise
 from typing import Type
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, SoupStrainer
 from django.conf import settings
 from django.http.request import HttpRequest
 from django.utils.text import slugify, smart_split
@@ -22,12 +22,10 @@ class TocEntry:
 
 
 def get_table_of_contents(html: str) -> list[TocEntry]:
-    soup = BeautifulSoup(html, "lxml")
-
-    headings = soup.find_all(HEADER_TAGS)
+    soup = BeautifulSoup(html, "lxml", parse_only=SoupStrainer(HEADER_TAGS))
 
     heading_levels = [
-        TocEntry(tag.text, slugify(tag.text), int(tag.name[1]), []) for tag in headings
+        TocEntry(tag.text, slugify(tag.text), int(tag.name[1]), []) for tag in soup
     ]
 
     # Abort if there are no headings
