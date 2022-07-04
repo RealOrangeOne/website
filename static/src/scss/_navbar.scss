@@ -1,4 +1,6 @@
 .navbar-item {
+  font-family: $family-code;
+
   &:hover {
     background-color: black !important;
     color: $grey-light !important;

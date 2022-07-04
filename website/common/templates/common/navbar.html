@@ -2,7 +2,7 @@
 
 <nav class="navbar has-background-black has-text-white" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item has-text-white is-family-code" href="{% pageurl homepage %}">
+    <a class="navbar-item has-text-white" href="{% pageurl homepage %}">
       /home/theorangeone
     </a>
 
@@ -13,7 +13,7 @@
     </a>
   </div>
 
-  <div id="navbar" class="navbar-menu has-background-black is-family-code">
+  <div id="navbar" class="navbar-menu has-background-black">
     <div class="navbar-start">
       {% for nav_page in nav_pages %}
         <a class="navbar-item has-text-grey" href="{% pageurl nav_page %}">
