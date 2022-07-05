@@ -25,3 +25,7 @@ body {
 main {
   margin-bottom: 2rem;
 }
+
+a {
+  transition: color 0.25s, background-color 0.25s;
+}
