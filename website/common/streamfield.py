@@ -27,9 +27,20 @@ RICH_TEXT_FEATURES = [
     "strikethrough",
 ]
 
+RICH_TEXT_FEATURES_PLAIN = [
+    "bold",
+    "italic",
+    "link",
+    "document-link",
+    "code",
+    "strikethrough",
+]
+
 RICH_TEXT_FEATURES_SIMPLE = [
     "bold",
     "italic",
+    "ol",
+    "ul",
     "link",
     "document-link",
     "code",
@@ -54,12 +65,22 @@ class LoremBlock(blocks.StructBlock):
 
 class ImageCaptionBlock(blocks.StructBlock):
     image = ImageChooserBlock()
-    caption = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_SIMPLE)
+    caption = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN)
 
     class Meta:
         icon = "image"
         label = "Image with caption"
         template = "common/blocks/image-caption.html"
+
+
+class TangentBlock(blocks.StructBlock):
+    name = blocks.CharBlock(max_length=64)
+    content = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_SIMPLE)
+
+    class Meta:
+        icon = "comment"
+        label = "Tangent"
+        template = "common/blocks/tangent.html"
 
 
 IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock, ImageCaptionBlock)
@@ -74,6 +95,7 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
         ("html", blocks.RawHTMLBlock()),
         ("image", ImageCaptionBlock()),
         ("code", CodeBlock()),
+        ("tangent", TangentBlock()),
     ]
 
 

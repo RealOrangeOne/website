@@ -34,3 +34,10 @@ div.block-embed {
     @include center-block(50%);
   }
 }
+
+div.block-tangent {
+  .inner {
+    margin: math.div($content-block-margin-bottom, 4) 0;
+    padding-left: 1.5rem;
+  }
+}
