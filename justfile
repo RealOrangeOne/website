@@ -40,7 +40,7 @@ lint_python:
   black --check website
   isort --check website
   flake8 website
-  mypy website
+  mypy website --show-error-codes
 
 @lint_node:
   npm run lint
