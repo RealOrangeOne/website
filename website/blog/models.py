@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.db import models
+from django.db.models.functions import TruncMonth
 from django.http.request import HttpRequest
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -8,6 +9,7 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import ItemBase, TagBase
 from wagtail.admin.panels import FieldPanel
+from wagtail.query import PageQuerySet
 
 from website.common.models import BaseContentMixin, BasePage
 from website.common.utils import TocEntry
@@ -20,20 +22,39 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
 
     @cached_property
     def reading_time(self) -> int:
+        """
+        How does one read a list page?
+        """
         return 0
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
-        return []
+        post_months = [
+            dt.strftime("%Y-%m")
+            for dt in self.get_children()
+            .live()
+            .annotate(post_month=TruncMonth("date", output_field=models.DateField()))
+            .order_by("-post_month")
+            .values_list("post_month", flat=True)
+            .distinct()
+        ]
+
+        return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
+
+    def get_children(self) -> PageQuerySet:
+        """
+        Since the children are always `BlogPostPage`, so juts use the specific queryset to save the `JOIN`.
+        """
+        return BlogPostPage.objects.child_of(self)  # type: ignore[attr-defined]
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["child_pages"] = (
             self.get_children()
             .live()
-            .specific()
             .select_related("hero_image")
             .prefetch_related("tags")
+            .order_by("-date")
         )
         return context
 

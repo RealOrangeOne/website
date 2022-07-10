@@ -6,6 +6,12 @@
 
 <section class="container">
   {% for page in child_pages %}
+    {% ifchanged %}
+      <time datetime="{{ page.date|date:'c' }}" title='{{ page.date|date:"F Y" }}'>
+        <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
+      </time>
+    {% endifchanged %}
+
     {% include "common/listing-item.html" %}
   {% endfor %}
 </section>
