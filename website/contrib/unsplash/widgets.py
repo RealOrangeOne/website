@@ -1,3 +1,4 @@
+from django.utils.html import format_html
 from generic_chooser.widgets import AdminChooser
 
 from .models import UnsplashPhoto
@@ -12,4 +13,4 @@ class UnsplashPhotoChooser(AdminChooser):
     choose_modal_url_name = "unsplash_photo_chooser:choose"
 
     def get_title(self, instance: UnsplashPhoto) -> str:
-        return instance.unsplash_id
+        return format_html("<img src='{}' width=165>", instance.get_thumbnail_url())

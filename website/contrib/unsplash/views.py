@@ -20,7 +20,10 @@ class UnsplashPhotoChooserMixin(ModelChooserMixin):
     results_template = "unsplash/results.html"
 
     def get_object_string(self, instance: UnsplashPhoto) -> str:
-        return instance.unsplash_id
+        """
+        Just use the description. It doesn't like showing HTML here
+        """
+        return instance.get_description()
 
     def get_row_data(self, item: UnsplashPhoto) -> dict:
         item_data = super().get_row_data(item)

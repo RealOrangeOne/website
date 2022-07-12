@@ -1,9 +1,11 @@
 from typing import Type
 
 from django.core.exceptions import ValidationError
+from django.http.response import Http404
+from django.utils.html import format_html
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
-from wagtail.contrib.modeladmin.views import CreateView
+from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
 from wagtail.core import hooks
 
 from .models import UnsplashPhoto
@@ -37,17 +39,42 @@ class UnsplashPhotoCreateView(CreateView):
         return CreateFormClass
 
 
+class UnsplashPhotoIndexView(IndexView):
+    def get_buttons_for_obj(self, obj: UnsplashPhoto) -> list:
+        buttons = super().get_buttons_for_obj(obj)
+        assert buttons[0]["label"] == "Edit"
+        buttons.pop(0)
+        return buttons
+
+
+class UnsplashPhotoEditView(EditView):
+    """
+    Prevent access to the edit view
+    """
+
+    def dispatch(self, *args: list, **kwargs: dict) -> None:
+        raise Http404
+
+
 @modeladmin_register
 class UnsplashPhotoAdmin(ModelAdmin):
     model = UnsplashPhoto
-    list_display = ["unsplash_id", "description"]
+    list_display = ["unsplash_id", "thumbnail", "description"]
     form_fields_exclude = ["data"]
     search_fields = ["unsplash_id", "data__description"]
     create_view_class = UnsplashPhotoCreateView
+    index_view_class = UnsplashPhotoIndexView
+    edit_view_class = UnsplashPhotoEditView
     menu_icon = "image"
 
     def description(self, instance: UnsplashPhoto) -> str:
         return instance.get_description()
+
+    def thumbnail(self, instance: UnsplashPhoto) -> str:
+        return format_html(
+            "<img src='{}' width=165 class='admin-thumb'/>",
+            instance.get_thumbnail_url(),
+        )
 
 
 @hooks.register("register_admin_viewset")

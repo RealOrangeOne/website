@@ -8,6 +8,7 @@
   <col width="16%" />
   <thead>
     <tr class="table-headers">
+      <th></th>
       <th>{% trans "Unsplash ID" %}</th>
       <th>{% trans "Description" %}</th>
     </tr>
@@ -15,6 +16,11 @@
   <tbody>
     {% for row in rows %}
       <tr>
+        <td>
+          <a class="item-choice" href="{{ row.choose_url }}">
+            <img src="{{ row.item.get_thumbnail_url }}" width="165"/>
+          </a>
+        </td>
         <td class="title">
           <h2><a class="item-choice" href="{{ row.choose_url }}">{{ row.item.unsplash_id }}</a></h2>
         </td>
