@@ -4,7 +4,11 @@ import environ
 
 BASE_DIR = Path(__file__).parent.parent
 
-env = environ.Env(DEBUG=(bool, False), BASE_HOSTNAME=(str, "example.com"))
+env = environ.Env(
+    DEBUG=(bool, False),
+    BASE_HOSTNAME=(str, "example.com"),
+    UNSPLASH_CLIENT_ID=(str, ""),
+)
 
 # Read local secrets
 environ.Env.read_env(BASE_DIR / ".env")
@@ -25,6 +29,7 @@ INSTALLED_APPS = [
     "website.blog",
     "website.images",
     "website.contrib.code_block",
+    "website.contrib.unsplash",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.modeladmin",
@@ -152,6 +157,8 @@ WAGTAILEMBEDS_FINDERS = [
         "class": "wagtail.embeds.finders.oembed",
     },
 ]
+
+UNSPLASH_CLIENT_ID = env("UNSPLASH_CLIENT_ID")
 
 
 if DEBUG:
