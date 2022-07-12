@@ -8,5 +8,8 @@ class UnsplashPhoto(models.Model):
     def get_description(self) -> str:
         return self.data["description"]
 
+    def get_hero_image_url(self) -> str:
+        return self.data["urls"]["regular"]
+
     def get_thumbnail_url(self) -> str:
         return self.data["urls"]["thumb"]

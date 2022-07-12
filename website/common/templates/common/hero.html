@@ -1,7 +1,5 @@
-{% load wagtailimages_tags %}
-
-{% if page.hero_image %}
-  <img class="hero" src="{% image_url page.hero_image page.HERO_IMAGE_SIZE %}">
+{% if page.hero_image_url %}
+  <img class="hero" src="{{ page.hero_image_url }}">
 {% endif %}
 
 <section class="hero">

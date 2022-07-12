@@ -1,5 +1,5 @@
 import math
-from typing import Any
+from typing import Any, Optional
 
 from django.db import models
 from django.http.request import HttpRequest
@@ -7,6 +7,7 @@ from django.utils.functional import cached_property, classproperty
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
+from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page
 
 from website.common.utils import count_words
@@ -18,8 +19,6 @@ from .utils import TocEntry, extract_text, get_table_of_contents, truncate_strin
 
 class BasePage(Page):
     show_in_menus_default = True
-
-    HERO_IMAGE_SIZE = "width-1200"
 
     class Meta:
         abstract = True
@@ -85,6 +84,14 @@ class BaseContentMixin(models.Model):
     @cached_property
     def plain_text(self) -> str:
         return extract_text(self.content_html)
+
+    @cached_property
+    def hero_image_url(self) -> Optional[str]:
+        if self.hero_unsplash_photo_id is not None:
+            return self.hero_unsplash_photo.get_hero_image_url()  # type: ignore
+        elif self.hero_image_id is not None:
+            return generate_image_url(self.hero_image, "width-1200")
+        return None
 
 
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]

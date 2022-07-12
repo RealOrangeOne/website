@@ -53,6 +53,7 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
             self.get_children()
             .live()
             .select_related("hero_image")
+            .select_related("hero_unsplash_photo")
             .prefetch_related("tags")
             .order_by("-date")
         )
