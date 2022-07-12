@@ -10,6 +10,7 @@ from wagtail.images import get_image_model_string
 from wagtail.models import Page
 
 from website.common.utils import count_words
+from website.contrib.unsplash.widgets import UnsplashPhotoChooser
 
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
 from .utils import TocEntry, extract_text, get_table_of_contents, truncate_string
@@ -39,11 +40,15 @@ class BaseContentMixin(models.Model):
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
     )
+    hero_unsplash_photo = models.ForeignKey(
+        "unsplash.UnsplashPhoto", null=True, blank=True, on_delete=models.SET_NULL
+    )
     body = StreamField(get_blocks(), blank=True, use_json_field=True)
 
     content_panels = [
         FieldPanel("subtitle"),
         FieldPanel("hero_image"),
+        FieldPanel("hero_unsplash_photo", widget=UnsplashPhotoChooser),
         FieldPanel("body"),
     ]
 

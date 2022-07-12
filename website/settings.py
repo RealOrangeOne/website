@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "wagtail",
     "modelcluster",
     "taggit",
+    "generic_chooser",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

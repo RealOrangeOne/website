@@ -4,9 +4,11 @@ from django.core.exceptions import ValidationError
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.contrib.modeladmin.views import CreateView
+from wagtail.core import hooks
 
 from .models import UnsplashPhoto
 from .utils import get_unsplash_photo
+from .views import UnsplashPhotoChooserViewSet
 
 
 class UnsplashPhotoCreateView(CreateView):
@@ -45,4 +47,11 @@ class UnsplashPhotoAdmin(ModelAdmin):
     menu_icon = "image"
 
     def description(self, instance: UnsplashPhoto) -> str:
-        return instance.data["description"]
+        return instance.get_description()
+
+
+@hooks.register("register_admin_viewset")
+def register_person_chooser_viewset() -> UnsplashPhotoChooserViewSet:
+    return UnsplashPhotoChooserViewSet(
+        "unsplash_photo_chooser", url_prefix="unsplash-photo-chooser"
+    )
