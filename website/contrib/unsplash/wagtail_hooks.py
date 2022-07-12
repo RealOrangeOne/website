@@ -59,7 +59,7 @@ class UnsplashPhotoEditView(EditView):
 @modeladmin_register
 class UnsplashPhotoAdmin(ModelAdmin):
     model = UnsplashPhoto
-    list_display = ["unsplash_id", "thumbnail", "description"]
+    list_display = ["unsplash_id", "thumbnail", "description", "data_last_updated"]
     form_fields_exclude = ["data"]
     search_fields = ["unsplash_id", "data__description"]
     create_view_class = UnsplashPhotoCreateView
