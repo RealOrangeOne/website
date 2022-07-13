@@ -8,3 +8,5 @@ lxml==4.9.0
 more-itertools==8.13.0
 requests==2.27.1
 wagtail-generic-chooser==0.4.1
+django-rq==2.5.1
+django-redis==5.2.0

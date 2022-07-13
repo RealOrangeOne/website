@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "generic_chooser",
+    "django_rq",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -93,6 +94,14 @@ WSGI_APPLICATION = "website.wsgi.application"
 DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")}
 
 CACHES = {"default": env.cache(default=f"filecache:///{BASE_DIR}/django-cache")}
+
+RQ_QUEUES = {}
+
+USE_REDIS_QUEUE = False
+if queue_store := env.cache("QUEUE_STORE_URL", default=None):
+    CACHES["rq"] = queue_store
+    USE_REDIS_QUEUE = True
+    RQ_QUEUES["default"] = {"USE_REDIS_CACHE": "rq"}
 
 
 # Internationalization

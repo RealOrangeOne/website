@@ -22,6 +22,7 @@ urlpatterns = [
         ServeView.as_view(action="redirect"),
         name="wagtailimages_serve",
     ),
+    path("django-rq/", include("django_rq.urls")),
 ]
 
 
