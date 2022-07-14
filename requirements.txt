@@ -10,3 +10,4 @@ requests==2.27.1
 wagtail-generic-chooser==0.4.1
 django-rq==2.5.1
 django-redis==5.2.0
+wagtail-draftail-snippet==0.4.1

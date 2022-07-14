@@ -25,6 +25,8 @@ RICH_TEXT_FEATURES = [
     "document-link",
     "code",
     "strikethrough",
+    "snippet-link",
+    "snippet-embed",
 ]
 
 RICH_TEXT_FEATURES_PLAIN = [

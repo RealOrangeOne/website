@@ -9,6 +9,7 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page
+from wagtail.snippets.models import register_snippet
 
 from website.common.utils import count_words
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
@@ -108,3 +109,17 @@ class ListingPage(BasePage, BaseContentMixin):  # type: ignore[misc]
             self.get_children().live().specific().select_related("hero_image")
         )
         return context
+
+
+@register_snippet
+class ReferralLink(models.Model):
+    url = models.URLField()
+    name = models.CharField(max_length=64, unique=True)
+
+    panels = [
+        FieldPanel("name"),
+        FieldPanel("url"),
+    ]
+
+    def __str__(self) -> str:
+        return self.name

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "modelcluster",
     "taggit",
     "generic_chooser",
+    "wagtail_draftail_snippet",
     "django_rq",
     "django.contrib.admin",
     "django.contrib.auth",
