@@ -1,7 +1,14 @@
 from django.test import SimpleTestCase
+from wagtail.rich_text import features as richtext_feature_registry
 
 from .embed import YouTubeLiteEmbedFinder
 from .models import BasePage
+from .rich_text import (
+    RICH_TEXT_FEATURES,
+    RICH_TEXT_FEATURES_PLAIN,
+    RICH_TEXT_FEATURES_SIMPLE,
+)
+from .streamfield import IGNORE_HEADING_BLOCKS, IGNORE_PLAINTEXT_BLOCKS, get_blocks
 from .utils import count_words, extract_text, get_page_models, get_table_of_contents
 
 
@@ -113,3 +120,37 @@ class CountWordsTestCase(SimpleTestCase):
         self.assertEqual(count_words("a b c"), 3)
         self.assertEqual(count_words("Correct Horse Battery Staple"), 4)
         self.assertEqual(count_words("Hello there! How are you?"), 5)
+
+
+class StreamFieldBlocksTestCase(SimpleTestCase):
+    def test_ignored_plaintext_blocks(self) -> None:
+        plaintext_block_classes = [c[1].__class__ for c in get_blocks()]
+
+        for block_class in IGNORE_PLAINTEXT_BLOCKS:
+            self.assertIn(block_class, plaintext_block_classes)
+
+    def test_ignored_heading_blocks(self) -> None:
+        heading_block_classes = [c[1].__class__ for c in get_blocks()]
+
+        for block_class in IGNORE_HEADING_BLOCKS:
+            self.assertIn(block_class, heading_block_classes)
+
+
+class RichTextFeaturesTestCase(SimpleTestCase):
+    def test_features_exist(self) -> None:
+        for feature in RICH_TEXT_FEATURES:
+            self.assertIsNotNone(
+                richtext_feature_registry.get_editor_plugin("draftail", feature)
+            )
+
+    def test_plain_features_exist(self) -> None:
+        for feature in RICH_TEXT_FEATURES_PLAIN:
+            self.assertIsNotNone(
+                richtext_feature_registry.get_editor_plugin("draftail", feature)
+            )
+
+    def test_simple_features_exist(self) -> None:
+        for feature in RICH_TEXT_FEATURES_SIMPLE:
+            self.assertIsNotNone(
+                richtext_feature_registry.get_editor_plugin("draftail", feature)
+            )
