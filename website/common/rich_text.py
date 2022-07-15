@@ -23,6 +23,7 @@ RICH_TEXT_FEATURES_PLAIN = [
     "document-link",
     "code",
     "strikethrough",
+    "snippet-link",
 ]
 
 RICH_TEXT_FEATURES_SIMPLE = [
@@ -34,4 +35,5 @@ RICH_TEXT_FEATURES_SIMPLE = [
     "document-link",
     "code",
     "strikethrough",
+    "snippet-link",
 ]
