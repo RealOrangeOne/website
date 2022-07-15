@@ -57,6 +57,12 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
             .prefetch_related("tags")
             .order_by("-date")
         )
+        if tag := request.GET.get("tag"):
+            tag = BlogPostTag.objects.filter(slug=tag).first()
+            if tag:
+                context["filtering_by_tag"] = tag
+                context["no_table_of_contents"] = True
+                context["child_pages"] = context["child_pages"].filter(tags=tag)
         return context
 
 
@@ -68,6 +74,13 @@ class BlogPostTag(TagBase):
     class Meta:
         verbose_name = "blog tag"
         verbose_name_plural = "blog tags"
+
+    def get_absolute_url(self) -> str:
+        return (
+            BlogListPage.objects.live().defer_streamfields().first().get_url()  # type: ignore[attr-defined]
+            + "?tag="
+            + self.slug
+        )
 
 
 class TaggedBlog(ItemBase):

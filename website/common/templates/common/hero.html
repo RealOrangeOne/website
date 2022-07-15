@@ -16,7 +16,7 @@
           {% include "common/content-details.html" %}
         </div>
         <div class="column is-narrow dropdown-wrapper is-hidden-touch is-grouped">
-          {% if page.table_of_contents %}
+          {% if not no_table_of_contents and page.table_of_contents %}
             <div class="dropdown is-hoverable is-right" id="table-of-contents">
               <div class="dropdown-trigger">
                 <button class="button is-radiusless" aria-haspopup="true" aria-controls="toc-menu">

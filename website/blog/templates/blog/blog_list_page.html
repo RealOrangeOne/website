@@ -1,16 +1,32 @@
 {% extends "wagtail_base.html" %}
 
+{% load wagtailcore_tags %}
+
 {% block content %}
 
 {% include "common/hero.html" %}
 
+{% if filtering_by_tag %}
+  <section class="container blog-filter">
+    <p>
+      Showing only:
+      <span class="tag is-light is-medium">
+        #{{ filtering_by_tag.name }}
+        <a class="delete is-small" href="{% pageurl page %}"></a>
+      </span>
+    </p>
+  </section>
+{% endif %}
+
 <section class="container">
   {% for page in child_pages %}
-    {% ifchanged %}
-      <time datetime="{{ page.date|date:'c' }}" title='{{ page.date|date:"F Y" }}'>
-        <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
-      </time>
-    {% endifchanged %}
+    {% if not filtering_by_tag %}
+      {% ifchanged %}
+        <time datetime="{{ page.date|date:'c' }}" title='{{ page.date|date:"F Y" }}'>
+          <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
+        </time>
+      {% endifchanged %}
+    {% endif %}
 
     {% include "common/listing-item.html" %}
   {% endfor %}

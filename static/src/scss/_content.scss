@@ -41,3 +41,14 @@ section.content {
     max-width: calc(99% - ($column-gap * 2));
   }
 }
+
+.blog-filter {
+  &,
+  .tag {
+    font-size: 1.25rem;
+  }
+
+  .tag {
+    font-family: $family-code;
+  }
+}
