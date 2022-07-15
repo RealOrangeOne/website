@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+<figure>
+  <div class="image">
+    <img src="https://mermaid.ink/img/{{ value.pako }}" referrerpolicy="no-referrer"/>
+  </div>
+  <figcaption>
+    {{ value.caption|richtext }}
+  </figcaption>
+</figure>

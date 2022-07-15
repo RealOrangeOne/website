@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "website.blog",
     "website.images",
     "website.contrib.code_block",
+    "website.contrib.mermaid_block",
     "website.contrib.unsplash",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",

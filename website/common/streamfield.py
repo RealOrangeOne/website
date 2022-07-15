@@ -10,44 +10,13 @@ from wagtail.images.blocks import ImageChooserBlock
 
 from website.common.utils import HEADER_TAGS
 from website.contrib.code_block.blocks import CodeBlock
+from website.contrib.mermaid_block.blocks import MermaidBlock
 
-RICH_TEXT_FEATURES = [
-    "h2",
-    "h3",
-    "h4",
-    "h5",
-    "h6",
-    "bold",
-    "italic",
-    "ol",
-    "ul",
-    "link",
-    "document-link",
-    "code",
-    "strikethrough",
-    "snippet-link",
-    "snippet-embed",
-]
-
-RICH_TEXT_FEATURES_PLAIN = [
-    "bold",
-    "italic",
-    "link",
-    "document-link",
-    "code",
-    "strikethrough",
-]
-
-RICH_TEXT_FEATURES_SIMPLE = [
-    "bold",
-    "italic",
-    "ol",
-    "ul",
-    "link",
-    "document-link",
-    "code",
-    "strikethrough",
-]
+from .rich_text import (
+    RICH_TEXT_FEATURES,
+    RICH_TEXT_FEATURES_PLAIN,
+    RICH_TEXT_FEATURES_SIMPLE,
+)
 
 
 class LoremBlock(blocks.StructBlock):
@@ -98,6 +67,7 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
         ("image", ImageCaptionBlock()),
         ("code", CodeBlock()),
         ("tangent", TangentBlock()),
+        ("mermaid", MermaidBlock()),
     ]
 
 
