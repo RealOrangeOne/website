@@ -4,6 +4,12 @@
 
 {% include "common/hero.html" %}
 
+{% if page.body_html %}
+  <section class="container content">
+    {{ page.body_html|safe }}
+  </section>
+{% endif %}
+
 <section class="container">
   {% for page in child_pages %}
     {% if not filtering_by_tag %}

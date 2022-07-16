@@ -4,10 +4,16 @@
 
 {% include "common/hero.html" %}
 
-<div class="container">
+{% if page.body_html %}
+  <section class="container content">
+    {{ page.body_html|safe }}
+  </section>
+{% endif %}
+
+<section class="container">
   {% for page in pages %}
     {% include "common/listing-item.html" %}
   {% endfor %}
-</div>
+</section>
 
 {% endblock content %}
