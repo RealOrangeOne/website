@@ -95,7 +95,7 @@ WSGI_APPLICATION = "website.wsgi.application"
 
 DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")}
 
-CACHES = {"default": env.cache(default=f"filecache:///{BASE_DIR}/django-cache")}
+CACHES = {"default": env.cache(default="dummycache://")}
 
 RQ_QUEUES = {}
 

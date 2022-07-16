@@ -305,7 +305,6 @@ cython_debug/
 
 /collected-static
 media/
-django-cache/
 
 # Redis
 dump.rdb
