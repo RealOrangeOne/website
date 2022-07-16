@@ -14,8 +14,8 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
     path(
-        "static-pygments/",
-        include("website.contrib.code_block.urls", namespace="static-pygments"),
+        "code-block/",
+        include("website.contrib.code_block.urls"),
     ),
     re_path(
         r"^images/([^/]*)/(\d*)/([^/]*)/[^/]*$",
