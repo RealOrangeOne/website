@@ -1,3 +1,4 @@
+from django.template.loader import get_template
 from django.test import SimpleTestCase
 from wagtail.rich_text import features as richtext_feature_registry
 
@@ -23,6 +24,10 @@ class BasePageTestCase(SimpleTestCase):
                 issubclass(page_model, BasePage),
                 f"{page_model} does not inherit from {BasePage}.",
             )
+
+    def test_pages_have_template(self) -> None:
+        for page in get_page_models():
+            get_template(page.template)
 
 
 class YouTubeLiteEmbedFinderTestCase(SimpleTestCase):
