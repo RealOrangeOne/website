@@ -8,7 +8,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
-from wagtail.models import Page
+from wagtail.models import Page, PageQuerySet
 from wagtail.snippets.models import register_snippet
 
 from website.common.utils import count_words
@@ -28,11 +28,11 @@ class BasePage(Page):
     def body_class(cls) -> str:
         return "page-" + cls._meta.db_table.replace("_", "-")
 
-    def get_parent_pages(self) -> models.QuerySet[Page]:
+    def get_parent_pages(self) -> PageQuerySet:
         """
         Shim over the fact everything is in 1 tree
         """
-        return self.get_ancestors().reverse().exclude(depth__lte=2)
+        return self.get_ancestors().exclude(depth__lte=2)
 
 
 class BaseContentMixin(models.Model):
