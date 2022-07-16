@@ -100,8 +100,9 @@ class BlogPostTagPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         ]
 
     def get_blog_posts(self) -> PageQuerySet:
-        blog_list_page = self.get_parent_pages().specific().reverse()[1]
-        assert isinstance(blog_list_page, BlogListPage)
+        blog_list_page = (
+            BlogListPage.objects.all().live().get()  # type:ignore[attr-defined]
+        )
         return blog_list_page.get_blog_posts().filter(tags=self).order_by("-date")
 
     def get_context(self, request: HttpRequest) -> dict:
