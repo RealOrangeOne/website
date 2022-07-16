@@ -1,14 +1,19 @@
-from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+from django.urls import reverse
+from wagtail import hooks
+from wagtail.admin.menu import MenuItem
 
-from .models import BlogPostTag
-
-
-class BlogPostTagModelAdmin(ModelAdmin):
-    model = BlogPostTag
-    menu_label = "Blog Post Tags"
-    menu_icon = "tag"
-    list_display = ["name", "slug"]
-    search_fields = ["name", "slug"]
+from .models import BlogPostTagListPage
 
 
-modeladmin_register(BlogPostTagModelAdmin)
+@hooks.register("register_admin_menu_item")
+def register_blog_post_tags_menu_item() -> MenuItem:
+    blog_post_tag_list_id = (
+        BlogPostTagListPage.objects.live()  # type:ignore[attr-defined]
+        .values_list("id", flat=True)
+        .get()
+    )
+    return MenuItem(
+        "Blog post tags",
+        reverse("wagtailadmin_explore", args=[blog_post_tag_list_id]),
+        icon_name="tag",
+    )

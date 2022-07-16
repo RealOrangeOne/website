@@ -1,4 +1,4 @@
-
+{% load wagtailcore_tags %}
 
 <div class="content-details field is-grouped is-grouped-multiline {{extra_classes}}">
 
@@ -25,7 +25,7 @@
       <div class="tags has-addons">
         <span class="tag is-dark"><i class="fas fa-tags"></i></span>
         {% for tag in page.tags.all %}
-          <span class="tag is-white"><a title="{{ tag.name }}" href="{{ tag.get_absolute_url }}">#{{ tag.slug }}</a></span>
+          <span class="tag is-white"><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
         {% endfor %}
       </div>
     </div>

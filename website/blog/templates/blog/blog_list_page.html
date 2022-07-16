@@ -1,22 +1,8 @@
 {% extends "wagtail_base.html" %}
 
-{% load wagtailcore_tags %}
-
 {% block content %}
 
 {% include "common/hero.html" %}
-
-{% if filtering_by_tag %}
-  <section class="container blog-filter">
-    <p>
-      Showing only:
-      <span class="tag is-light is-medium">
-        #{{ filtering_by_tag.name }}
-        <a class="delete is-small" href="{% pageurl page %}"></a>
-      </span>
-    </p>
-  </section>
-{% endif %}
 
 <section class="container">
   {% for page in child_pages %}

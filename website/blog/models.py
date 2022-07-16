@@ -5,9 +5,7 @@ from django.db.models.functions import TruncMonth
 from django.http.request import HttpRequest
 from django.utils import timezone
 from django.utils.functional import cached_property
-from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
-from taggit.models import ItemBase, TagBase
+from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
 from wagtail.query import PageQuerySet
 
@@ -17,7 +15,7 @@ from website.common.utils import TocEntry
 
 class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     max_count = 1
-    subpage_types = ["blog.BlogPostPage"]
+    subpage_types = ["blog.BlogPostPage", "blog.BlogPostTagListPage"]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
 
     @cached_property
@@ -31,8 +29,7 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     def table_of_contents(self) -> list[TocEntry]:
         post_months = [
             dt.strftime("%Y-%m")
-            for dt in self.get_children()
-            .live()
+            for dt in self.get_blog_posts()
             .annotate(post_month=TruncMonth("date", output_field=models.DateField()))
             .order_by("-post_month")
             .values_list("post_month", flat=True)
@@ -41,62 +38,26 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
 
         return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
 
-    def get_children(self) -> PageQuerySet:
-        """
-        Since the children are always `BlogPostPage`, so juts use the specific queryset to save the `JOIN`.
-        """
-        return BlogPostPage.objects.child_of(self)  # type: ignore[attr-defined]
+    def get_blog_posts(self) -> PageQuerySet:
+        return BlogPostPage.objects.child_of(self).live()  # type:ignore[attr-defined]
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["child_pages"] = (
-            self.get_children()
-            .live()
+            self.get_blog_posts()
             .select_related("hero_image")
             .select_related("hero_unsplash_photo")
             .prefetch_related("tags")
             .order_by("-date")
         )
-        if tag := request.GET.get("tag"):
-            tag = BlogPostTag.objects.filter(slug=tag).first()
-            if tag:
-                context["filtering_by_tag"] = tag
-                context["no_table_of_contents"] = True
-                context["child_pages"] = context["child_pages"].filter(tags=tag)
         return context
-
-
-class BlogPostTag(TagBase):
-    free_tagging = False
-
-    panels = [FieldPanel("name")]
-
-    class Meta:
-        verbose_name = "blog tag"
-        verbose_name_plural = "blog tags"
-
-    def get_absolute_url(self) -> str:
-        return (
-            BlogListPage.objects.live().defer_streamfields().first().get_url()  # type: ignore[attr-defined]
-            + "?tag="
-            + self.slug
-        )
-
-
-class TaggedBlog(ItemBase):
-    tag = models.ForeignKey(
-        BlogPostTag, related_name="tagged_blogs", on_delete=models.CASCADE
-    )
-    content_object = ParentalKey(
-        "blog.BlogPostPage", on_delete=models.CASCADE, related_name="tagged_items"
-    )
 
 
 class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types: list[Any] = []
     parent_page_types = [BlogListPage]
 
-    tags = ClusterTaggableManager(through=TaggedBlog, blank=True)
+    tags = ParentalManyToManyField("blog.BlogPostTagPage", blank=True)
     date = models.DateField(default=timezone.now)
 
     content_panels = (
@@ -104,3 +65,46 @@ class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         + BaseContentMixin.content_panels
         + [FieldPanel("date"), FieldPanel("tags")]
     )
+
+
+class BlogPostTagListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+    max_count = 1
+    parent_page_types = [BlogListPage]
+    subpage_types = ["blog.BlogPostTagPage"]
+
+    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return [TocEntry(page.title, page.slug, 0, []) for page in self.get_tags()]
+
+    def get_tags(self) -> PageQuerySet:
+        return self.get_children().specific().live().order_by("title")
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        context["tags"] = self.get_children().specific().live().order_by("title")
+        return context
+
+
+class BlogPostTagPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+    subpage_types: list[Any] = []
+    parent_page_types = [BlogPostTagListPage]
+
+    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return [
+            TocEntry(page.title, page.slug, 0, []) for page in self.get_blog_posts()
+        ]
+
+    def get_blog_posts(self) -> PageQuerySet:
+        blog_list_page = self.get_parent_pages().specific().reverse()[1]
+        assert isinstance(blog_list_page, BlogListPage)
+        return blog_list_page.get_blog_posts().filter(tags=self).order_by("-date")
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        context["pages"] = self.get_blog_posts()
+        return context

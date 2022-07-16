@@ -1,0 +1,13 @@
+{% extends "wagtail_base.html" %}
+
+{% block content %}
+
+{% include "common/hero.html" %}
+
+<div class="container">
+  {% for tag in tags %}
+    {% include "common/listing-item.html" with page=tag %}
+  {% endfor %}
+</div>
+
+{% endblock content %}
