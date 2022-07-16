@@ -15,7 +15,12 @@ from website.common.utils import TocEntry
 
 class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     max_count = 1
-    subpage_types = ["blog.BlogPostPage", "blog.BlogPostTagListPage"]
+    subpage_types = [
+        "blog.BlogPostPage",
+        "blog.BlogPostTagListPage",
+        "blog.BlogCollectionListPage",
+        "blog.BlogCollectionPage",
+    ]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
 
     @cached_property
@@ -39,7 +44,9 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
 
     def get_blog_posts(self) -> PageQuerySet:
-        return BlogPostPage.objects.child_of(self).live()  # type:ignore[attr-defined]
+        return BlogPostPage.objects.descendant_of(  # type:ignore[attr-defined]
+            self
+        ).live()
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
@@ -55,7 +62,7 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
 
 class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types: list[Any] = []
-    parent_page_types = [BlogListPage]
+    parent_page_types = [BlogListPage, "blog.BlogCollectionPage"]
 
     tags = ParentalManyToManyField("blog.BlogPostTagPage", blank=True)
     date = models.DateField(default=timezone.now)
@@ -104,6 +111,56 @@ class BlogPostTagPage(BaseContentMixin, BasePage):  # type: ignore[misc]
             BlogListPage.objects.all().live().get()  # type:ignore[attr-defined]
         )
         return blog_list_page.get_blog_posts().filter(tags=self).order_by("-date")
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        context["pages"] = self.get_blog_posts()
+        return context
+
+
+class BlogCollectionListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+    subpage_types: list[Any] = []
+    parent_page_types = [BlogListPage]
+    max_count = 1
+
+    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return [
+            TocEntry(page.title, page.slug, 0, []) for page in self.get_collections()
+        ]
+
+    def get_collections(self) -> PageQuerySet:
+        blog_list_page = (
+            BlogListPage.objects.all().live().get()  # type:ignore[attr-defined]
+        )
+        return BlogCollectionPage.objects.child_of(  # type:ignore[attr-defined]
+            blog_list_page
+        ).live()
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        context["collections"] = self.get_collections()
+        return context
+
+
+class BlogCollectionPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+    parent_page_types = [BlogListPage]
+    subpage_types = [BlogPostPage]
+
+    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return [
+            TocEntry(page.title, page.slug, 0, []) for page in self.get_blog_posts()
+        ]
+
+    def get_blog_posts(self) -> PageQuerySet:
+        return BlogPostPage.objects.child_of(  # type:ignore[attr-defined]
+            self
+        ).order_by("-date")
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
