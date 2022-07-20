@@ -1,5 +1,6 @@
 const Elevator = require("elevator.js");
 const debounce = require("lodash.debounce");
+const throttle = require("lodash.throttle");
 
 const HERO = document.querySelector("section.hero");
 const ROOT = document.querySelector(":root");
@@ -10,6 +11,14 @@ function getHeroHeight() {
 
 function setHeroHeight() {
   ROOT.style.setProperty("--hero-height", `${getHeroHeight()}px`);
+}
+
+function handleHeroStuck() {
+  if (HERO.getBoundingClientRect().top === 0) {
+    HERO.classList.add("stuck");
+  } else {
+    HERO.classList.remove("stuck");
+  }
 }
 
 window.addEventListener("load", () => {
@@ -49,3 +58,5 @@ window.addEventListener("load", () => {
 
 window.addEventListener("resize", debounce(setHeroHeight, 2000));
 window.addEventListener("load", setHeroHeight);
+
+window.addEventListener("scroll", throttle(handleHeroStuck, 100));
