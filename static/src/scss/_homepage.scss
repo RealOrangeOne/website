@@ -23,7 +23,7 @@ body.page-home-homepage {
   .latest {
     padding: 0.25rem 0.5rem;
     margin-top: 2rem;
-    background-color: transparentize($black, 0.2);
+    background-color: transparentize($dark, 0.2);
     border-radius: $input-radius;
     max-width: 75%;
     overflow-x: hidden;
@@ -41,7 +41,7 @@ body.page-home-homepage {
     width: 85%;
     margin-top: 15px;
     text-align: center;
-    background-color: transparentize($black, 0.2) !important;
+    background-color: transparentize($dark, 0.2) !important;
     color: $white !important;
 
     &::placeholder {
