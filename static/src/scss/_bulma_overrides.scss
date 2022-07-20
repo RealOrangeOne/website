@@ -9,6 +9,12 @@ $primary: #e85537;
 $link: $primary;
 $dark: #17181c;
 
+$navbar-item-color: $grey-light;
+$navbar-background-color: $dark;
+$navbar-item-hover-color: $grey-lighter;
+$navbar-item-hover-background-color: $navbar-background-color;
+$navbar-colors: (); // Disable other variants to keep the size down
+
 $code-background: none;
 $pre-background: none;
 $code-padding: 0px;

@@ -1,8 +1,8 @@
-.navbar-item {
-  font-family: $family-code;
+.navbar-item.home-link,
+.navbar-item.navbar-icon {
+  color: $grey-lighter;
 
   &:hover {
-    background-color: black !important;
-    color: $grey-light !important;
+    color: $white;
   }
 }

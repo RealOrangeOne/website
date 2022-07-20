@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
 
-<nav class="navbar has-background-black has-text-white" role="navigation" aria-label="main navigation">
+<nav class="navbar is-family-code" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item has-text-white" href="{% pageurl homepage %}">
+    <a class="navbar-item home-link" href="{% pageurl homepage %}">
       /home/theorangeone
     </a>
 
@@ -13,22 +13,22 @@
     </a>
   </div>
 
-  <div id="navbar" class="navbar-menu has-background-black">
+  <div id="navbar" class="navbar-menu">
     <div class="navbar-start">
       {% for nav_page in nav_pages %}
-        <a class="navbar-item has-text-grey" href="{% pageurl nav_page %}">
+        <a class="navbar-item" href="{% pageurl nav_page %}">
           ~/{{ nav_page.slug }}
         </a>
       {% endfor %}
     </div>
 
     <div class="navbar-end is-hidden-touch mr-2">
-      <a class="navbar-item has-text-white">
+      <a class="navbar-item navbar-icon">
         <span class="icon">
           <i class="fab fa-github" aria-hidden="true"></i>
         </span>
       </a>
-      <a class="navbar-item has-text-white" id="search-button">
+      <a class="navbar-item navbar-icon" id="search-button">
         <span class="icon">
           <i class="fas fa-search" aria-hidden="true"></i>
         </span>
