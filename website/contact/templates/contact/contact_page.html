@@ -1,0 +1,26 @@
+{% extends "wagtail_base.html" %}
+
+{% block content %}
+
+{% include "common/hero.html" %}
+
+<section class="container content">
+  {{ page.body_html|safe }}
+</section>
+
+<section class="container">
+  {% for account in accounts %}
+    <div class="card mt-4" id="{{ account.slug }}">
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4"><a href="{{ account.url }}">{{ account.name }}</a></p>
+            <p class="subtitle is-6">{{ account.username }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
