@@ -13,6 +13,12 @@ function setHeroHeight() {
   ROOT.style.setProperty("--hero-height", `${getHeroHeight()}px`);
 }
 
+function scrollToElement(element, behavior = "smooth") {
+  const rect = element.getBoundingClientRect();
+  const top = rect.top - getHeroHeight();
+  window.scrollBy({ top: top, behavior });
+}
+
 function handleHeroStuck() {
   if (HERO.getBoundingClientRect().top === 0) {
     HERO.classList.add("stuck");
@@ -39,11 +45,7 @@ window.addEventListener("load", () => {
   document.querySelectorAll("#table-of-contents li a").forEach((element) => {
     element.addEventListener("click", (event) => {
       event.preventDefault();
-      const rect = document
-        .querySelector(event.target.hash)
-        .getBoundingClientRect();
-      const top = rect.top - getHeroHeight();
-      window.scrollBy({ top: top, behavior: "smooth" });
+      scrollToElement(document.querySelector(event.target.hash));
     });
   });
 
@@ -56,7 +58,23 @@ window.addEventListener("load", () => {
   });
 });
 
+window.addEventListener("DOMContentLoaded", () => {
+  setHeroHeight();
+
+  let scrollTarget = null;
+  try {
+    scrollTarget = document.getElementById(window.location.hash.slice(1));
+  } catch {
+    // Probably an invalid selector - just ignore it
+  }
+
+  if (!scrollTarget) {
+    return;
+  }
+
+  scrollToElement(scrollTarget, "auto");
+});
+
 window.addEventListener("resize", debounce(setHeroHeight, 2000));
-window.addEventListener("load", setHeroHeight);
 
 window.addEventListener("scroll", throttle(handleHeroStuck, 100));
