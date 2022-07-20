@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "website.search",
     "website.blog",
     "website.images",
+    "website.contact",
     "website.contrib.code_block",
     "website.contrib.mermaid_block",
     "website.contrib.unsplash",

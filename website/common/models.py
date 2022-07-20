@@ -123,19 +123,3 @@ class ReferralLink(models.Model):
 
     def __str__(self) -> str:
         return self.name
-
-
-@register_snippet
-class OnlineAccount(models.Model):
-    name = models.CharField(max_length=64, unique=True)
-    url = models.URLField()
-    username = models.CharField(max_length=64)
-
-    panels = [
-        FieldPanel("name"),
-        FieldPanel("username"),
-        FieldPanel("url"),
-    ]
-
-    def __str__(self) -> str:
-        return self.name
