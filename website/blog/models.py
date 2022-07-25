@@ -3,17 +3,19 @@ from typing import Any
 from django.db import models
 from django.db.models.functions import TruncMonth
 from django.http.request import HttpRequest
+from django.http.response import HttpResponse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.query import PageQuerySet
 
 from website.common.models import BaseContentMixin, BasePage
 from website.common.utils import TocEntry
 
 
-class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore[misc]
     max_count = 1
     subpage_types = [
         "blog.BlogPostPage",
@@ -59,6 +61,14 @@ class BlogListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         )
         return context
 
+    @route(r"^feed/$")
+    def feed(self, request: HttpRequest) -> HttpResponse:
+        from .views import BlogPostPageFeed
+
+        return BlogPostPageFeed(
+            self.get_blog_posts().order_by("-date"), self.get_url(), self.title
+        )(request)
+
 
 class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types: list[Any] = []
@@ -94,7 +104,7 @@ class BlogPostTagListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         return context
 
 
-class BlogPostTagPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class BlogPostTagPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore[misc]
     subpage_types: list[Any] = []
     parent_page_types = [BlogPostTagListPage]
 
@@ -116,6 +126,14 @@ class BlogPostTagPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         context = super().get_context(request)
         context["pages"] = self.get_blog_posts()
         return context
+
+    @route(r"^feed/$")
+    def feed(self, request: HttpRequest) -> HttpResponse:
+        from .views import BlogPostPageFeed
+
+        return BlogPostPageFeed(
+            self.get_blog_posts().order_by("-date"), self.get_url(), self.title
+        )(request)
 
 
 class BlogCollectionListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
