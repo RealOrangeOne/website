@@ -1,6 +1,6 @@
 {% extends "wagtail_base.html" %}
 
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block main %}
 <main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
@@ -9,8 +9,10 @@
     <input id="search-input" class="input" type="text" placeholder="Search">
   </div>
 
-  <div class="box latest">
-    <strong>Latest Post</strong>: <a href="#">{% lorem 6 w random %}</a> &rarr;
-  </div>
+  {% if latest_blog_post %}
+    <div class="box latest">
+      <strong>Latest Post</strong>: <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a> &rarr;
+    </div>
+  {% endif %}
 </main>
 {% endblock %}
