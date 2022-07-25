@@ -4,6 +4,7 @@ from typing import Any, Optional
 from django.db import models
 from django.http.request import HttpRequest
 from django.utils.functional import cached_property, classproperty
+from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
@@ -26,7 +27,7 @@ class BasePage(Page):
 
     @classproperty
     def body_class(cls) -> str:
-        return "page-" + cls._meta.db_table.replace("_", "-")
+        return "page-" + slugify(cls.__name__)
 
     def get_parent_pages(self) -> PageQuerySet:
         """
