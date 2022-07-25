@@ -25,6 +25,7 @@ class HomePage(BasePage):
         context["latest_blog_post"] = (
             BlogPostPage.objects.live()  # type:ignore[attr-defined]
             .defer_streamfields()
-            .latest("date")
+            .order_by("-date")
+            .first()
         )
         return context
