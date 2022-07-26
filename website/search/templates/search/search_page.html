@@ -1,0 +1,11 @@
+{% extends "wagtail_base.html" %}
+
+{% block content %}
+
+{% include "common/hero.html" %}
+
+<section class="container content">
+  {{ page.body_html|safe }}
+</section>
+
+{% endblock %}
