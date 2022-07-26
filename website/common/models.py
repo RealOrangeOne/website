@@ -10,6 +10,7 @@ from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page, PageQuerySet
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from website.common.utils import count_words
@@ -113,7 +114,7 @@ class ListingPage(BasePage, BaseContentMixin):  # type: ignore[misc]
 
 
 @register_snippet
-class ReferralLink(models.Model):
+class ReferralLink(models.Model, index.Indexed):
     url = models.URLField()
     name = models.CharField(max_length=64, unique=True)
 
@@ -121,6 +122,8 @@ class ReferralLink(models.Model):
         FieldPanel("name"),
         FieldPanel("url"),
     ]
+
+    search_fields = [index.AutocompleteField("name"), index.SearchField("url")]
 
     def __str__(self) -> str:
         return self.name

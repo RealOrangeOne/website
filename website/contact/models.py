@@ -3,6 +3,7 @@ from django.http.request import HttpRequest
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 from website.common.models import BaseContentMixin, BasePage
@@ -10,7 +11,7 @@ from website.common.utils import TocEntry
 
 
 @register_snippet
-class OnlineAccount(models.Model):
+class OnlineAccount(models.Model, index.Indexed):
     name = models.CharField(max_length=64, unique=True)
     url = models.URLField()
     username = models.CharField(max_length=64)
@@ -19,6 +20,12 @@ class OnlineAccount(models.Model):
         FieldPanel("name"),
         FieldPanel("username"),
         FieldPanel("url"),
+    ]
+
+    search_fields = [
+        index.AutocompleteField("name"),
+        index.FilterField("username"),
+        index.SearchField("url"),
     ]
 
     def __str__(self) -> str:
