@@ -1,13 +1,17 @@
 set dotenv-load
 
+DEV_COMPOSE := justfile_directory() + "/docker/dev/docker-compose.yml"
+
 # Recipes
 @default:
   just --list
 
-install:
-  python -m venv env
-  pip install -r dev-requirements.txt
-  npm ci
+@build:
+  docker-compose -f {{ DEV_COMPOSE }} pull
+  docker-compose -f {{ DEV_COMPOSE }} build
+
+@compose +ARGS:
+  docker-compose -f {{ DEV_COMPOSE }} {{ ARGS }}
 
 @start:
   honcho start
