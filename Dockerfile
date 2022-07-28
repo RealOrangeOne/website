@@ -44,7 +44,7 @@ FROM production as dev
 # Swap user, so the following tasks can be run as root
 USER root
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && apt-get install -y nodejs
-RUN apt-get install -y postgresql-client
+RUN apt-get install -y postgresql-client inotify-tools
 RUN curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
 
 # Restore user
