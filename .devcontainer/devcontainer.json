@@ -4,8 +4,7 @@
   "service": "web",
   "workspaceFolder": "/app",
   "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash",
-    "python.pythonPath": "/usr/local/bin/python"
+    "terminal.integrated.defaultProfile.linux": "bash"
   },
   "extensions": ["ms-python.python", "editorconfig.editorconfig"]
 }
