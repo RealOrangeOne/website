@@ -15,6 +15,7 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types: list = []
     parent_page_types = ["home.HomePage"]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def reading_time(self) -> int:

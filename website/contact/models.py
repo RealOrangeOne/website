@@ -40,6 +40,7 @@ class ContactPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     max_count = 1
     subpage_types: list = []
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def reading_time(self) -> int:

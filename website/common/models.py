@@ -54,6 +54,11 @@ class BaseContentMixin(models.Model):
         FieldPanel("body"),
     ]
 
+    search_fields = [
+        index.SearchField("body"),
+        index.SearchField("subtitle"),
+    ]
+
     class Meta:
         abstract = True
 
@@ -100,10 +105,12 @@ class BaseContentMixin(models.Model):
 class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
     subpage_types: list[Any] = []
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
 
 class ListingPage(BasePage, BaseContentMixin):  # type: ignore[misc]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)

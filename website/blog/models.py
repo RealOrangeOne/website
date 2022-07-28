@@ -24,6 +24,7 @@ class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: igno
         "blog.BlogCollectionPage",
     ]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def reading_time(self) -> int:
@@ -71,6 +72,7 @@ class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: igno
 class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types: list[Any] = []
     parent_page_types = [BlogListPage, "blog.BlogCollectionPage"]
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     tags = ParentalManyToManyField("blog.BlogPostTagPage", blank=True)
     date = models.DateField(default=timezone.now)
@@ -88,6 +90,7 @@ class BlogPostTagListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types = ["blog.BlogPostTagPage"]
 
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
@@ -107,6 +110,7 @@ class BlogPostTagPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: i
     parent_page_types = [BlogPostTagListPage]
 
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
@@ -138,6 +142,7 @@ class BlogCollectionListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     max_count = 1
 
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
@@ -160,6 +165,7 @@ class BlogCollectionPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     subpage_types = [BlogPostPage]
 
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
+    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
