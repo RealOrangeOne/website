@@ -13,7 +13,7 @@ FROM python:3.10 as production
 
 ENV VIRTUAL_ENV=/venv
 
-RUN useradd website --create-home && mkdir /app $VIRTUAL_ENV && chown -R website /app $VIRTUAL_ENV
+RUN useradd website --create-home -u 1000 && mkdir /app $VIRTUAL_ENV && chown -R website /app $VIRTUAL_ENV
 
 WORKDIR /app
 
