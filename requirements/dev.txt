@@ -41,7 +41,7 @@ l18n==2021.3              # via -r requirements/base.txt, wagtail
 lxml==4.9.1               # via -r requirements/base.txt
 mccabe==0.6.1             # via flake8
 more-itertools==8.13.0    # via -r requirements/base.txt
-mypy==0.971               # via django-stubs
+mypy==0.961               # via django-stubs
 mypy-extensions==0.4.3    # via black, mypy
 openpyxl==3.0.10          # via -r requirements/base.txt, tablib
 packaging==21.3           # via -r requirements/base.txt, build, redis
