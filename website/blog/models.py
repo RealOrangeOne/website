@@ -46,9 +46,7 @@ class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: igno
         return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
 
     def get_blog_posts(self) -> PageQuerySet:
-        return BlogPostPage.objects.descendant_of(  # type:ignore[attr-defined]
-            self
-        ).live()
+        return BlogPostPage.objects.descendant_of(self).live()
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
@@ -117,9 +115,7 @@ class BlogPostTagPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: i
         ]
 
     def get_blog_posts(self) -> PageQuerySet:
-        blog_list_page = (
-            BlogListPage.objects.all().live().get()  # type:ignore[attr-defined]
-        )
+        blog_list_page = BlogListPage.objects.all().live().get()
         return blog_list_page.get_blog_posts().filter(tags=self).order_by("-date")
 
     def get_context(self, request: HttpRequest) -> dict:
@@ -150,12 +146,8 @@ class BlogCollectionListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         ]
 
     def get_collections(self) -> PageQuerySet:
-        blog_list_page = (
-            BlogListPage.objects.all().live().get()  # type:ignore[attr-defined]
-        )
-        return BlogCollectionPage.objects.child_of(  # type:ignore[attr-defined]
-            blog_list_page
-        ).live()
+        blog_list_page = BlogListPage.objects.all().live().get()
+        return BlogCollectionPage.objects.child_of(blog_list_page).live()
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
@@ -176,9 +168,7 @@ class BlogCollectionPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         ]
 
     def get_blog_posts(self) -> PageQuerySet:
-        return BlogPostPage.objects.child_of(  # type:ignore[attr-defined]
-            self
-        ).order_by("-date")
+        return BlogPostPage.objects.child_of(self).order_by("-date")
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)

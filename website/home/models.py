@@ -23,9 +23,6 @@ class HomePage(BasePage):
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["latest_blog_post"] = (
-            BlogPostPage.objects.live()  # type:ignore[attr-defined]
-            .defer_streamfields()
-            .order_by("-date")
-            .first()
+            BlogPostPage.objects.live().defer_streamfields().order_by("-date").first()
         )
         return context

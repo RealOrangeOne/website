@@ -15,9 +15,7 @@ class BlogPostTagsMenuItem(MenuItem):
     def is_shown(self, request: HttpRequest) -> bool:
         if not self.url:
             blog_post_tag_list_id = (
-                BlogPostTagListPage.objects.live()  # type:ignore[attr-defined]
-                .values_list("id", flat=True)
-                .first()
+                BlogPostTagListPage.objects.live().values_list("id", flat=True).first()
             )
             self.url = (
                 reverse("wagtailadmin_explore", args=[blog_post_tag_list_id])

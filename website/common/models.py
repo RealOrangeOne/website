@@ -91,7 +91,7 @@ class BaseContentMixin(models.Model):
     @cached_property
     def hero_image_url(self) -> Optional[str]:
         if self.hero_unsplash_photo_id is not None:
-            return self.hero_unsplash_photo.get_hero_image_url()  # type: ignore
+            return self.hero_unsplash_photo.get_hero_image_url()
         elif self.hero_image_id is not None:
             return generate_image_url(self.hero_image, "width-1200")
         return None
