@@ -1,4 +1,10 @@
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http.request import HttpRequest
 from django.utils.functional import cached_property
+from wagtail.models import Page
+from wagtail.query import PageQuerySet
+from wagtail.search.models import Query
+from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentMixin, BasePage
 from website.common.utils import TocEntry
@@ -20,3 +26,32 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
         return []
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        if query_string := request.GET.get("q", ""):
+            filters, query = parse_query_string(query_string)
+            Query.get(query_string).add_hit()
+            pages = Page.objects.live().search(query)
+        else:
+            pages = Page.objects.none()
+
+        paginator = Paginator(pages, 15)
+        page_num = request.GET.get("page", "1")
+        try:
+            results = paginator.page(page_num)
+
+            # HACK: Search results aren't a queryset, so we can't call `.specific` on it. This forces it to one as efficiently as possible
+            if not isinstance(results.object_list, PageQuerySet):
+                results.object_list = Page.objects.filter(
+                    id__in=list(
+                        results.object_list.get_queryset().values_list("id", flat=True)
+                    )
+                ).specific()
+        except (PageNotAnInteger, EmptyPage):
+            results = None
+            context["invalid_page"] = True
+
+        context["results"] = results
+
+        return context

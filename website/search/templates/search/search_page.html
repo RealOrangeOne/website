@@ -4,8 +4,21 @@
 
 {% include "common/hero.html" %}
 
-<section class="container content">
-  {{ page.body_html|safe }}
+{% if page.body_html %}
+  <section class="container content">
+    {{ page.body_html|safe }}
+  </section>
+{% endif %}
+
+<section class="container">
+  {% if invalid_page %}
+    <p>Invalid page</p>
+  {% else %}
+    {% for page in results %}
+      {% include "common/listing-item.html" %}
+    {% endfor %}
+  {% endif %}
 </section>
+
 
 {% endblock %}
