@@ -36,6 +36,8 @@ COPY --chown=website ./website ./website
 
 RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear -v3
 
+CMD gunicorn
+
 # Just dev stuff
 FROM production as dev
 
