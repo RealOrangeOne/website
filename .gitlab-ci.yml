@@ -33,7 +33,7 @@ pip:
   script:
     - python -m venv env
     - source env/bin/activate
-    - pip install -r dev-requirements.txt
+    - pip install -r requirements/dev.txt
   artifacts:
     name: 'pip-$CI_JOB_ID'
     paths:
@@ -103,3 +103,10 @@ prettier:
   <<: *node_test_template
   script:
     - npm run lint
+
+pip_tools:
+  <<: *python_test_template
+  script:
+    - ./scripts/compile-requirements.sh
+    - git diff
+    - git diff-index --quiet HEAD --

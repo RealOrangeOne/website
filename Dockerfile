@@ -25,8 +25,8 @@ EXPOSE 8000
 USER website
 
 RUN python -m venv $VIRTUAL_ENV
-COPY --chown=website requirements.txt ./
-RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY --chown=website requirements/base.txt ./requirements/base.txt
+RUN pip install --upgrade pip && pip install -r ./requirements/base.txt
 
 COPY --chown=website --from=frontend ./static/build ./static/build
 
@@ -50,7 +50,7 @@ RUN curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
 # Restore user
 USER website
 
-COPY --chown=website dev-requirements.txt ./
-RUN pip install --upgrade pip && pip install -r dev-requirements.txt
+COPY --chown=website requirements/dev.txt ./requirements/dev.txt
+RUN pip install --upgrade pip && pip install -r requirements/dev.txt
 
 CMD sleep infinity

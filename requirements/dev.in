@@ -1,0 +1,12 @@
+-r base.txt
+
+pip-tools
+
+honcho
+django-stubs[compatible-mypy]
+flake8
+isort
+black
+django-browser-reload
+django-debug-toolbar
+types-requests

@@ -1,0 +1,14 @@
+Django
+wagtail
+django-environ
+whitenoise[brotli]
+pygments
+beautifulsoup4
+lxml
+more-itertools
+requests
+wagtail-generic-chooser
+django-rq
+django-redis
+wagtail-draftail-snippet
+gunicorn
