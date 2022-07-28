@@ -42,6 +42,10 @@ pip:
 
 container:
   image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_BUILDKIT: 1
   stage: test
   script:
     - docker build -t website .
