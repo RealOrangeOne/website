@@ -305,6 +305,3 @@ cython_debug/
 
 /collected-static
 media/
-
-# Redis
-dump.rdb

@@ -8,10 +8,20 @@ services:
       - QUEUE_STORE_URL=redis://redis/0
       - DEBUG=true
       - SECRET_KEY=super-secret-key
+      - DATABASE_URL=postgres://website:website@db/website
     volumes:
       - ../../:/app
     depends_on:
       - redis
+      - db
 
   redis:
     image: redis:6.0
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_PASSWORD=website
+      - POSTGRES_USER=website
+    volumes:
+      - ./volumes/db:/var/lib/postgresql/data

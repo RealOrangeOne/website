@@ -12,3 +12,4 @@ django-rq
 django-redis
 wagtail-draftail-snippet
 gunicorn
+psycopg2

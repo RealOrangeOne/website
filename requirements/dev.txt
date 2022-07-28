@@ -48,6 +48,7 @@ pep517==0.12.0            # via build
 pillow==9.2.0             # via -r requirements/base.txt, wagtail
 pip-tools==6.8.0          # via -r requirements/dev.in
 platformdirs==2.5.2       # via black
+psycopg2==2.9.3           # via -r requirements/base.txt
 pycodestyle==2.8.0        # via flake8
 pyflakes==2.4.0           # via flake8
 pygments==2.12.0          # via -r requirements/base.txt
