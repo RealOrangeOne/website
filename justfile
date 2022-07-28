@@ -1,14 +1,5 @@
 set dotenv-load
 
-# Load virtualenv
-export PATH := justfile_directory() + "/env/bin:" + env_var('PATH')
-export PYTHONUNBUFFERED := "true"
-export QUEUE_STORE_URL := "redis://localhost/0"
-
-# Dev environment
-export DEBUG := "true"
-export SECRET_KEY := "super-secret-key"
-
 # Recipes
 @default:
   just --list

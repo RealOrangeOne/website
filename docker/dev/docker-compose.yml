@@ -1,6 +1,17 @@
 version: '3.7'
 services:
+  web:
+    build:
+      context: ../../
+      target: dev
+    environment:
+      - QUEUE_STORE_URL=redis://redis/0
+      - DEBUG=true
+      - SECRET_KEY=super-secret-key
+    volumes:
+      - ../../:/app
+    depends_on:
+      - redis
+
   redis:
     image: redis:6.0
-    ports:
-      - 127.0.0.1:6379:6379

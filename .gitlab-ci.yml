@@ -40,6 +40,12 @@ pip:
       - ./env/
     expire_in: 30 mins
 
+container:
+  image: docker:stable
+  stage: test
+  script:
+    - docker build -t website .
+
 .python_test_template: &python_test_template
   image: python:3.10-slim
   stage: test

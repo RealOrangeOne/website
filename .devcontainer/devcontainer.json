@@ -1,0 +1,11 @@
+{
+  "name": "Existing Docker Compose",
+  "dockerComposeFile": ["../docker/dev/docker-compose.yml"],
+  "service": "web",
+  "workspaceFolder": "/app",
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "python.pythonPath": "/usr/local/bin/python"
+  },
+  "extensions": ["ms-python.python", "editorconfig.editorconfig"]
+}
