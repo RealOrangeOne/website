@@ -11,6 +11,12 @@
 {% endif %}
 
 <section class="container">
+  <form>
+    <input type="search" name="q" placeholder="Search" value="{{ search_query }}"/>
+  </form>
+</section>
+
+<section class="container">
   {% if initial %}
     <p>Enter search terms</p>
   {% elif invalid_search %}

@@ -45,6 +45,7 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
 
         if serializer.is_valid():
             search_query = serializer.validated_data["q"]
+            context["search_query"] = search_query
             filters, query = parse_query_string(search_query)
             Query.get(search_query).add_hit()
             pages = self.get_search_pages().search(query)
