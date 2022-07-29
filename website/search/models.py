@@ -8,6 +8,7 @@ from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentMixin, BasePage
 from website.common.utils import TocEntry
+from website.home.models import HomePage
 
 
 class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
@@ -29,12 +30,15 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     def table_of_contents(self) -> list[TocEntry]:
         return []
 
+    def get_search_pages(self) -> PageQuerySet:
+        return Page.objects.live().not_type(self.__class__, HomePage)
+
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         if query_string := request.GET.get("q", ""):
             filters, query = parse_query_string(query_string)
             Query.get(query_string).add_hit()
-            pages = Page.objects.live().search(query)
+            pages = self.get_search_pages().search(query)
         else:
             pages = Page.objects.none()
 
