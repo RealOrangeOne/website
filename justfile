@@ -42,4 +42,5 @@ lint_python:
   npm run lint
 
 @sh:
+  docker-compose -f {{ DEV_COMPOSE }} up -d
   docker-compose -f {{ DEV_COMPOSE }} exec web bash
