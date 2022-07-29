@@ -13,9 +13,10 @@ certifi==2022.6.15        # via requests
 charset-normalizer==2.1.0  # via requests
 click==8.1.3              # via rq
 deprecated==1.2.13        # via redis
-django==4.0.6             # via -r requirements/base.in, django-filter, django-modelcluster, django-permissionedforms, django-redis, django-rq, django-taggit, django-treebeard, djangorestframework, wagtail
+django==4.0.6             # via -r requirements/base.in, django-filter, django-htmx, django-modelcluster, django-permissionedforms, django-redis, django-rq, django-taggit, django-treebeard, djangorestframework, wagtail
 django-environ==0.9.0     # via -r requirements/base.in
 django-filter==21.1       # via wagtail
+django-htmx==1.12.1       # via -r requirements/base.in
 django-modelcluster==6.0  # via wagtail
 django-permissionedforms==0.1  # via wagtail
 django-redis==5.2.0       # via -r requirements/base.in
