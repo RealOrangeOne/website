@@ -86,22 +86,22 @@ django_checks:
 black:
   <<: *python_test_template
   script:
-    - black --check website
+    - black --check .
 
 isort:
   <<: *python_test_template
   script:
-    - isort --check website
+    - isort --check .
 
 flake8:
   <<: *python_test_template
   script:
-    - flake8 website
+    - flake8
 
 mypy:
   <<: *python_test_template
   script:
-    - mypy website
+    - mypy .
 
 prettier:
   <<: *node_test_template

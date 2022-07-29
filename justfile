@@ -26,17 +26,17 @@ test *ARGS:
   ./manage.py test {{ ARGS }}
 
 format:
-  black website
-  isort website
+  black .
+  isort .
   npm run format
 
 lint: lint_python lint_node
 
 lint_python:
-  black --check website
-  isort --check website
-  flake8 website
-  mypy website --show-error-codes
+  black --check .
+  isort --check .
+  flake8
+  mypy . --show-error-codes
 
 @lint_node:
   npm run lint
