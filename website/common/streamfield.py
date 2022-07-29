@@ -54,7 +54,12 @@ class TangentBlock(blocks.StructBlock):
         template = "common/blocks/tangent.html"
 
 
-IGNORE_PLAINTEXT_BLOCKS = (blocks.RawHTMLBlock, EmbedBlock, ImageCaptionBlock)
+IGNORE_PLAINTEXT_BLOCKS = (
+    blocks.RawHTMLBlock,
+    EmbedBlock,
+    ImageCaptionBlock,
+    CodeBlock,
+)
 IGNORE_HEADING_BLOCKS = (*IGNORE_PLAINTEXT_BLOCKS, LoremBlock)
 
 
