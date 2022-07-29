@@ -70,6 +70,9 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
 
             context["results"] = results
         else:
-            context["invalid_search"] = True
+            if "q" in request.GET:
+                context["invalid_search"] = True
+            else:
+                context["initial"] = True
 
         return context

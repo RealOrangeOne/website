@@ -11,7 +11,9 @@
 {% endif %}
 
 <section class="container">
-  {% if invalid_search %}
+  {% if initial %}
+    <p>Enter search terms</p>
+  {% elif invalid_search %}
     <p>Invalid search</p>
   {% elif results|length == 0 %}
     {% if page_num > paginator.num_pages %}
