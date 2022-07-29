@@ -16,6 +16,7 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
     parent_page_types = ["home.HomePage"]
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
     search_fields = BasePage.search_fields + BaseContentMixin.search_fields
+    PAGE_SIZE = 15
 
     @cached_property
     def reading_time(self) -> int:
@@ -37,7 +38,7 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         else:
             pages = Page.objects.none()
 
-        paginator = Paginator(pages, 15)
+        paginator = Paginator(pages, self.PAGE_SIZE)
         page_num = request.GET.get("page", "1")
         try:
             results = paginator.page(page_num)
