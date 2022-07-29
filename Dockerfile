@@ -30,13 +30,14 @@ RUN pip install --upgrade pip && pip install -r ./requirements/base.txt
 
 COPY --chown=website --from=frontend ./static/build ./static/build
 
+COPY --chown=website ./etc ./etc
 COPY --chown=website ./manage.py ./manage.py
 COPY --chown=website ./templates ./templates
 COPY --chown=website ./website ./website
 
 RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear -v3
 
-CMD gunicorn
+CMD gunicorn -c etc/gunicorn.conf.py
 
 # Just dev stuff
 FROM production as dev
