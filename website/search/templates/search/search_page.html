@@ -11,8 +11,14 @@
 {% endif %}
 
 <section class="container">
-  {% if invalid_page %}
-    <p>Invalid page</p>
+  {% if invalid_search %}
+    <p>Invalid search</p>
+  {% elif results|length == 0 %}
+    {% if page_num > paginator.num_pages %}
+      <p>There aren't {{ page_num }} page - only {{ paginator.num_pages }}.</p>
+    {% else %}
+      <p>No results</p>
+    {% endif %}
   {% else %}
     {% for page in results %}
       {% include "common/listing-item.html" %}
