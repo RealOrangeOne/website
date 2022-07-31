@@ -11,28 +11,17 @@
 {% endif %}
 
 <section class="container">
-  <form>
-    <input type="search" name="q" placeholder="Search" value="{{ search_query }}"/>
-  </form>
+  <input
+    type="search"
+    name="q"
+    placeholder="Search"
+    hx-get="{{ search_url }}"
+    hx-trigger="keyup changed delay:300ms, search"
+    hx-target="#search-results"
+    autocomplete="off"
+  >
 </section>
 
-<section class="container">
-  {% if initial %}
-    <p>Enter search terms</p>
-  {% elif invalid_search %}
-    <p>Invalid search</p>
-  {% elif results|length == 0 %}
-    {% if page_num > paginator.num_pages %}
-      <p>There aren't {{ page_num }} page - only {{ paginator.num_pages }}.</p>
-    {% else %}
-      <p>No results</p>
-    {% endif %}
-  {% else %}
-    {% for page in results %}
-      {% include "common/listing-item.html" %}
-    {% endfor %}
-  {% endif %}
-</section>
-
+<section class="container" id="search-results"></section>
 
 {% endblock %}

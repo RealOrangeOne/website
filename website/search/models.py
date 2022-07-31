@@ -1,7 +1,10 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.http.request import HttpRequest
+from django.http.response import HttpResponse, HttpResponseBadRequest
+from django.shortcuts import render
 from django.utils.functional import cached_property
 from rest_framework import serializers
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 from wagtail.query import PageQuerySet
 from wagtail.search.models import Query
@@ -12,7 +15,7 @@ from website.common.utils import TocEntry
 from website.home.models import HomePage
 
 
-class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore[misc]
     max_count = 1
     subpage_types: list = []
     parent_page_types = ["home.HomePage"]
@@ -40,40 +43,49 @@ class SearchPage(BaseContentMixin, BasePage):  # type: ignore[misc]
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
+        context["search_url"] = self.reverse_subpage("results")
+        return context
+
+    @route(r"^results/$")
+    def results(self, request: HttpRequest) -> HttpResponse:
+        if not request.GET.get("q", None):
+            return HttpResponse()
 
         serializer = self.SearchParamsSerializer(data=request.GET)
 
-        if serializer.is_valid():
-            search_query = serializer.validated_data["q"]
-            context["search_query"] = search_query
-            filters, query = parse_query_string(search_query)
-            Query.get(search_query).add_hit()
-            pages = self.get_search_pages().search(query)
+        if not serializer.is_valid():
+            return HttpResponseBadRequest(serializer.errors)
 
-            paginator = Paginator(pages, self.PAGE_SIZE)
-            context["paginator"] = paginator
-            page_num = serializer.validated_data["page"]
-            context["page_num"] = page_num
-            try:
-                results = paginator.page(page_num)
+        search_query = serializer.validated_data["q"]
+        page_num = serializer.validated_data["page"]
 
-                # HACK: Search results aren't a queryset, so we can't call `.specific` on it. This forces it to one as efficiently as possible
-                if not isinstance(results.object_list, PageQuerySet):
-                    results.object_list = Page.objects.filter(
-                        id__in=list(
-                            results.object_list.get_queryset().values_list(
-                                "id", flat=True
-                            )
-                        )
-                    ).specific()
-            except EmptyPage:
-                results = []
+        context = {
+            **self.get_context(request),
+            "search_query": search_query,
+            "page_num": page_num,
+        }
 
-            context["results"] = results
-        else:
-            if "q" in request.GET:
-                context["invalid_search"] = True
-            else:
-                context["initial"] = True
+        filters, query = parse_query_string(search_query)
+        Query.get(search_query).add_hit()
+        pages = self.get_search_pages().search(query)
 
-        return context
+        paginator = Paginator(pages, self.PAGE_SIZE)
+        context["paginator"] = paginator
+
+        try:
+            results = paginator.page(page_num)
+
+            # HACK: Search results aren't a queryset, so we can't call `.specific` on it. This forces it to one as efficiently as possible
+            if not isinstance(results.object_list, PageQuerySet):
+                results.object_list = Page.objects.filter(
+                    id__in=list(
+                        results.object_list.get_queryset().values_list("id", flat=True)
+                    )
+                ).specific()
+
+        except EmptyPage:
+            results = []
+
+        context["results"] = results
+
+        return render(request, "search/search_results.html", context)
