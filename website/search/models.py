@@ -43,6 +43,7 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
+        context["search_query"] = request.GET.get("q", "")
         context["search_url"] = self.reverse_subpage("results")
         return context
 
