@@ -38,9 +38,6 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
     def table_of_contents(self) -> list[TocEntry]:
         return []
 
-    def get_search_pages(self) -> PageQuerySet:
-        return Page.objects.live().not_type(self.__class__, HomePage)
-
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["search_query"] = request.GET.get("q", "")
@@ -68,7 +65,7 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
 
         filters, query = parse_query_string(search_query)
         Query.get(search_query).add_hit()
-        pages = self.get_search_pages().search(query)
+        pages = Page.objects.live().not_type(self.__class__, HomePage).search(query)
 
         paginator = Paginator(pages, self.PAGE_SIZE)
         context["paginator"] = paginator
