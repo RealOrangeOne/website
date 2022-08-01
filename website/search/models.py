@@ -2,7 +2,9 @@ from django.core.paginator import EmptyPage, Paginator
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
+from django.views.decorators.http import require_GET
 from rest_framework import serializers
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
@@ -45,6 +47,7 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
         return context
 
     @route(r"^results/$")
+    @method_decorator(require_GET)
     def results(self, request: HttpRequest) -> HttpResponse:
         if not request.GET.get("q", None):
             return HttpResponse()
