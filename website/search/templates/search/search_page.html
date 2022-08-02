@@ -1,5 +1,7 @@
 {% extends "wagtail_base.html" %}
 
+{% load static %}
+
 {% block content %}
 
 {% include "common/hero.html" %}
@@ -33,8 +35,14 @@
       </span>
     </p>
   </div>
+
+  <p>Showing <span id="result-count">0</span> results</p>
 </section>
 
 <section class="container" id="search-results"></section>
 
+{% endblock %}
+
+{% block extra_js %}
+  <script async defer type="text/javascript" src="{% static 'js/search.js' %}"></script>
 {% endblock %}
