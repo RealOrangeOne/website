@@ -61,6 +61,10 @@ window.addEventListener("load", () => {
 window.addEventListener("DOMContentLoaded", () => {
   setHeroHeight();
 
+  if (window.location.hash <= 1) {
+    return;
+  }
+
   let scrollTarget = null;
   try {
     scrollTarget = document.getElementById(window.location.hash.slice(1));
