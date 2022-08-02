@@ -6,6 +6,9 @@ const HERO = document.querySelector("section.hero");
 const ROOT = document.querySelector(":root");
 
 function getHeroHeight() {
+  if (!HERO) {
+    return 0;
+  }
   return HERO.getBoundingClientRect().height;
 }
 
@@ -79,6 +82,7 @@ window.addEventListener("DOMContentLoaded", () => {
   scrollToElement(scrollTarget, "auto");
 });
 
-window.addEventListener("resize", debounce(setHeroHeight, 2000));
-
-window.addEventListener("scroll", throttle(handleHeroStuck, 100));
+if (HERO) {
+  window.addEventListener("resize", debounce(setHeroHeight, 2000));
+  window.addEventListener("scroll", throttle(handleHeroStuck, 100));
+}
