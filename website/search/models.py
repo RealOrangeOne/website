@@ -1,6 +1,6 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
@@ -51,6 +51,9 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
     @route(r"^results/$")
     @method_decorator(require_GET)
     def results(self, request: HttpRequest) -> HttpResponse:
+        if not request.htmx:
+            return HttpResponseBadRequest()
+
         serializer = self.SearchParamsSerializer(data=request.GET)
 
         if not serializer.is_valid():
