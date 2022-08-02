@@ -1,6 +1,6 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse, HttpResponseBadRequest
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
@@ -24,9 +24,10 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
     content_panels = BasePage.content_panels + BaseContentMixin.content_panels
     search_fields = BasePage.search_fields + BaseContentMixin.search_fields
     PAGE_SIZE = 15
+    MIN_SEARCH_TERM = 3
 
     class SearchParamsSerializer(serializers.Serializer):
-        q = serializers.CharField()
+        q = serializers.CharField(min_length=3)
         page = serializers.IntegerField(min_value=1, default=1)
 
     @cached_property
@@ -44,18 +45,20 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
         context = super().get_context(request)
         context["search_query"] = request.GET.get("q", "")
         context["search_url"] = self.reverse_subpage("results")
+        context["MIN_SEARCH_TERM"] = self.MIN_SEARCH_TERM
         return context
 
     @route(r"^results/$")
     @method_decorator(require_GET)
     def results(self, request: HttpRequest) -> HttpResponse:
-        if not request.GET.get("q", None):
-            return HttpResponse()
-
         serializer = self.SearchParamsSerializer(data=request.GET)
 
         if not serializer.is_valid():
-            return HttpResponseBadRequest(serializer.errors)
+            return render(
+                request,
+                "search/enter-search-term.html",
+                {"MIN_SEARCH_TERM": self.MIN_SEARCH_TERM},
+            )
 
         search_query = serializer.validated_data["q"]
         page_num = serializer.validated_data["page"]

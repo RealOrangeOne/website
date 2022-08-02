@@ -1,10 +1,15 @@
-window.addEventListener("load", () => {
+window.addEventListener("DOMContentLoaded", () => {
   const searchResults = document.getElementById("search-results");
-  const resultsCount = document.getElementById("result-count");
+  const resultsCountDisplay = document.getElementById("result-count");
 
   function handleSearchResults(event) {
-    resultsCount.textContent =
-      event.target.querySelectorAll(".listing-item").length;
+    const resultsCount = event.target.querySelectorAll(".listing-item").length;
+    if (resultsCount) {
+      resultsCountDisplay.textContent =
+        `Found ${resultsCount} result` + (resultsCount > 1 ? "s" : "");
+    } else {
+      resultsCountDisplay.textContent = "";
+    }
   }
-  searchResults.addEventListener("htmx:after-swap", handleSearchResults);
+  searchResults.addEventListener("htmx:afterSwap", handleSearchResults);
 });

@@ -4,6 +4,10 @@
   {% include "common/listing-item.html" %}
 {% endfor %}
 
+{% if not results and page_num == 1 %}
+  <p>No results found</p>
+{% endif %}
+
 {% if results.has_next %}
   <span hx-get="{{ search_url }}{% querystring page=results.next_page_number %}" hx-trigger="revealed" hx-swap="outerHTML"></span>
 {% endif %}
