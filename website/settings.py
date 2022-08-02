@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     "generic_chooser",
     "wagtail_draftail_snippet",
     "django_rq",
-    "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
