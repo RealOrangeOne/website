@@ -46,6 +46,7 @@ container:
     - docker:dind
   variables:
     DOCKER_BUILDKIT: 1
+  dependencies: []
   stage: test
   script:
     - docker build -t website --target production .
