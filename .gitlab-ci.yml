@@ -61,12 +61,6 @@ container:
   variables:
     SECRET_KEY: super-secret
 
-.node_test_template: &node_test_template
-  image: node:alpine
-  stage: test
-  dependencies:
-    - static
-
 test_python:
   services:
     - postgres:13-alpine
@@ -114,7 +108,10 @@ djhtml:
     - git ls-files '*.html' | xargs djhtml --check --tabwidth 2
 
 npm_lint:
-  <<: *node_test_template
+  image: node:alpine
+  stage: test
+  dependencies:
+    - static
   script:
     - npm run lint
 
