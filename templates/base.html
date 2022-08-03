@@ -1,14 +1,14 @@
 {% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="utf-8" />
     <title>
       {% block title %}{% endblock %}
       {% block title_suffix %}
-      {% wagtail_site as current_site %}
-      {% if current_site and current_site.site_name %}:: {{ current_site.site_name }}{% endif %}
+        {% wagtail_site as current_site %}
+        {% if current_site and current_site.site_name %}:: {{ current_site.site_name }}{% endif %}
       {% endblock %}
     </title>
     <meta name="description" content="" />
@@ -25,7 +25,7 @@
     {% wagtailuserbar %}
 
     {% cache 3600 "navbar" %}
-      {% navbar %}
+    {% navbar %}
     {% endcache %}
 
     {% block main %}
@@ -35,9 +35,8 @@
     {% endblock %}
 
     {% cache 3600 "footer" %}
-      {% footer %}
+    {% footer %}
     {% endcache %}
-
 
     <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>
     <script async defer type="text/javascript" src="{% static 'contrib/htmx/htmx.min.js' %}"></script>

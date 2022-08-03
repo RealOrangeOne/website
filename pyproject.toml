@@ -1,0 +1,15 @@
+[tool.curlylint]
+include = '/(website|templates)/.*\.html'
+exclude = '''
+(
+    navbar\.html
+  | referrallink_snippet_link\.html
+  | onlineaccount_snippet_link\.html
+  | base\.html
+  | 500\.html
+)
+'''
+
+[tool.curlylint.rules]
+indent = 2
+html_has_lang = 'en-GB'

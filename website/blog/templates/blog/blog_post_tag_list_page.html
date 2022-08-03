@@ -2,18 +2,18 @@
 
 {% block content %}
 
-{% include "common/hero.html" %}
+  {% include "common/hero.html" %}
 
-{% if page.body_html %}
-  <section class="container content">
-    {{ page.body_html|safe }}
+  {% if page.body_html %}
+    <section class="container content">
+      {{ page.body_html|safe }}
+    </section>
+  {% endif %}
+
+  <section class="container">
+    {% for tag in tags %}
+      {% include "common/listing-item.html" with page=tag %}
+    {% endfor %}
   </section>
-{% endif %}
-
-<section class="container">
-  {% for tag in tags %}
-    {% include "common/listing-item.html" with page=tag %}
-  {% endfor %}
-</section>
 
 {% endblock content %}

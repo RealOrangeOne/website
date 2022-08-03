@@ -4,13 +4,13 @@
 
 {% block content %}
 
-{% include "common/hero.html" %}
+  {% include "common/hero.html" %}
 
-<section class="container content">
-  {{ page.body_html|safe }}
-</section>
+  <section class="container content">
+    {{ page.body_html|safe }}
+  </section>
 
-{% include "common/shareon.html" %}
+  {% include "common/shareon.html" %}
 
 {% endblock %}
 

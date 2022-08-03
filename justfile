@@ -37,6 +37,7 @@ lint_python:
   isort --check .
   flake8
   mypy . --show-error-codes
+  curlylint .
 
 @lint_node:
   npm run lint

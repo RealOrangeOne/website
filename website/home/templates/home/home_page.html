@@ -3,16 +3,16 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block main %}
-<main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
-  <div class="heading-wrapper">
-    <h1>{{ page.heading }}</h1>
-    <input id="search-input" class="input" type="text" placeholder="Search">
-  </div>
-
-  {% if latest_blog_post %}
-    <div class="box latest">
-      <strong>Latest Post</strong>: <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a> &rarr;
+  <main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
+    <div class="heading-wrapper">
+      <h1>{{ page.heading }}</h1>
+      <input id="search-input" class="input" type="text" placeholder="Search">
     </div>
-  {% endif %}
-</main>
+
+    {% if latest_blog_post %}
+      <div class="box latest">
+        <strong>Latest Post</strong>: <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a> &rarr;
+      </div>
+    {% endif %}
+  </main>
 {% endblock %}

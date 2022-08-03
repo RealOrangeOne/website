@@ -10,3 +10,4 @@ django-browser-reload
 django-debug-toolbar
 types-requests
 mypy
+curlylint

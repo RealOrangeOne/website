@@ -103,6 +103,11 @@ mypy:
   script:
     - mypy .
 
+curlylint:
+  <<: *python_test_template
+  script:
+    - curlylint .
+
 prettier:
   <<: *node_test_template
   script:
