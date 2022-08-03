@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import environ
+from whitenoise.compress import Compressor as WhitenoiseCompressor
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -140,6 +141,10 @@ if not DEBUG:
 
 STATIC_ROOT = BASE_DIR / "collected-static"
 STATIC_URL = "/static/"
+
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = list(
+    WhitenoiseCompressor.SKIP_COMPRESS_EXTENSIONS
+) + ["map"]
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
