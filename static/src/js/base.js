@@ -71,7 +71,7 @@ window.addEventListener("DOMContentLoaded", () => {
   let scrollTarget = null;
   try {
     scrollTarget = document.getElementById(window.location.hash.slice(1));
-  } catch {
+  } catch (e) {
     // Probably an invalid selector - just ignore it
   }
 

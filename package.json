@@ -9,12 +9,17 @@
     "build:css": "sass --style=compressed --load-path=$PWD/node_modules static/src/scss:static/build/css",
     "build:contrib": "./scripts/copy-npm-contrib.sh",
     "build": "npm-run-all build:*",
-    "lint": "prettier --check static/src",
-    "format": "prettier --write static/src"
+    "lint:eslint": "eslint --ext js --report-unused-disable-directives .",
+    "lint:prettier": "prettier --check static/src",
+    "lint": "npm-run-all lint:*",
+    "format:prettier": "prettier --write static/src",
+    "format:eslint": "npm run lint:eslint -- --fix",
+    "format": "npm-run-all format:*"
   },
   "author": "Jake Howard",
   "devDependencies": {
     "esbuild": "^0.14.43",
+    "eslint": "^8.21.0",
     "npm-run-all": "^4.1.5",
     "prettier": "2.6.2",
     "sass": "^1.52.3"

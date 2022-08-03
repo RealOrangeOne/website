@@ -113,7 +113,7 @@ djhtml:
   script:
     - git ls-files '*.html' | xargs djhtml --check --tabwidth 2
 
-prettier:
+npm_lint:
   <<: *node_test_template
   script:
     - npm run lint

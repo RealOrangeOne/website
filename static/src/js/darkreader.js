@@ -1,4 +1,4 @@
-import * as DarkReader from "darkreader";
+const DarkReader = require("darkreader");
 
 const DARK_READER_OPTIONS = {};
 
