@@ -55,7 +55,6 @@ container:
   stage: test
   dependencies:
     - pip
-    - static
   before_script:
     - source env/bin/activate
   variables:
@@ -70,6 +69,9 @@ test_python:
     - ./manage.py collectstatic --noinput --clear
     - ./manage.py test
   <<: *python_test_template
+  dependencies:
+    - pip
+    - static
 
 django_checks:
   <<: *python_test_template
