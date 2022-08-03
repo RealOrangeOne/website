@@ -1,7 +1,7 @@
 FROM node:16 as frontend
 
 COPY package.json package-lock.json ./
-RUN npm ci --no-audit --progress=false
+RUN npm ci --no-audit --progress=false --omit=dev
 
 # Compile static files
 COPY ./scripts ./scripts
