@@ -52,6 +52,6 @@ RUN curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
 USER website
 
 COPY --chown=website requirements/dev.txt ./requirements/dev.txt
-RUN pip install --upgrade pip && pip install -r requirements/dev.txt
+RUN pip install -r requirements/dev.txt
 
 CMD sleep infinity
