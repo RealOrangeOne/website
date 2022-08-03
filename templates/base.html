@@ -25,7 +25,7 @@
     {% wagtailuserbar %}
 
     {% cache 3600 "navbar" %}
-    {% navbar %}
+      {% navbar %}
     {% endcache %}
 
     {% block main %}
@@ -35,7 +35,7 @@
     {% endblock %}
 
     {% cache 3600 "footer" %}
-    {% footer %}
+      {% footer %}
     {% endcache %}
 
     <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>

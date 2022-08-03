@@ -30,6 +30,7 @@ django-rq==2.5.1          # via -r requirements/base.txt
 django-taggit==2.1.0      # via -r requirements/base.txt, wagtail
 django-treebeard==4.5.1   # via -r requirements/base.txt, wagtail
 djangorestframework==3.13.1  # via -r requirements/base.txt, wagtail
+djhtml==1.5.1             # via -r requirements/dev.in
 draftjs-exporter==2.1.7   # via -r requirements/base.txt, wagtail
 et-xmlfile==1.1.0         # via -r requirements/base.txt, openpyxl
 flake8==4.0.1             # via -r requirements/dev.in

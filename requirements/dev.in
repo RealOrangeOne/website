@@ -11,3 +11,4 @@ django-debug-toolbar
 types-requests
 mypy
 curlylint
+djhtml

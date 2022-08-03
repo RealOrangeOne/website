@@ -108,6 +108,11 @@ curlylint:
   script:
     - curlylint .
 
+djhtml:
+  <<: *python_test_template
+  script:
+    - git ls-files '*.html' | xargs djhtml --check --tabwidth 2
+
 prettier:
   <<: *node_test_template
   script:
