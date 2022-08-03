@@ -8,7 +8,6 @@ from django.views.decorators.http import require_GET
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 from wagtail.query import PageQuerySet
-from wagtail.search.models import Query
 from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentMixin, BasePage
@@ -69,7 +68,6 @@ class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore
         }
 
         filters, query = parse_query_string(search_query)
-        Query.get(search_query).add_hit()
         pages = Page.objects.live().not_type(self.__class__, HomePage).search(query)
 
         paginator = Paginator(pages, self.PAGE_SIZE)
