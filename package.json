@@ -20,9 +20,7 @@
   },
   "author": "Jake Howard",
   "devDependencies": {
-    "esbuild": "^0.14.43",
     "eslint": "^8.21.0",
-    "npm-run-all": "^4.1.5",
     "prettier": "2.6.2",
     "sass": "^1.52.3",
     "stylelint": "^14.9.1",
@@ -34,11 +32,13 @@
     "bulma": "^0.9.4",
     "darkreader": "^4.9.51",
     "elevator.js": "^1.0.1",
+    "esbuild": "^0.14.43",
     "firacode": "^6.2.0",
     "htmx.org": "^1.8.0",
     "lite-youtube-embed": "^0.2.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
+    "npm-run-all": "^4.1.5",
     "shareon": "^2.0.0"
   }
 }
