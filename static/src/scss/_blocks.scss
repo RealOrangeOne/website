@@ -1,7 +1,6 @@
 @mixin center-block($width: 85%, $mobile-width: 90%) {
   width: $width;
   margin: 0 auto;
-
   max-width: $width;
   min-width: $width;
 
