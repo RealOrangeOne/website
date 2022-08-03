@@ -6,9 +6,10 @@ DEV_COMPOSE := justfile_directory() + "/docker/dev/docker-compose.yml"
 @default:
   just --list
 
-@build:
+build:
   docker-compose -f {{ DEV_COMPOSE }} pull
   docker-compose -f {{ DEV_COMPOSE }} build
+  docker-compose -f {{ DEV_COMPOSE }} run --rm --no-deps web npm ci
 
 @compose +ARGS:
   docker-compose -f {{ DEV_COMPOSE }} {{ ARGS }}
