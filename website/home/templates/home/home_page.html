@@ -6,7 +6,11 @@
   <main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
     <div class="heading-wrapper">
       <h1>{{ page.heading }}</h1>
-      <input id="search-input" class="input" type="text" placeholder="Search">
+      {% if search_page %}
+        <form action="{% pageurl search_page %}">
+          <input id="search-input" class="input" type="text" placeholder="Search" name="q">
+        </form>
+      {% endif %}
     </div>
 
     {% if latest_blog_post %}

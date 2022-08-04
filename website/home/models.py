@@ -21,8 +21,13 @@ class HomePage(BasePage):
     ]
 
     def get_context(self, request: HttpRequest) -> dict:
+        from website.search.models import SearchPage
+
         context = super().get_context(request)
         context["latest_blog_post"] = (
             BlogPostPage.objects.live().defer_streamfields().order_by("-date").first()
+        )
+        context["search_page"] = (
+            SearchPage.objects.all().live().defer_streamfields().first()
         )
         return context
