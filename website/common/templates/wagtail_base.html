@@ -3,3 +3,56 @@
 {% block body_class %}{{ page.body_class }}{% endblock %}
 
 {% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+
+{% block main_content %}
+  {% if page.hero_image_url %}
+    <img class="hero" src="{{ page.hero_image_url }}">
+  {% endif %}
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-body">
+        <div class="columns">
+          <div class="column">
+            {% include "common/breadcrumbs.html" with parents=page.get_parent_pages %}
+            <h1 class="title is-spaced">{{ page.title }}</h1>
+            {% if page.subtitle %}
+              <h2 class="subtitle">{{ page.subtitle }}</h2>
+            {% endif %}
+
+            {% include "common/content-details.html" %}
+          </div>
+          <div class="column is-narrow dropdown-wrapper is-hidden-touch is-grouped">
+            {% if page.table_of_contents %}
+              <div class="dropdown is-hoverable is-right" id="table-of-contents">
+                <div class="dropdown-trigger">
+                  <button class="button is-radiusless" aria-haspopup="true" aria-controls="toc-menu">
+                    <span>Table of Contents</span>
+                    <span class="icon is-small">
+                      <i class="fas fa-angle-down" aria-hidden="true"></i>
+                    </span>
+                  </button>
+                </div>
+                <div class="dropdown-menu" id="toc-menu" role="menu">
+                  <div class="dropdown-content menu">
+                    <ul class="menu-list">
+                      {% for toc_item in page.table_of_contents %}
+                        {% include "common/toc-item.html" %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+
+            <button class="button is-radiusless scroll-top">Top <i class="fas fa-angle-up ml-2" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% block pre_content %}{% endblock %}
+  {% block content %}{% endblock %}
+  {% block post_content %}{% endblock %}
+{% endblock %}

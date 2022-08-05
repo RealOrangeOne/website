@@ -3,15 +3,11 @@
 {% load static %}
 
 {% block content %}
-
-  {% include "common/hero.html" %}
-
-  <section class="container content">
-    {{ page.body_html|safe }}
-  </section>
-
-  {% include "common/shareon.html" %}
-
+  {% if page.body_html %}
+    <section class="container content">
+      {{ page.body_html|safe }}
+    </section>
+  {% endif %}
 {% endblock %}
 
 {% block extra_css %}

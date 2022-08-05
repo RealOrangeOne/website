@@ -1,19 +1,9 @@
-{% extends "wagtail_base.html" %}
+{% extends "common/content_page.html" %}
 
-{% block content %}
-
-  {% include "common/hero.html" %}
-
-  {% if page.body_html %}
-    <section class="container content">
-      {{ page.body_html|safe }}
-    </section>
-  {% endif %}
-
+{% block post_content %}
   <section class="container">
     {% for tag in tags %}
       {% include "common/listing-item.html" with page=tag %}
     {% endfor %}
   </section>
-
-{% endblock content %}
+{% endblock %}
