@@ -1,6 +1,7 @@
 from django.template import Library
 
 from website.home.models import HomePage
+from website.search.models import SearchPage
 
 register = Library()
 
@@ -14,4 +15,5 @@ def navbar() -> dict:
         .live()
         .filter(show_in_menus=True)
         .order_by("title"),
+        "search_page": SearchPage.objects.all().live().defer_streamfields().first(),
     }
