@@ -1,5 +1,5 @@
 [tool.curlylint]
-include = '/(website|templates)/.*\.html'
+include = '/website/.*\.html'
 exclude = '''
 (
     navbar\.html
