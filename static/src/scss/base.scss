@@ -2,6 +2,7 @@
 @use "sass:color";
 
 @use "bulma_overrides" as *;
+@use "mixins" as *;
 
 @import "bulma/bulma";
 
@@ -29,4 +30,10 @@ main {
 
 a {
   transition: color 0.25s, background-color 0.25s;
+
+  @include dark-mode {
+    &:hover {
+      color: $grey-lighter;
+    }
+  }
 }

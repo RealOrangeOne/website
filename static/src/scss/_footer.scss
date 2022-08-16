@@ -1,4 +1,9 @@
 footer.footer {
   margin-top: auto;
   padding: 1rem;
+
+  @include dark-mode {
+    background-color: $dark;
+    color: $grey-light;
+  }
 }
