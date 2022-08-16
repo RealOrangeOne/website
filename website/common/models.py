@@ -83,11 +83,15 @@ class BaseContentMixin(models.Model):
 
     @cached_property
     def body_html(self) -> str:
-        return add_heading_anchors(str(self.body))
+        return add_heading_anchors(self._body_html)
+
+    @cached_property
+    def _body_html(self) -> str:
+        return str(self.body)
 
     @cached_property
     def content_html(self) -> str:
-        return get_content_html(str(self.body))
+        return get_content_html(self._body_html)
 
     @cached_property
     def plain_text(self) -> str:
