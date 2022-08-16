@@ -10,19 +10,17 @@ from wagtail.models import Page
 from wagtail.query import PageQuerySet
 from wagtail.search.utils import parse_query_string
 
-from website.common.models import BaseContentMixin, BasePage
+from website.common.models import BaseContentPage
 from website.common.utils import TocEntry
 from website.home.models import HomePage
 
 from .serializers import MIN_SEARCH_LENGTH, SearchParamsSerializer
 
 
-class SearchPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore[misc]
+class SearchPage(RoutablePageMixin, BaseContentPage):
     max_count = 1
     subpage_types: list = []
     parent_page_types = ["home.HomePage"]
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
     PAGE_SIZE = 15
 
     @cached_property

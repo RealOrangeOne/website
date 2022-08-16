@@ -6,7 +6,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
-from website.common.models import BaseContentMixin, BasePage
+from website.common.models import BaseContentPage
 from website.common.utils import TocEntry
 
 
@@ -36,11 +36,9 @@ class OnlineAccount(models.Model, index.Indexed):
         return slugify(self.name)
 
 
-class ContactPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class ContactPage(BaseContentPage):
     max_count = 1
     subpage_types: list = []
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def reading_time(self) -> int:

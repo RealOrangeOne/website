@@ -11,11 +11,11 @@ from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.query import PageQuerySet
 
-from website.common.models import BaseContentMixin, BasePage
+from website.common.models import BaseContentPage
 from website.common.utils import TocEntry
 
 
-class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore[misc]
+class BlogListPage(RoutablePageMixin, BaseContentPage):
     max_count = 1
     subpage_types = [
         "blog.BlogPostPage",
@@ -23,8 +23,6 @@ class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: igno
         "blog.BlogCollectionListPage",
         "blog.BlogCollectionPage",
     ]
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def reading_time(self) -> int:
@@ -69,28 +67,23 @@ class BlogListPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: igno
         )(request)
 
 
-class BlogPostPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class BlogPostPage(BaseContentPage):
     subpage_types: list[Any] = []
     parent_page_types = [BlogListPage, "blog.BlogCollectionPage"]
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     tags = ParentalManyToManyField("blog.BlogPostTagPage", blank=True)
     date = models.DateField(default=timezone.now)
 
-    content_panels = (
-        BasePage.content_panels
-        + BaseContentMixin.content_panels
-        + [FieldPanel("date"), FieldPanel("tags")]
-    )
+    content_panels = BaseContentPage.content_panels + [
+        FieldPanel("date"),
+        FieldPanel("tags"),
+    ]
 
 
-class BlogPostTagListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class BlogPostTagListPage(BaseContentPage):
     max_count = 1
     parent_page_types = [BlogListPage]
     subpage_types = ["blog.BlogPostTagPage"]
-
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
@@ -105,12 +98,9 @@ class BlogPostTagListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         return context
 
 
-class BlogPostTagPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: ignore[misc]
+class BlogPostTagPage(RoutablePageMixin, BaseContentPage):
     subpage_types: list[Any] = []
     parent_page_types = [BlogPostTagListPage]
-
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
@@ -136,13 +126,10 @@ class BlogPostTagPage(BaseContentMixin, RoutablePageMixin, BasePage):  # type: i
         )(request)
 
 
-class BlogCollectionListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class BlogCollectionListPage(BaseContentPage):
     subpage_types: list[Any] = []
     parent_page_types = [BlogListPage]
     max_count = 1
-
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
@@ -160,12 +147,9 @@ class BlogCollectionListPage(BaseContentMixin, BasePage):  # type: ignore[misc]
         return context
 
 
-class BlogCollectionPage(BaseContentMixin, BasePage):  # type: ignore[misc]
+class BlogCollectionPage(BaseContentPage):
     parent_page_types = [BlogListPage]
     subpage_types = [BlogPostPage]
-
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:

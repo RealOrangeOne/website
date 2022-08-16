@@ -37,7 +37,7 @@ class BasePage(Page):
         return self.get_ancestors().exclude(depth__lte=2)
 
 
-class BaseContentMixin(models.Model):
+class BaseContentPage(BasePage):
     subtitle = models.CharField(max_length=255, blank=True)
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
@@ -47,14 +47,14 @@ class BaseContentMixin(models.Model):
     )
     body = StreamField(get_blocks(), blank=True, use_json_field=True)
 
-    content_panels = [
+    content_panels = BasePage.content_panels + [
         FieldPanel("subtitle"),
         FieldPanel("hero_image"),
         FieldPanel("hero_unsplash_photo", widget=UnsplashPhotoChooser),
         FieldPanel("body"),
     ]
 
-    search_fields = [
+    search_fields = BasePage.search_fields + [
         index.SearchField("body"),
         index.SearchField("subtitle"),
     ]
@@ -106,16 +106,11 @@ class BaseContentMixin(models.Model):
         return None
 
 
-class ContentPage(BasePage, BaseContentMixin):  # type: ignore[misc]
+class ContentPage(BaseContentPage):
     subpage_types: list[Any] = []
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
 
 
-class ListingPage(BasePage, BaseContentMixin):  # type: ignore[misc]
-    content_panels = BasePage.content_panels + BaseContentMixin.content_panels
-    search_fields = BasePage.search_fields + BaseContentMixin.search_fields
-
+class ListingPage(BaseContentPage):
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["child_pages"] = (
