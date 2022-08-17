@@ -23,29 +23,31 @@
             {% include "common/content-details.html" %}
           </div>
           <div class="column is-narrow dropdown-wrapper is-hidden-touch is-grouped">
-            {% if page.table_of_contents %}
-              <div class="dropdown is-hoverable is-right" id="table-of-contents">
-                <div class="dropdown-trigger">
-                  <button class="button is-radiusless" aria-haspopup="true" aria-controls="toc-menu">
-                    <span>Table of Contents</span>
-                    <span class="icon is-small">
-                      <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                  </button>
-                </div>
-                <div class="dropdown-menu" id="toc-menu" role="menu">
-                  <div class="dropdown-content menu">
-                    <ul class="menu-list">
-                      {% for toc_item in page.table_of_contents %}
-                        {% include "common/toc-item.html" %}
-                      {% endfor %}
-                    </ul>
+            {% block hero_buttons %}
+              {% if page.table_of_contents %}
+                <div class="dropdown is-hoverable is-right" id="table-of-contents">
+                  <div class="dropdown-trigger">
+                    <button class="button is-radiusless" aria-haspopup="true" aria-controls="toc-menu">
+                      <span>Table of Contents</span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="toc-menu" role="menu">
+                    <div class="dropdown-content menu">
+                      <ul class="menu-list">
+                        {% for toc_item in page.table_of_contents %}
+                          {% include "common/toc-item.html" %}
+                        {% endfor %}
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-            {% endif %}
+              {% endif %}
 
-            <button class="button is-radiusless scroll-top">Top <i class="fas fa-angle-up ml-2" aria-hidden="true"></i></button>
+              <button class="button is-radiusless scroll-top">Top <i class="fas fa-angle-up ml-2" aria-hidden="true"></i></button>
+            {% endblock %}
           </div>
         </div>
       </div>
