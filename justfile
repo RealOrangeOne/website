@@ -26,6 +26,11 @@ build:
 test *ARGS:
   ./manage.py test {{ ARGS }}
 
+coverage:
+  coverage run ./manage.py test --keepdb
+  coverage report
+  coverage html
+
 format:
   black .
   isort .
