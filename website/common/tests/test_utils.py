@@ -1,33 +1,13 @@
-from django.template.loader import get_template
 from django.test import SimpleTestCase
 from wagtail.rich_text import features as richtext_feature_registry
 
-from .embed import YouTubeLiteEmbedFinder
-from .models import BasePage
-from .rich_text import (
+from website.common.embed import YouTubeLiteEmbedFinder
+from website.common.rich_text import (
     RICH_TEXT_FEATURES,
     RICH_TEXT_FEATURES_PLAIN,
     RICH_TEXT_FEATURES_SIMPLE,
 )
-from .streamfield import IGNORE_HEADING_BLOCKS, IGNORE_PLAINTEXT_BLOCKS, get_blocks
-from .utils import count_words, extract_text, get_page_models, get_table_of_contents
-
-
-class BasePageTestCase(SimpleTestCase):
-    def test_unique_body_classes(self) -> None:
-        body_classes = [page.body_class for page in get_page_models()]
-        self.assertEqual(len(body_classes), len(set(body_classes)))
-
-    def test_pages_inherit_base_page(self) -> None:
-        for page_model in get_page_models():
-            self.assertTrue(
-                issubclass(page_model, BasePage),
-                f"{page_model} does not inherit from {BasePage}.",
-            )
-
-    def test_pages_have_template(self) -> None:
-        for page in get_page_models():
-            get_template(page.template)
+from website.common.utils import count_words, extract_text, get_table_of_contents
 
 
 class YouTubeLiteEmbedFinderTestCase(SimpleTestCase):
@@ -125,20 +105,6 @@ class CountWordsTestCase(SimpleTestCase):
         self.assertEqual(count_words("a b c"), 3)
         self.assertEqual(count_words("Correct Horse Battery Staple"), 4)
         self.assertEqual(count_words("Hello there! How are you?"), 5)
-
-
-class StreamFieldBlocksTestCase(SimpleTestCase):
-    def test_ignored_plaintext_blocks(self) -> None:
-        plaintext_block_classes = [c[1].__class__ for c in get_blocks()]
-
-        for block_class in IGNORE_PLAINTEXT_BLOCKS:
-            self.assertIn(block_class, plaintext_block_classes)
-
-    def test_ignored_heading_blocks(self) -> None:
-        heading_block_classes = [c[1].__class__ for c in get_blocks()]
-
-        for block_class in IGNORE_HEADING_BLOCKS:
-            self.assertIn(block_class, heading_block_classes)
 
 
 class RichTextFeaturesTestCase(SimpleTestCase):
