@@ -1,0 +1,24 @@
+{% extends "common/content_page.html" %}
+
+{% block post_content %}
+  <section class="container content">
+    <h3>{{ playlist.name }}</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+          <th>Track</th>
+          <th>Artist</th>
+          <th>Album</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% include "spotify/spotify-items.html" with tracks=playlist.tracks.items %}
+      </tbody>
+    </table>
+  </section>
+  <section class="container">
+    <a href="{{ playlist.external_urls.spotify }}"><i class="fab fa-spotify"></i> View on Spotify</a>
+  </section>
+{% endblock %}

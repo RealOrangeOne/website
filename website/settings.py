@@ -9,6 +9,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     BASE_HOSTNAME=(str, "example.com"),
     UNSPLASH_CLIENT_ID=(str, ""),
+    SPOTIFY_PROXY_HOST=(str, ""),
 )
 
 # Read local secrets
@@ -30,6 +31,7 @@ INSTALLED_APPS = [
     "website.blog",
     "website.images",
     "website.contact",
+    "website.spotify",
     "website.contrib.code_block",
     "website.contrib.mermaid_block",
     "website.contrib.unsplash",
@@ -178,6 +180,7 @@ WAGTAILEMBEDS_FINDERS = [
 ]
 
 UNSPLASH_CLIENT_ID = env("UNSPLASH_CLIENT_ID")
+SPOTIFY_PROXY_HOST = env("SPOTIFY_PROXY_HOST")
 
 
 if DEBUG:

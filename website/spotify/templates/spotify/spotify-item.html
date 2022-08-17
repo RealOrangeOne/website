@@ -1,0 +1,17 @@
+{% with url=track.external_urls.spotify %}
+  <tr>
+    <td>
+      <a href="{{ url }}">
+        <img src="{{ track.album.images.0.url }}" decoding="async" loading="lazy" referrerpolicy="no-referrer" class="image"/>
+      </a>
+    </td>
+    <td>
+      {% if track.preview_url %}
+        <a href="{{ track.preview_url }}"><i class="fas fa-play"></i></a>
+      {% endif %}
+    </td>
+    <td><a href="{{ url }}">{{ track.name }}</a></td>
+    <td>{% for artist in track.artists %}{% if not forloop.first %}, {% endif %}{{ artist.name }}{% endfor %}</td>
+    <td>{{ track.album.name }}</td>
+  </tr>
+{% endwith %}
