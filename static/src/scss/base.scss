@@ -30,10 +30,4 @@ main {
 
 a {
   transition: color 0.25s, background-color 0.25s;
-
-  @include dark-mode {
-    &:not(.button):hover {
-      color: $grey-lighter;
-    }
-  }
 }

@@ -5,5 +5,9 @@ footer.footer {
   @include dark-mode {
     background-color: $dark;
     color: $grey-light;
+
+    a:hover {
+      color: $grey-lighter;
+    }
   }
 }
