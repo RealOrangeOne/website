@@ -1,3 +1,4 @@
+from datetime import timedelta
 from functools import cached_property
 
 from django.core.cache import cache
@@ -23,23 +24,38 @@ class SpotifyPlaylistPage(BaseContentPage):
         max_length=32, unique=True, validators=[validate_playlist_id]
     )
 
-    content_panels = BaseContentPage.content_panels + [
-        FieldPanel("spotify_playlist_id")
-    ]
+    content_panels = [
+        panel
+        for panel in BaseContentPage.content_panels
+        if panel.field_name != "subtitle"
+    ] + [FieldPanel("spotify_playlist_id")]
 
     @property
     def table_of_contents(self) -> list:
         return []
 
-    @property
+    @cached_property
     def reading_time(self) -> int:
-        return 0
+        return int(
+            timedelta(
+                milliseconds=sum(
+                    track["track"]["duration_ms"]
+                    for track in self.playlist_data["tracks"]
+                )
+            ).total_seconds()
+            / 60
+        )
+
+    @cached_property
+    def subtitle(self) -> int:
+        return self.playlist_data["description"]
 
     @cached_property
     def playlist_cache_key(self) -> str:
         return f"spotify_playlist_{self.spotify_playlist_id}"
 
-    def get_playlist_data(self) -> dict:
+    @cached_property
+    def playlist_data(self) -> dict:
         playlist_data = cache.get(self.playlist_cache_key)
 
         if playlist_data is None:
@@ -51,5 +67,5 @@ class SpotifyPlaylistPage(BaseContentPage):
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
-        context["playlist"] = self.get_playlist_data()
+        context["playlist"] = self.playlist_data
         return context
