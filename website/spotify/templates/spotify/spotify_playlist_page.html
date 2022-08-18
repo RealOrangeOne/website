@@ -2,7 +2,7 @@
 
 {% block post_content %}
   <section class="container content">
-    <h3>{{ playlist.name }}</h3>
+    <p><a href="{{ playlist.external_urls.spotify }}"><i class="fab fa-spotify"></i> View on Spotify</a></p>
     <table class="table is-hoverable is-fullwidth">
       <thead>
         <tr>
@@ -19,8 +19,5 @@
         {% endfor %}
       </tbody>
     </table>
-  </section>
-  <section class="container">
-    <a href="{{ playlist.external_urls.spotify }}"><i class="fab fa-spotify"></i> View on Spotify</a>
   </section>
 {% endblock %}
