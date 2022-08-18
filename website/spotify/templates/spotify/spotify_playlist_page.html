@@ -14,7 +14,9 @@
         </tr>
       </thead>
       <tbody>
-        {% include "spotify/spotify-items.html" with tracks=playlist.tracks %}
+        {% for track in playlist.tracks %}
+          {% include "spotify/spotify-item.html" with track=track.track %}
+        {% endfor %}
       </tbody>
     </table>
   </section>
