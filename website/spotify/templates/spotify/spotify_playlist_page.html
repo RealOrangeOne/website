@@ -1,8 +1,12 @@
 {% extends "common/content_page.html" %}
 
+{% block hero_buttons %}
+  <a class="button is-radiusless" href="{{ playlist.external_urls.spotify }}" title="Open on Spotify"><i class="fab fa-spotify" aria-hidden="true"></i></a>
+  {{ block.super }}
+{% endblock %}
+
 {% block post_content %}
   <section class="container content">
-    <p><a href="{{ playlist.external_urls.spotify }}"><i class="fab fa-spotify"></i> View on Spotify</a></p>
     <table class="table is-hoverable is-fullwidth">
       <thead>
         <tr>
