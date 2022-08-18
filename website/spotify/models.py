@@ -1,3 +1,6 @@
+from functools import cached_property
+
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.http.request import HttpRequest
@@ -32,7 +35,21 @@ class SpotifyPlaylistPage(BaseContentPage):
     def reading_time(self) -> int:
         return 0
 
+    @cached_property
+    def playlist_cache_key(self) -> str:
+        return f"spotify_playlist_{self.spotify_playlist_id}"
+
+    def get_playlist_data(self) -> dict:
+        playlist_data = cache.get(self.playlist_cache_key)
+
+        if playlist_data is None:
+            playlist_data = client.get_playlist(self.spotify_playlist_id)
+            # Cache for 1 week
+            cache.set(self.playlist_cache_key, playlist_data, 604800)
+
+        return playlist_data
+
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
-        context["playlist"] = client.get_playlist(self.spotify_playlist_id)
+        context["playlist"] = self.get_playlist_data()
         return context
