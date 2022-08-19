@@ -48,9 +48,10 @@ sqlparse==0.4.2           # via django
 tablib[xls,xlsx]==3.2.1   # via wagtail
 telepath==0.2             # via wagtail
 urllib3==1.26.11          # via requests
-wagtail==3.0.1            # via -r requirements/base.in, wagtail-draftail-snippet
+wagtail==3.0.1            # via -r requirements/base.in, wagtail-draftail-snippet, wagtail-metadata
 wagtail-draftail-snippet==0.4.1  # via -r requirements/base.in
 wagtail-generic-chooser==0.4.1  # via -r requirements/base.in
+wagtail-metadata==4.0.0   # via -r requirements/base.in
 webencodings==0.5.1       # via html5lib
 whitenoise[brotli]==6.2.0  # via -r requirements/base.in
 willow==1.4.1             # via wagtail

@@ -12,6 +12,7 @@ from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page, PageQuerySet
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
+from wagtailmetadata.models import MetadataMixin
 
 from website.common.utils import count_words
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
@@ -37,7 +38,7 @@ class BasePage(Page):
         return self.get_ancestors().exclude(depth__lte=2)
 
 
-class BaseContentPage(BasePage):
+class BaseContentPage(BasePage, MetadataMixin):
     subtitle = models.CharField(max_length=255, blank=True)
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
@@ -112,6 +113,21 @@ class BaseContentPage(BasePage):
         elif self.hero_image_id is not None:
             return generate_image_url(self.hero_image, "width-400")
         return None
+
+    def get_meta_url(self) -> str:
+        return self.full_url
+
+    def get_meta_image_url(self, request: HttpRequest) -> Optional[str]:
+        return self.hero_image_url
+
+    def get_meta_title(self) -> str:
+        return self.seo_title or self.title
+
+    def get_meta_description(self) -> str:
+        return self.summary
+
+    def get_object_title(self) -> str:
+        return ""
 
 
 class ContentPage(BaseContentPage):

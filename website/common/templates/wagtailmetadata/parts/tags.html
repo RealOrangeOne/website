@@ -1,0 +1,23 @@
+{% extends "wagtailmetadata/parts/tags.html" %}
+
+{% block twitter %}
+  {{ block.super }}
+  {% if object.reading_time %}
+    <meta name="twitter:label1" content="Reading time" />
+    <meta name="twitter:data1" content="{{ object.reading_time }} minutes" />
+  {% endif %}
+{% endblock %}
+
+{% block opengraph %}
+  {{ block.super }}
+
+  <meta name="article:modified_time" content="{{ object.last_published_at|date:'c' }}" />
+  {% if object.date %}
+    <meta name="article:published_time" content="{{ object.date|date:'c' }}" />
+  {% endif %}
+{% endblock %}
+
+{% block meta %}
+  {{ block.super }}
+  <meta name="canonical" content="{{ object.get_meta_url }}" />
+{% endblock %}

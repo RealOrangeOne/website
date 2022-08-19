@@ -77,10 +77,11 @@ types-requests==2.28.5    # via -r requirements/dev.in
 types-urllib3==1.26.17    # via types-requests
 typing-extensions==4.3.0  # via mypy
 urllib3==1.26.11          # via -r requirements/base.txt, requests
-wagtail==3.0.1            # via -r requirements/base.txt, wagtail-draftail-snippet, wagtail-factories
+wagtail==3.0.1            # via -r requirements/base.txt, wagtail-draftail-snippet, wagtail-factories, wagtail-metadata
 wagtail-draftail-snippet==0.4.1  # via -r requirements/base.txt
 wagtail-factories==3.1.0  # via -r requirements/dev.in
 wagtail-generic-chooser==0.4.1  # via -r requirements/base.txt
+wagtail-metadata==4.0.0   # via -r requirements/base.txt
 webencodings==0.5.1       # via -r requirements/base.txt, html5lib
 wheel==0.37.1             # via pip-tools
 whitenoise[brotli]==6.2.0  # via -r requirements/base.txt
