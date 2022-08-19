@@ -15,7 +15,8 @@ class Error404View(TemplateView):
     template_name = ERROR_404_TEMPLATE_NAME
 
     def render_to_response(self, context: dict, **response_kwargs: Any) -> HttpResponse:
-        response_kwargs["status"] = 404
+        if self.request.resolver_match.url_name != "404":
+            response_kwargs["status"] = 404
         return super().render_to_response(context, **response_kwargs)
 
     def get_context_data(self, **kwargs: dict) -> dict:

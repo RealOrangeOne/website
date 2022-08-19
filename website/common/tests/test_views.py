@@ -7,10 +7,16 @@ class Error404PageTestCase(TestCase):
 
     def test_accessible(self) -> None:
         response = self.client.get(self.url)
-        self.assertEqual(response.status_code, 404)
+        self.assertContains(response, "<h1>There's nothing here!</h1>", html=True)
+
+    def test_actual_404(self) -> None:
+        response = self.client.get("/does-not-exist/")
+        self.assertContains(
+            response, "<h1>There's nothing here!</h1>", html=True, status_code=404
+        )
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(10):
+        with self.assertNumQueries(8):
             self.client.get(self.url)
 
 
