@@ -1,11 +1,21 @@
 {% extends "base.html" %}
 
+{% load static wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}page-404{% endblock %}
+
 {% block title %}Page not found{% endblock %}
 
-{% block body_class %}template-404{% endblock %}
+{% block main_content %}
+  <marquee {% if homepage.image %}style="background-image: url({% image_url homepage.image 'width-1200' %})"{% endif %} class="outer" direction="down" behavior="alternate" scrolldelay="15" truespeed scrollamount="2">
+    <marquee class="inner" behavior="alternate" scrolldelay="15" scrollamount="3" truespeed>
+      <a href="{% pageurl homepage %}">🤷</a>
+    </marquee>
+  </marquee>
 
-{% block content %}
-  <h1>Page not found</h1>
-
-  <h2>Sorry, this page could not be found.</h2>
+  <div class="content-wrapper">
+    <h1>There's nothing here!</h1>
+    <p>The page you are looking for could not be found.</p>
+    <p><a href="{% pageurl homepage %}">Go home</a></p>
+  </div>
 {% endblock %}

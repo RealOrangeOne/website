@@ -6,6 +6,8 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
 
+from website.common.views import page_not_found
+
 urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
@@ -19,7 +21,12 @@ urlpatterns = [
         name="wagtailimages_serve",
     ),
     path("sitemap.xml", sitemap),
+    path("404/", page_not_found, name="404"),
 ]
+
+
+if not settings.DEBUG:
+    handler404 = "website.common.views.page_not_found"
 
 
 if settings.DEBUG:

@@ -1,0 +1,43 @@
+body.page-404 {
+  main {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    color: $white;
+  }
+
+  .content-wrapper {
+    position: absolute;
+    text-align: center;
+    background-color: color.adjust($dark, $alpha: -0.2);
+    border-radius: $input-radius;
+    padding: 2rem;
+
+    h1 {
+      font-size: 5rem;
+    }
+
+    p {
+      font-size: 110%;
+    }
+
+    a:hover {
+      color: $grey-lighter;
+    }
+  }
+
+  marquee {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+
+    &.outer {
+      font-size: 5rem;
+    }
+  }
+}
