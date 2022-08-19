@@ -5,6 +5,7 @@ from django.utils import lorem_ipsum
 from django.utils.html import format_html_join
 from django.utils.text import slugify
 from wagtail import blocks
+from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -73,6 +74,19 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
         ("code", CodeBlock()),
         ("tangent", TangentBlock()),
         ("mermaid", MermaidBlock()),
+        (
+            "table",
+            TypedTableBlock(
+                [
+                    (
+                        "rich_text",
+                        blocks.RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN),
+                    ),
+                    ("numeric", blocks.FloatBlock()),
+                    ("text", blocks.CharBlock()),
+                ]
+            ),
+        ),
     ]
 
 
