@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.http.response import HttpResponse
+from django.urls import reverse
 from django.views.defaults import ERROR_404_TEMPLATE_NAME
 from django.views.generic import TemplateView
 
@@ -21,3 +22,13 @@ class Error404View(TemplateView):
 
 
 page_not_found = Error404View.as_view()
+
+
+class RobotsView(TemplateView):
+    template_name = "robots.txt"
+    content_type = "text/plain"
+
+    def get_context_data(self, **kwargs: dict) -> dict:
+        context = super().get_context_data(**kwargs)
+        context["sitemap"] = self.request.build_absolute_uri(reverse("sitemap"))
+        return context

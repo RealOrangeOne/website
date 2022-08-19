@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: {% url "wagtailadmin_home" %}
+
+Sitemap: {{ sitemap }}
