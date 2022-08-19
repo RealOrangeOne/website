@@ -24,11 +24,8 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
     PAGE_SIZE = 15
 
     @cached_property
-    def reading_time(self) -> int:
-        """
-        How does one read a search page?
-        """
-        return 0
+    def show_reading_time(self) -> bool:
+        return False
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:

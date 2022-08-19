@@ -35,15 +35,11 @@ class SpotifyPlaylistPage(BaseContentPage):
         return []
 
     @cached_property
-    def reading_time(self) -> int:
-        return int(
-            timedelta(
-                milliseconds=sum(
-                    track["track"]["duration_ms"]
-                    for track in self.playlist_data["tracks"]
-                )
-            ).total_seconds()
-            / 60
+    def reading_time(self) -> timedelta:
+        return timedelta(
+            milliseconds=sum(
+                track["track"]["duration_ms"] for track in self.playlist_data["tracks"]
+            )
         )
 
     @cached_property

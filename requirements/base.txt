@@ -28,6 +28,7 @@ draftjs-exporter==2.1.7   # via wagtail
 et-xmlfile==1.1.0         # via openpyxl
 gunicorn==20.1.0          # via -r requirements/base.in
 html5lib==1.1             # via wagtail
+humanize==4.3.0           # via -r requirements/base.in
 idna==3.3                 # via requests
 l18n==2021.3              # via wagtail
 lxml==4.9.1               # via -r requirements/base.in

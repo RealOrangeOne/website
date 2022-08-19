@@ -16,3 +16,4 @@ psycopg2
 djangorestframework
 django-htmx
 wagtail-metadata
+humanize

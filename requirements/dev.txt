@@ -40,6 +40,7 @@ flake8==4.0.1             # via -r requirements/dev.in
 gunicorn==20.1.0          # via -r requirements/base.txt
 honcho==1.1.0             # via -r requirements/dev.in
 html5lib==1.1             # via -r requirements/base.txt, wagtail
+humanize==4.3.0           # via -r requirements/base.txt
 idna==3.3                 # via -r requirements/base.txt, requests
 isort==5.10.1             # via -r requirements/dev.in
 l18n==2021.3              # via -r requirements/base.txt, wagtail

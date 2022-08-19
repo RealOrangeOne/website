@@ -1,4 +1,4 @@
-import math
+from datetime import timedelta
 from typing import Any, Optional
 
 from django.db import models
@@ -68,11 +68,18 @@ class BaseContentPage(BasePage, MetadataMixin):
         return get_table_of_contents(self.content_html)
 
     @cached_property
-    def reading_time(self) -> int:
+    def reading_time(self) -> timedelta:
         """
         https://help.medium.com/hc/en-us/articles/214991667-Read-time
         """
-        return int(math.ceil(self.word_count / 265))
+        return timedelta(seconds=(self.word_count / 265) * 60)
+
+    @cached_property
+    def show_reading_time(self) -> bool:
+        """
+        Only show reading time if it's longer than 2 minutes
+        """
+        return self.reading_time.total_seconds() >= 120
 
     @cached_property
     def word_count(self) -> int:

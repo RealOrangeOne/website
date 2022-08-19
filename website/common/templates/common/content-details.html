@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags humanize_tags %}
 
 <div class="content-details field is-grouped is-grouped-multiline {{extra_classes}}">
 
@@ -11,11 +11,11 @@
     </div>
   {% endif %}
 
-  {% if page.reading_time %}
+  {% if page.show_reading_time %}
     <div class="control">
       <div class="tags has-addons">
         <span class="tag is-dark"><i class="far fa-clock"></i></span>
-        <span class="tag is-light" title="{{ page.word_count }} words">{{ page.reading_time }} minutes</span>
+        <span class="tag is-light" title="{{ page.word_count }} words">{{ page.reading_time|naturaldelta }}</span>
       </div>
     </div>
   {% endif %}
