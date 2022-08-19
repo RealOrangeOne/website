@@ -23,7 +23,7 @@ class CodeStructValue(StructValue):
 
 class CodeBlock(StructBlock):
     language = ChoiceBlock(
-        choices=get_language_choices(),
+        choices=get_language_choices,
     )
     source = TextBlock()
 
