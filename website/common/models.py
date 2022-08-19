@@ -100,9 +100,17 @@ class BaseContentPage(BasePage):
     @cached_property
     def hero_image_url(self) -> Optional[str]:
         if self.hero_unsplash_photo_id is not None:
-            return self.hero_unsplash_photo.get_hero_image_url()
+            return self.hero_unsplash_photo.get_image_urls()["regular"]
         elif self.hero_image_id is not None:
             return generate_image_url(self.hero_image, "width-1200")
+        return None
+
+    @cached_property
+    def list_image_url(self) -> Optional[str]:
+        if self.hero_unsplash_photo_id is not None:
+            return self.hero_unsplash_photo.get_image_urls()["small"]
+        elif self.hero_image_id is not None:
+            return generate_image_url(self.hero_image, "width-400")
         return None
 
 
@@ -114,7 +122,11 @@ class ListingPage(BaseContentPage):
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
         context["child_pages"] = (
-            self.get_children().live().specific().select_related("hero_image")
+            self.get_children()
+            .live()
+            .specific()
+            .select_related("hero_image")
+            .select_related("hero_unsplash_photo")
         )
         return context
 

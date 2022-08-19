@@ -1,5 +1,15 @@
+from typing import TypedDict
+
 from django.db import models
 from django.utils import timezone
+
+
+class ImageURLs(TypedDict):
+    raw: str
+    full: str
+    regular: str
+    small: str
+    thumb: str
 
 
 class UnsplashPhoto(models.Model):
@@ -11,8 +21,8 @@ class UnsplashPhoto(models.Model):
     def get_description(self) -> str:
         return self.data["description"]
 
-    def get_hero_image_url(self) -> str:
-        return self.data["urls"]["regular"]
+    def get_image_urls(self) -> ImageURLs:
+        return self.data["urls"]
 
     def get_thumbnail_url(self) -> str:
-        return self.data["urls"]["thumb"]
+        return self.get_image_urls()["thumb"]
