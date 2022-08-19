@@ -13,6 +13,9 @@
     </title>
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% if not SEO_INDEX %}
+      <meta name="robots" content="noindex" />
+    {% endif %}
     {% block extra_head %}{% endblock %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">

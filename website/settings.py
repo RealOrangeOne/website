@@ -10,6 +10,7 @@ env = environ.Env(
     BASE_HOSTNAME=(str, "example.com"),
     UNSPLASH_CLIENT_ID=(str, ""),
     SPOTIFY_PROXY_HOST=(str, ""),
+    SEO_INDEX=(bool, False),
 )
 
 # Read local secrets
@@ -89,6 +90,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "website.utils.context_processors.global_vars",
             ],
         },
     },
@@ -183,6 +185,7 @@ WAGTAILEMBEDS_FINDERS = [
 UNSPLASH_CLIENT_ID = env("UNSPLASH_CLIENT_ID")
 SPOTIFY_PROXY_HOST = env("SPOTIFY_PROXY_HOST")
 
+SEO_INDEX = env("SEO_INDEX")
 
 if DEBUG:
     # Add django-browser-reload
