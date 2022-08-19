@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+{% if contact_page %}
+Contact: {% pageurl contact_page %}
+{% endif %}
+Canonical: {{ security_txt }}
+Expires: {{ expires }}
+Preferred-Languages: en

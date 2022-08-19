@@ -20,3 +20,16 @@ class RobotsViewTestCase(SimpleTestCase):
     def test_accessible(self) -> None:
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["sitemap"], "http://testserver/sitemap.xml")
+
+
+class SecurityViewTestCase(TestCase):
+    url = reverse("securitytxt")
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["security_txt"],
+            "http://testserver/.well-known/security.txt",
+        )
