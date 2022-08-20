@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.urls import include, path, re_path
+from django.views.decorators.cache import cache_page
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
@@ -20,9 +21,13 @@ urlpatterns = [
         ServeView.as_view(action="redirect"),
         name="wagtailimages_serve",
     ),
-    path("sitemap.xml", sitemap, name="sitemap"),
+    path("sitemap.xml", cache_page(60 * 60)(sitemap), name="sitemap"),
     path("robots.txt", RobotsView.as_view(), name="robotstxt"),
-    path(".well-known/security.txt", SecurityView.as_view(), name="securitytxt"),
+    path(
+        ".well-known/security.txt",
+        cache_page(SecurityView.expires.total_seconds())(SecurityView.as_view()),
+        name="securitytxt",
+    ),
     path("404/", page_not_found, name="404"),
 ]
 
