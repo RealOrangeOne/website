@@ -6,3 +6,11 @@
     color: $white;
   }
 }
+
+#dark-mode-toggle i {
+  transition: transform 0.3s;
+
+  @include dark-mode {
+    transform: rotate(180deg);
+  }
+}
