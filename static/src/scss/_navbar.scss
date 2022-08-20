@@ -8,7 +8,7 @@
 }
 
 #dark-mode-toggle i {
-  transition: transform 0.3s;
+  transition: transform 0.5s !important;
 
   @include dark-mode {
     transform: rotate(180deg);

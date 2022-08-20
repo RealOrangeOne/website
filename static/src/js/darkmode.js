@@ -30,4 +30,8 @@ window.addEventListener("load", () => {
   darkModeToggle.addEventListener("click", () => {
     handleDarkMode(window.localStorage.getItem(STORAGE_KEY) !== "true");
   });
+
+  window.setTimeout(() => {
+    body.classList.add("dark-mode-animate");
+  }, 1000);
 });
