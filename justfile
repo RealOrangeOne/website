@@ -34,7 +34,7 @@ coverage:
 format:
   black .
   isort .
-  git ls-files '*.html' | xargs djhtml -i --tabwidth 2
+  find website/ -name '*.html' | xargs djhtml -i --tabwidth 2
   npm run format
 
 lint: lint_python lint_node
@@ -45,7 +45,7 @@ lint_python:
   flake8
   mypy . --show-error-codes
   curlylint .
-  git ls-files '*.html' | xargs djhtml --check --tabwidth 2
+  find website/ -name '*.html' | xargs djhtml --check --tabwidth 2
 
 @lint_node:
   npm run lint
