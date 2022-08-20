@@ -45,13 +45,17 @@ class ContactPage(BaseContentPage):
         return False
 
     @cached_property
+    def online_accounts(self) -> models.QuerySet:
+        return OnlineAccount.objects.all().order_by("name")
+
+    @cached_property
     def table_of_contents(self) -> list[TocEntry]:
         return [
             TocEntry(account.name, account.slug, 0, [])
-            for account in OnlineAccount.objects.all().order_by("name")
+            for account in self.online_accounts
         ]
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
-        context["accounts"] = OnlineAccount.objects.all().order_by("name")
+        context["accounts"] = self.online_accounts
         return context
