@@ -6,6 +6,7 @@
 
 @import "bulma/bulma";
 
+@import "variables";
 @import "navbar";
 @import "homepage";
 @import "footer";
@@ -20,10 +21,15 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-variant-ligatures: none;
+
+  @include dark-mode {
+    background-color: $dark-mode-background;
+    color: $dark-mode-text;
+  }
 }
 
 main {
@@ -32,4 +38,16 @@ main {
 
 a {
   transition: color 0.25s, background-color 0.25s;
+
+  @include dark-mode {
+    &:hover {
+      color: $grey-lighter;
+    }
+  }
+}
+
+.wagtail-userbar {
+  @include dark-mode {
+    filter: invert(100%);
+  }
 }

@@ -3,8 +3,8 @@ footer.footer {
   padding: 1rem;
 
   @include dark-mode {
-    background-color: $dark;
-    color: $grey-light;
+    background-color: $black;
+    color: $dark-mode-text;
 
     a:hover {
       color: $grey-lighter;

@@ -1,11 +1,11 @@
 @mixin dark-mode {
   // Ensure animations aren't for the initial transition
-  body.dark-mode-animate & {
+  html.dark-mode-animate & {
     transition-duration: 0.5s;
-    transition-property: color, background-color;
+    transition-property: color, background-color, border-color, filter;
   }
 
-  body.dark-mode & {
+  html.dark-mode & {
     @content;
   }
 }

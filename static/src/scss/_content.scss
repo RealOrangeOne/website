@@ -41,3 +41,9 @@ section.content {
     max-width: calc(99% - ($column-gap * 2));
   }
 }
+
+.tags.has-addons {
+  @include dark-mode {
+    filter: invert(100%);
+  }
+}

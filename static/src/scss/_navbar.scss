@@ -7,10 +7,20 @@
   }
 }
 
+.navbar-item:hover {
+  background-color: transparent !important;
+}
+
 #dark-mode-toggle i {
   transition: transform 0.5s !important;
 
   @include dark-mode {
     transform: rotate(180deg);
+  }
+}
+
+nav.navbar {
+  @include dark-mode {
+    background-color: $black;
   }
 }

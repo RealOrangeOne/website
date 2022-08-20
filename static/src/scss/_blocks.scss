@@ -46,5 +46,17 @@ div.block-mermaid {
 
   img {
     width: unset;
+
+    @include dark-mode {
+      filter: invert(100%);
+    }
+  }
+}
+
+div.block-code .highlight {
+  pre,
+  span,
+  & {
+    @include dark-mode;
   }
 }

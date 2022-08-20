@@ -14,6 +14,10 @@ section.hero {
   background-color: $white;
   display: block;
 
+  @include dark-mode {
+    background-color: $dark-mode-background;
+  }
+
   &.stuck {
     box-shadow: $shadow;
   }
@@ -36,6 +40,18 @@ section.hero {
     .dropdown-content {
       overflow-y: scroll;
       max-height: 50vh;
+
+      @include dark-mode {
+        background-color: $grey-dark;
+
+        a {
+          color: $dark-mode-text;
+
+          &:hover {
+            background-color: $grey-darker;
+          }
+        }
+      }
     }
 
     ul {
@@ -47,6 +63,18 @@ section.hero {
     }
   }
 
+  .button {
+    @include dark-mode {
+      background-color: $grey-darker;
+      border-color: $black;
+      color: $dark-mode-text;
+
+      &:hover {
+        border-color: $grey-dark;
+      }
+    }
+  }
+
   .subtitle {
     margin-bottom: 0.5rem;
   }
@@ -55,6 +83,10 @@ section.hero {
     margin-bottom: 1.25rem;
     font-weight: 300;
     font-size: 3.5rem;
+
+    @include dark-mode {
+      color: $dark-mode-text;
+    }
   }
 
   .column {

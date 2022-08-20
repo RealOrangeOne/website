@@ -37,7 +37,7 @@ openpyxl==3.0.10          # via tablib
 packaging==21.3           # via redis
 pillow==9.2.0             # via wagtail
 psycopg2==2.9.3           # via -r requirements/base.in
-pygments==2.12.0          # via -r requirements/base.in
+pygments==2.13.0          # via -r requirements/base.in
 pyparsing==3.0.9          # via packaging
 pytz==2022.1              # via django-modelcluster, djangorestframework, l18n
 redis==4.3.4              # via django-redis, django-rq, rq

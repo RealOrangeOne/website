@@ -60,7 +60,7 @@ platformdirs==2.5.2       # via black
 psycopg2==2.9.3           # via -r requirements/base.txt
 pycodestyle==2.8.0        # via flake8
 pyflakes==2.4.0           # via flake8
-pygments==2.12.0          # via -r requirements/base.txt
+pygments==2.13.0          # via -r requirements/base.txt
 pyparsing==3.0.9          # via -r requirements/base.txt, packaging
 python-dateutil==2.8.2    # via faker
 pytz==2022.1              # via -r requirements/base.txt, django-modelcluster, djangorestframework, l18n
