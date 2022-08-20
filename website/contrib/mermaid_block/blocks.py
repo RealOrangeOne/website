@@ -25,7 +25,7 @@ class MermaidStructValue(StructValue):
 
 class MermaidBlock(StructBlock):
     source = TextBlock()
-    caption = RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN)
+    caption = RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN, required=False)
 
     class Meta:
         icon = "edit"

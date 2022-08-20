@@ -37,7 +37,7 @@ class LoremBlock(blocks.StructBlock):
 
 class ImageCaptionBlock(blocks.StructBlock):
     image = ImageChooserBlock()
-    caption = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN)
+    caption = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN, required=False)
 
     class Meta:
         icon = "image"
