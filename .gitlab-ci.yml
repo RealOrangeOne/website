@@ -132,3 +132,12 @@ pip_tools:
     - ./scripts/compile-requirements.sh
     - git diff
     - git diff-index --quiet HEAD --
+
+crontab:
+  image: alpine
+  stage: test
+  dependencies: []
+  before_script:
+    - apk add --no-cache supercronic
+  script:
+    - supercronic -test etc/crontab

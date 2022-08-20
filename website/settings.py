@@ -163,7 +163,7 @@ WAGTAIL_SITE_NAME = "website"
 WAGTAILSEARCH_BACKENDS = {
     "default": {
         "BACKEND": "wagtail.search.backends.database",
-        "AUTO_UPDATE": DEBUG,
+        "AUTO_UPDATE": True,
         "ATOMIC_REBUILD": True,
     }
 }

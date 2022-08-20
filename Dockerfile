@@ -17,6 +17,8 @@ RUN useradd website --create-home -u 1000 && mkdir /app $VIRTUAL_ENV && chown -R
 
 WORKDIR /app
 
+RUN wget https://github.com/aptible/supercronic/releases/download/v0.2.1/supercronic-linux-amd64 -O /usr/local/bin/supercronic && chmod +x /usr/local/bin/supercronic
+
 ENV PATH=${POETRY_HOME}/bin:$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1
 
