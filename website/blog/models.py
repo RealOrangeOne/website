@@ -15,13 +15,13 @@ from website.common.models import BaseContentPage
 from website.common.utils import TocEntry
 
 
-class BlogListPage(RoutablePageMixin, BaseContentPage):
+class BlogPostListPage(RoutablePageMixin, BaseContentPage):
     max_count = 1
     subpage_types = [
         "blog.BlogPostPage",
         "blog.BlogPostTagListPage",
-        "blog.BlogCollectionListPage",
-        "blog.BlogCollectionPage",
+        "blog.BlogPostCollectionListPage",
+        "blog.BlogPostCollectionPage",
     ]
 
     @cached_property
@@ -66,7 +66,7 @@ class BlogListPage(RoutablePageMixin, BaseContentPage):
 
 class BlogPostPage(BaseContentPage):
     subpage_types: list[Any] = []
-    parent_page_types = [BlogListPage, "blog.BlogCollectionPage"]
+    parent_page_types = [BlogPostListPage, "blog.BlogPostCollectionPage"]
 
     tags = ParentalManyToManyField("blog.BlogPostTagPage", blank=True)
     date = models.DateField(default=timezone.now)
@@ -79,7 +79,7 @@ class BlogPostPage(BaseContentPage):
 
 class BlogPostTagListPage(BaseContentPage):
     max_count = 1
-    parent_page_types = [BlogListPage]
+    parent_page_types = [BlogPostListPage]
     subpage_types = ["blog.BlogPostTagPage"]
 
     @cached_property
@@ -106,7 +106,7 @@ class BlogPostTagPage(RoutablePageMixin, BaseContentPage):
         ]
 
     def get_blog_posts(self) -> PageQuerySet:
-        blog_list_page = BlogListPage.objects.all().live().get()
+        blog_list_page = BlogPostListPage.objects.all().live().get()
         return blog_list_page.get_blog_posts().filter(tags=self).order_by("-date")
 
     def get_context(self, request: HttpRequest) -> dict:
@@ -123,9 +123,9 @@ class BlogPostTagPage(RoutablePageMixin, BaseContentPage):
         )(request)
 
 
-class BlogCollectionListPage(BaseContentPage):
+class BlogPostCollectionListPage(BaseContentPage):
     subpage_types: list[Any] = []
-    parent_page_types = [BlogListPage]
+    parent_page_types = [BlogPostListPage]
     max_count = 1
 
     @cached_property
@@ -135,8 +135,8 @@ class BlogCollectionListPage(BaseContentPage):
         ]
 
     def get_collections(self) -> PageQuerySet:
-        blog_list_page = BlogListPage.objects.all().live().get()
-        return BlogCollectionPage.objects.child_of(blog_list_page).live()
+        blog_list_page = BlogPostListPage.objects.all().live().get()
+        return BlogPostCollectionPage.objects.child_of(blog_list_page).live()
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
@@ -144,8 +144,8 @@ class BlogCollectionListPage(BaseContentPage):
         return context
 
 
-class BlogCollectionPage(BaseContentPage):
-    parent_page_types = [BlogListPage]
+class BlogPostCollectionPage(BaseContentPage):
+    parent_page_types = [BlogPostListPage]
     subpage_types = [BlogPostPage]
 
     @cached_property
