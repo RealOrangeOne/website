@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from pygments.styles import get_all_styles
 
-from .utils import PYGMENTS_VERSION, PYGMENTS_VERSION_SLUG
+from .utils import PYGMENTS_VERSION_SLUG
 
 
 class PygmentsStylesTestCase(TestCase):
@@ -11,8 +11,7 @@ class PygmentsStylesTestCase(TestCase):
             with self.subTest(style=style):
                 response = self.client.get(reverse("code-block:styles", args=[style]))
                 self.assertEqual(response.status_code, 200)
-                self.assertEqual(response["Cache-Control"], "max-age=3600, public")
-                self.assertEqual(response["ETag"], f'"{PYGMENTS_VERSION}"')
+                self.assertEqual(response["Cache-Control"], "max-age=3600")
 
     def test_unknown_style(self) -> None:
         response = self.client.get(reverse("code-block:styles", args=["not-a-style"]))
