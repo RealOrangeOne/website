@@ -27,7 +27,7 @@ urlpatterns = [
         name="wagtailimages_serve",
     ),
     path("sitemap.xml", cache_page(60 * 60)(sitemap), name="sitemap"),
-    path("robots.txt", RobotsView.as_view(), name="robotstxt"),
+    path("robots.txt", cache_page(60 * 60)(RobotsView.as_view()), name="robotstxt"),
     path(
         ".well-known/security.txt",
         cache_page(SecurityView.expires.total_seconds())(SecurityView.as_view()),
