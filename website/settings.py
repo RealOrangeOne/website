@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "website.spotify",
     "website.utils",
     "website.well_known",
+    "website.legacy",
     "website.contrib.code_block",
     "website.contrib.mermaid_block",
     "website.contrib.unsplash",
