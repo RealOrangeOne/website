@@ -37,3 +37,11 @@ class RobotsViewTestCase(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Disallow: /")
         self.assertFalse(response.context["SEO_INDEX"])
+
+
+class AllPagesFeedTestCase(TestCase):
+    url = reverse("feed")
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)

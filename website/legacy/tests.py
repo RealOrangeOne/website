@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 
 from website.blog.factories import BlogPostListPageFactory
 from website.home.models import HomePage
@@ -15,3 +16,9 @@ class PostsFeedViewTestCase(TestCase):
         self.assertRedirects(
             response, self.page.url + self.page.reverse_subpage("feed")
         )
+
+
+class AllPagesFeedViewTestCase(TestCase):
+    def test_redirects(self) -> None:
+        response = self.client.get("/index.xml")
+        self.assertRedirects(response, reverse("feed"))
