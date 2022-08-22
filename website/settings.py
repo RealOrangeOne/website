@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     "generic_chooser",
     "wagtail_draftail_snippet",
     "django_rq",
+    "drf_yasg",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -207,3 +208,6 @@ if DEBUG:
 
     # Add Wagtail styleguide
     INSTALLED_APPS.append("wagtail.contrib.styleguide")
+
+
+SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False, "SECURITY_DEFINITIONS": {}}

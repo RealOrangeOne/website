@@ -27,6 +27,7 @@ urlpatterns = [
     path("404/", page_not_found, name="404"),
     path("feed/", AllPagesFeed(), name="feed"),
     path("", include("website.legacy.urls")),
+    path("api/", include("website.api.urls")),
 ]
 
 
