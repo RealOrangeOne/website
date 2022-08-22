@@ -8,6 +8,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
 
 from website.common.views import (
+    MatrixClientView,
     MatrixServerView,
     RobotsView,
     SecurityView,
@@ -37,6 +38,11 @@ urlpatterns = [
         ".well-known/matrix/server",
         cache_page(60 * 60)(MatrixServerView.as_view()),
         name="matrix-server",
+    ),
+    path(
+        ".well-known/matrix/client",
+        cache_page(60 * 60)(MatrixClientView.as_view()),
+        name="matrix-client",
     ),
     path("404/", page_not_found, name="404"),
 ]

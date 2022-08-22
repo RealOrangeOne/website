@@ -59,3 +59,13 @@ class MatrixServerViewTestCase(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
         self.assertTemplateUsed(response, "matrix-server.json")
+
+
+class MatrixClientViewTestCase(SimpleTestCase):
+    url = reverse("matrix-client")
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertTemplateUsed(response, "matrix-client.json")

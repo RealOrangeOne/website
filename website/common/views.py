@@ -59,3 +59,8 @@ class SecurityView(TemplateView):
 class MatrixServerView(TemplateView):
     template_name = "matrix-server.json"
     content_type = "application/json"
+
+
+class MatrixClientView(TemplateView):
+    template_name = "matrix-client.json"
+    content_type = "application/json"
