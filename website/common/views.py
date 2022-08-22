@@ -54,3 +54,8 @@ class SecurityView(TemplateView):
             (timezone.now() + self.expires).replace(microsecond=0).isoformat()
         )
         return context
+
+
+class MatrixServerView(TemplateView):
+    template_name = "matrix-server.json"
+    content_type = "application/json"

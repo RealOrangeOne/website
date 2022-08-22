@@ -49,3 +49,13 @@ class SecurityViewTestCase(TestCase):
             response.context["security_txt"],
             "http://testserver/.well-known/security.txt",
         )
+
+
+class MatrixServerViewTestCase(SimpleTestCase):
+    url = reverse("matrix-server")
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertTemplateUsed(response, "matrix-server.json")
