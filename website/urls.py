@@ -7,13 +7,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
 
-from website.common.views import (
-    MatrixClientView,
-    MatrixServerView,
-    RobotsView,
-    SecurityView,
-    page_not_found,
-)
+from website.common.views import RobotsView, page_not_found
 
 urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
@@ -22,6 +16,7 @@ urlpatterns = [
         "code-block/",
         include("website.contrib.code_block.urls"),
     ),
+    path(".well-known/", include("website.well_known.urls")),
     re_path(
         r"^images/([^/]*)/(\d*)/([^/]*)/[^/]*$",
         ServeView.as_view(action="redirect"),
@@ -29,21 +24,6 @@ urlpatterns = [
     ),
     path("sitemap.xml", cache_page(60 * 60)(sitemap), name="sitemap"),
     path("robots.txt", cache_page(60 * 60)(RobotsView.as_view()), name="robotstxt"),
-    path(
-        ".well-known/security.txt",
-        cache_page(SecurityView.expires.total_seconds() / 2)(SecurityView.as_view()),
-        name="securitytxt",
-    ),
-    path(
-        ".well-known/matrix/server",
-        cache_page(60 * 60)(MatrixServerView.as_view()),
-        name="matrix-server",
-    ),
-    path(
-        ".well-known/matrix/client",
-        cache_page(60 * 60)(MatrixClientView.as_view()),
-        name="matrix-client",
-    ),
     path("404/", page_not_found, name="404"),
 ]
 

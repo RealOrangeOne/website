@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "website.contact",
     "website.spotify",
     "website.utils",
+    "website.well_known",
     "website.contrib.code_block",
     "website.contrib.mermaid_block",
     "website.contrib.unsplash",
