@@ -30,7 +30,7 @@ urlpatterns = [
     path("robots.txt", cache_page(60 * 60)(RobotsView.as_view()), name="robotstxt"),
     path(
         ".well-known/security.txt",
-        cache_page(SecurityView.expires.total_seconds())(SecurityView.as_view()),
+        cache_page(SecurityView.expires.total_seconds() / 2)(SecurityView.as_view()),
         name="securitytxt",
     ),
     path(
