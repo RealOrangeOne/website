@@ -8,7 +8,10 @@ from . import views
 
 app_name = "api"
 
-api_urlpatterns = [path("ping", views.PingAPIView.as_view(), name="ping")]
+api_urlpatterns = [
+    path("ping", views.PingAPIView.as_view(), name="ping"),
+    path("page-links", views.PageLinksAPIView.as_view(), name="page-links"),
+]
 
 schema_view = get_schema_view(
     openapi.Info(
