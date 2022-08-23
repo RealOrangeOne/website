@@ -27,16 +27,13 @@ schema_view = get_schema_view(
 urlpatterns = [
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
-        schema_view.without_ui(cache_timeout=0),
+        schema_view.without_ui(cache_timeout=60 * 60),
         name="schema-json",
     ),
-    re_path(
-        r"^swagger/$",
-        schema_view.with_ui("swagger", cache_timeout=0),
+    path(
+        "swagger/",
+        schema_view.with_ui("swagger", cache_timeout=60 * 60),
         name="schema-swagger-ui",
-    ),
-    re_path(
-        r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
     ),
     path("", RedirectView.as_view(pattern_name="api:schema-swagger-ui")),
 ] + api_urlpatterns
