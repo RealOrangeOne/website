@@ -1,7 +1,9 @@
 from datetime import timedelta
 from typing import Any, Optional
 
+from django.core.cache import cache
 from django.db import models
+from django.dispatch import receiver
 from django.http.request import HttpRequest
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
@@ -94,8 +96,20 @@ class BaseContentPage(BasePage, MetadataMixin):
         return add_heading_anchors(self._body_html)
 
     @cached_property
+    def body_html_cache_key(self) -> str:
+        return f"body_html_{self.id}"
+
+    @cached_property
     def _body_html(self) -> str:
-        return str(self.body)
+        body_html = cache.get(self.body_html_cache_key)
+
+        if body_html is None:
+            body_html = str(self.body)
+
+            # Cache for 1 day
+            cache.set(self.body_html_cache_key, body_html, 86400)
+
+        return body_html
 
     @cached_property
     def content_html(self) -> str:
@@ -135,6 +149,12 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     def get_object_title(self) -> str:
         return ""
+
+
+@receiver(models.signals.post_save)
+def clear_body_html_cache(sender: Any, instance: models.Model, **kwargs: dict) -> None:
+    if isinstance(instance, BaseContentPage):
+        cache.delete(instance.body_html_cache_key)
 
 
 class ContentPage(BaseContentPage):
