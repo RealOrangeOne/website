@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from wagtail.models import Page
 from wagtail.query import PageQuerySet
 
-from website.blog.models import BlogPostListPage
+from website.blog.models import BlogPostPage
 
 from . import filters, serializers
 from .pagination import CustomPageNumberPagination
@@ -45,4 +45,6 @@ class LMOTFYAPIView(ListAPIView):
     pagination_class = CustomPageNumberPagination
 
     def get_queryset(self) -> PageQuerySet:
-        return BlogPostListPage.objects.live().only("id", "url_path", "title", "body")
+        return BlogPostPage.objects.live().select_related(
+            "hero_image", "hero_unsplash_photo"
+        )
