@@ -231,6 +231,47 @@ REST_FRAMEWORK = {
     ],
 }
 
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        # Send logs with at least INFO level to the console.
+        "console": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        },
+    },
+    "formatters": {
+        "verbose": {
+            "format": "[%(asctime)s][%(process)d][%(levelname)s][%(name)s] %(message)s"
+        }
+    },
+    "loggers": {
+        "website": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "wagtail": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+        "django.security": {
+            "handlers": ["console"],
+            "level": "WARNING",
+            "propagate": False,
+        },
+    },
+}
+
+
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = "DENY"
