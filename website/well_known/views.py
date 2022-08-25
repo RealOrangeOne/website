@@ -11,7 +11,7 @@ from website.contact.models import ContactPage
 
 
 class SecurityView(TemplateView):
-    template_name = "security.txt"
+    template_name = "well-known/security.txt"
     content_type = "text/plain"
 
     expires = timedelta(days=7)
@@ -32,11 +32,11 @@ class SecurityView(TemplateView):
 
 @method_decorator(cache_page(60 * 60), name="dispatch")
 class MatrixServerView(TemplateView):
-    template_name = "matrix-server.json"
+    template_name = "well-known/matrix-server.json"
     content_type = "application/json"
 
 
 @method_decorator(cache_page(60 * 60), name="dispatch")
 class MatrixClientView(TemplateView):
-    template_name = "matrix-client.json"
+    template_name = "well-known/matrix-client.json"
     content_type = "application/json"

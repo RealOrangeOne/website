@@ -25,7 +25,7 @@ class MatrixServerViewTestCase(SimpleTestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
-        self.assertTemplateUsed(response, "matrix-server.json")
+        self.assertTemplateUsed(response, "well-known/matrix-server.json")
 
 
 class MatrixClientViewTestCase(SimpleTestCase):
@@ -35,4 +35,4 @@ class MatrixClientViewTestCase(SimpleTestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/json")
-        self.assertTemplateUsed(response, "matrix-client.json")
+        self.assertTemplateUsed(response, "well-known/matrix-client.json")
