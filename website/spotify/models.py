@@ -1,5 +1,6 @@
 from datetime import timedelta
 from functools import cached_property
+from unittest.mock import Base
 
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
@@ -29,6 +30,12 @@ class SpotifyPlaylistPage(BaseContentPage):
         for panel in BaseContentPage.content_panels
         if panel.field_name != "subtitle"
     ] + [FieldPanel("spotify_playlist_id")]
+
+    search_fields = [
+        panel
+        for panel in BaseContentPage.search_fields
+        if panel.field_name not in ["body", "subtitle"]
+    ]
 
     @property
     def table_of_contents(self) -> list:
