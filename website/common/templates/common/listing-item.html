@@ -5,7 +5,7 @@
     <figure class="media-left column is-3 image-column">
       {% if page.list_image_url %}
         <a href="{% pageurl page %}" class="image">
-          <img src="{{ page.list_image_url }}">
+          <img src="{{ page.list_image_url }}" loading="lazy" decoding="async" />
         </a>
       {% endif %}
     </figure>

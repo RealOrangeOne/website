@@ -2,7 +2,7 @@
 
 <figure>
   <div class="image is-16by9">
-    <img src="{% image_url value.image 'width-1500' %}" alt="{{ value.caption|richtext|extract_text }}" />
+    <img src="{% image_url value.image 'width-1500' %}" alt="{{ value.caption|richtext|extract_text }}" loading="lazy" decoding="async" />
   </div>
   <figcaption>
     {{ value.caption|richtext }}

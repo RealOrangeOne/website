@@ -12,7 +12,7 @@
 
 {% block main_content %}
   {% if page.hero_image_url %}
-    <img class="hero" src="{{ page.hero_image_url }}">
+    <img class="hero" src="{{ page.hero_image_url }}" decoding="async" />
   {% endif %}
 
   <section class="hero">

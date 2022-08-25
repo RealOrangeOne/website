@@ -72,7 +72,7 @@ class UnsplashPhotoAdmin(ModelAdmin):
 
     def thumbnail(self, instance: UnsplashPhoto) -> str:
         return format_html(
-            "<img src='{}' width=165 class='admin-thumb'/>",
+            "<img src='{}' width=165 class='admin-thumb' loading='lazy' decoding='async' />",
             instance.get_thumbnail_url(),
         )
 
