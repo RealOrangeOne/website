@@ -87,7 +87,14 @@ class BlogPostTagListPage(BaseContentPage):
         return [TocEntry(page.title, page.slug, 0, []) for page in self.get_tags()]
 
     def get_tags(self) -> PageQuerySet:
-        return self.get_children().specific().live().order_by("title")
+        return (
+            self.get_children()
+            .specific()
+            .live()
+            .order_by("title")
+            .select_related("hero_image")
+            .select_related("hero_unsplash_photo")
+        )
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
@@ -107,7 +114,13 @@ class BlogPostTagPage(RoutablePageMixin, BaseContentPage):
 
     def get_blog_posts(self) -> PageQuerySet:
         blog_list_page = BlogPostListPage.objects.all().live().get()
-        return blog_list_page.get_blog_posts().filter(tags=self).order_by("-date")
+        return (
+            blog_list_page.get_blog_posts()
+            .filter(tags=self)
+            .order_by("-date")
+            .select_related("hero_image")
+            .select_related("hero_unsplash_photo")
+        )
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
@@ -155,7 +168,12 @@ class BlogPostCollectionPage(BaseContentPage):
         ]
 
     def get_blog_posts(self) -> PageQuerySet:
-        return BlogPostPage.objects.child_of(self).order_by("-date")
+        return (
+            BlogPostPage.objects.child_of(self)
+            .order_by("-date")
+            .select_related("hero_image")
+            .select_related("hero_unsplash_photo")
+        )
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
