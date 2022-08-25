@@ -55,7 +55,7 @@ container:
     - docker build -t website --target production -t $IMAGE_TAG .
     - docker push $IMAGE_TAG
 
-.python_test_template: &python_test_template
+.python_test_template:
   image: python:3.10
   stage: test
   dependencies:
@@ -66,6 +66,7 @@ container:
     SECRET_KEY: super-secret
 
 test_python:
+  extends: .python_test_template
   services:
     - postgres:13-alpine
   variables:
@@ -81,44 +82,43 @@ test_python:
       coverage_report:
         coverage_format: cobertura
         path: coverage.xml
-  <<: *python_test_template
   dependencies:
     - pip
     - static
 
 django_checks:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - ./manage.py check
     - ./manage.py makemigrations --check --noinput
 
 black:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - black --check .
 
 isort:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - isort --check .
 
 flake8:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - flake8
 
 mypy:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - mypy .
 
 curlylint:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - curlylint .
 
 djhtml:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - git ls-files '*.html' | xargs djhtml --check --tabwidth 2
 
@@ -131,7 +131,7 @@ npm_lint:
     - npm run lint
 
 pip_tools:
-  <<: *python_test_template
+  extends: .python_test_template
   script:
     - ./scripts/compile-requirements.sh
     - git diff
