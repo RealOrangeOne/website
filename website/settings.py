@@ -111,6 +111,10 @@ DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")}
 
 CACHES = {"default": env.cache(default="dummycache://")}
 
+# Allow the redirect importer to work in load-balanced / cloud environments.
+# https://docs.wagtail.io/en/v2.13/reference/settings.html#redirects
+WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
+
 RQ_QUEUES = {}
 
 USE_REDIS_QUEUE = False
