@@ -42,6 +42,11 @@ class RobotsView(TemplateView):
         return context
 
 
+class KeybaseView(TemplateView):
+    template_name = "keybase.txt"
+    content_type = "text/plain"
+
+
 class AllPagesFeed(Feed):
     link = "/feed/"
     title = "All pages feed"

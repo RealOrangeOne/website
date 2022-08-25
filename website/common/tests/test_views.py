@@ -39,6 +39,15 @@ class RobotsViewTestCase(SimpleTestCase):
         self.assertFalse(response.context["SEO_INDEX"])
 
 
+class KeybaseViewTestCase(SimpleTestCase):
+    url = reverse("keybase")
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "I hereby claim")
+
+
 class AllPagesFeedTestCase(TestCase):
     url = reverse("feed")
 

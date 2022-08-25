@@ -7,7 +7,7 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
 
-from website.common.views import AllPagesFeed, RobotsView, page_not_found
+from website.common.views import AllPagesFeed, KeybaseView, RobotsView, page_not_found
 
 urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
@@ -24,6 +24,7 @@ urlpatterns = [
     ),
     path("sitemap.xml", cache_page(60 * 60)(sitemap), name="sitemap"),
     path("robots.txt", cache_page(60 * 60)(RobotsView.as_view()), name="robotstxt"),
+    path("keybase.txt", cache_page(60 * 60)(KeybaseView.as_view()), name="keybase"),
     path("404/", page_not_found, name="404"),
     path("feed/", AllPagesFeed(), name="feed"),
     path("", include("website.legacy.urls")),

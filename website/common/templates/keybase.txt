@@ -1,0 +1,55 @@
+==================================================================
+https://keybase.io/realorangeone
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://theorangeone.net
+  * I am realorangeone (https://keybase.io/realorangeone) on keybase.
+  * I have a public key ASDTaHMSYEIAjyBkReXOjTkXFy20VYSHjoFzfc6ASkazUwo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120a1b82a7c816ca04a97ad82e7bafd5e3aabd26890375089cd430159ca861b84620a",
+      "host": "keybase.io",
+      "kid": "0120d36873126042008f206445e5ce8d3917172db45584878e81737dce804a46b3530a",
+      "uid": "d5dc1e0b22e637e9a47f48c4fcff8619",
+      "username": "realorangeone"
+    },
+    "merkle_root": {
+      "ctime": 1504962649,
+      "hash": "437c66f689f11546c1648fb08f482d1778cb515962e87bed316dc81093123f6e8d676166e7a0fd6c06cadf779e90ffcf3b02a458aad1cf5db1c2dad484b15a4d",
+      "hash_meta": "2b950c7a598524217f984c4ff5ef011bd30a09b6db707222d939eda226118a6f",
+      "seqno": 1376867
+    },
+    "service": {
+      "hostname": "theorangeone.net",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "1.0.30"
+  },
+  "ctime": 1504962677,
+  "expire_in": 504576000,
+  "prev": "b698eef47ac239278cc7fd207b9add8c7d9df7624f2114f08e3d3cea8ff7f72d",
+  "seqno": 12,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg02hzEmBCAI8gZEXlzo05FxcttFWEh46Bc33OgEpGs1MKp3BheWxvYWTFA057ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwYTFiODJhN2M4MTZjYTA0YTk3YWQ4MmU3YmFmZDVlM2FhYmQyNjg5MDM3NTA4OWNkNDMwMTU5Y2E4NjFiODQ2MjBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZDM2ODczMTI2MDQyMDA4ZjIwNjQ0NWU1Y2U4ZDM5MTcxNzJkYjQ1NTg0ODc4ZTgxNzM3ZGNlODA0YTQ2YjM1MzBhIiwidWlkIjoiZDVkYzFlMGIyMmU2MzdlOWE0N2Y0OGM0ZmNmZjg2MTkiLCJ1c2VybmFtZSI6InJlYWxvcmFuZ2VvbmUifSwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE1MDQ5NjI2NDksImhhc2giOiI0MzdjNjZmNjg5ZjExNTQ2YzE2NDhmYjA4ZjQ4MmQxNzc4Y2I1MTU5NjJlODdiZWQzMTZkYzgxMDkzMTIzZjZlOGQ2NzYxNjZlN2EwZmQ2YzA2Y2FkZjc3OWU5MGZmY2YzYjAyYTQ1OGFhZDFjZjVkYjFjMmRhZDQ4NGIxNWE0ZCIsImhhc2hfbWV0YSI6IjJiOTUwYzdhNTk4NTI0MjE3Zjk4NGM0ZmY1ZWYwMTFiZDMwYTA5YjZkYjcwNzIyMmQ5MzllZGEyMjYxMThhNmYiLCJzZXFubyI6MTM3Njg2N30sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJ0aGVvcmFuZ2VvbmUubmV0IiwicHJvdG9jb2wiOiJodHRwczoifSwidHlwZSI6IndlYl9zZXJ2aWNlX2JpbmRpbmciLCJ2ZXJzaW9uIjoxfSwiY2xpZW50Ijp7Im5hbWUiOiJrZXliYXNlLmlvIGdvIGNsaWVudCIsInZlcnNpb24iOiIxLjAuMzAifSwiY3RpbWUiOjE1MDQ5NjI2NzcsImV4cGlyZV9pbiI6NTA0NTc2MDAwLCJwcmV2IjoiYjY5OGVlZjQ3YWMyMzkyNzhjYzdmZDIwN2I5YWRkOGM3ZDlkZjc2MjRmMjExNGYwOGUzZDNjZWE4ZmY3ZjcyZCIsInNlcW5vIjoxMiwidGFnIjoic2lnbmF0dXJlIn2jc2lnxEC6pxJOZaJ2Xd+U8vKq2DaHejO52kHMsFpWw48ZwGJLBIJe59AJiWRwwtVa0fXW0fZfcRIGsNWAZGTSvek7s2AJqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgp3LT/WMl9Eh/+pY8YAV2s3KNZ3bhclCPN6I30qtRjMOjdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/realorangeone
+
+==================================================================
