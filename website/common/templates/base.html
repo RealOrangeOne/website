@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache plausible_wagtail %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -49,6 +49,8 @@
     <script type="text/javascript" src="{% static 'js/darkmode.js' %}"></script>
 
     {% block extra_js %}{% endblock %}
+
+    {% plausible %}
 
   </body>
 </html>

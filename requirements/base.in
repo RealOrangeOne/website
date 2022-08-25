@@ -18,3 +18,4 @@ django-htmx
 wagtail-metadata
 humanize
 drf-yasg
+django-plausible
