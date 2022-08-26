@@ -165,3 +165,6 @@ deploy_container:
     - docker pull $SRC_IMAGE_TAG
     - docker tag $SRC_IMAGE_TAG $DEST_IMAGE_TAG
     - docker push $DEST_IMAGE_TAG
+  only:
+    refs:
+      - master
