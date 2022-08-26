@@ -13,16 +13,21 @@
 
 {% block post_content %}
   <section class="container">
-    {% for page in child_pages %}
-      {% if not filtering_by_tag %}
-        {% ifchanged %}
-          <time datetime="{{ page.date|date:'c' }}" title='{{ page.date|date:"F Y" }}'>
-            <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
-          </time>
-        {% endifchanged %}
-      {% endif %}
+    {% for page in pages %}
+      {% ifchanged %}
+        <time datetime="{{ page.date|date:'Y-m' }} title='{{ page.date|date:"F Y" }}'>
+          <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
+            </time>
+      {% endifchanged %}
 
       {% include "common/listing-item.html" %}
     {% endfor %}
-  </section>
+    </section>
+
+    {% if pages.has_other_pages %}
+      <section class="container">
+        <hr class="my-5" />
+          {% include "common/pagination.html" %}
+          </section>
+    {% endif %}
 {% endblock %}

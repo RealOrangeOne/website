@@ -1,0 +1,33 @@
+{% load wagtailadmin_tags %}
+
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+  {% if pages.has_previous %}
+    <a class="pagination-previous" href="{% querystring page=pages.previous_page_number %}">Previous</a>
+  {% endif %}
+
+  {% if pages.has_next %}
+    <a class="pagination-next" href="{% querystring page=pages.next_page_number %}">Next page</a>
+  {% endif %}
+
+  <ul class="pagination-list">
+    {% if pages.has_previous and pages.previous_page_number != 1 %}
+      <li><a class="pagination-link" aria-label="Goto page 1" href="{% querystring page=1 %}">1</a></li>
+      <li><span class="pagination-ellipsis">&hellip;</span></li>
+    {% endif %}
+
+    {% if pages.has_previous %}
+      <li><a class="pagination-link" aria-label="Goto page {{ pages.previous_page_number }}" href="{% querystring page=pages.previous_page_number %}">{{ pages.previous_page_number }}</a></li>
+    {% endif %}
+
+    <li><a class="pagination-link is-current" aria-label="Page {{ pages.number }}" aria-current="page">{{ pages.number }}</a></li>
+
+    {% if pages.has_next %}
+      <li><a class="pagination-link" aria-label="Goto page {{ pages.next_page_number }}" href="{% querystring page=pages.next_page_number %}">{{ pages.next_page_number }}</a></li>
+    {% endif %}
+
+    {% if pages.has_next and pages.next_page_number != pages.paginator.num_pages %}
+      <li><span class="pagination-ellipsis">&hellip;</span></li>
+      <li><a class="pagination-link" aria-label="Goto page {{ pages.paginator.num_pages }}" href="{% querystring page=pages.paginator.num_pages %}">{{ pages.paginator.num_pages }}</a></li>
+    {% endif %}
+  </ul>
+</nav>

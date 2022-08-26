@@ -46,3 +46,27 @@
     margin-bottom: 1rem;
   }
 }
+
+nav.pagination {
+  @include dark-mode {
+    a.pagination-link,
+    .pagination-next,
+    .pagination-previous {
+      background-color: $grey-darker;
+      border-color: $black;
+      color: $dark-mode-text;
+
+      &:hover {
+        border-color: $grey-dark;
+      }
+
+      &.is-current {
+        background-color: $primary;
+      }
+    }
+
+    .pagination-ellipsis {
+      color: $dark-mode-text;
+    }
+  }
+}
