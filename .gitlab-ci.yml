@@ -46,7 +46,7 @@ build_container:
   services:
     - docker:dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     DOCKER_BUILDKIT: 1
   dependencies: []
   stage: test
@@ -154,7 +154,7 @@ deploy_container:
   services:
     - docker:dind
   variables:
-    SRC_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    SRC_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
     DEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
     DOCKER_BUILDKIT: 1
   dependencies: []
