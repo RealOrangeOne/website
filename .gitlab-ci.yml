@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
 
 static:
   image: node:alpine
@@ -40,12 +41,12 @@ pip:
       - ./env/
     expire_in: 30 mins
 
-container:
+build_container:
   image: docker:stable
   services:
     - docker:dind
   variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
     DOCKER_BUILDKIT: 1
   dependencies: []
   stage: test
@@ -146,3 +147,20 @@ crontab:
     - apk add --no-cache supercronic
   script:
     - supercronic -test etc/crontab
+
+deploy_container:
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    SRC_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+    DEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+    DOCKER_BUILDKIT: 1
+  dependencies: []
+  stage: deploy
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker pull $SRC_IMAGE_TAG
+    - docker tag $SRC_IMAGE_TAG $DEST_IMAGE_TAG
+    - docker push $DEST_IMAGE_TAG
