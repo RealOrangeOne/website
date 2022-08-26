@@ -1,6 +1,5 @@
 from datetime import timedelta
 from functools import cached_property
-from unittest.mock import Base
 
 from django.core.cache import cache
 from django.core.exceptions import ValidationError
