@@ -39,21 +39,6 @@ pip:
       - ./env/
     expire_in: 30 mins
 
-build_container:
-  image: docker:stable
-  services:
-    - docker:dind
-  variables:
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    DOCKER_BUILDKIT: 1
-  dependencies: []
-  stage: test
-  before_script:
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-  script:
-    - docker build -t website --target production -t $IMAGE_TAG .
-    - docker push $IMAGE_TAG
-
 .python_test_template:
   image: python:3.10
   stage: test
@@ -146,22 +131,25 @@ crontab:
   script:
     - supercronic -test etc/crontab
 
-deploy_container:
+container:
   image: docker:stable
   services:
     - docker:dind
   variables:
-    SRC_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
-    DEST_IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
+    DEV_IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
+    PROD_IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
     DOCKER_BUILDKIT: 1
   dependencies: []
   stage: deploy
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker pull $SRC_IMAGE_TAG
-    - docker tag $SRC_IMAGE_TAG $DEST_IMAGE_TAG
-    - docker push $DEST_IMAGE_TAG
-  only:
-    refs:
-      - master
+    - docker build -t website --target production -t $DEV_IMAGE_TAG .
+    - docker push $DEV_IMAGE_TAG
+    - >
+      if [ "$CI_COMMIT_REF_SLUG" == "master"]; then
+        docker tag $DEV_IMAGE_TAG $PROD_IMAGE_TAG
+        docker push $PROD_IMAGE_TAG
+      else
+        echo "Not publishing container"
+      fi
