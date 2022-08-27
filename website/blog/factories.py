@@ -1,9 +1,9 @@
-from website.common.factories import BaseContentFactory
+from website.common.factories import BaseContentFactory, BaseListingFactory
 
 from . import models
 
 
-class BlogPostListPageFactory(BaseContentFactory):
+class BlogPostListPageFactory(BaseListingFactory):
     class Meta:
         model = models.BlogPostListPage
 

@@ -178,6 +178,19 @@ class ContentPage(BaseContentPage):
 
 class BaseListingPage(RoutablePageMixin, BaseContentPage):
     PAGE_SIZE = 20
+    subtitle = None
+
+    content_panels = [
+        panel
+        for panel in BaseContentPage.content_panels
+        if panel.field_name != "subtitle"
+    ]
+
+    search_fields = [
+        panel
+        for panel in BaseContentPage.search_fields
+        if panel.field_name != "subtitle"
+    ]
 
     class Meta:
         abstract = True

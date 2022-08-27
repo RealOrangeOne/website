@@ -9,11 +9,15 @@ class BaseContentFactory(wagtail_factories.PageFactory):
     subtitle = factory.Faker("bs")
 
 
+class BaseListingFactory(wagtail_factories.PageFactory):
+    title = factory.Faker("catch_phrase")
+
+
 class ContentPageFactory(BaseContentFactory):
     class Meta:
         model = models.ContentPage
 
 
-class ListingPageFactory(BaseContentFactory):
+class ListingPageFactory(BaseListingFactory):
     class Meta:
         model = models.ListingPage
