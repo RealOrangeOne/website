@@ -35,8 +35,6 @@ RUN python -m venv $VIRTUAL_ENV
 COPY --chown=website requirements/base.txt ./requirements/base.txt
 RUN pip install --no-cache --upgrade pip && pip install --no-cache -r ./requirements/base.txt
 
-RUN apt-get remove --yes build-essential && apt-get autoremove --yes && rm -rf /var/lib/apt/lists /var/cache/apt
-
 COPY --chown=website --from=frontend ./static/build ./static/build
 
 COPY --chown=website ./etc ./etc
