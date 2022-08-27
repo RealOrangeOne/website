@@ -14,7 +14,7 @@ body.page-searchpage {
     max-width: 80%;
   }
 
-  #search-indicator {
+  #search-indicator.htmx-request {
     animation: search-loading 1.5s linear infinite;
   }
 
