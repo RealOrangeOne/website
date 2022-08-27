@@ -1,15 +1,4 @@
-{% extends "common/content_page.html" %}
-
-{% load wagtailroutablepage_tags %}
-
-{% block extra_css %}
-  <link rel="alternate" type="application/rss+xml" href="{% routablepageurl page 'feed' %}">
-{% endblock %}
-
-{% block hero_buttons %}
-  <a class="button is-radiusless" href="{% routablepageurl page 'feed' %}" title="View feed"><i class="fas fa-rss" aria-hidden="true"></i></a>
-  {{ block.super }}
-{% endblock %}
+{% extends "common/listing_page.html" %}
 
 {% block post_content %}
   <section class="container">

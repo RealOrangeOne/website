@@ -2,8 +2,14 @@
 
 {% load wagtailroutablepage_tags %}
 
-{% block extra_css %}
+{% block extra_head %}
+  {{ block.super }}
   <link rel="alternate" type="application/rss+xml" href="{% routablepageurl page 'feed' %}">
+{% endblock %}
+
+{% block hero_buttons %}
+  <a class="button is-radiusless" href="{% routablepageurl page 'feed' %}" title="View feed"><i class="fas fa-rss" aria-hidden="true"></i></a>
+  {{ block.super }}
 {% endblock %}
 
 {% block post_content %}
@@ -12,4 +18,11 @@
       {% include "common/listing-item.html" %}
     {% endfor %}
   </section>
+
+  {% if listing_pages.has_other_pages %}
+    <section class="container">
+      <hr class="my-5" />
+      {% include "common/pagination.html" with page=listing_pages %}
+    </section>
+  {% endif %}
 {% endblock %}

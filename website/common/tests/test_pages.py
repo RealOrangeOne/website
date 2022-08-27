@@ -55,6 +55,7 @@ class ListingPageTestCase(TestCase):
         response = self.client.get(self.page.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["listing_pages"]), 2)
+        self.assertContains(response, self.page.reverse_subpage("feed"))
 
     def test_feed_accessible(self) -> None:
         response = self.client.get(self.page.url + self.page.reverse_subpage("feed"))
