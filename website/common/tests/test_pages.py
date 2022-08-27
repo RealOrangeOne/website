@@ -60,6 +60,8 @@ class ListingPageTestCase(TestCase):
 
     def test_feed_accessible(self) -> None:
         with self.assertNumQueries(11):
-            response = self.client.get(self.page.url + self.page.reverse_subpage("feed"))
+            response = self.client.get(
+                self.page.url + self.page.reverse_subpage("feed")
+            )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/rss+xml; charset=utf-8")
