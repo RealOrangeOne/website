@@ -60,3 +60,14 @@ div.block-code .highlight {
     @include dark-mode;
   }
 }
+
+div.block-table {
+  td,
+  th {
+    vertical-align: middle;
+
+    @include dark-mode {
+      color: $dark-mode-text;
+    }
+  }
+}
