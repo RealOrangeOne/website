@@ -5,7 +5,6 @@ from wagtail.images import get_image_model_string
 from wagtail.images.models import Image
 from wagtailmetadata.models import WagtailImageMetadataMixin
 
-from website.blog.models import BlogPostPage
 from website.common.models import BasePage
 
 
@@ -38,6 +37,7 @@ class HomePage(BasePage, WagtailImageMetadataMixin):
         return ""
 
     def get_context(self, request: HttpRequest) -> dict:
+        from website.blog.models import BlogPostPage
         from website.search.models import SearchPage
 
         context = super().get_context(request)

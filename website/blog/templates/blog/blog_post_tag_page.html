@@ -1,15 +1,1 @@
-{% extends "common/content_page.html" %}
-
-{% load wagtailroutablepage_tags %}
-
-{% block extra_css %}
-  <link rel="alternate" type="application/rss+xml" href="{% routablepageurl page 'feed' %}">
-{% endblock %}
-
-{% block post_content %}
-  <section class="container">
-    {% for page in pages %}
-      {% include "common/listing-item.html" %}
-    {% endfor %}
-  </section>
-{% endblock %}
+{% extends "common/listing_page.html" %}

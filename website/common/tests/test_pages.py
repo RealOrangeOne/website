@@ -54,8 +54,13 @@ class ListingPageTestCase(TestCase):
     def test_accessible(self) -> None:
         response = self.client.get(self.page.url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.context["child_pages"]), 2)
+        self.assertEqual(len(response.context["listing_pages"]), 2)
+
+    def test_feed_accessible(self) -> None:
+        response = self.client.get(self.page.url + self.page.reverse_subpage("feed"))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/rss+xml; charset=utf-8")
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(24):
+        with self.assertNumQueries(25):
             self.client.get(self.page.url)

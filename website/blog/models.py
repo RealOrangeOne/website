@@ -1,25 +1,18 @@
-from typing import Any
+from typing import Any, Type
 
-from django.core.paginator import EmptyPage
-from django.core.paginator import Page as PaginatorPage
-from django.core.paginator import Paginator
 from django.db import models
 from django.db.models.functions import TruncMonth
-from django.http.request import HttpRequest
-from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
 from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.query import PageQuerySet
 
-from website.common.models import BaseContentPage
-from website.common.serializers import PaginationSerializer
+from website.common.models import BaseContentPage, BaseListingPage
 from website.common.utils import TocEntry
+from website.common.views import ContentPageFeed
 
 
-class BlogPostListPage(RoutablePageMixin, BaseContentPage):
+class BlogPostListPage(BaseListingPage):
     max_count = 1
     subpage_types = [
         "blog.BlogPostPage",
@@ -29,59 +22,35 @@ class BlogPostListPage(RoutablePageMixin, BaseContentPage):
     ]
 
     @cached_property
-    def show_reading_time(self) -> bool:
-        return False
-
-    @cached_property
     def table_of_contents(self) -> list[TocEntry]:
         post_months = sorted(
             {
                 dt.strftime("%Y-%m")
-                for dt in self.paginator_page.object_list.annotate(
+                for dt in self.get_paginator_page()
+                .object_list.annotate(
                     post_month=TruncMonth("date", output_field=models.DateField())
-                ).values_list("post_month", flat=True)
+                )
+                .values_list("post_month", flat=True)
             }
         )
 
         return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
 
-    def get_blog_posts(self) -> PageQuerySet:
-        return BlogPostPage.objects.descendant_of(self).live()
-
-    @cached_property
-    def paginator_page(self) -> PaginatorPage:
-        pages = (
-            self.get_blog_posts()
+    def get_listing_pages(self) -> models.QuerySet:
+        return (
+            BlogPostPage.objects.descendant_of(self)
+            .live()
             .select_related("hero_image")
             .select_related("hero_unsplash_photo")
             .prefetch_related("tags")
             .order_by("-date", "title")
         )
-        paginator = Paginator(pages, per_page=1)
-        try:
-            return paginator.page(self.serializer.validated_data["page"])
-        except EmptyPage:
-            raise Http404
 
-    def get_context(self, request: HttpRequest) -> dict:
-        context = super().get_context(request)
-        context["pages"] = self.paginator_page
-        return context
-
-    @route(r"^$")
-    def index_route(self, request: HttpRequest) -> HttpResponse:
-        self.serializer = PaginationSerializer(data=request.GET)
-        if not self.serializer.is_valid():
-            return HttpResponseBadRequest()
-        return super().index_route(request)
-
-    @route(r"^feed/$")
-    def feed(self, request: HttpRequest) -> HttpResponse:
+    @property
+    def feed_class(self) -> Type[ContentPageFeed]:
         from .views import BlogPostPageFeed
 
-        return BlogPostPageFeed(
-            self.get_blog_posts().order_by("-date"), self.get_url(), self.title
-        )(request)
+        return BlogPostPageFeed
 
 
 class BlogPostPage(BaseContentPage):
@@ -97,66 +66,34 @@ class BlogPostPage(BaseContentPage):
     ]
 
 
-class BlogPostTagListPage(BaseContentPage):
+class BlogPostTagListPage(BaseListingPage):
     max_count = 1
     parent_page_types = [BlogPostListPage]
     subpage_types = ["blog.BlogPostTagPage"]
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
-        return [TocEntry(page.title, page.slug, 0, []) for page in self.get_tags()]
-
-    def get_tags(self) -> PageQuerySet:
-        return (
-            self.get_children()
-            .specific()
-            .live()
-            .order_by("title")
-            .select_related("hero_image")
-            .select_related("hero_unsplash_photo")
-        )
-
-    def get_context(self, request: HttpRequest) -> dict:
-        context = super().get_context(request)
-        context["tags"] = self.get_children().specific().live().order_by("title")
-        return context
+        return [
+            TocEntry(page.title, page.slug, 0, []) for page in self.get_listing_pages()
+        ]
 
 
-class BlogPostTagPage(RoutablePageMixin, BaseContentPage):
+class BlogPostTagPage(BaseListingPage):
     subpage_types: list[Any] = []
     parent_page_types = [BlogPostTagListPage]
 
-    @cached_property
-    def table_of_contents(self) -> list[TocEntry]:
-        return [
-            TocEntry(page.title, page.slug, 0, []) for page in self.get_blog_posts()
-        ]
-
-    def get_blog_posts(self) -> PageQuerySet:
+    def get_listing_pages(self) -> models.QuerySet:
         blog_list_page = BlogPostListPage.objects.all().live().get()
-        return (
-            blog_list_page.get_blog_posts()
-            .filter(tags=self)
-            .order_by("-date")
-            .select_related("hero_image")
-            .select_related("hero_unsplash_photo")
-        )
+        return blog_list_page.get_listing_pages().filter(tags=self)
 
-    def get_context(self, request: HttpRequest) -> dict:
-        context = super().get_context(request)
-        context["pages"] = self.get_blog_posts()
-        return context
-
-    @route(r"^feed/$")
-    def feed(self, request: HttpRequest) -> HttpResponse:
+    @property
+    def feed_class(self) -> Type[ContentPageFeed]:
         from .views import BlogPostPageFeed
 
-        return BlogPostPageFeed(
-            self.get_blog_posts().order_by("-date"), self.get_url(), self.title
-        )(request)
+        return BlogPostPageFeed
 
 
-class BlogPostCollectionListPage(BaseContentPage):
+class BlogPostCollectionListPage(BaseListingPage):
     subpage_types: list[Any] = []
     parent_page_types = [BlogPostListPage]
     max_count = 1
@@ -164,38 +101,23 @@ class BlogPostCollectionListPage(BaseContentPage):
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
         return [
-            TocEntry(page.title, page.slug, 0, []) for page in self.get_collections()
+            TocEntry(page.title, page.slug, 0, []) for page in self.get_listing_pages()
         ]
 
-    def get_collections(self) -> PageQuerySet:
+    def get_listing_pages(self) -> models.QuerySet:
         blog_list_page = BlogPostListPage.objects.all().live().get()
         return BlogPostCollectionPage.objects.child_of(blog_list_page).live()
 
-    def get_context(self, request: HttpRequest) -> dict:
-        context = super().get_context(request)
-        context["collections"] = self.get_collections()
-        return context
 
-
-class BlogPostCollectionPage(BaseContentPage):
+class BlogPostCollectionPage(BaseListingPage):
     parent_page_types = [BlogPostListPage]
     subpage_types = [BlogPostPage]
 
-    @cached_property
-    def table_of_contents(self) -> list[TocEntry]:
-        return [
-            TocEntry(page.title, page.slug, 0, []) for page in self.get_blog_posts()
-        ]
+    def get_listing_pages(self) -> models.QuerySet:
+        return super().get_listing_pages().order_by("-date")
 
-    def get_blog_posts(self) -> PageQuerySet:
-        return (
-            BlogPostPage.objects.child_of(self)
-            .order_by("-date")
-            .select_related("hero_image")
-            .select_related("hero_unsplash_photo")
-        )
+    @property
+    def feed_class(self) -> Type[ContentPageFeed]:
+        from .views import BlogPostPageFeed
 
-    def get_context(self, request: HttpRequest) -> dict:
-        context = super().get_context(request)
-        context["pages"] = self.get_blog_posts()
-        return context
+        return BlogPostPageFeed

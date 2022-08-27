@@ -1,13 +1,19 @@
 from datetime import timedelta
-from typing import Any, Optional
+from typing import Any, Optional, Type
 
+from django.contrib.syndication.views import Feed
 from django.core.cache import cache
+from django.core.paginator import EmptyPage
+from django.core.paginator import Page as PaginatorPage
+from django.core.paginator import Paginator
 from django.db import models
 from django.dispatch import receiver
 from django.http.request import HttpRequest
+from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
@@ -19,6 +25,7 @@ from wagtailmetadata.models import MetadataMixin
 from website.common.utils import count_words
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
 
+from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
 from .utils import TocEntry, extract_text, get_table_of_contents, truncate_string
 
@@ -161,17 +168,66 @@ class ContentPage(BaseContentPage):
     subpage_types: list[Any] = []
 
 
-class ListingPage(BaseContentPage):
-    def get_context(self, request: HttpRequest) -> dict:
-        context = super().get_context(request)
-        context["child_pages"] = (
+class BaseListingPage(RoutablePageMixin, BaseContentPage):
+    PAGE_SIZE = 20
+
+    class Meta:
+        abstract = True
+
+    def get_listing_pages(self) -> models.QuerySet:
+        return (
             self.get_children()
             .live()
             .specific()
             .select_related("hero_image")
             .select_related("hero_unsplash_photo")
+            .order_by("title")
         )
+
+    def get_paginator_page(self) -> PaginatorPage:
+        paginator = Paginator(self.get_listing_pages(), per_page=self.PAGE_SIZE)
+        try:
+            return paginator.page(self.serializer.validated_data["page"])
+        except EmptyPage:
+            raise Http404
+
+    def get_context(self, request: HttpRequest) -> dict:
+        context = super().get_context(request)
+        context["listing_pages"] = self.get_paginator_page()
         return context
+
+    @cached_property
+    def table_of_contents(self) -> list[TocEntry]:
+        return []
+
+    @cached_property
+    def show_reading_time(self) -> bool:
+        return False
+
+    @property
+    def feed_class(self) -> Type[Feed]:
+        from .views import ContentPageFeed
+
+        return ContentPageFeed
+
+    @route(r"^$")
+    def index_route(self, request: HttpRequest) -> HttpResponse:
+        self.serializer = PaginationSerializer(data=request.GET)
+        if not self.serializer.is_valid():
+            return HttpResponseBadRequest()
+        return super().index_route(request)
+
+    @route(r"^feed/$")
+    def feed(self, request: HttpRequest) -> HttpResponse:
+        return self.feed_class(
+            self.get_listing_pages(),
+            self.get_full_url(request),
+            self.title,
+        )(request)
+
+
+class ListingPage(BaseListingPage):
+    pass
 
 
 @register_snippet

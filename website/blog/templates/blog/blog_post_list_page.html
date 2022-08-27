@@ -13,7 +13,7 @@
 
 {% block post_content %}
   <section class="container">
-    {% for page in pages %}
+    {% for page in listing_pages %}
       {% ifchanged %}
         <time datetime="{{ page.date|date:'Y-m' }}" title='{{ page.date|date:"F Y" }}'>
           <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
@@ -24,10 +24,10 @@
     {% endfor %}
   </section>
 
-  {% if pages.has_other_pages %}
+  {% if listing_pages.has_other_pages %}
     <section class="container">
       <hr class="my-5" />
-      {% include "common/pagination.html" %}
+      {% include "common/pagination.html" with pages=listing_pages %}
     </section>
   {% endif %}
 {% endblock %}

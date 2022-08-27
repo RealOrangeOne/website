@@ -1,9 +1,1 @@
-{% extends "common/content_page.html" %}
-
-{% block post_content %}
-  <section class="container">
-    {% for tag in tags %}
-      {% include "common/listing-item.html" with page=tag %}
-    {% endfor %}
-  </section>
-{% endblock %}
+{% extends "common/listing_page.html" %}
