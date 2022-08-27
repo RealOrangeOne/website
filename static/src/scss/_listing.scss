@@ -1,5 +1,6 @@
 .listing-item {
   border-top: none !important;
+  max-height: 175px;
 
   .image-column {
     display: flex;
@@ -10,14 +11,10 @@
     width: 100%;
   }
 
-  .media img {
+  img {
     object-fit: cover;
     width: 100%;
     height: 175px;
-  }
-
-  .media {
-    max-height: 175px;
   }
 
   .content-details {
