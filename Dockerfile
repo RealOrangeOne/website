@@ -28,7 +28,7 @@ USER website
 
 RUN python -m venv $VIRTUAL_ENV
 COPY --chown=website requirements/base.txt ./requirements/base.txt
-RUN pip install --upgrade pip && pip install -r ./requirements/base.txt
+RUN pip install --no-cache --upgrade pip && pip install --no-cache -r ./requirements/base.txt
 
 COPY --chown=website --from=frontend ./static/build ./static/build
 
