@@ -82,6 +82,10 @@ class BlogPostTagPage(BaseListingPage):
     subpage_types: list[Any] = []
     parent_page_types = [BlogPostTagListPage]
 
+    @cached_property
+    def html_title(self) -> str:
+        return f"Pages tagged with '{super().html_title}'"
+
     def get_listing_pages(self) -> models.QuerySet:
         blog_list_page = BlogPostListPage.objects.all().live().get()
         return blog_list_page.get_listing_pages().filter(tags=self)

@@ -4,7 +4,7 @@
 
 {% block body_class %}{{ page.body_class }}{% endblock %}
 
-{% block title %}{% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}{% endblock %}
+{% block title %}{{ page.html_title }}{% endblock %}
 
 {% block extra_head %}
   {% meta_tags %}
@@ -21,7 +21,7 @@
         <div class="columns">
           <div class="column">
             {% include "common/breadcrumbs.html" with parents=page.get_parent_pages %}
-            <h1 class="title is-spaced">{{ page.title }}</h1>
+            <h1 class="title is-spaced">{{ page.hero_title }}</h1>
             {% if page.subtitle %}
               <h2 class="subtitle">{{ page.subtitle }}</h2>
             {% endif %}

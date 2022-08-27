@@ -46,6 +46,14 @@ class BasePage(Page):
         """
         return self.get_ancestors().exclude(depth__lte=2)
 
+    @cached_property
+    def html_title(self) -> str:
+        return self.seo_title or self.title
+
+    @cached_property
+    def hero_title(self) -> str:
+        return self.html_title
+
 
 class BaseContentPage(BasePage, MetadataMixin):
     subtitle = models.CharField(max_length=255, blank=True)
@@ -149,7 +157,7 @@ class BaseContentPage(BasePage, MetadataMixin):
         return self.hero_image_url
 
     def get_meta_title(self) -> str:
-        return self.seo_title or self.title
+        return self.html_title
 
     def get_meta_description(self) -> str:
         return self.summary
@@ -222,7 +230,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         return self.feed_class(
             self.get_listing_pages(),
             self.get_full_url(request),
-            self.title,
+            self.html_title,
         )(request)
 
 
