@@ -83,7 +83,10 @@ section.hero {
     margin-bottom: 1.25rem;
     font-weight: 300;
     font-size: 3.5rem;
+  }
 
+  .title,
+  .subtitle {
     @include dark-mode {
       color: $dark-mode-text;
     }
