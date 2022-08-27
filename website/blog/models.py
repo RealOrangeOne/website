@@ -118,7 +118,13 @@ class BlogPostCollectionPage(BaseListingPage):
     subpage_types = [BlogPostPage]
 
     def get_listing_pages(self) -> models.QuerySet:
-        return super().get_listing_pages().order_by("-date")
+        return (
+            BlogPostPage.objects.child_of(self)
+            .select_related("hero_image")
+            .select_related("hero_unsplash_photo")
+            .prefetch_related("tags")
+            .order_by("-date", "title")
+        )
 
     @property
     def feed_class(self) -> Type[ContentPageFeed]:
