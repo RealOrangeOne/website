@@ -4,14 +4,12 @@ stages:
   - deploy
 
 static:
-  image: node:alpine
+  image: node:16-slim
   stage: build
   cache:
     key: npm-$CI_COMMIT_REF_SLUG
     paths:
       - "$CI_PROJECT_DIR/.npm-cache"
-  before_script:
-    - apk add --no-cache bash
   script:
     - npm ci --cache .npm-cache --prefer-offline
     - npm run build
@@ -125,7 +123,7 @@ djhtml:
     - git ls-files '*.html' | xargs djhtml --check --tabwidth 2
 
 npm_lint:
-  image: node:alpine
+  image: node:16-slim
   stage: test
   dependencies:
     - static

@@ -1,4 +1,4 @@
-FROM node:16 as frontend
+FROM node:16-slim as frontend
 
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --progress=false --omit=dev
