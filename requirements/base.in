@@ -19,3 +19,4 @@ wagtail-metadata
 humanize
 drf-yasg
 django-plausible
+sentry-sdk

@@ -11,6 +11,8 @@ env = environ.Env(
     UNSPLASH_CLIENT_ID=(str, ""),
     SPOTIFY_PROXY_HOST=(str, ""),
     SEO_INDEX=(bool, False),
+    SENTRY_DSN=(str, ""),
+    SENTRY_ENVIRONMENT=(str, ""),
 )
 
 # Read local secrets
@@ -286,3 +288,21 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 if not DEBUG:
     SECURE_HSTS_SECONDS = 86400  # 1 day
+
+if sentry_dsn := env("SENTRY_DSN"):
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    from sentry_sdk.integrations.redis import RedisIntegration
+    from sentry_sdk.integrations.rq import RqIntegration
+    from sentry_sdk.utils import get_default_release
+
+    sentry_kwargs = {
+        "dsn": sentry_dsn,
+        "integrations": [DjangoIntegration(), RqIntegration(), RedisIntegration()],
+        "release": get_default_release(),
+    }
+
+    if sentry_environment := env("SENTRY_ENVIRONMENT"):
+        sentry_kwargs.update({"environment": sentry_environment})
+
+    sentry_sdk.init(**sentry_kwargs)
