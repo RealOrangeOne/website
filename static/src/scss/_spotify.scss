@@ -1,9 +1,21 @@
 body.page-spotifyplaylistpage {
   table {
     font-size: 80%;
+    background-color: transparent;
 
-    td {
+    td,
+    th {
       vertical-align: middle;
+
+      @include dark-mode {
+        color: $dark-mode-text;
+      }
+    }
+
+    tbody tr:hover {
+      @include dark-mode {
+        background-color: $grey-darker !important;
+      }
     }
 
     img {
