@@ -21,7 +21,7 @@ static:
     expire_in: 30 mins
 
 pip:
-  image: python:3.10
+  image: python:3.10-slim
   stage: build
   variables:
     PIP_CACHE_DIR: $CI_PROJECT_DIR/.pip-cache
@@ -29,6 +29,9 @@ pip:
     key: pip-$CI_COMMIT_REF_SLUG
     paths:
       - "$CI_PROJECT_DIR/.pip-cache"
+  before_script:
+    - apt-get update --yes
+    - apt-get install --yes build-essential libpq-dev
   script:
     - python -m venv env
     - source env/bin/activate
@@ -40,11 +43,12 @@ pip:
     expire_in: 30 mins
 
 .python_test_template:
-  image: python:3.10
+  image: python:3.10-slim
   stage: test
   dependencies:
     - pip
   before_script:
+    - apt-get update && apt-get install --yes git libpq-dev
     - source env/bin/activate
   variables:
     SECRET_KEY: super-secret
@@ -144,7 +148,7 @@ container:
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build -t website --target production -t $DEV_IMAGE_TAG .
+    - docker build --target production -t $DEV_IMAGE_TAG .
     - docker push $DEV_IMAGE_TAG
     - >
       if [ "$CI_COMMIT_REF_SLUG" == "master"]; then
