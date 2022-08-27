@@ -15,19 +15,19 @@
   <section class="container">
     {% for page in pages %}
       {% ifchanged %}
-        <time datetime="{{ page.date|date:'Y-m' }} title='{{ page.date|date:"F Y" }}'>
+        <time datetime="{{ page.date|date:'Y-m' }}" title='{{ page.date|date:"F Y" }}'>
           <h3 id="{{ page.date|date:'Y-m' }}" class="date-header">{{ page.date|date:"Y-m" }}</h3>
-            </time>
+        </time>
       {% endifchanged %}
 
       {% include "common/listing-item.html" %}
     {% endfor %}
-    </section>
+  </section>
 
-    {% if pages.has_other_pages %}
-      <section class="container">
-        <hr class="my-5" />
-          {% include "common/pagination.html" %}
-          </section>
-    {% endif %}
+  {% if pages.has_other_pages %}
+    <section class="container">
+      <hr class="my-5" />
+      {% include "common/pagination.html" %}
+    </section>
+  {% endif %}
 {% endblock %}
