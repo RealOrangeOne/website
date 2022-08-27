@@ -48,10 +48,10 @@
 }
 
 nav.pagination {
-  @include dark-mode {
-    a.pagination-link,
-    .pagination-next,
-    .pagination-previous {
+  a.pagination-link,
+  .pagination-next,
+  .pagination-previous {
+    @include dark-mode {
       background-color: $grey-darker;
       border-color: $black;
       color: $dark-mode-text;
@@ -64,8 +64,10 @@ nav.pagination {
         background-color: $primary;
       }
     }
+  }
 
-    .pagination-ellipsis {
+  .pagination-ellipsis {
+    @include dark-mode {
       color: $dark-mode-text;
     }
   }
