@@ -20,3 +20,4 @@ humanize
 drf-yasg
 django-plausible
 sentry-sdk
+wagtail-favicon

@@ -63,6 +63,7 @@ uritemplate==4.1.1        # via coreapi, drf-yasg
 urllib3==1.26.11          # via requests, sentry-sdk
 wagtail==3.0.1            # via -r requirements/base.in, wagtail-draftail-snippet, wagtail-metadata
 wagtail-draftail-snippet==0.4.1  # via -r requirements/base.in
+wagtail-favicon==0.2.0    # via -r requirements/base.in
 wagtail-generic-chooser==0.4.1  # via -r requirements/base.in
 wagtail-metadata==4.0.0   # via -r requirements/base.in
 webencodings==0.5.1       # via html5lib

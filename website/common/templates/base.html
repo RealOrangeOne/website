@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache plausible_wagtail %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache plausible_wagtail favicon_tags %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -16,6 +16,9 @@
     {% if not SEO_INDEX %}
       <meta name="robots" content="noindex" />
     {% endif %}
+
+    {% favicon_meta %}
+
     {% block extra_head %}{% endblock %}
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">

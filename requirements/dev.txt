@@ -93,6 +93,7 @@ urllib3==1.26.11          # via -r requirements/base.txt, requests, sentry-sdk
 wagtail==3.0.1            # via -r requirements/base.txt, wagtail-draftail-snippet, wagtail-factories, wagtail-metadata
 wagtail-draftail-snippet==0.4.1  # via -r requirements/base.txt
 wagtail-factories==3.1.0  # via -r requirements/dev.in
+wagtail-favicon==0.2.0    # via -r requirements/base.txt
 wagtail-generic-chooser==0.4.1  # via -r requirements/base.txt
 wagtail-metadata==4.0.0   # via -r requirements/base.txt
 webencodings==0.5.1       # via -r requirements/base.txt, html5lib

@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "wagtail_draftail_snippet",
     "django_rq",
     "drf_yasg",
+    "wagtail_favicon",
     "plausible",
     "plausible.contrib.wagtail",
     "django.contrib.auth",

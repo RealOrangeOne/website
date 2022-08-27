@@ -6,6 +6,7 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.views.serve import ServeView
+from wagtail_favicon.urls import urls as favicon_urls
 
 from website.common.views import AllPagesFeed, KeybaseView, RobotsView, page_not_found
 
@@ -29,6 +30,7 @@ urlpatterns = [
     path("feed/", AllPagesFeed(), name="feed"),
     path("", include("website.legacy.urls")),
     path("api/", include("website.api.urls")),
+    path("", include(favicon_urls)),
 ]
 
 
