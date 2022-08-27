@@ -26,4 +26,19 @@ body.page-searchpage {
   #result-count {
     margin-bottom: 1rem;
   }
+
+  input[type="search"] {
+    @include dark-mode {
+      background-color: color.adjust($dark, $alpha: -0.2);
+      color: $white;
+
+      &::placeholder {
+        color: rgba(214 210 205 / 80%);
+      }
+
+      &:focus ~ .icon {
+        color: $grey-light !important;
+      }
+    }
+  }
 }
