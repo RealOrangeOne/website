@@ -151,7 +151,7 @@ container:
     - docker build --target production -t $DEV_IMAGE_TAG .
     - docker push $DEV_IMAGE_TAG
     - >
-      if [ "$CI_COMMIT_REF_SLUG" == "master"]; then
+      if [ "$CI_COMMIT_REF_SLUG" == "master" ]; then
         docker tag $DEV_IMAGE_TAG $PROD_IMAGE_TAG
         docker push $PROD_IMAGE_TAG
       else
