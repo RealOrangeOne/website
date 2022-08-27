@@ -1,0 +1,13 @@
+.page-contactpage {
+  .card {
+    @include dark-mode {
+      background-color: $grey-darker;
+    }
+  }
+
+  .subtitle {
+    @include dark-mode {
+      color: $grey-lighter;
+    }
+  }
+}
