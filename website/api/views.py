@@ -27,6 +27,7 @@ class PageLinksAPIView(ListAPIView):
     def get_queryset(self) -> PageQuerySet:
         return (
             Page.objects.live()
+            .public()
             .exclude(depth__lte=1)
             .only("id", "url_path", "title")
             .order_by("title")
@@ -45,6 +46,8 @@ class LMOTFYAPIView(ListAPIView):
     pagination_class = CustomPageNumberPagination
 
     def get_queryset(self) -> PageQuerySet:
-        return BlogPostPage.objects.live().select_related(
-            "hero_image", "hero_unsplash_photo"
+        return (
+            BlogPostPage.objects.live()
+            .public()
+            .select_related("hero_image", "hero_unsplash_photo")
         )

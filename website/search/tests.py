@@ -55,7 +55,7 @@ class SearchPageResultsTestCase(TestCase):
         cls.url = cls.page.url + cls.page.reverse_subpage("results")
 
     def test_returns_results(self) -> None:
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(12):
             response = self.client.get(self.url, {"q": "post"}, HTTP_HX_REQUEST="true")
         self.assertEqual(response.status_code, 200)
 
@@ -89,7 +89,7 @@ class SearchPageResultsTestCase(TestCase):
         )
 
     def test_too_high_page(self) -> None:
-        with self.assertNumQueries(46):
+        with self.assertNumQueries(48):
             response = self.client.get(
                 self.url, {"q": "post", "page": 3}, HTTP_HX_REQUEST="true"
             )

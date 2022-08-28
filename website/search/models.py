@@ -64,6 +64,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         filters, query = parse_query_string(search_query)
         pages = (
             Page.objects.live()
+            .public()
             .not_type(self.__class__, HomePage)
             .search(query, order_by_relevance=True)
         )

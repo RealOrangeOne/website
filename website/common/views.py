@@ -25,7 +25,7 @@ class Error404View(TemplateView):
 
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
-        context["homepage"] = HomePage.objects.live().get()
+        context["homepage"] = HomePage.objects.get()
         return context
 
 
@@ -58,7 +58,7 @@ class AllPagesFeed(Feed):
         return super().__call__(request, *args, **kwargs)
 
     def items(self) -> PageQuerySet:
-        return Page.objects.live().exclude(depth__lte=2)
+        return Page.objects.live().public().exclude(depth__lte=2)
 
     def item_title(self, item: BasePage) -> str:
         return item.title

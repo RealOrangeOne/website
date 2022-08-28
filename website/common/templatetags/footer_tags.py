@@ -8,5 +8,5 @@ register = Library()
 @register.inclusion_tag("common/footer.html")
 def footer() -> dict:
     return {
-        "homepage": HomePage.objects.live().get(),
+        "homepage": HomePage.objects.get(),
     }

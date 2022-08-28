@@ -25,7 +25,7 @@ class PageLinksAPIViewTestCase(APITestCase):
             ContentPageFactory(parent=cls.home_page)
 
     def test_accessible(self) -> None:
-        with self.assertNumQueries(3):
+        with self.assertNumQueries(4):
             response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
@@ -43,29 +43,29 @@ class LMOTFYAPIViewTestCase(APITestCase):
         cls.exact = BlogPostPageFactory(parent=cls.home_page, title="Post exact")
 
     def test_accessible(self) -> None:
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             response = self.client.get(self.url, {"search": "Post"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], 5)
 
     def test_case_insensitive_search(self) -> None:
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             response = self.client.get(self.url, {"search": "post"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], 5)
 
     def test_no_search_term(self) -> None:
-        with self.assertNumQueries(0):
+        with self.assertNumQueries(1):
             response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
     def test_empty_search_term(self) -> None:
-        with self.assertNumQueries(0):
+        with self.assertNumQueries(1):
             response = self.client.get(self.url, {"search": ""})
         self.assertEqual(response.status_code, 200)
 
     def test_exact(self) -> None:
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(5):
             response = self.client.get(self.url, {"search": "Post exact"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["count"], 1)

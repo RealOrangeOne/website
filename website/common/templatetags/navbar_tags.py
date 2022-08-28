@@ -13,7 +13,8 @@ def navbar() -> dict:
         "homepage": homepage,
         "nav_pages": homepage.get_children()
         .live()
+        .public()
         .filter(show_in_menus=True)
         .order_by("title"),
-        "search_page": SearchPage.objects.all().live().defer_streamfields().first(),
+        "search_page": SearchPage.objects.defer_streamfields().first(),
     }

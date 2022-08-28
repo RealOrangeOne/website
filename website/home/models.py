@@ -42,9 +42,11 @@ class HomePage(BasePage, WagtailImageMetadataMixin):
 
         context = super().get_context(request)
         context["latest_blog_post"] = (
-            BlogPostPage.objects.live().defer_streamfields().order_by("-date").first()
+            BlogPostPage.objects.live()
+            .public()
+            .defer_streamfields()
+            .order_by("-date")
+            .first()
         )
-        context["search_page"] = (
-            SearchPage.objects.all().live().defer_streamfields().first()
-        )
+        context["search_page"] = SearchPage.objects.defer_streamfields().first()
         return context

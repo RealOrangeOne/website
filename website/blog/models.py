@@ -41,6 +41,7 @@ class BlogPostListPage(BaseListingPage):
         return prefetch_for_listing(
             BlogPostPage.objects.descendant_of(self)
             .live()
+            .public()
             .order_by("-date", "title")
             .prefetch_related("tags")
         )
@@ -86,7 +87,7 @@ class BlogPostTagPage(BaseListingPage):
         return f"Pages tagged with '{super().html_title}'"
 
     def get_listing_pages(self) -> models.QuerySet:
-        blog_list_page = BlogPostListPage.objects.all().live().get()
+        blog_list_page = BlogPostListPage.objects.get()
         return blog_list_page.get_listing_pages().filter(tags=self)
 
     @property
@@ -109,7 +110,7 @@ class BlogPostCollectionListPage(BaseListingPage):
 
     def get_listing_pages(self) -> models.QuerySet:
         blog_list_page = BlogPostListPage.objects.all().live().get()
-        return BlogPostCollectionPage.objects.child_of(blog_list_page).live()
+        return BlogPostCollectionPage.objects.child_of(blog_list_page).live().public()
 
 
 class BlogPostCollectionPage(BaseListingPage):
@@ -120,6 +121,7 @@ class BlogPostCollectionPage(BaseListingPage):
         return prefetch_for_listing(
             BlogPostPage.objects.child_of(self)
             .live()
+            .public()
             .prefetch_related("tags")
             .order_by("-date", "title")
         )

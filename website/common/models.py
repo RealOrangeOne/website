@@ -203,7 +203,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
 
     def get_listing_pages(self) -> models.QuerySet:
         return prefetch_for_listing(
-            self.get_children().live().specific().order_by("title")
+            self.get_children().live().public().specific().order_by("title")
         )
 
     def get_paginator_page(self) -> PaginatorPage:

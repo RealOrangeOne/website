@@ -35,7 +35,7 @@ class ContentPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(25):
+        with self.assertNumQueries(26):
             self.client.get(self.page.url)
 
 
@@ -52,14 +52,14 @@ class ListingPageTestCase(TestCase):
         ContentPageFactory(parent=cls.page)
 
     def test_accessible(self) -> None:
-        with self.assertNumQueries(29):
+        with self.assertNumQueries(31):
             response = self.client.get(self.page.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["listing_pages"]), 2)
         self.assertContains(response, self.page.reverse_subpage("feed"))
 
     def test_feed_accessible(self) -> None:
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(12):
             response = self.client.get(
                 self.page.url + self.page.reverse_subpage("feed")
             )

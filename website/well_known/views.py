@@ -23,7 +23,7 @@ class SecurityView(TemplateView):
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         context["security_txt"] = self.request.build_absolute_uri(self.request.path)
-        context["contact_page"] = ContactPage.objects.live().first()
+        context["contact_page"] = ContactPage.objects.first()
         context["expires"] = (
             (timezone.now() + self.expires).replace(microsecond=0).isoformat()
         )

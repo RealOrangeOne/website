@@ -9,7 +9,7 @@ from website.blog.models import BlogPostListPage
 @method_decorator(cache_page(60 * 60), name="dispatch")
 class PostsFeedView(RedirectView):
     def get_redirect_url(self) -> str:
-        post_list = get_object_or_404(BlogPostListPage.objects.live())
+        post_list = get_object_or_404(BlogPostListPage)
         return post_list.url + post_list.reverse_subpage("feed")
 
 
