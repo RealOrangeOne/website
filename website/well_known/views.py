@@ -8,7 +8,7 @@ from django.views.decorators.cache import cache_page
 from django.views.generic import TemplateView
 
 from website.contact.models import ContactPage
-from website.contrib.singleton_url.utils import SingletonURLCache
+from website.contrib.singleton_page.utils import SingletonPageCache
 
 
 class SecurityView(TemplateView):
@@ -24,7 +24,7 @@ class SecurityView(TemplateView):
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         context["security_txt"] = self.request.build_absolute_uri(self.request.path)
-        context["contact_page_url"] = SingletonURLCache.get_url(ContactPage)
+        context["contact_page_url"] = SingletonPageCache.get_url(ContactPage)
         context["expires"] = (
             (timezone.now() + self.expires).replace(microsecond=0).isoformat()
         )

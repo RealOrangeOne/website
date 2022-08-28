@@ -5,7 +5,7 @@ from django.http.request import HttpRequest
 from wagtail.models import Page
 
 
-class SingletonURLCache:
+class SingletonPageCache:
     @classmethod
     def get_url_cache_key(cls, model: Type[Page]) -> str:
         return f"singleton_url_{model.__name__}"
