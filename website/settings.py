@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "website.contrib.code_block",
     "website.contrib.mermaid_block",
     "website.contrib.unsplash",
+    "website.contrib.singleton_url",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.modeladmin",
