@@ -61,7 +61,8 @@ tablib[xls,xlsx]==3.2.1   # via wagtail
 telepath==0.2             # via wagtail
 uritemplate==4.1.1        # via coreapi, drf-yasg
 urllib3==1.26.11          # via requests, sentry-sdk
-wagtail==3.0.1            # via -r requirements/base.in, wagtail-draftail-snippet, wagtail-metadata
+wagtail==3.0.1            # via -r requirements/base.in, wagtail-autocomplete, wagtail-draftail-snippet, wagtail-metadata
+wagtail-autocomplete @ git+https://github.com/wagtail/wagtail-autocomplete@03f46a0c256989690d0a43fc21fe0f37f9ede765  # via -r requirements/base.in
 wagtail-draftail-snippet==0.4.1  # via -r requirements/base.in
 wagtail-favicon==0.2.0    # via -r requirements/base.in
 wagtail-generic-chooser==0.4.1  # via -r requirements/base.in

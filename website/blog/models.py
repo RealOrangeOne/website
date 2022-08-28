@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
+from wagtailautocomplete.edit_handlers import AutocompletePanel
 
 from website.common.models import BaseContentPage, BaseListingPage
 from website.common.utils import TocEntry, prefetch_for_listing
@@ -38,7 +39,10 @@ class BlogPostListPage(BaseListingPage):
 
     def get_listing_pages(self) -> models.QuerySet:
         return prefetch_for_listing(
-            BlogPostPage.objects.descendant_of(self).live().order_by("-date", "title").prefetch_related("tags")
+            BlogPostPage.objects.descendant_of(self)
+            .live()
+            .order_by("-date", "title")
+            .prefetch_related("tags")
         )
 
     @property
@@ -57,7 +61,7 @@ class BlogPostPage(BaseContentPage):
 
     content_panels = BaseContentPage.content_panels + [
         FieldPanel("date"),
-        FieldPanel("tags"),
+        AutocompletePanel("tags"),
     ]
 
 
@@ -114,7 +118,8 @@ class BlogPostCollectionPage(BaseListingPage):
 
     def get_listing_pages(self) -> models.QuerySet:
         return prefetch_for_listing(
-            BlogPostPage.objects.child_of(self).live()
+            BlogPostPage.objects.child_of(self)
+            .live()
             .prefetch_related("tags")
             .order_by("-date", "title")
         )

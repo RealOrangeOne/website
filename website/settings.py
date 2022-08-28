@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "taggit",
     "generic_chooser",
     "wagtail_draftail_snippet",
+    "wagtailautocomplete",
     "django_rq",
     "drf_yasg",
     "wagtail_favicon",
