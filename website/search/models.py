@@ -7,7 +7,6 @@ from django.utils.functional import cached_property
 from django.views.decorators.http import require_GET
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
-from wagtail.query import PageQuerySet
 from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentPage
@@ -63,7 +62,11 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         }
 
         filters, query = parse_query_string(search_query)
-        pages = Page.objects.live().not_type(self.__class__, HomePage).search(query)
+        pages = (
+            Page.objects.live()
+            .not_type(self.__class__, HomePage)
+            .search(query, order_by_relevance=True)
+        )
 
         paginator = Paginator(pages, self.PAGE_SIZE)
         context["paginator"] = paginator
@@ -72,12 +75,11 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
             results = paginator.page(page_num)
 
             # HACK: Search results aren't a queryset, so we can't call `.specific` on it. This forces it to one as efficiently as possible
-            if not isinstance(results.object_list, PageQuerySet):
-                results.object_list = Page.objects.filter(
-                    id__in=list(
-                        results.object_list.get_queryset().values_list("id", flat=True)
-                    )
-                ).specific()
+            results.object_list = (
+                results.object_list.get_queryset()
+                .specific()
+                .select_related("hero_image", "hero_unsplash_photo")
+            )
 
         except EmptyPage:
             results = []
