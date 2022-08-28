@@ -9,6 +9,7 @@ from django.utils.text import slugify, smart_split
 from more_itertools import ilen
 from wagtail.models import Page
 from wagtail.models import get_page_models as get_wagtail_page_models
+from wagtail.query import PageQuerySet
 
 HEADER_TAGS = ["h2", "h3", "h4", "h5", "h6"]
 
@@ -84,3 +85,13 @@ def extract_text(html: str) -> str:
 
 def truncate_string(text: str, words: int) -> str:
     return " ".join(islice(smart_split(text), words))
+
+
+def prefetch_for_listing(queryset: PageQuerySet) -> PageQuerySet:
+    """
+    Prefetch a queryset ready for listing.
+
+    This should be a queryset method, but dealing with lots of
+    different page models is a pain.
+    """
+    return queryset.select_related("hero_image", "hero_unsplash_photo")

@@ -8,7 +8,7 @@ from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
 
 from website.common.models import BaseContentPage, BaseListingPage
-from website.common.utils import TocEntry
+from website.common.utils import TocEntry, prefetch_for_listing
 from website.common.views import ContentPageFeed
 
 
@@ -37,12 +37,8 @@ class BlogPostListPage(BaseListingPage):
         return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
 
     def get_listing_pages(self) -> models.QuerySet:
-        return (
-            BlogPostPage.objects.descendant_of(self)
-            .live()
-            .select_related("hero_image", "hero_unsplash_photo")
-            .prefetch_related("tags")
-            .order_by("-date", "title")
+        return prefetch_for_listing(
+            BlogPostPage.objects.descendant_of(self).live().order_by("-date", "title").prefetch_related("tags")
         )
 
     @property
@@ -117,9 +113,8 @@ class BlogPostCollectionPage(BaseListingPage):
     subpage_types = [BlogPostPage]
 
     def get_listing_pages(self) -> models.QuerySet:
-        return (
-            BlogPostPage.objects.child_of(self)
-            .select_related("hero_image", "hero_unsplash_photo")
+        return prefetch_for_listing(
+            BlogPostPage.objects.child_of(self).live()
             .prefetch_related("tags")
             .order_by("-date", "title")
         )

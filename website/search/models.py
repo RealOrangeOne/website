@@ -10,7 +10,7 @@ from wagtail.models import Page
 from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentPage
-from website.common.utils import TocEntry
+from website.common.utils import TocEntry, prefetch_for_listing
 from website.home.models import HomePage
 
 from .serializers import MIN_SEARCH_LENGTH, SearchParamsSerializer
@@ -75,10 +75,8 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
             results = paginator.page(page_num)
 
             # HACK: Search results aren't a queryset, so we can't call `.specific` on it. This forces it to one as efficiently as possible
-            results.object_list = (
-                results.object_list.get_queryset()
-                .specific()
-                .select_related("hero_image", "hero_unsplash_photo")
+            results.object_list = prefetch_for_listing(
+                results.object_list.get_queryset().specific()
             )
 
         except EmptyPage:

@@ -22,12 +22,18 @@ from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataMixin
 
-from website.common.utils import count_words
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
 
 from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
-from .utils import TocEntry, extract_text, get_table_of_contents, truncate_string
+from .utils import (
+    TocEntry,
+    count_words,
+    extract_text,
+    get_table_of_contents,
+    prefetch_for_listing,
+    truncate_string,
+)
 
 
 class BasePage(Page):
@@ -196,12 +202,8 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         abstract = True
 
     def get_listing_pages(self) -> models.QuerySet:
-        return (
-            self.get_children()
-            .live()
-            .specific()
-            .select_related("hero_image", "hero_unsplash_photo")
-            .order_by("title")
+        return prefetch_for_listing(
+            self.get_children().live().specific().order_by("title")
         )
 
     def get_paginator_page(self) -> PaginatorPage:
