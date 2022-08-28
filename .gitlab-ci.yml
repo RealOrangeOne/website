@@ -31,7 +31,7 @@ pip:
       - "$CI_PROJECT_DIR/.pip-cache"
   before_script:
     - apt-get update --yes
-    - apt-get install --yes build-essential libpq-dev
+    - apt-get install --yes build-essential libpq-dev git
   script:
     - python -m venv env
     - source env/bin/activate
