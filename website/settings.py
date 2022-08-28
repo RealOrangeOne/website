@@ -161,6 +161,8 @@ if not DEBUG:
 STATIC_ROOT = BASE_DIR / "collected-static"
 STATIC_URL = "/static/"
 
+WHITENOISE_ALLOW_ALL_ORIGINS = False
+
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = list(
     WhitenoiseCompressor.SKIP_COMPRESS_EXTENSIONS
 ) + ["map"]
