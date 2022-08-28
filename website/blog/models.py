@@ -40,8 +40,7 @@ class BlogPostListPage(BaseListingPage):
         return (
             BlogPostPage.objects.descendant_of(self)
             .live()
-            .select_related("hero_image")
-            .select_related("hero_unsplash_photo")
+            .select_related("hero_image", "hero_unsplash_photo")
             .prefetch_related("tags")
             .order_by("-date", "title")
         )
@@ -120,8 +119,7 @@ class BlogPostCollectionPage(BaseListingPage):
     def get_listing_pages(self) -> models.QuerySet:
         return (
             BlogPostPage.objects.child_of(self)
-            .select_related("hero_image")
-            .select_related("hero_unsplash_photo")
+            .select_related("hero_image", "hero_unsplash_photo")
             .prefetch_related("tags")
             .order_by("-date", "title")
         )

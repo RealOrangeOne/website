@@ -200,8 +200,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
             self.get_children()
             .live()
             .specific()
-            .select_related("hero_image")
-            .select_related("hero_unsplash_photo")
+            .select_related("hero_image", "hero_unsplash_photo")
             .order_by("title")
         )
 
