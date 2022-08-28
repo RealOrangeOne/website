@@ -1,5 +1,6 @@
 from django.template import Library
 
+from website.contrib.singleton_url.utils import SingletonURLCache
 from website.home.models import HomePage
 from website.search.models import SearchPage
 
@@ -16,5 +17,5 @@ def navbar() -> dict:
         .public()
         .filter(show_in_menus=True)
         .order_by("title"),
-        "search_page": SearchPage.objects.defer_streamfields().first(),
+        "search_page_url": SingletonURLCache.get_url(SearchPage),
     }

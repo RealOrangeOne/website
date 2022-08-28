@@ -6,6 +6,7 @@ from wagtail.images.models import Image
 from wagtailmetadata.models import WagtailImageMetadataMixin
 
 from website.common.models import BasePage
+from website.contrib.singleton_url.utils import SingletonURLCache
 
 
 class HomePage(BasePage, WagtailImageMetadataMixin):
@@ -48,5 +49,5 @@ class HomePage(BasePage, WagtailImageMetadataMixin):
             .order_by("-date")
             .first()
         )
-        context["search_page"] = SearchPage.objects.defer_streamfields().first()
+        context["search_page_url"] = SingletonURLCache.get_url(SearchPage)
         return context

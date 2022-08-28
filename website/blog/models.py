@@ -109,7 +109,7 @@ class BlogPostCollectionListPage(BaseListingPage):
         ]
 
     def get_listing_pages(self) -> models.QuerySet:
-        blog_list_page = BlogPostListPage.objects.all().live().get()
+        blog_list_page = BlogPostListPage.objects.get()
         return BlogPostCollectionPage.objects.child_of(blog_list_page).live().public()
 
 

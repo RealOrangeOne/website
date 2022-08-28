@@ -28,8 +28,8 @@
           <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
         </span>
       </a>
-      {% if search_page %}
-        <a class="navbar-item navbar-icon" href="{% pageurl search_page %}">
+      {% if search_page_url %}
+        <a class="navbar-item navbar-icon" href="{{ search_page_url }}">
           <span class="icon">
             <i class="fas fa-search" aria-hidden="true"></i>
           </span>

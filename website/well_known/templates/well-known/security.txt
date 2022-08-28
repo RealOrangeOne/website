@@ -1,6 +1,5 @@
-{% load wagtailcore_tags %}
-{% if contact_page %}
-Contact: {% pageurl contact_page %}
+{% if contact_page_url %}
+Contact: {{ contact_page_url }}
 {% endif %}
 Canonical: {{ security_txt }}
 Expires: {{ expires }}
