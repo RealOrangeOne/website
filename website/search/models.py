@@ -1,7 +1,7 @@
 from django.core.paginator import EmptyPage, Paginator
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render
+from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
+from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
 from django.views.decorators.http import require_GET
@@ -46,7 +46,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         serializer = SearchParamsSerializer(data=request.GET)
 
         if not serializer.is_valid():
-            return render(
+            return TemplateResponse(
                 request,
                 "search/enter-search-term.html",
                 {"MIN_SEARCH_LENGTH": MIN_SEARCH_LENGTH},
@@ -82,8 +82,8 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
             )
 
         except EmptyPage:
-            results = []
+            raise Http404
 
         context["results"] = results
 
-        return render(request, "search/search_results.html", context)
+        return TemplateResponse(request, "search/search_results.html", context)
