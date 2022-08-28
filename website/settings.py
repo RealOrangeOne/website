@@ -187,6 +187,7 @@ BASE_HOSTNAME = env("BASE_HOSTNAME")
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
 
 WAGTAIL_FRONTEND_LOGIN_URL = "/admin/login/"
+PASSWORD_REQUIRED_TEMPLATE = "password_required.html"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 

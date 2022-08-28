@@ -15,6 +15,12 @@
     <img class="hero" src="{{ page.hero_image_url }}" decoding="async" />
   {% endif %}
 
+  {% if page.get_view_restrictions.exists %}
+    <section class="notification is-danger" id="view-restriction-banner">
+      <strong>Note</strong>: This page has a view restriction. Please do not share its content until the page is public or this message is removed.
+    </section>
+  {% endif %}
+
   <section class="hero">
     <div class="container">
       <div class="hero-body">
