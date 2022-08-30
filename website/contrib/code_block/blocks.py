@@ -9,7 +9,7 @@ from wagtail.blocks import ChoiceBlock, StructBlock, StructValue, TextBlock
 
 def get_language_choices() -> Iterator[tuple[str, str]]:
     for name, _, _, _ in sorted(get_all_lexers()):
-        yield (name, name)
+        yield (name, name.replace("+", " + "))
 
 
 class CodeStructValue(StructValue):
