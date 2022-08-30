@@ -54,11 +54,31 @@ div.block-mermaid {
   }
 }
 
-div.block-code .highlight {
-  pre,
-  span,
-  & {
-    @include dark-mode;
+div.block-code {
+  .filename {
+    font-family: $family-code;
+    background-color: $grey-lighter;
+    font-size: 1rem;
+    position: relative;
+    text-align: right;
+    transform: translateY(100%) translateX(-100%);
+    display: inline-block;
+    left: 100%;
+    padding: 0.25rem 1rem;
+    border-radius: 0 0 0 $radius-large;
+    box-shadow: $shadow;
+
+    @include dark-mode {
+      background-color: $grey-darker;
+    }
+  }
+
+  .highlight {
+    pre,
+    span,
+    & {
+      @include dark-mode;
+    }
   }
 }
 

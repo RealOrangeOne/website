@@ -59,6 +59,24 @@ window.addEventListener("load", () => {
     endAudio: elevatorButton.dataset.endAudio,
     preloadAudio: false,
   });
+
+  document.querySelectorAll(".block-code").forEach((codeBlock) => {
+    const clipboardIcon = codeBlock.querySelector(".code-copy");
+    clipboardIcon.addEventListener("click", (event) => {
+      event.preventDefault();
+      navigator.clipboard
+        .writeText(codeBlock.querySelector("pre").textContent)
+        .then(() => {
+          clipboardIcon.classList.remove("fa-regular", "fa-clipboard");
+          clipboardIcon.classList.add("fa-solid", "fa-check");
+
+          setTimeout(() => {
+            clipboardIcon.classList.add("fa-regular", "fa-clipboard");
+            clipboardIcon.classList.remove("fa-solid", "fa-check");
+          }, 3000);
+        });
+    });
+  });
 });
 
 window.addEventListener("DOMContentLoaded", () => {

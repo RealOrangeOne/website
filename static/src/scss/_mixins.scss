@@ -2,7 +2,8 @@
   // Ensure animations aren't for the initial transition
   html.dark-mode-animate & {
     transition-duration: 0.5s;
-    transition-property: color, background-color, border-color, filter;
+    transition-property: color, background-color, border-color, filter,
+      box-shadow;
   }
 
   html.dark-mode & {
