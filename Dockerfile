@@ -44,7 +44,7 @@ COPY --chown=website ./website ./website
 
 RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear -v3
 
-CMD gunicorn -c etc/gunicorn.conf.py
+CMD python manage.py migrate --noinput && gunicorn -c etc/gunicorn.conf.py
 
 # Just dev stuff
 FROM production as dev
