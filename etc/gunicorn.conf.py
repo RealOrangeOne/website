@@ -7,4 +7,4 @@ preload_app = True
 bind = "0.0.0.0"
 
 # Replace gunicorn's 'Server' HTTP header
-gunicorn.SERVER_SOFTWARE = "Wouldn't you like to know"
+gunicorn.SERVER_SOFTWARE = gunicorn.SERVER = "Wouldn't you like to know"
