@@ -8,7 +8,7 @@ app_name = "code-block"
 urlpatterns = [
     # HACK: Bake the pygments version into the URL, without needing a custom method
     path(
-        f"pygments-<slug:name>.{PYGMENTS_VERSION_SLUG}.css",
+        f"pygments.{PYGMENTS_VERSION_SLUG}.css",
         pygments_styles,
         name="styles",
     )

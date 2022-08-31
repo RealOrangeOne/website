@@ -1,16 +1,21 @@
-from django.http import Http404, HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse
+from django.utils.datastructures import OrderedSet
 from django.views.decorators.cache import cache_page
 from pygments.formatters.html import HtmlFormatter
-from pygments.util import ClassNotFound
 
 
 @cache_page(3600)
-def pygments_styles(request: HttpRequest, name: str) -> HttpResponse:
-    try:
-        formatter = HtmlFormatter(style=name)
-    except ClassNotFound:
-        # Raising an exception here bypasses the cache header
-        raise Http404
+def pygments_styles(request: HttpRequest) -> HttpResponse:
+    default_styles = (
+        HtmlFormatter(style="default")
+        .get_style_defs("html:not(.dark-mode) .highlight")
+        .split("\n")
+    )
+    dark_styles = (
+        HtmlFormatter(style="monokai")
+        .get_style_defs("html.dark-mode .highlight")
+        .split("\n")
+    )
     return HttpResponse(
-        formatter.get_style_defs("." + formatter.cssclass), content_type="text/css"
+        "".join(OrderedSet(default_styles + dark_styles)), content_type="text/css"
     )

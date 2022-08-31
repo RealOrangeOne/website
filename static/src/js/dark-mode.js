@@ -6,9 +6,6 @@ const darkModeToggle = document.getElementById("dark-mode-toggle");
 
 const matchesDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
 
-const darkModeCodeStyles = document.getElementById("pygments-dark");
-const lightModeCodeStyles = document.getElementById("pygments-light");
-
 function handleDarkMode(darkMode) {
   window.localStorage.setItem(STORAGE_KEY, darkMode.toString());
 
@@ -16,11 +13,6 @@ function handleDarkMode(darkMode) {
     htmlTag.classList.add(DARK_MODE_CLASS);
   } else {
     htmlTag.classList.remove(DARK_MODE_CLASS);
-  }
-
-  if (darkModeCodeStyles) {
-    darkModeCodeStyles.sheet.disabled = !darkMode;
-    lightModeCodeStyles.sheet.disabled = darkMode;
   }
 }
 
