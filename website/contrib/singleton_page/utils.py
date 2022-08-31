@@ -25,7 +25,7 @@ class SingletonPageCache:
             if page is None:
                 return None
 
-            url = page.get_full_url(request)
+            url = page.get_url(request)
 
             cache.set(cache_key, url, 86400)
 

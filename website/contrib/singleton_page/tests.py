@@ -9,7 +9,7 @@ from .utils import SingletonPageCache
 class SingletonURLTestCase(TestCase):
     def test_gets_url(self) -> None:
         with self.assertNumQueries(2):
-            self.assertEqual(SingletonPageCache.get_url(HomePage), "http://localhost/")
+            self.assertEqual(SingletonPageCache.get_url(HomePage), "/")
 
     def test_missing_page(self) -> None:
         with self.assertNumQueries(1):
