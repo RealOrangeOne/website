@@ -2,12 +2,10 @@ from datetime import timedelta
 from typing import Any, Optional, Type
 
 from django.contrib.syndication.views import Feed
-from django.core.cache import cache
 from django.core.paginator import EmptyPage
 from django.core.paginator import Page as PaginatorPage
 from django.core.paginator import Paginator
 from django.db import models
-from django.dispatch import receiver
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
 from django.utils.functional import cached_property, classproperty
@@ -117,20 +115,8 @@ class BaseContentPage(BasePage, MetadataMixin):
         return add_heading_anchors(self._body_html)
 
     @cached_property
-    def body_html_cache_key(self) -> str:
-        return f"body_html_{self.id}"
-
-    @cached_property
     def _body_html(self) -> str:
-        body_html = cache.get(self.body_html_cache_key)
-
-        if body_html is None:
-            body_html = str(self.body)
-
-            # Cache for 1 day
-            cache.set(self.body_html_cache_key, body_html, 86400)
-
-        return body_html
+        return str(self.body)
 
     @cached_property
     def content_html(self) -> str:
@@ -170,12 +156,6 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     def get_object_title(self) -> str:
         return ""
-
-
-@receiver(models.signals.post_save)
-def clear_body_html_cache(sender: Any, instance: models.Model, **kwargs: dict) -> None:
-    if isinstance(instance, BaseContentPage):
-        cache.delete(instance.body_html_cache_key)
 
 
 class ContentPage(BaseContentPage):
