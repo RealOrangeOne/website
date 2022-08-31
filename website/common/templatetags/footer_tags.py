@@ -6,8 +6,9 @@ from website.home.models import HomePage
 register = Library()
 
 
-@register.inclusion_tag("common/footer.html")
-def footer() -> dict:
+@register.inclusion_tag("common/footer.html", takes_context=True)
+def footer(context: dict) -> dict:
+    request = context["request"]
     return {
-        "homepage_url": SingletonPageCache.get_url(HomePage),
+        "homepage_url": SingletonPageCache.get_url(HomePage, request),
     }

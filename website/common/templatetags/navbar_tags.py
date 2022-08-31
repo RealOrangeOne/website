@@ -7,15 +7,16 @@ from website.search.models import SearchPage
 register = Library()
 
 
-@register.inclusion_tag("common/navbar.html")
-def navbar() -> dict:
-    homepage = HomePage.objects.live().get()
+@register.inclusion_tag("common/navbar.html", takes_context=True)
+def navbar(context: dict) -> dict:
+    request = context["request"]
+    homepage = HomePage.objects.get()
     return {
-        "homepage": homepage,
+        "homepage_url": SingletonPageCache.get_url(HomePage, request),
         "nav_pages": homepage.get_children()
         .live()
         .public()
         .filter(show_in_menus=True)
         .order_by("title"),
-        "search_page_url": SingletonPageCache.get_url(SearchPage),
+        "search_page_url": SingletonPageCache.get_url(SearchPage, request),
     }

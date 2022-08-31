@@ -49,5 +49,5 @@ class HomePage(BasePage, WagtailImageMetadataMixin):
             .order_by("-date")
             .first()
         )
-        context["search_page_url"] = SingletonPageCache.get_url(SearchPage)
+        context["search_page_url"] = SingletonPageCache.get_url(SearchPage, request)
         return context
