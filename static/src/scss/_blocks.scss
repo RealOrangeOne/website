@@ -55,7 +55,7 @@ div.block-mermaid {
 }
 
 div.block-code {
-  .filename {
+  .code-header {
     font-family: $family-code;
     background-color: $grey-lighter;
     font-size: 80%;
@@ -68,7 +68,7 @@ div.block-code {
     }
   }
 
-  &:not(:hover) .filename {
+  &:not(:hover) .code-header:not(.always-show) {
     visibility: hidden;
   }
 

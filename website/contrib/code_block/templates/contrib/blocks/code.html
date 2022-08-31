@@ -1,7 +1,5 @@
-<div class="filename">
-  <span>
-    {{ value.language }}
-  </span>
+<div class="code-header {% if value.always_show_header %}always-show{% endif %}">
+  <span title="{{ value.language }}">{% firstof value.filename value.language %}</span>
   <span>
     <i class="fa-regular fa-clipboard is-clickable code-copy" title="Copy to clipboard"></i>
   </span>

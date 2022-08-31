@@ -4,7 +4,14 @@ from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import get_all_lexers, get_lexer_by_name
-from wagtail.blocks import ChoiceBlock, StructBlock, StructValue, TextBlock
+from wagtail.blocks import (
+    BooleanBlock,
+    CharBlock,
+    ChoiceBlock,
+    StructBlock,
+    StructValue,
+    TextBlock,
+)
 
 
 def get_language_choices() -> Iterator[tuple[str, str]]:
@@ -22,10 +29,12 @@ class CodeStructValue(StructValue):
 
 
 class CodeBlock(StructBlock):
+    filename = CharBlock(max_length=128, required=False)
     language = ChoiceBlock(
         choices=get_language_choices,
     )
     source = TextBlock()
+    always_show_header = BooleanBlock(default=False)
 
     class Meta:
         icon = "code"
