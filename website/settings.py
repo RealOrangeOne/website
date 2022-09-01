@@ -69,6 +69,9 @@ INSTALLED_APPS = [
     "plausible",
     "plausible.contrib.wagtail",
     "sri",
+    "wagtail_2fa",
+    "django_otp",
+    "django_otp.plugins.otp_totp",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
@@ -87,6 +90,7 @@ MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "wagtail_2fa.middleware.VerifyUserMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
@@ -143,6 +147,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+WAGTAIL_2FA_REQUIRED = not DEBUG
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

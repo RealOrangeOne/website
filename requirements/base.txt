@@ -15,11 +15,12 @@ click==8.1.3              # via rq
 coreapi==2.3.3            # via drf-yasg
 coreschema==0.0.4         # via coreapi, drf-yasg
 deprecated==1.2.13        # via redis
-django==4.0.6             # via -r requirements/base.in, django-filter, django-htmx, django-modelcluster, django-permissionedforms, django-plausible, django-redis, django-rq, django-sri, django-taggit, django-treebeard, djangorestframework, drf-yasg, wagtail
+django==4.0.6             # via -r requirements/base.in, django-filter, django-htmx, django-modelcluster, django-otp, django-permissionedforms, django-plausible, django-redis, django-rq, django-sri, django-taggit, django-treebeard, djangorestframework, drf-yasg, wagtail, wagtail-2fa
 django-environ==0.9.0     # via -r requirements/base.in
 django-filter==21.1       # via wagtail
 django-htmx==1.12.1       # via -r requirements/base.in
 django-modelcluster==6.0  # via wagtail
+django-otp==1.1.3         # via wagtail-2fa
 django-permissionedforms==0.1  # via wagtail
 django-plausible==0.3.0   # via -r requirements/base.in
 django-redis==5.2.0       # via -r requirements/base.in
@@ -49,20 +50,22 @@ psycopg2==2.9.3           # via -r requirements/base.in
 pygments==2.13.0          # via -r requirements/base.in
 pyparsing==3.0.9          # via packaging
 pytz==2022.1              # via django-modelcluster, djangorestframework, drf-yasg, l18n
+qrcode==7.3.1             # via wagtail-2fa
 redis==4.3.4              # via django-redis, django-rq, rq
 requests==2.28.1          # via -r requirements/base.in, coreapi, wagtail, wagtail-generic-chooser
 rq==1.10.1                # via django-rq
 ruamel-yaml==0.17.21      # via drf-yasg
 ruamel-yaml-clib==0.2.6   # via ruamel-yaml
 sentry-sdk==1.9.5         # via -r requirements/base.in
-six==1.16.0               # via html5lib, l18n
+six==1.16.0               # via html5lib, l18n, wagtail-2fa
 soupsieve==2.3.2.post1    # via beautifulsoup4
 sqlparse==0.4.2           # via django
 tablib[xls,xlsx]==3.2.1   # via wagtail
 telepath==0.2             # via wagtail
 uritemplate==4.1.1        # via coreapi, drf-yasg
 urllib3==1.26.11          # via requests, sentry-sdk
-wagtail==3.0.1            # via -r requirements/base.in, wagtail-autocomplete, wagtail-draftail-snippet, wagtail-metadata
+wagtail==3.0.1            # via -r requirements/base.in, wagtail-2fa, wagtail-autocomplete, wagtail-draftail-snippet, wagtail-metadata
+wagtail-2fa==1.6.0        # via -r requirements/base.in
 wagtail-autocomplete @ git+https://github.com/wagtail/wagtail-autocomplete@03f46a0c256989690d0a43fc21fe0f37f9ede765  # via -r requirements/base.in
 wagtail-draftail-snippet==0.4.1  # via -r requirements/base.in
 wagtail-favicon==0.2.0    # via -r requirements/base.in
