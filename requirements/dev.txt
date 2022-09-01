@@ -7,7 +7,7 @@
 anyascii==0.3.1           # via -r requirements/base.txt, wagtail
 asgiref==3.5.2            # via -r requirements/base.txt, django
 async-timeout==4.0.2      # via -r requirements/base.txt, redis
-attrs==22.1.0             # via curlylint
+attrs==22.1.0             # via curlylint, flake8-bugbear
 beautifulsoup4==4.9.3     # via -r requirements/base.txt, wagtail
 black==22.6.0             # via -r requirements/dev.in
 brotli==1.0.9             # via -r requirements/base.txt, whitenoise
@@ -42,7 +42,13 @@ drf-yasg==1.21.3          # via -r requirements/base.txt
 et-xmlfile==1.1.0         # via -r requirements/base.txt, openpyxl
 factory-boy==3.2.1        # via wagtail-factories
 faker==14.1.0             # via factory-boy
-flake8==4.0.1             # via -r requirements/dev.in
+flake8==4.0.1             # via -r requirements/dev.in, flake8-bugbear, flake8-builtins, flake8-comprehensions, flake8-mutable, flake8-print, flake8-tuple
+flake8-bugbear==22.8.23   # via -r requirements/dev.in
+flake8-builtins==1.5.3    # via -r requirements/dev.in
+flake8-comprehensions==3.10.0  # via -r requirements/dev.in
+flake8-mutable==1.2.0     # via -r requirements/dev.in
+flake8-print==5.0.0       # via -r requirements/dev.in
+flake8-tuple==0.4.1       # via -r requirements/dev.in
 gunicorn==20.1.0          # via -r requirements/base.txt
 honcho==1.1.0             # via -r requirements/dev.in
 html5lib==1.1             # via -r requirements/base.txt, wagtail
@@ -68,7 +74,7 @@ pillow==9.2.0             # via -r requirements/base.txt, wagtail
 pip-tools==6.8.0          # via -r requirements/dev.in
 platformdirs==2.5.2       # via black
 psycopg2==2.9.3           # via -r requirements/base.txt
-pycodestyle==2.8.0        # via flake8
+pycodestyle==2.8.0        # via flake8, flake8-print
 pyflakes==2.4.0           # via flake8
 pygments==2.13.0          # via -r requirements/base.txt
 pyparsing==3.0.9          # via -r requirements/base.txt, packaging
@@ -81,7 +87,7 @@ rq==1.10.1                # via -r requirements/base.txt, django-rq
 ruamel-yaml==0.17.21      # via -r requirements/base.txt, drf-yasg
 ruamel-yaml-clib==0.2.6   # via -r requirements/base.txt, ruamel-yaml
 sentry-sdk==1.9.5         # via -r requirements/base.txt
-six==1.16.0               # via -r requirements/base.txt, html5lib, l18n, python-dateutil, wagtail-2fa
+six==1.16.0               # via -r requirements/base.txt, flake8-tuple, html5lib, l18n, python-dateutil, wagtail-2fa
 soupsieve==2.3.2.post1    # via -r requirements/base.txt, beautifulsoup4
 sqlparse==0.4.2           # via -r requirements/base.txt, django, django-debug-toolbar
 tablib[xls,xlsx]==3.2.1   # via -r requirements/base.txt, wagtail
