@@ -20,7 +20,7 @@ coreschema==0.0.4         # via -r requirements/base.txt, coreapi, drf-yasg
 coverage==6.4.4           # via -r requirements/dev.in
 curlylint==0.13.1         # via -r requirements/dev.in
 deprecated==1.2.13        # via -r requirements/base.txt, redis
-django==4.0.6             # via -r requirements/base.txt, django-browser-reload, django-debug-toolbar, django-filter, django-htmx, django-modelcluster, django-permissionedforms, django-plausible, django-redis, django-rq, django-taggit, django-treebeard, djangorestframework, drf-yasg, wagtail
+django==4.0.6             # via -r requirements/base.txt, django-browser-reload, django-debug-toolbar, django-filter, django-htmx, django-modelcluster, django-permissionedforms, django-plausible, django-redis, django-rq, django-sri, django-taggit, django-treebeard, djangorestframework, drf-yasg, wagtail
 django-browser-reload==1.6.0  # via -r requirements/dev.in
 django-debug-toolbar==3.5.0  # via -r requirements/dev.in
 django-environ==0.9.0     # via -r requirements/base.txt
@@ -31,6 +31,7 @@ django-permissionedforms==0.1  # via -r requirements/base.txt, wagtail
 django-plausible==0.3.0   # via -r requirements/base.txt
 django-redis==5.2.0       # via -r requirements/base.txt
 django-rq==2.5.1          # via -r requirements/base.txt
+django-sri==0.4.0         # via -r requirements/base.txt
 django-taggit==2.1.0      # via -r requirements/base.txt, wagtail
 django-treebeard==4.5.1   # via -r requirements/base.txt, wagtail
 djangorestframework==3.13.1  # via -r requirements/base.txt, drf-yasg, wagtail

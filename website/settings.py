@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "wagtail_favicon",
     "plausible",
     "plausible.contrib.wagtail",
+    "sri",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

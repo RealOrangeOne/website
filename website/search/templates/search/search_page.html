@@ -1,6 +1,6 @@
 {% extends "common/content_page.html" %}
 
-{% load static %}
+{% load static sri %}
 
 {% block post_content %}
   <section class="container search-controls">
@@ -41,5 +41,5 @@
 
 {% block extra_js %}
   {{ block.super }}
-  <script async defer type="text/javascript" src="{% static 'js/search.js' %}"></script>
+  <script async defer type="text/javascript" src="{% static 'js/search.js' %}" integrity="{% sri_integrity_static 'js/search.js' %}"></script>
 {% endblock %}

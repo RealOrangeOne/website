@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache plausible_wagtail favicon_tags %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache plausible_wagtail favicon_tags sri %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -23,9 +23,9 @@
 
     {% block extra_head %}{% endblock %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'contrib/fontawesome/css/all.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'contrib/fira-code/fira_code.css' %}">
+    {% sri_static "css/base.css" %}
+    {% sri_static "contrib/fontawesome/css/all.min.css" %}
+    {% sri_static "contrib/fira-code/fira_code.css" %}
 
     {% block extra_css %}{% endblock %}
   </head>
@@ -47,11 +47,11 @@
       {% footer %}
     {% endcache %}
 
-    <script async defer type="text/javascript" src="{% static 'js/base.js' %}"></script>
-    <script async defer type="text/javascript" src="{% static 'contrib/htmx/htmx.min.js' %}"></script>
+    <script async defer type="text/javascript" src="{% static 'js/base.js' %}" integrity="{% sri_integrity_static 'js/base.js' %}"></script>
+    <script async defer type="text/javascript" src="{% static 'contrib/htmx/htmx.min.js' %}" integrity="{% sri_integrity_static 'contrib/htmx/htmx.min.js' %}"></script>
 
     {# Not async to avoid bright flashes #}
-    <script type="text/javascript" src="{% static 'js/dark-mode.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dark-mode.js' %}" integrity="{% sri_integrity_static 'js/dark-mode.js' %}"></script>
 
     {% block extra_js %}{% endblock %}
 

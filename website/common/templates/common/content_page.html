@@ -1,6 +1,6 @@
 {% extends "wagtail_base.html" %}
 
-{% load static %}
+{% load static sri %}
 
 {% block content %}
   {% if page.body_html %}
@@ -11,12 +11,13 @@
 {% endblock %}
 
 {% block extra_css %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/lite-youtube-embed.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'contrib/shareon/shareon.min.css' %}">
+  {% sri_static "css/lite-youtube-embed.css" %}
+  {% sri_static "contrib/shareon/shareon.min.css" %}
+
   <link rel="stylesheet" type="text/css" href="{% url 'code-block:styles' %}">
 {% endblock %}
 
 {% block extra_js %}
-  <script async defer type="text/javascript" src="{% static 'js/lite-youtube-embed.js' %}"></script>
-  <script async defer type="text/javascript" src="{% static 'contrib/shareon/shareon.iife.js' %}" init></script>
+  <script async defer type="text/javascript" src="{% static 'js/lite-youtube-embed.js' %}" integrity="{% sri_integrity_static 'js/lite-youtube-embed.js' %}"></script>
+  <script async defer type="text/javascript" src="{% static 'contrib/shareon/shareon.iife.js' %}" integrity="{% sri_integrity_static 'contrib/shareon/shareon.iife.js' %}" init></script>
 {% endblock %}
