@@ -15,10 +15,9 @@ click==8.1.3              # via rq
 coreapi==2.3.3            # via drf-yasg
 coreschema==0.0.4         # via coreapi, drf-yasg
 deprecated==1.2.13        # via redis
-django==4.0.6             # via -r requirements/base.in, django-filter, django-fontawesome-6, django-htmx, django-modelcluster, django-otp, django-permissionedforms, django-plausible, django-redis, django-rq, django-sri, django-taggit, django-treebeard, djangorestframework, drf-yasg, wagtail, wagtail-2fa
+django==4.0.6             # via -r requirements/base.in, django-filter, django-htmx, django-modelcluster, django-otp, django-permissionedforms, django-plausible, django-redis, django-rq, django-sri, django-taggit, django-treebeard, djangorestframework, drf-yasg, wagtail, wagtail-2fa
 django-environ==0.9.0     # via -r requirements/base.in
 django-filter==21.1       # via wagtail
-django-fontawesome-6==1.0.0.0  # via -r requirements/base.in
 django-htmx==1.12.1       # via -r requirements/base.in
 django-modelcluster==6.0  # via wagtail
 django-otp==1.1.3         # via wagtail-2fa

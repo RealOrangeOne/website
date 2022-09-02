@@ -5,7 +5,7 @@
     {% if online_accounts %}
       <p class="is-size-3">
         {% for online_account in online_accounts %}
-          <a href="{{ online_account.url }}" title="{{ online_account.name }}">{{ online_account.icon.as_html }}</a>
+          <a href="{{ online_account.url }}" title="{{ online_account.name }}"><i class="{{ online_account.icon }}"></i></a>
         {% endfor %}
       </p>
     {% endif %}
