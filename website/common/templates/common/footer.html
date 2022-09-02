@@ -2,7 +2,14 @@
 
 <footer class="footer">
   <div class="content has-text-centered">
-    <p>
+    {% if online_accounts %}
+      <p class="is-size-3">
+        {% for online_account in online_accounts %}
+          <a href="{{ online_account.url }}" title="{{ online_account.name }}">{{ online_account.icon.as_html }}</a>
+        {% endfor %}
+      </p>
+    {% endif %}
+    <p class="is-size-6">
       &copy; <a href="{{ homepage_url }}">TheOrangeOne</a> {% now "Y" %}
     </p>
     <p id="to-top" class="is-size-7">

@@ -12,11 +12,13 @@ from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.fields import StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page, PageQuerySet
 from wagtail.search import index
+from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataMixin
 
@@ -246,3 +248,15 @@ class ReferralLink(models.Model, index.Indexed):
 
     def __str__(self) -> str:
         return self.name
+
+
+@register_setting(icon="arrow-down")
+class FooterSetting(BaseSetting):
+    icons = StreamField(
+        [("icon", SnippetChooserBlock("contact.OnlineAccount", icon="user"))]
+    )
+
+    panels = [FieldPanel("icons")]
+
+    class Meta:
+        verbose_name = "Footer"

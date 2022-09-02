@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     "wagtail_2fa",
     "django_otp",
     "django_otp.plugins.otp_totp",
+    "fontawesome_6",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

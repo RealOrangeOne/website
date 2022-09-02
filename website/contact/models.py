@@ -2,6 +2,7 @@ from django.db import models
 from django.http.request import HttpRequest
 from django.utils.functional import cached_property
 from django.utils.text import slugify
+from fontawesome_6.fields import IconField
 from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
@@ -15,9 +16,11 @@ class OnlineAccount(models.Model, index.Indexed):
     name = models.CharField(max_length=64, unique=True)
     url = models.URLField()
     username = models.CharField(max_length=64)
+    icon = IconField()
 
     panels = [
         FieldPanel("name"),
+        FieldPanel("icon"),
         FieldPanel("username"),
         FieldPanel("url"),
     ]
