@@ -47,3 +47,11 @@ section.content {
     filter: invert(100%);
   }
 }
+
+.gslide-description {
+  background-color: transparent !important;
+
+  .gslide-title {
+    color: $dark-mode-text !important;
+  }
+}

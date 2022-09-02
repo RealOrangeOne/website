@@ -32,6 +32,7 @@
     "elevator.js": "^1.0.1",
     "esbuild": "^0.14.43",
     "firacode": "^6.2.0",
+    "glightbox": "^3.2.0",
     "htmx.org": "^1.8.0",
     "lite-youtube-embed": "^0.2.0",
     "lodash.debounce": "^4.0.8",

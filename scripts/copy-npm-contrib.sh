@@ -20,3 +20,4 @@ mkcontrib elevator-js node_modules/elevator.js/demo/music/*
 mkcontrib shareon node_modules/shareon/dist/{shareon.iife.*,shareon.min.css*}
 mkcontrib fira-code node_modules/firacode/distr/{fira_code.css,woff2,woff}
 mkcontrib htmx node_modules/htmx.org/dist/{htmx.min.js,ext}
+mkcontrib glightbox node_modules/glightbox/dist/css/*.min.*
