@@ -26,10 +26,13 @@ class LMOTFYSerializer(serializers.ModelSerializer):
     def get_full_url(self, page: BlogPostPage) -> str:
         return page.get_full_url(request=self.context["request"])
 
-    def get_image(self, page: BlogPostPage) -> str:
-        hero_image_url = page.hero_image_url
+    def get_image(self, page: BlogPostPage) -> str | None:
+        image_url = page.get_meta_image_url(request=self.context["request"])
 
-        if isinstance(hero_image_url, str) and hero_image_url[0] == "/":
-            return self.context["request"].build_absolute_uri(hero_image_url)
+        if not image_url:
+            return None
 
-        return hero_image_url
+        if image_url[0] == "/":
+            return self.context["request"].build_absolute_uri(image_url)
+
+        return image_url

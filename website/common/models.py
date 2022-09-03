@@ -128,27 +128,26 @@ class BaseContentPage(BasePage, MetadataMixin):
     def plain_text(self) -> str:
         return extract_text(self.content_html)
 
-    @cached_property
-    def hero_image_url(self) -> Optional[str]:
+    def hero_url(self, unsplash_size: str, wagtail_image_spec: str) -> Optional[str]:
         if self.hero_unsplash_photo_id is not None:
-            return self.hero_unsplash_photo.get_image_urls()["regular"]
+            return self.hero_unsplash_photo.get_image_urls()[unsplash_size]
         elif self.hero_image_id is not None:
-            return generate_image_url(self.hero_image, "width-1200")
+            return generate_image_url(self.hero_image, wagtail_image_spec)
         return None
 
     @cached_property
+    def hero_image_url(self) -> Optional[str]:
+        return self.hero_url("full", "width-2000")
+
+    @cached_property
     def list_image_url(self) -> Optional[str]:
-        if self.hero_unsplash_photo_id is not None:
-            return self.hero_unsplash_photo.get_image_urls()["small"]
-        elif self.hero_image_id is not None:
-            return generate_image_url(self.hero_image, "width-400")
-        return None
+        return self.hero_url("small", "width-400")
 
     def get_meta_url(self) -> str:
         return self.full_url
 
     def get_meta_image_url(self, request: HttpRequest) -> Optional[str]:
-        return self.hero_image_url
+        return self.hero_url("regular", "width-1000|format-png")
 
     def get_meta_title(self) -> str:
         return self.html_title
