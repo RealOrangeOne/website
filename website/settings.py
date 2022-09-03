@@ -176,6 +176,11 @@ WHITENOISE_SKIP_COMPRESS_EXTENSIONS = list(
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {
+    "webp": "webp",
+    "jpeg": "webp",
+    "png": "webp",
+}
 
 # Wagtail settings
 
