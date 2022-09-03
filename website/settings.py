@@ -119,7 +119,12 @@ WSGI_APPLICATION = "website.wsgi.application"
 
 DATABASES = {"default": env.db(default=f"sqlite:///{BASE_DIR}/db.sqlite3")}
 
-CACHES = {"default": env.cache(default="dummycache://")}
+CACHES = {
+    "default": env.cache(default="dummycache://"),
+    "renditions": env.cache(
+        var="RENDITION_CACHE_URL", default="locmemcache://renditions"
+    ),
+}
 
 # Allow the redirect importer to work in load-balanced / cloud environments.
 # https://docs.wagtail.io/en/v2.13/reference/settings.html#redirects
