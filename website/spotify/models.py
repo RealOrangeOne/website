@@ -49,7 +49,7 @@ class SpotifyPlaylistPage(BaseContentPage):
         )
 
     @cached_property
-    def subtitle(self) -> int:
+    def subtitle(self) -> str:
         return self.playlist_data["description"]
 
     @cached_property

@@ -13,7 +13,7 @@ from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.fields import StreamField
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
 from wagtail.models import Page, PageQuerySet
@@ -24,6 +24,7 @@ from wagtailmetadata.models import MetadataMixin
 
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
 
+from .rich_text import RICH_TEXT_FEATURES_PLAIN
 from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
 from .utils import (
@@ -62,7 +63,7 @@ class BasePage(Page):
 
 
 class BaseContentPage(BasePage, MetadataMixin):
-    subtitle = models.CharField(max_length=255, blank=True)
+    subtitle = RichTextField(blank=True, features=RICH_TEXT_FEATURES_PLAIN)
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
     )
