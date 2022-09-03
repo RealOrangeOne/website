@@ -23,6 +23,8 @@
 
     {% block extra_head %}{% endblock %}
 
+    <script async type="text/javascript" src="{% static 'js/ie11-deterrent.js' %}" integrity="{% sri_integrity_static 'js/ie11-deterrent.js' %}"></script>
+
     {% sri_static "css/base.css" %}
     {% sri_static "contrib/fontawesome/css/all.min.css" %}
     {% sri_static "contrib/fira-code/fira_code.css" %}
