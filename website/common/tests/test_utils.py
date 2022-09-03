@@ -1,12 +1,8 @@
+from django.conf import settings
 from django.test import SimpleTestCase
 from wagtail.rich_text import features as richtext_feature_registry
 
 from website.common.embed import YouTubeLiteEmbedFinder
-from website.common.rich_text import (
-    RICH_TEXT_FEATURES,
-    RICH_TEXT_FEATURES_PLAIN,
-    RICH_TEXT_FEATURES_SIMPLE,
-)
 from website.common.utils import count_words, extract_text, get_table_of_contents
 
 
@@ -109,19 +105,9 @@ class CountWordsTestCase(SimpleTestCase):
 
 class RichTextFeaturesTestCase(SimpleTestCase):
     def test_features_exist(self) -> None:
-        for feature in RICH_TEXT_FEATURES:
-            self.assertIsNotNone(
-                richtext_feature_registry.get_editor_plugin("draftail", feature)
-            )
-
-    def test_plain_features_exist(self) -> None:
-        for feature in RICH_TEXT_FEATURES_PLAIN:
-            self.assertIsNotNone(
-                richtext_feature_registry.get_editor_plugin("draftail", feature)
-            )
-
-    def test_simple_features_exist(self) -> None:
-        for feature in RICH_TEXT_FEATURES_SIMPLE:
-            self.assertIsNotNone(
-                richtext_feature_registry.get_editor_plugin("draftail", feature)
-            )
+        for editor, editor_config in settings.WAGTAILADMIN_RICH_TEXT_EDITORS.items():
+            for feature in editor_config["OPTIONS"]["features"]:
+                with self.subTest(editor=editor, feature=feature):
+                    self.assertIsNotNone(
+                        richtext_feature_registry.get_editor_plugin("draftail", feature)
+                    )

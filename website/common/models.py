@@ -24,7 +24,6 @@ from wagtailmetadata.models import MetadataMixin
 
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
 
-from .rich_text import RICH_TEXT_FEATURES_PLAIN
 from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
 from .utils import (
@@ -63,7 +62,7 @@ class BasePage(Page):
 
 
 class BaseContentPage(BasePage, MetadataMixin):
-    subtitle = RichTextField(blank=True, features=RICH_TEXT_FEATURES_PLAIN)
+    subtitle = RichTextField(blank=True, editor="plain")
     hero_image = models.ForeignKey(
         get_image_model_string(), null=True, blank=True, on_delete=models.SET_NULL
     )

@@ -13,12 +13,6 @@ from website.common.utils import HEADER_TAGS
 from website.contrib.code_block.blocks import CodeBlock
 from website.contrib.mermaid_block.blocks import MermaidBlock
 
-from .rich_text import (
-    RICH_TEXT_FEATURES,
-    RICH_TEXT_FEATURES_PLAIN,
-    RICH_TEXT_FEATURES_SIMPLE,
-)
-
 
 class LoremBlock(blocks.StructBlock):
     paragraphs = blocks.IntegerBlock(min_value=1)
@@ -37,7 +31,7 @@ class LoremBlock(blocks.StructBlock):
 
 class ImageCaptionBlock(blocks.StructBlock):
     image = ImageChooserBlock()
-    caption = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN, required=False)
+    caption = blocks.RichTextBlock(editor="plain", required=False)
 
     class Meta:
         icon = "image"
@@ -47,7 +41,7 @@ class ImageCaptionBlock(blocks.StructBlock):
 
 class TangentBlock(blocks.StructBlock):
     name = blocks.CharBlock(max_length=64)
-    content = blocks.RichTextBlock(features=RICH_TEXT_FEATURES_SIMPLE)
+    content = blocks.RichTextBlock(editor="simple")
 
     class Meta:
         icon = "comment"
@@ -67,7 +61,7 @@ IGNORE_HEADING_BLOCKS = (*IGNORE_PLAINTEXT_BLOCKS, LoremBlock)
 def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
     return [
         ("embed", EmbedBlock()),
-        ("rich_text", blocks.RichTextBlock(features=RICH_TEXT_FEATURES)),
+        ("rich_text", blocks.RichTextBlock()),
         ("lorem", LoremBlock()),
         ("html", blocks.RawHTMLBlock()),
         ("image", ImageCaptionBlock()),
@@ -80,7 +74,7 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
                 [
                     (
                         "rich_text",
-                        blocks.RichTextBlock(features=RICH_TEXT_FEATURES_PLAIN),
+                        blocks.RichTextBlock(editor="plain"),
                     ),
                     ("numeric", blocks.FloatBlock()),
                     ("text", blocks.CharBlock()),

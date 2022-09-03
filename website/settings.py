@@ -220,6 +220,61 @@ WAGTAILEMBEDS_FINDERS = [
     },
 ]
 
+WAGTAILADMIN_RICH_TEXT_EDITORS = {
+    "default": {
+        "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
+        "OPTIONS": {
+            "features": [
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "bold",
+                "italic",
+                "ol",
+                "ul",
+                "link",
+                "document-link",
+                "code",
+                "strikethrough",
+                "snippet-link",
+                "snippet-embed",
+            ]
+        },
+    },
+    "plain": {
+        "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
+        "OPTIONS": {
+            "features": [
+                "bold",
+                "italic",
+                "link",
+                "document-link",
+                "code",
+                "strikethrough",
+                "snippet-link",
+            ]
+        },
+    },
+    "simple": {
+        "WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea",
+        "OPTIONS": {
+            "features": [
+                "bold",
+                "italic",
+                "ol",
+                "ul",
+                "link",
+                "document-link",
+                "code",
+                "strikethrough",
+                "snippet-link",
+            ]
+        },
+    },
+}
+
 UNSPLASH_CLIENT_ID = env("UNSPLASH_CLIENT_ID")
 SPOTIFY_PROXY_HOST = env("SPOTIFY_PROXY_HOST")
 
