@@ -12,7 +12,6 @@ env = environ.Env(
     SPOTIFY_PROXY_HOST=(str, ""),
     SEO_INDEX=(bool, False),
     SENTRY_DSN=(str, ""),
-    SENTRY_ENVIRONMENT=(str, ""),
 )
 
 # Read local secrets
@@ -381,8 +380,5 @@ if sentry_dsn := env("SENTRY_DSN"):
         "integrations": [DjangoIntegration(), RqIntegration(), RedisIntegration()],
         "release": get_default_release(),
     }
-
-    if sentry_environment := env("SENTRY_ENVIRONMENT"):
-        sentry_kwargs.update({"environment": sentry_environment})
 
     sentry_sdk.init(**sentry_kwargs)
