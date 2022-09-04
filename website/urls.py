@@ -29,8 +29,16 @@ urlpatterns = [
         name="wagtailimages_serve",
     ),
     path("sitemap.xml", cache_page(60 * 60)(sitemap), name="sitemap"),
-    path("robots.txt", cache_page(60 * 60)(RobotsView.as_view()), name="robotstxt"),
-    path("keybase.txt", cache_page(60 * 60)(KeybaseView.as_view()), name="keybase"),
+    path(
+        "robots.txt",
+        cache_control(max_age=60 * 60)(RobotsView.as_view()),
+        name="robotstxt",
+    ),
+    path(
+        "keybase.txt",
+        cache_control(max_age=60 * 60)(KeybaseView.as_view()),
+        name="keybase",
+    ),
     path("404/", page_not_found, name="404"),
     path("feed/", AllPagesFeed(), name="feed"),
     path("", include("website.legacy.urls")),

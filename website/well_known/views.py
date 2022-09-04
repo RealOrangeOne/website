@@ -4,7 +4,7 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_control
 from django.views.generic import TemplateView
 
 from website.contact.models import ContactPage
@@ -17,7 +17,7 @@ class SecurityView(TemplateView):
 
     expires = timedelta(days=7)
 
-    @method_decorator(cache_page(int(expires.total_seconds() / 2)))
+    @method_decorator(cache_control(max_age=int(expires.total_seconds() / 2)))
     def dispatch(self, request: HttpRequest) -> HttpResponse:
         return super().dispatch(request)
 
@@ -36,13 +36,13 @@ class SecurityView(TemplateView):
         return context
 
 
-@method_decorator(cache_page(60 * 60), name="dispatch")
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class MatrixServerView(TemplateView):
     template_name = "well-known/matrix-server.json"
     content_type = "application/json"
 
 
-@method_decorator(cache_page(60 * 60), name="dispatch")
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class MatrixClientView(TemplateView):
     template_name = "well-known/matrix-client.json"
     content_type = "application/json"

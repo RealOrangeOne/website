@@ -1,10 +1,10 @@
 from django.http import HttpRequest, HttpResponse
 from django.utils.datastructures import OrderedSet
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_control
 from pygments.formatters.html import HtmlFormatter
 
 
-@cache_page(3600)
+@cache_control(max_age=3600)
 def pygments_styles(request: HttpRequest) -> HttpResponse:
     default_styles = (
         HtmlFormatter(style="default")
