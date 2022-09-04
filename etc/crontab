@@ -1,4 +1,5 @@
 @weekly ./manage.py update_index
 @daily ./manage.py clearsessions
 @daily ./manage.py update_unsplash_photos
+@weekly ./manage.py refresh_spotify_playlists
 */10 * * * * ./manage.py publish_scheduled_pages
