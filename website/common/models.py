@@ -8,8 +8,10 @@ from django.core.paginator import Paginator
 from django.db import models
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
+from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
+from django.views.decorators.cache import cache_page
 from wagtail.admin.panels import FieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseSetting, register_setting
@@ -221,6 +223,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         return super().index_route(request)
 
     @route(r"^feed/$")
+    @method_decorator(cache_page(60 * 30))
     def feed(self, request: HttpRequest) -> HttpResponse:
         return self.feed_class(
             self.get_listing_pages(),
