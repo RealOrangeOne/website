@@ -15,6 +15,12 @@ class Error404PageTestCase(TestCase):
             response, "<h1>There's nothing here!</h1>", html=True, status_code=404
         )
 
+    def test_actual_404_no_url_match(self) -> None:
+        response = self.client.get("/favicon.ico")
+        self.assertContains(
+            response, "<h1>There's nothing here!</h1>", html=True, status_code=404
+        )
+
     def test_queries(self) -> None:
         with self.assertNumQueries(20):
             self.client.get(self.url)
