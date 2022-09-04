@@ -1,6 +1,9 @@
+import re
+
 from django.conf import settings
 from django.urls import include, path, re_path
-from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_control, cache_page
+from django.views.static import serve
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
@@ -33,6 +36,12 @@ urlpatterns = [
     path("", include("website.legacy.urls")),
     path("api/", include("website.api.urls")),
     path("", include(favicon_urls)),
+    # Some say it's a bad idea to serve media with Django - I don't care
+    re_path(
+        r"^%s(?P<path>.*)$" % re.escape(settings.MEDIA_URL.lstrip("/")),
+        cache_control(max_age=60 * 60)(serve),
+        {"document_root": settings.MEDIA_ROOT},
+    ),
 ]
 
 
@@ -41,11 +50,6 @@ if not settings.DEBUG:
 
 
 if settings.DEBUG:
-    from django.conf.urls.static import static
-
-    # Serve media files from development server
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
     # Add django-browser-reload
     urlpatterns.append(path("__reload__/", include("django_browser_reload.urls")))
 
