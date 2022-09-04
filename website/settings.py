@@ -21,7 +21,8 @@ DEBUG = env("DEBUG")
 
 SECRET_KEY = env("SECRET_KEY")
 
-ALLOWED_HOSTS = ["*"]
+BASE_HOSTNAME = env("BASE_HOSTNAME")
+ALLOWED_HOSTS = ["*"] if DEBUG else [BASE_HOSTNAME]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
@@ -200,7 +201,6 @@ WAGTAILSEARCH_BACKENDS = {
     }
 }
 
-BASE_HOSTNAME = env("BASE_HOSTNAME")
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
 
 WAGTAIL_FRONTEND_LOGIN_URL = "/admin/login/"
