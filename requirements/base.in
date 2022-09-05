@@ -23,6 +23,7 @@ sentry-sdk
 wagtail-favicon
 django-sri
 wagtail-2fa
+django-health-check
 
 # Pinned due to lack of Wagtail 3 support
 git+https://github.com/wagtail/wagtail-autocomplete@03f46a0c256989690d0a43fc21fe0f37f9ede765

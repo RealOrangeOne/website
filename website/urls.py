@@ -41,6 +41,7 @@ urlpatterns = [
     ),
     path("404/", page_not_found, name="404"),
     path("feed/", AllPagesFeed(), name="feed"),
+    path(".health/", include("health_check.urls")),
     path("", include("website.legacy.urls")),
     path("api/", include("website.api.urls")),
     path("", include(favicon_urls)),
