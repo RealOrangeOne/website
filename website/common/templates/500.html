@@ -4,9 +4,27 @@
     <meta charset="utf-8" />
     <title>Internal server error</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      html, body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: sans-serif;
+        background-color: #e85537;
+        color: white;
+      }
+
+      a, a:hover {
+        color: inherit;
+      }
+    </style>
   </head>
   <body>
     <h1>Internal server error</h1>
-    <h2>Sorry, there seems to be an error. Please try again soon.</h2>
+    <p>You found a bug in my code - how dare you!</p>
+    <p><a href="javascript:history.back()">Return to safety &rarr;</a></p>
   </body>
 </html>

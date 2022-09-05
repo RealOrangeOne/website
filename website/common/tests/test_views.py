@@ -26,6 +26,16 @@ class Error404PageTestCase(TestCase):
             self.client.get(self.url)
 
 
+class Error500PageTestCase(SimpleTestCase):
+    url = reverse("500")
+
+    def test_accessible(self) -> None:
+        response = self.client.get(self.url)
+        self.assertContains(
+            response, "<h1>Internal server error</h1>", html=True, status_code=500
+        )
+
+
 class RobotsViewTestCase(SimpleTestCase):
     url = reverse("robotstxt")
 

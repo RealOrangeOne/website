@@ -3,6 +3,7 @@ import re
 from django.conf import settings
 from django.urls import include, path, re_path
 from django.views.decorators.cache import cache_control, cache_page
+from django.views.defaults import server_error
 from django.views.static import serve
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -40,6 +41,7 @@ urlpatterns = [
         name="keybase",
     ),
     path("404/", page_not_found, name="404"),
+    path("500/", server_error, name="500"),
     path("feed/", AllPagesFeed(), name="feed"),
     path(".health/", include("health_check.urls")),
     path("", include("website.legacy.urls")),
