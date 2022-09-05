@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags cache plausible_wagtail favicon_tags sri %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -17,9 +17,7 @@
       <meta name="robots" content="noindex" />
     {% endif %}
 
-    {% cache 3600 "favicon" %}
-      {% favicon_meta %}
-    {% endcache %}
+    {% favicon_meta %}
 
     {% block extra_head %}{% endblock %}
 
@@ -35,9 +33,7 @@
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
 
-    {% cache 3600 "navbar" %}
-      {% navbar %}
-    {% endcache %}
+    {% navbar %}
 
     {% block main %}
       <main>
@@ -45,9 +41,7 @@
       </main>
     {% endblock %}
 
-    {% cache 3600 "footer" %}
-      {% footer %}
-    {% endcache %}
+    {% footer %}
 
     <script async defer type="text/javascript" src="{% static 'js/base.js' %}" integrity="{% sri_integrity_static 'js/base.js' %}"></script>
     <script async defer type="text/javascript" src="{% static 'contrib/htmx/htmx.min.js' %}" integrity="{% sri_integrity_static 'contrib/htmx/htmx.min.js' %}"></script>

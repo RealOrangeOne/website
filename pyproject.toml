@@ -5,7 +5,6 @@ exclude = '''
     navbar\.html
   | referrallink_snippet_link\.html
   | onlineaccount_snippet_link\.html
-  | base\.html
   | 500\.html
 )
 '''
