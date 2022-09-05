@@ -4,7 +4,7 @@ set -e
 
 cd $(dirname $0)/..
 
-COMMON_ARGS="--quiet --annotation-style=line --resolver=backtracking"
+COMMON_ARGS="--quiet --annotation-style=line --resolver=backtracking $@"
 
 set -x
 
