@@ -32,7 +32,7 @@ django-permissionedforms==0.1  # via -r requirements/base.txt, wagtail
 django-plausible==0.3.0   # via -r requirements/base.txt
 django-redis==5.2.0       # via -r requirements/base.txt
 django-rq==2.5.1          # via -r requirements/base.txt
-django-sri==0.4.0         # via -r requirements/base.txt
+django-sri==0.5.0         # via -r requirements/base.txt
 django-taggit==2.1.0      # via -r requirements/base.txt, wagtail
 django-treebeard==4.5.1   # via -r requirements/base.txt, wagtail
 djangorestframework==3.13.1  # via -r requirements/base.txt, drf-yasg, wagtail
