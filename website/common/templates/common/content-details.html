@@ -15,7 +15,9 @@
     <div class="control">
       <div class="tags has-addons">
         <span class="tag is-dark"><i class="far fa-clock"></i></span>
-        <span class="tag is-light" title="{{ page.word_count }} words">{{ page.reading_time|naturaldelta }}</span>
+        <span class="tag is-light" {% if page.word_count %}title="{{ page.word_count }} words"{% endif %}>
+          {{ page.reading_time|naturaldelta }}
+        </span>
       </div>
     </div>
   {% endif %}

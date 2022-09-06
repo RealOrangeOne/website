@@ -49,6 +49,10 @@ class SpotifyPlaylistPage(BaseContentPage):
         )
 
     @cached_property
+    def word_count(self) -> int:
+        return 0
+
+    @cached_property
     def subtitle(self) -> str:
         return self.playlist_data["description"]
 
