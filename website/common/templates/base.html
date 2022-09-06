@@ -51,7 +51,9 @@
 
     {% block extra_js %}{% endblock %}
 
-    {% plausible %}
+    {% if not request.user.is_authenticated or not request.is_preview %}
+      {% plausible %}
+    {% endif %}
 
   </body>
 </html>
