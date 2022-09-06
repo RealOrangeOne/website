@@ -34,7 +34,7 @@ class CodeBlock(StructBlock):
         choices=get_language_choices,
     )
     source = TextBlock()
-    always_show_header = BooleanBlock(default=False)
+    always_show_header = BooleanBlock(default=False, required=False)
 
     class Meta:
         icon = "code"
