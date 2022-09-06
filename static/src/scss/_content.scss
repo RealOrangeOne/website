@@ -11,6 +11,10 @@ section.content {
       scroll-margin-top: var(--hero-height); // navbar height (ish)
       margin-right: 0.5rem;
     }
+
+    @include dark-mode {
+      color: $dark-mode-text;
+    }
   }
 }
 
