@@ -3,7 +3,7 @@ from typing import Iterator
 from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
-from pygments.lexers import get_all_lexers, get_lexer_by_name
+from pygments.lexers import find_lexer_class, get_all_lexers
 from wagtail.blocks import (
     BooleanBlock,
     CharBlock,
@@ -21,11 +21,11 @@ def get_language_choices() -> Iterator[tuple[str, str]]:
 
 class CodeStructValue(StructValue):
     def code(self) -> str:
-        lexer = get_lexer_by_name(self.get("language"))
+        lexer = find_lexer_class(self["language"])()
         formatter = HtmlFormatter(
             linenos=None,
         )
-        return mark_safe(highlight(self.get("source"), lexer, formatter))
+        return mark_safe(highlight(self["source"], lexer, formatter))
 
 
 class CodeBlock(StructBlock):
