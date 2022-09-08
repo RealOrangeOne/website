@@ -10,6 +10,11 @@
   {% endif %}
 {% endblock %}
 
+{% block post_content %}
+  {% include "common/shareon.html" %}
+  {% include "common/comments.html" %}
+{% endblock %}
+
 {% block extra_css %}
   {% sri_static "css/lite-youtube-embed.css" %}
   {% sri_static "contrib/shareon/shareon.min.css" %}
