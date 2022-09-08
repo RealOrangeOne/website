@@ -49,6 +49,16 @@ class TangentBlock(blocks.StructBlock):
         template = "common/blocks/tangent.html"
 
 
+class IFrameBlock(blocks.StructBlock):
+    url = blocks.URLBlock()
+    caption = blocks.RichTextBlock(editor="plain", required=False)
+
+    class Meta:
+        icon = "link-external"
+        label = "IFrame"
+        template = "common/blocks/iframe.html"
+
+
 IGNORE_PLAINTEXT_BLOCKS = (
     blocks.RawHTMLBlock,
     EmbedBlock,
@@ -81,6 +91,7 @@ def get_blocks() -> list[tuple[str, blocks.BaseBlock]]:
                 ]
             ),
         ),
+        ("iframe", IFrameBlock()),
     ]
 
 

@@ -1,0 +1,10 @@
+{% load wagtailcore_tags  %}
+
+<figure>
+  <div class="image is-16by9">
+    <iframe class="has-ratio" src="{{ value.url }}" allowfullscreen loading="lazy" referrerpolicy="no-referrer"></iframe>
+  </div>
+  <figcaption>
+    {{ value.caption|richtext }}
+  </figcaption>
+</figure>
