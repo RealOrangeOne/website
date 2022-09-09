@@ -4,7 +4,7 @@ stages:
   - deploy
 
 static:
-  image: node:16-slim
+  image: node:18-slim
   stage: build
   cache:
     key: npm-$CI_COMMIT_REF_SLUG
@@ -117,7 +117,7 @@ djhtml:
     - git ls-files '*.html' | xargs djhtml --check --tabwidth 2
 
 npm_lint:
-  image: node:16-slim
+  image: node:18-slim
   stage: test
   dependencies:
     - static
