@@ -56,7 +56,7 @@ pip:
 test_python:
   extends: .python_test_template
   services:
-    - postgres:13-alpine
+    - postgres:14-alpine
   variables:
     POSTGRES_HOST_AUTH_METHOD: trust
     DATABASE_URL: postgres://postgres@postgres/postgres
