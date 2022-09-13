@@ -6,6 +6,6 @@
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "pip-compile": {
-    "fileMatch": ["requirements/(.*)\\.in$"]
+    "fileMatch": ["requirements\/(.*)\\.in$"]
   }
 }
