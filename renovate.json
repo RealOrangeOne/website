@@ -3,8 +3,5 @@
   "extends": [
     "config:base"
   ],
-  "prConcurrentLimit": 0,
-  "pip-compile": {
-    "fileMatch": ["requirements\/(.*)\\.in$"]
-  }
+  "prConcurrentLimit": 0
 }
