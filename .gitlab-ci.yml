@@ -150,15 +150,10 @@ container:
     DOCKER_BUILDKIT: 1
   dependencies: []
   stage: deploy
+  only:
+    - master
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
-    - docker build --target production -t $DEV_IMAGE_TAG .
-    - docker push $DEV_IMAGE_TAG
-    - >
-      if [ "$CI_COMMIT_REF_SLUG" == "master" ]; then
-        docker tag $DEV_IMAGE_TAG $PROD_IMAGE_TAG
-        docker push $PROD_IMAGE_TAG
-      else
-        echo "Not publishing container"
-      fi
+    - docker build --target production -t $DEV_IMAGE_TAG -t $PROD_IMAGE_TAG .
+    - docker push $CI_REGISTRY_IMAGE
