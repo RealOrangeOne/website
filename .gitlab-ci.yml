@@ -29,10 +29,12 @@ pip:
     key: pip-$CI_COMMIT_REF_SLUG
     paths:
       - "$CI_PROJECT_DIR/.pip-cache"
+      - "$CI_PROJECT_DIR/.poetry-cache"
   before_script:
     - apt-get update --yes
     - apt-get install --yes build-essential libpq-dev git
     - pip install poetry==1.2.0
+    - poetry config cache-dir $CI_PROJECT_DIR/.poetry-cache
   script:
     - python -m venv env
     - source env/bin/activate
