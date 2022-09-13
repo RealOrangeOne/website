@@ -64,9 +64,8 @@ test_python:
   variables:
     POSTGRES_HOST_AUTH_METHOD: trust
     DATABASE_URL: postgres://postgres@postgres/postgres
-  before_script:
-    - apt-get update && apt-get install --yes git libpq-dev
   script:
+    - apt-get update && apt-get install --yes git libpq-dev
     - ./manage.py collectstatic --noinput --clear
     - coverage run ./manage.py test
     - coverage report
