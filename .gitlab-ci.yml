@@ -36,6 +36,8 @@ pip:
   script:
     - python -m venv env
     - source env/bin/activate
+    - poetry check
+    - poetry lock --check
     - poetry install
   artifacts:
     name: 'pip-$CI_JOB_ID'
@@ -124,12 +126,6 @@ npm_lint:
     - static
   script:
     - npm run lint
-
-poetry:
-  extends: .python_test_template
-  script:
-    - poetry check
-    - poetry lock --check
 
 crontab:
   image: alpine
