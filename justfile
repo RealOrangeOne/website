@@ -53,3 +53,6 @@ lint_python:
 @sh:
   docker-compose -f {{ DEV_COMPOSE }} up -d
   docker-compose -f {{ DEV_COMPOSE }} exec web bash
+
+@down:
+  docker-compose -f {{ DEV_COMPOSE }} down
