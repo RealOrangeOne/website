@@ -1,0 +1,8 @@
+{% load wagtailcore_tags wagtailadmin_tags %}
+
+<li>
+  {% icon name="edit" %}
+  <a href="{% pageurl list_page %}">
+    <span>{{ posts }}</span> Posts
+  </a>
+</li>
