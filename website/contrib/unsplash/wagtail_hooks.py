@@ -60,7 +60,7 @@ class UnsplashPhotoEditView(EditView):
 class UnsplashPhotoAdmin(ModelAdmin):
     model = UnsplashPhoto
     list_display = ["unsplash_id", "thumbnail", "description", "data_last_updated"]
-    form_fields_exclude = ["data"]
+    form_fields_exclude = ["data", "data_last_updated"]
     search_fields = ["unsplash_id", "data__description"]
     create_view_class = UnsplashPhotoCreateView
     index_view_class = UnsplashPhotoIndexView
