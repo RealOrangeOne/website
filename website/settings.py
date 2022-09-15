@@ -245,6 +245,9 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                 "strikethrough",
                 "snippet-link",
                 "snippet-embed",
+                "superscript",
+                "subscript",
+                "blockquote",
             ]
         },
     },
@@ -259,6 +262,8 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                 "code",
                 "strikethrough",
                 "snippet-link",
+                "superscript",
+                "subscript",
             ]
         },
     },
@@ -275,6 +280,8 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                 "code",
                 "strikethrough",
                 "snippet-link",
+                "superscript",
+                "subscript",
             ]
         },
     },
