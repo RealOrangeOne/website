@@ -31,7 +31,7 @@
     "@ledge/is-ie-11": "7.0.0",
     "bulma": "0.9.4",
     "elevator.js": "1.0.1",
-    "esbuild": "0.15.7",
+    "esbuild": "0.15.8",
     "firacode": "6.2.0",
     "glightbox": "3.2.0",
     "htmx.org": "1.8.0",
