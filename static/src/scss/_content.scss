@@ -49,6 +49,11 @@ section.content {
 .tags.has-addons {
   @include dark-mode {
     filter: invert(100%);
+
+    a {
+      // HACK: By inverting the colour, the above invert ends up showing the correct colour
+      color: color.invert($primary);
+    }
   }
 }
 
