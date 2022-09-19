@@ -36,7 +36,9 @@ USER website
 
 RUN python -m venv $VIRTUAL_ENV
 COPY --chown=website pyproject.toml poetry.lock ./
-RUN poetry install --without=dev --no-cache
+
+# Clear the poetry and pip caches, as `--no-cache` doesn't do anything
+RUN poetry install --without=dev && rm -rf $HOME/.cache
 
 COPY --chown=website --from=frontend ./static/build ./static/build
 
