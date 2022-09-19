@@ -4,6 +4,7 @@ from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import find_lexer_class, get_all_lexers
+from pygments.lexers.special import TextLexer
 from wagtail.blocks import (
     BooleanBlock,
     CharBlock,
@@ -26,6 +27,15 @@ class CodeStructValue(StructValue):
             linenos=None,
         )
         return mark_safe(highlight(self["source"], lexer, formatter))
+
+    def header_text(self) -> str:
+        if filename := self["filename"]:
+            return filename
+
+        if language := self["language"] and self["language"] != TextLexer.name:
+            return language
+
+        return ""
 
 
 class CodeBlock(StructBlock):

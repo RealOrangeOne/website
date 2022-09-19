@@ -62,6 +62,12 @@ window.addEventListener("load", () => {
 
   document.querySelectorAll(".block-code").forEach((codeBlock) => {
     const clipboardIcon = codeBlock.querySelector(".code-copy");
+
+    // There may not be an icon
+    if (!clipboardIcon) {
+      return;
+    }
+
     clipboardIcon.addEventListener("click", (event) => {
       event.preventDefault();
       navigator.clipboard
