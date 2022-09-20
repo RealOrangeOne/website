@@ -32,7 +32,8 @@ class BlogPostListPage(BaseListingPage):
                     post_month=TruncMonth("date", output_field=models.DateField())
                 )
                 .values_list("post_month", flat=True)
-            }
+            },
+            reverse=True,
         )
 
         return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
