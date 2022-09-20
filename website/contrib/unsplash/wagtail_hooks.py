@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.http.response import Http404
 from django.utils.html import format_html
 from wagtail.admin.forms.models import WagtailAdminModelForm
+from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
 from wagtail.core import hooks
@@ -61,7 +62,7 @@ class UnsplashPhotoAdmin(ModelAdmin):
     model = UnsplashPhoto
     list_display = ["unsplash_id", "thumbnail", "description", "data_last_updated"]
     form_fields_exclude = ["data", "data_last_updated"]
-    search_fields = ["unsplash_id", "data__description"]
+    search_handler_class = WagtailBackendSearchHandler
     create_view_class = UnsplashPhotoCreateView
     index_view_class = UnsplashPhotoIndexView
     edit_view_class = UnsplashPhotoEditView
