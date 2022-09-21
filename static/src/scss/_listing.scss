@@ -41,6 +41,10 @@
     font-size: $size-2;
     font-weight: $weight-bold;
     margin-bottom: 1rem;
+
+    &:not(:first-child) {
+      margin-top: 2em;
+    }
   }
 }
 
