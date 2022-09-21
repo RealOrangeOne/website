@@ -27,8 +27,12 @@ class SpotifyPlaylistPage(BaseContentPage):
     content_panels = [
         panel
         for panel in BaseContentPage.content_panels
-        if panel.field_name != "subtitle"
-    ] + [FieldPanel("spotify_playlist_id")]
+        if getattr(panel, "field_name", None) != "subtitle"
+    ]
+
+    settings_panels = BaseContentPage.settings_panels + [
+        FieldPanel("spotify_playlist_id")
+    ]
 
     search_fields = [
         panel

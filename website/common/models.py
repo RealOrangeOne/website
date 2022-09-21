@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
 from django.views.decorators.cache import cache_page
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
@@ -75,8 +75,13 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     content_panels = BasePage.content_panels + [
         FieldPanel("subtitle"),
-        FieldPanel("hero_image"),
-        FieldPanel("hero_unsplash_photo", widget=UnsplashPhotoChooser),
+        MultiFieldPanel(
+            [
+                FieldPanel("hero_image"),
+                FieldPanel("hero_unsplash_photo", widget=UnsplashPhotoChooser),
+            ],
+            heading="Hero image",
+        ),
         FieldPanel("body"),
     ]
 
@@ -172,13 +177,13 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
     content_panels = [
         panel
         for panel in BaseContentPage.content_panels
-        if panel.field_name != "subtitle"
+        if getattr(panel, "field_name", None) != "subtitle"
     ]
 
     search_fields = [
         panel
         for panel in BaseContentPage.search_fields
-        if panel.field_name != "subtitle"
+        if getattr(panel, "field_name", None) != "subtitle"
     ]
 
     class Meta:

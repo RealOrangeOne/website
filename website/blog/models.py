@@ -61,7 +61,7 @@ class BlogPostPage(BaseContentPage):
     tags = ParentalManyToManyField("blog.BlogPostTagPage", blank=True)
     date = models.DateField(default=timezone.now)
 
-    content_panels = BaseContentPage.content_panels + [
+    promote_panels = BaseContentPage.promote_panels + [
         FieldPanel("date"),
         AutocompletePanel("tags"),
     ]
