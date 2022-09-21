@@ -32,7 +32,7 @@ class CodeStructValue(StructValue):
         if filename := self["filename"]:
             return filename
 
-        if language := self["language"] and self["language"] != TextLexer.name:
+        if (language := self["language"]) != TextLexer.name:
             return language
 
         return ""

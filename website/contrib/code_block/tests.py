@@ -26,3 +26,15 @@ class CodeStructValueTestCase(SimpleTestCase):
                     None, [("source", "test"), ("language", language)]
                 )
                 self.assertIsInstance(block.code(), str)
+
+    def test_header_text_uses_filename(self) -> None:
+        block = CodeStructValue(None, [("filename", "test.txt")])
+        self.assertEqual(block.header_text(), "test.txt")
+
+    def test_header_text_uses_language(self) -> None:
+        block = CodeStructValue(None, [("filename", ""), ("language", "Python")])
+        self.assertEqual(block.header_text(), "Python")
+
+    def test_header_text_empty_when_text(self) -> None:
+        block = CodeStructValue(None, [("filename", ""), ("language", "Text only")])
+        self.assertEqual(block.header_text(), "")
