@@ -1,0 +1,35 @@
+#commento {
+  .commento-profile-button {
+    @include dark-mode {
+      fill: $dark-mode-text;
+    }
+  }
+
+  .commento-name,
+  #commento-mod-tools-lock-button,
+  .commento-login-text,
+  .commento-anonymous-checkbox-container label {
+    @include dark-mode {
+      color: $dark-mode-text;
+    }
+  }
+
+  #commento-textarea-root,
+  #commento-guest-details-input-root,
+  .commento-textarea-container textarea {
+    @include dark-mode {
+      background-color: $black;
+      color: $dark-mode-text;
+    }
+  }
+
+  .commento-card {
+    @include dark-mode {
+      border-top: 1px solid color.adjust($black, $alpha: -0.4);
+
+      p {
+        color: $dark-mode-text;
+      }
+    }
+  }
+}
