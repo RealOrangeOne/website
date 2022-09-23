@@ -39,7 +39,8 @@ main {
 }
 
 a {
-  transition: color 0.25s, background-color 0.25s;
+  transition-property: color, background-color;
+  transition-duration: 0.25s !important;
 
   @include dark-mode {
     &:hover {
