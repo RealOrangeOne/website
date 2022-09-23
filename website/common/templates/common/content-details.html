@@ -1,35 +1,33 @@
 {% load wagtailcore_tags humanize_tags %}
 
-<div class="content-details field is-grouped is-grouped-multiline {{extra_classes}}">
+<div class="content-details field is-grouped">
 
   {% if page.date %}
-    <div class="control">
-      <div class="tags has-addons">
-        <span class="tag is-dark"><i class="far fa-calendar-alt"></i></span>
-        <span class="tag is-light">{{ page.date|date:"Y-m-d" }}</span>
-      </div>
-    </div>
+    <span class="icon-text">
+      <span class="icon">
+        <i class="far fa-lg fa-calendar-alt"></i>
+      </span>
+      <span>{{ page.date|date:"Y-m-d" }}</span>
+    </span>
   {% endif %}
 
   {% if page.show_reading_time %}
-    <div class="control">
-      <div class="tags has-addons">
-        <span class="tag is-dark"><i class="far fa-clock"></i></span>
-        <span class="tag is-light" {% if page.word_count %}title="{{ page.word_count }} words"{% endif %}>
-          {{ page.reading_time|naturaldelta }}
-        </span>
-      </div>
+    <div class="icon-text" {% if page.word_count %}title="{{ page.word_count }} words"{% endif %}>
+      <span class="icon">
+        <i class="far fa-lg fa-clock"></i>
+      </span>
+      <span>{{ page.reading_time|naturaldelta }}</span>
     </div>
   {% endif %}
 
   {% if page.tags.all %}
-    <div class="control page-tags">
-      <div class="tags has-addons">
-        <span class="tag is-dark"><i class="fas fa-tags"></i></span>
-        {% for tag in page.tags.all %}
-          <span class="tag is-white"><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
-        {% endfor %}
-      </div>
+    <div class="icon-text">
+      <span class="icon">
+        <i class="fas fa-lg fa-tags"></i>
+      </span>
+      {% for tag in page.tags.all %}
+        <span><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
+      {% endfor %}
     </div>
   {% endif %}
 </div>

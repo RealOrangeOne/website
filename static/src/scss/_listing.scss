@@ -17,9 +17,14 @@
     height: 175px;
   }
 
+  .title {
+    margin-bottom: 0;
+  }
+
   .content-details {
-    font-size: 80%;
-    margin-top: $subtitle-negative-margin;
+    font-size: 90%;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
   }
 
   .media-content .content {

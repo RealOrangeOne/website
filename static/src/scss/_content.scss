@@ -19,23 +19,12 @@ section.content {
 }
 
 .content-details {
-  .tag {
-    font-size: inherit;
-  }
+  .icon-text {
+    margin-right: $icon-text-spacing * 3;
+    align-items: center;
 
-  .control {
-    font-size: inherit;
-
-    &:not(:last-child) {
-      margin-right: 1rem !important;
-    }
-
-    &.page-tags {
-      font-family: $family-code;
-
-      .tag:not(:first-child) + .tag {
-        padding-left: 0;
-      }
+    span:not(.icon) + span {
+      margin-left: $icon-text-spacing;
     }
   }
 }
@@ -43,17 +32,6 @@ section.content {
 .container {
   @include until($container-max-width) {
     max-width: calc(99% - ($column-gap * 2));
-  }
-}
-
-.tags.has-addons {
-  @include dark-mode {
-    filter: invert(100%);
-
-    a {
-      // HACK: By inverting the colour, the above invert ends up showing the correct colour
-      color: color.invert($primary);
-    }
   }
 }
 
