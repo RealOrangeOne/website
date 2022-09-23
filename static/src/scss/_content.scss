@@ -32,7 +32,7 @@ section.content {
     }
 
     span:not(.icon) + span {
-      margin-left: $icon-text-spacing;
+      margin-left: $icon-text-spacing * 1.5;
     }
   }
 }
