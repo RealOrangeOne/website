@@ -37,7 +37,10 @@ class BlogPostListPage(BaseListingPage):
             reverse=True,
         )
 
-        return [TocEntry(post_month, post_month, 0, []) for post_month in post_months]
+        return [
+            TocEntry(post_month, "date-" + post_month, 0, [])
+            for post_month in post_months
+        ]
 
     def get_listing_pages(self) -> models.QuerySet:
         return prefetch_for_listing(

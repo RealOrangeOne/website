@@ -26,7 +26,7 @@ def get_table_of_contents(html: str) -> list[TocEntry]:
     soup = BeautifulSoup(html, "lxml", parse_only=SoupStrainer(HEADER_TAGS))
 
     heading_levels = [
-        TocEntry(tag.text, slugify(tag.text), int(tag.name[1]), []) for tag in soup
+        TocEntry(tag.text, heading_id(tag.text), int(tag.name[1]), []) for tag in soup
     ]
 
     # Abort if there are no headings
@@ -95,3 +95,16 @@ def prefetch_for_listing(queryset: PageQuerySet) -> PageQuerySet:
     different page models is a pain.
     """
     return queryset.select_related("hero_image", "hero_unsplash_photo")
+
+
+def heading_id(heading: str) -> str:
+    """
+    Convert a heading into an identifier which is valid for a HTML id attribute
+    """
+    if not heading:
+        return ""
+
+    slug = slugify(heading)
+    if slug[0].isdigit():
+        return "ref-" + slug
+    return slug

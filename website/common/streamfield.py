@@ -3,13 +3,12 @@ from itertools import product
 from bs4 import BeautifulSoup, SoupStrainer
 from django.utils import lorem_ipsum
 from django.utils.html import format_html_join
-from django.utils.text import slugify
 from wagtail import blocks
 from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
-from website.common.utils import HEADER_TAGS
+from website.common.utils import HEADER_TAGS, heading_id
 from website.contrib.code_block.blocks import CodeBlock
 from website.contrib.mermaid_block.blocks import MermaidBlock
 
@@ -121,7 +120,7 @@ def add_heading_anchors(html: str) -> str:
 
     soup = BeautifulSoup(html, "lxml")
     for tag in soup.select(", ".join(targets)):
-        slug = slugify(tag.text)
+        slug = heading_id(tag.text)
         anchor = soup.new_tag("a", href="#" + slug, id=slug)
         anchor.string = "#"
         anchor.attrs["class"] = "heading-anchor"

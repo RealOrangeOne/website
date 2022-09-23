@@ -3,7 +3,12 @@ from django.test import SimpleTestCase
 from wagtail.rich_text import features as richtext_feature_registry
 
 from website.common.embed import YouTubeLiteEmbedFinder
-from website.common.utils import count_words, extract_text, get_table_of_contents
+from website.common.utils import (
+    count_words,
+    extract_text,
+    get_table_of_contents,
+    heading_id,
+)
 
 
 class YouTubeLiteEmbedFinderTestCase(SimpleTestCase):
@@ -35,6 +40,7 @@ class TableOfContentsTestCase(SimpleTestCase):
 
         self.assertEqual(len(toc), 3)
         self.assertEqual([entry.title for entry in toc], ["2", "3", "4"])
+        self.assertEqual([entry.slug for entry in toc], ["ref-2", "ref-3", "ref-4"])
 
         first_entry = toc[0]
         self.assertEqual(len(first_entry.children), 3)
@@ -78,6 +84,10 @@ class TableOfContentsTestCase(SimpleTestCase):
         self.assertEqual(
             [entry.title for entry in first_entry.children], ["2.1", "2.2", "2.3"]
         )
+        self.assertEqual(
+            [entry.slug for entry in first_entry.children],
+            ["ref-21", "ref-22", "ref-23"],
+        )
 
         sub_entry = first_entry.children[1]
         self.assertEqual(len(sub_entry.children), 1)
@@ -111,3 +121,10 @@ class RichTextFeaturesTestCase(SimpleTestCase):
                     self.assertIsNotNone(
                         richtext_feature_registry.get_editor_plugin("draftail", feature)
                     )
+
+
+class HeadingIDTestCase(SimpleTestCase):
+    def test_headings(self) -> None:
+        self.assertEqual(heading_id("123"), "ref-123")
+        self.assertEqual(heading_id("test"), "test")
+        self.assertEqual(heading_id("Look, a title!"), "look-a-title")
