@@ -1,4 +1,4 @@
-from typing import Any, Type
+from typing import Any, Optional, Type
 
 from django.db import models
 from django.db.models.functions import TruncMonth
@@ -11,6 +11,7 @@ from wagtailautocomplete.edit_handlers import AutocompletePanel
 from website.common.models import BaseContentPage, BaseListingPage
 from website.common.utils import TocEntry, prefetch_for_listing
 from website.common.views import ContentPageFeed
+from website.contrib.singleton_page.utils import SingletonPageCache
 
 
 class BlogPostListPage(BaseListingPage):
@@ -65,6 +66,10 @@ class BlogPostPage(BaseContentPage):
         FieldPanel("date"),
         AutocompletePanel("tags"),
     ]
+
+    @cached_property
+    def tag_list_page_url(self) -> Optional[str]:
+        return SingletonPageCache.get_url(BlogPostTagListPage)
 
 
 class BlogPostTagListPage(BaseListingPage):

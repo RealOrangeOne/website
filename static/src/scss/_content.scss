@@ -23,6 +23,14 @@ section.content {
     margin-right: $icon-text-spacing * 3;
     align-items: center;
 
+    .icon a {
+      color: inherit;
+
+      &:hover {
+        color: $link;
+      }
+    }
+
     span:not(.icon) + span {
       margin-left: $icon-text-spacing;
     }

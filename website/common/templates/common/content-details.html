@@ -23,7 +23,9 @@
   {% if page.tags.all %}
     <div class="icon-text">
       <span class="icon">
-        <i class="fas fa-lg fa-tags"></i>
+        <a href="{{ page.tag_list_page_url }}" title="View all tags">
+          <i class="fas fa-lg fa-tags"></i>
+        </a>
       </span>
       {% for tag in page.tags.all %}
         <span><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
