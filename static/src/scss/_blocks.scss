@@ -33,6 +33,20 @@ div.block-iframe {
 div.block-embed {
   lite-youtube {
     @include center-block(50%);
+
+    // Add video title to top of player
+    &::before {
+      content: attr(playlabel);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      color: $white;
+      padding-top: 15px;
+      padding-left: 15px;
+      padding-bottom: 65px; // 50px + padding-top
+      text-shadow: 0 0 2px color.adjust($black, $alpha: -0.5); // Stolen from YouTube player
+      font-size: 90%;
+    }
   }
 }
 
