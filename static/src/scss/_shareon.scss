@@ -1,3 +1,11 @@
 .shareon-container {
   margin-top: 1rem;
+
+  .shareon {
+    & > a,
+    & > button {
+      transition-property: opacity;
+      transition-duration: $link-hover-duration;
+    }
+  }
 }

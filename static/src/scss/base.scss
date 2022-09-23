@@ -40,7 +40,7 @@ main {
 
 a {
   transition-property: color, background-color;
-  transition-duration: 0.25s !important;
+  transition-duration: $link-hover-duration !important;
 
   @include dark-mode {
     &:hover {
