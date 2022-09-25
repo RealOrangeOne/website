@@ -2,11 +2,15 @@
 
 <nav class="pagination is-centered" role="navigation" aria-label="pagination">
   {% if page.has_previous %}
-    <a class="pagination-previous" href="{% querystring page=page.previous_page_number %}">Previous</a>
+    <a class="pagination-previous" href="{% querystring page=page.previous_page_number %}">&larr;</a>
+  {% else %}
+    <a class="pagination-previous is-disabled">&larr;</a>
   {% endif %}
 
   {% if page.has_next %}
-    <a class="pagination-next" href="{% querystring page=page.next_page_number %}">Next page</a>
+    <a class="pagination-next" href="{% querystring page=page.next_page_number %}">&rarr;</a>
+  {% else %}
+    <a class="pagination-next is-disabled">&rarr;</a>
   {% endif %}
 
   <ul class="pagination-list">
