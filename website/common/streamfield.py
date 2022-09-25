@@ -63,6 +63,8 @@ IGNORE_PLAINTEXT_BLOCKS = (
     EmbedBlock,
     ImageCaptionBlock,
     CodeBlock,
+    MermaidBlock,
+    IFrameBlock,
 )
 IGNORE_HEADING_BLOCKS = (*IGNORE_PLAINTEXT_BLOCKS, LoremBlock)
 
