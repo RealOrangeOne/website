@@ -24,6 +24,10 @@ div.block-iframe {
   }
 }
 
+div.block-iframe figure {
+  @include center-block(95%, 99%);
+}
+
 .content > div[class^="block-"] {
   &:not(:last-child) {
     margin-bottom: $content-block-margin-bottom;
