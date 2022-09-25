@@ -3,5 +3,11 @@
   "extends": [
     "config:base"
   ],
-  "prConcurrentLimit": 0
+  "prConcurrentLimit": 0,
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["patch"],
+      "enabled": false
+    }
+  ]
 }
