@@ -18,7 +18,7 @@
   {% if listing_pages.has_other_pages %}
     <section class="container">
       <hr class="my-5" />
-      {% include "common/pagination.html" with pages=listing_pages %}
+      {% include "common/pagination.html" with page=listing_pages %}
     </section>
   {% endif %}
 {% endblock %}
