@@ -27,12 +27,12 @@
     "stylelint-config-standard-scss": "5.0.0"
   },
   "dependencies": {
+    "@fontsource/fira-code": "4.5.11",
     "@fortawesome/fontawesome-free": "6.2.0",
     "@ledge/is-ie-11": "7.0.0",
     "bulma": "0.9.4",
     "elevator.js": "1.0.1",
     "esbuild": "0.15.9",
-    "firacode": "6.2.0",
     "glightbox": "3.2.0",
     "htmx.org": "1.8.0",
     "lite-youtube-embed": "0.2.0",
