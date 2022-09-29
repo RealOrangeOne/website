@@ -32,6 +32,10 @@ section.hero {
     justify-content: flex-end;
   }
 
+  .dropdown-menu {
+    min-width: 15rem;
+  }
+
   .dropdown {
     li {
       list-style: none !important;
