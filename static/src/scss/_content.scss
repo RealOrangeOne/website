@@ -10,7 +10,7 @@ section.content {
     .heading-anchor {
       scroll-margin-top: var(--hero-height); // navbar height (ish)
       margin-right: 0.5rem;
-      font-weight: 300;
+      font-weight: 100;
     }
 
     @include dark-mode {
