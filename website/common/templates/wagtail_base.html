@@ -12,7 +12,7 @@
 
 {% block main_content %}
   {% if page.hero_image_url %}
-    <img class="hero" src="{{ page.hero_image_url }}" decoding="async" />
+    <img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt=""/>
   {% endif %}
 
   {% if page.get_view_restrictions.exists %}
