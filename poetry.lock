@@ -1287,6 +1287,18 @@ python-versions = ">=3"
 wagtail = ">=3.0"
 
 [[package]]
+name = "Wand"
+version = "0.6.10"
+description = "Ctypes-based simple MagickWand API binding for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.extras]
+doc = ["Sphinx (>=2.4.1)"]
+test = ["pytest (>=5.3.5)"]
+
+[[package]]
 name = "webencodings"
 version = "0.5.1"
 description = "Character encoding aliases for legacy web content"
@@ -1359,7 +1371,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "760147aa57672b6b020362ac59e2b2cb22a058a78ff7d8423f1e950077c40ab8"
+content-hash = "d963569b79f63bea87352d7f80b07a8ffaf5286aa30b10d4cfa5e44aaee61b90"
 
 [metadata.files]
 anyascii = [
@@ -2121,6 +2133,10 @@ wagtail-generic-chooser = [
 wagtail-metadata = [
     {file = "wagtail-metadata-4.0.1.tar.gz", hash = "sha256:688dffa4d14d63fdec24e907eeefc0df6343d6eec4c5f25c8f0ca5751e2c8f98"},
     {file = "wagtail_metadata-4.0.1-py2.py3-none-any.whl", hash = "sha256:eb0f8ff47d12c7f778c4c75cd8b0cb0c03e680bee46e6041c25d6dcc00a28a09"},
+]
+Wand = [
+    {file = "Wand-0.6.10-py2.py3-none-any.whl", hash = "sha256:ff69eeba36ec243d9a80dec31e738091653dcd01c2668a9c22dc3ff20392596b"},
+    {file = "Wand-0.6.10.tar.gz", hash = "sha256:373f4a7f2866c868c31ce910e1f9b36a92d132640a20068ec17cea3284fedc57"},
 ]
 webencodings = [
     {file = "webencodings-0.5.1-py2.py3-none-any.whl", hash = "sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78"},
