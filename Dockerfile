@@ -23,7 +23,8 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     curl \
     git \
     # wand dependencies
-    libmagickwand-6.q16-6 libmagickwand-6.q16hdri-6
+    libmagickwand-6.q16-6 libmagickwand-6.q16hdri-6 \
+    && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://github.com/aptible/supercronic/releases/download/v0.2.1/supercronic-linux-amd64 -o /usr/local/bin/supercronic && chmod +x /usr/local/bin/supercronic
 
