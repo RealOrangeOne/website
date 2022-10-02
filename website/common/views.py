@@ -5,6 +5,8 @@ from django.contrib.syndication.views import Feed
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
 from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_control, cache_page
 from django.views.defaults import ERROR_404_TEMPLATE_NAME
 from django.views.generic import TemplateView
 from wagtail.models import Page
@@ -33,6 +35,7 @@ class Error404View(TemplateView):
 page_not_found = Error404View.as_view()
 
 
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class RobotsView(TemplateView):
     template_name = "robots.txt"
     content_type = "text/plain"
@@ -43,6 +46,7 @@ class RobotsView(TemplateView):
         return context
 
 
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class KeybaseView(TemplateView):
     template_name = "keybase.txt"
     content_type = "text/plain"
@@ -52,6 +56,7 @@ class AllPagesFeed(Feed):
     link = "/feed/"
     title = "All pages feed"
 
+    @method_decorator(cache_page(60 * 60))
     def __call__(
         self, request: HttpRequest, *args: list, **kwargs: dict
     ) -> HttpResponse:
