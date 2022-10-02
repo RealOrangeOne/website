@@ -128,6 +128,7 @@ CACHES = {
     "renditions": env.cache(
         var="RENDITION_CACHE_URL", default="locmemcache://renditions"
     ),
+    "template_fragments": env.cache(var="FRAGMENTS_CACHE_URL", default="dummycache://"),
 }
 
 # Allow the redirect importer to work in load-balanced / cloud environments.
