@@ -11,6 +11,16 @@
   }
 }
 
+div.block-mermaid {
+  text-align: center;
+
+  img {
+    @include dark-mode {
+      filter: invert(100%);
+    }
+  }
+}
+
 div.block-image,
 div.block-mermaid,
 div.block-iframe {
@@ -21,6 +31,12 @@ div.block-iframe {
 
   figure {
     @include center-block;
+
+    img {
+      width: auto;
+      height: auto;
+      max-height: 45vh;
+    }
   }
 }
 
@@ -58,18 +74,6 @@ div.block-tangent {
   .inner {
     margin: math.div($content-block-margin-bottom, 4) 0;
     padding-left: 1.5rem;
-  }
-}
-
-div.block-mermaid {
-  text-align: center;
-
-  img {
-    width: unset;
-
-    @include dark-mode {
-      filter: invert(100%);
-    }
   }
 }
 
