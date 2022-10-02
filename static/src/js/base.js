@@ -23,7 +23,7 @@ function scrollToElement(element, behavior = "smooth") {
 }
 
 function handleHeroStuck() {
-  if (HERO.getBoundingClientRect().top === 0) {
+  if (HERO.getBoundingClientRect().top <= 0) {
     HERO.classList.add("stuck");
   } else {
     HERO.classList.remove("stuck");

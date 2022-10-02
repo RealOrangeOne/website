@@ -5,8 +5,6 @@ img.hero {
 }
 
 section.hero {
-  position: sticky;
-  top: 0;
   z-index: 10;
   margin-top: 2rem;
   padding-top: 0.5rem;
@@ -18,8 +16,27 @@ section.hero {
     background-color: $dark-mode-background;
   }
 
+  .subtitle {
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+
+  .title,
+  .subtitle {
+    @include dark-mode {
+      color: $dark-mode-text;
+    }
+  }
+
   &.stuck {
     box-shadow: $shadow;
+    position: sticky;
+    top: 0;
+
+    .breadcrumb,
+    .subtitle {
+      display: none;
+    }
   }
 
   .hero-body {
@@ -79,22 +96,10 @@ section.hero {
     }
   }
 
-  .subtitle {
-    margin-bottom: 1rem;
-    font-weight: 300;
-  }
-
   .title {
     margin-bottom: 0.75rem;
     font-weight: 300;
     font-size: 3.5rem;
-  }
-
-  .title,
-  .subtitle {
-    @include dark-mode {
-      color: $dark-mode-text;
-    }
   }
 
   .column {
