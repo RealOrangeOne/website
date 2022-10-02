@@ -1,10 +1,10 @@
 {% if SEO_INDEX %}
 User-agent: *
 Allow: /
-Disallow: {% url "wagtailadmin_home" %}
 {% else %}
 User-agent: *
 Disallow: /
 {% endif %}
 
+Disallow: {% url "wagtailadmin_home" %}
 Sitemap: {{ sitemap }}
