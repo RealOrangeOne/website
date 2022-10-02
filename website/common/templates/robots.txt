@@ -7,4 +7,5 @@ Disallow: /
 {% endif %}
 
 Disallow: {% url "wagtailadmin_home" %}
+Disallow: {% url "api:index" %}
 Sitemap: {{ sitemap }}

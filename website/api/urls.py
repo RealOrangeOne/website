@@ -39,5 +39,5 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=60 * 60),
         name="schema-swagger-ui",
     ),
-    path("", RedirectView.as_view(pattern_name="api:schema-swagger-ui")),
+    path("", RedirectView.as_view(pattern_name="api:schema-swagger-ui"), name="index"),
 ] + api_urlpatterns

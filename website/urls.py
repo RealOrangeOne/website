@@ -45,7 +45,7 @@ urlpatterns = [
     path("feed/", AllPagesFeed(), name="feed"),
     path(".health/", include("health_check.urls")),
     path("", include("website.legacy.urls")),
-    path("api/", include("website.api.urls")),
+    path("api/", include("website.api.urls", namespace="api")),
     path("", include(favicon_urls)),
     # Some say it's a bad idea to serve media with Django - I don't care
     re_path(
