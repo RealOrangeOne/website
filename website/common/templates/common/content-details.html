@@ -1,35 +1,36 @@
-{% load wagtailcore_tags humanize_tags %}
+{% load wagtailcore_tags humanize_tags cache util_tags %}
 
-<div class="content-details field is-grouped">
-
-  {% if page.date %}
-    <span class="icon-text">
-      <span class="icon">
-        <i class="far fa-lg fa-calendar-alt"></i>
+{% cache 600|jitter:60 "content-details" page.id request.is_preview %}
+  <div class="content-details field is-grouped">
+    {% if page.date %}
+      <span class="icon-text">
+        <span class="icon">
+          <i class="far fa-lg fa-calendar-alt"></i>
+        </span>
+        <span>{{ page.date|date:"Y-m-d" }}</span>
       </span>
-      <span>{{ page.date|date:"Y-m-d" }}</span>
-    </span>
-  {% endif %}
+    {% endif %}
 
-  {% if page.show_reading_time %}
-    <div class="icon-text" {% if page.word_count %}title="{{ page.word_count }} words"{% endif %}>
-      <span class="icon">
-        <i class="far fa-lg fa-clock"></i>
-      </span>
-      <span>{{ page.reading_time|naturaldelta }}</span>
-    </div>
-  {% endif %}
+    {% if page.show_reading_time %}
+      <div class="icon-text" {% if page.word_count %}title="{{ page.word_count }} words"{% endif %}>
+        <span class="icon">
+          <i class="far fa-lg fa-clock"></i>
+        </span>
+        <span>{{ page.reading_time|naturaldelta }}</span>
+      </div>
+    {% endif %}
 
-  {% if page.tags.all %}
-    <div class="icon-text is-family-code">
-      <span class="icon">
-        <a href="{{ page.tag_list_page_url }}" title="View all tags">
-          <i class="fas fa-lg fa-tags"></i>
-        </a>
-      </span>
-      {% for tag in page.tags.all %}
-        <span><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
-      {% endfor %}
-    </div>
-  {% endif %}
-</div>
+    {% if page.tags.all %}
+      <div class="icon-text is-family-code">
+        <span class="icon">
+          <a href="{{ page.tag_list_page_url }}" title="View all tags">
+            <i class="fas fa-lg fa-tags"></i>
+          </a>
+        </span>
+        {% for tag in page.tags.all %}
+          <span><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+{% endcache %}

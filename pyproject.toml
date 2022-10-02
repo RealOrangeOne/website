@@ -68,6 +68,8 @@ exclude = '''
   | referrallink_snippet_link\.html
   | onlineaccount_snippet_link\.html
   | 500\.html
+  | content-details\.html
+  | listing-item\.html
 )
 '''
 

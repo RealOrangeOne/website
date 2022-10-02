@@ -1,4 +1,4 @@
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags cache util_tags %}
 
 <article class="media listing-item">
   <div class="columns">
@@ -13,7 +13,9 @@
       <div>
         <h2 class="title is-3"><a href="{% pageurl page %}">{{ page.title }}</a></h2>
         {% include "common/content-details.html" %}
-        <p>{{ page.summary }}</p>
+        {% cache 900|jitter:60 "summary" page.id request.is_preview %}
+          <p>{{ page.summary }}</p>
+        {% endcache %}
       </div>
     </div>
   </div>
