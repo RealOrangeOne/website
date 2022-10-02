@@ -12,12 +12,14 @@ env = environ.Env(
     SPOTIFY_PROXY_HOST=(str, ""),
     SEO_INDEX=(bool, False),
     SENTRY_DSN=(str, ""),
+    TEST=(bool, False),
 )
 
 # Read local secrets
 environ.Env.read_env(BASE_DIR / ".env")
 
 DEBUG = env("DEBUG")
+TEST = env("TEST")
 
 SECRET_KEY = env("SECRET_KEY")
 

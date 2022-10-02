@@ -40,8 +40,6 @@ urlpatterns = [
         KeybaseView.as_view(),
         name="keybase",
     ),
-    path("404/", page_not_found, name="404"),
-    path("500/", server_error, name="500"),
     path("feed/", AllPagesFeed(), name="feed"),
     path(".health/", include("health_check.urls")),
     path("", include("website.legacy.urls")),
@@ -66,6 +64,15 @@ if settings.DEBUG:
 
     # Add django-debug-toolbar
     urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
+
+
+if settings.DEBUG or settings.TEST:
+    urlpatterns.extend(
+        [
+            path("404/", page_not_found, name="404"),
+            path("500/", server_error, name="500"),
+        ]
+    )
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to

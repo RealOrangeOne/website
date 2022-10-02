@@ -24,7 +24,7 @@ build:
   pip {{ ARGS }}
 
 test *ARGS:
-  ./manage.py test {{ ARGS }}
+  TEST=true ./manage.py test {{ ARGS }}
 
 coverage:
   coverage run ./manage.py test --keepdb
