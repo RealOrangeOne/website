@@ -25,7 +25,6 @@ from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataMixin
 
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
-from website.utils.cache import cached_model_property
 
 from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
@@ -128,11 +127,11 @@ class BaseContentPage(BasePage, MetadataMixin):
     def _body_html(self) -> str:
         return str(self.body)
 
-    @cached_model_property
+    @cached_property
     def content_html(self) -> str:
         return get_content_html(self._body_html)
 
-    @cached_model_property
+    @cached_property
     def plain_text(self) -> str:
         return extract_text(self.content_html)
 
