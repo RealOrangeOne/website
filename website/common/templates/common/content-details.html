@@ -1,6 +1,6 @@
 {% load wagtailcore_tags humanize_tags cache util_tags %}
 
-{% cache 600|jitter:60 "content-details" page.id request.is_preview %}
+{% cache FRAGMENT_CACHE_TTL|jitter:FRAGMENT_CACHE_TTL_JITTER "content-details" page.id request.is_preview %}
   <div class="content-details field is-grouped">
     {% if page.date %}
       <span class="icon-text">

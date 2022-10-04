@@ -13,7 +13,7 @@
       <div>
         <h2 class="title is-3"><a href="{% pageurl page %}">{{ page.title }}</a></h2>
         {% include "common/content-details.html" %}
-        {% cache 900|jitter:60 "summary" page.id request.is_preview %}
+        {% cache FRAGMENT_CACHE_TTL|jitter:FRAGMENT_CACHE_TTL_JITTER "summary" page.id request.is_preview %}
           <p>{{ page.summary }}</p>
         {% endcache %}
       </div>
