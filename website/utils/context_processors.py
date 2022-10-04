@@ -4,7 +4,7 @@ from django.http.request import HttpRequest
 
 def global_vars(request: HttpRequest) -> dict:
     # noop caching in preview
-    fragment_cache_ttl = 0 if getattr(request, "is_preview", False) else 3600
+    fragment_cache_ttl = 0 if getattr(request, "is_preview", False) else 21600
     return {
         "SEO_INDEX": settings.SEO_INDEX,
         "DEBUG": settings.DEBUG,
