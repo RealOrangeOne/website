@@ -6,7 +6,7 @@ from wagtail.models import Page
 
 from website.common.models import BasePage
 
-FRAGMENT_CACHES = {"summary", "content-details"}
+FRAGMENT_CACHES = {"listing-item", "content-details"}
 
 
 @hooks.register("after_edit_page")

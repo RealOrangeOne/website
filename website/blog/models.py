@@ -9,7 +9,7 @@ from wagtail.admin.panels import FieldPanel
 from wagtailautocomplete.edit_handlers import AutocompletePanel
 
 from website.common.models import BaseContentPage, BaseListingPage
-from website.common.utils import TocEntry, prefetch_for_listing
+from website.common.utils import TocEntry
 from website.common.views import ContentPageFeed
 from website.contrib.singleton_page.utils import SingletonPageCache
 
@@ -43,12 +43,11 @@ class BlogPostListPage(BaseListingPage):
         ]
 
     def get_listing_pages(self) -> models.QuerySet:
-        return prefetch_for_listing(
+        return (
             BlogPostPage.objects.descendant_of(self)
             .live()
             .public()
             .order_by("-date", "title")
-            .prefetch_related("tags")
         )
 
     @property
@@ -127,11 +126,10 @@ class BlogPostCollectionPage(BaseListingPage):
     subpage_types = [BlogPostPage]
 
     def get_listing_pages(self) -> models.QuerySet:
-        return prefetch_for_listing(
+        return (
             BlogPostPage.objects.child_of(self)
             .live()
             .public()
-            .prefetch_related("tags")
             .order_by("-date", "title")
         )
 

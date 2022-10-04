@@ -87,16 +87,6 @@ def truncate_string(text: str, words: int) -> str:
     return " ".join(islice(smart_split(text), words))
 
 
-def prefetch_for_listing(queryset: PageQuerySet) -> PageQuerySet:
-    """
-    Prefetch a queryset ready for listing.
-
-    This should be a queryset method, but dealing with lots of
-    different page models is a pain.
-    """
-    return queryset.select_related("hero_image", "hero_unsplash_photo")
-
-
 def heading_id(heading: str) -> str:
     """
     Convert a heading into an identifier which is valid for a HTML id attribute

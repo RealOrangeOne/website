@@ -33,7 +33,6 @@ from .utils import (
     count_words,
     extract_text,
     get_table_of_contents,
-    prefetch_for_listing,
     truncate_string,
 )
 
@@ -190,9 +189,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         abstract = True
 
     def get_listing_pages(self) -> models.QuerySet:
-        return prefetch_for_listing(
-            self.get_children().live().public().specific().order_by("title")
-        )
+        return self.get_children().live().public().specific().order_by("title")
 
     def get_paginator_page(self) -> PaginatorPage:
         paginator = Paginator(self.get_listing_pages(), per_page=self.PAGE_SIZE)
