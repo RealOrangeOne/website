@@ -10,8 +10,7 @@ from wagtail.models import Page
 from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentPage
-from website.common.utils import TocEntry
-from website.home.models import HomePage
+from website.common.utils import TocEntry, get_page_models
 
 from .serializers import MIN_SEARCH_LENGTH, SearchParamsSerializer
 
@@ -21,6 +20,9 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
     subpage_types: list = []
     parent_page_types = ["home.HomePage"]
     PAGE_SIZE = 15
+
+    # Exclude singleton pages from search results
+    EXCLUDED_PAGE_TYPES = {page for page in get_page_models() if page.max_count == 1}
 
     @cached_property
     def show_reading_time(self) -> bool:
@@ -65,7 +67,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         pages = (
             Page.objects.live()
             .public()
-            .not_type(self.__class__, HomePage)
+            .not_type(self.__class__, *self.EXCLUDED_PAGE_TYPES)
             .search(query, order_by_relevance=True)
         )
 
