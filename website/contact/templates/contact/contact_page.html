@@ -9,9 +9,7 @@
             <div class="media-content">
               <p class="title is-4">
                 <a href="{{ account.url }}">
-                  {% if account.icon %}
-                    <i class="{{ account.icon }}"></i>
-                  {% endif %}
+                  {% if account.icon %}<i class="{{ account.icon }}"></i>{% endif %}
                   {{ account.name }}
                 </a>
               </p>

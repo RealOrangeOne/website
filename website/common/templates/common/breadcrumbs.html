@@ -4,7 +4,9 @@
   <nav class="breadcrumb" aria-label="breadcrumbs">
     <ul>
       {% for parent in parents %}
-        <li><a href="{% pageurl parent %}">{{ parent.title }}</a></li>
+        <li>
+          <a href="{% pageurl parent %}">{{ parent.title }}</a>
+        </li>
       {% endfor %}
     </ul>
   </nav>

@@ -8,14 +8,16 @@
       <h1>{{ page.heading }}</h1>
       {% if search_page_url %}
         <form action="{{ search_page_url }}">
-          <input id="search-input" class="input" type="text" placeholder="Search" name="q">
+          <input id="search-input" class="input" type="text" placeholder="Search" name="q" />
         </form>
       {% endif %}
     </div>
 
     {% if latest_blog_post %}
       <div class="box latest">
-        <strong>Latest Post</strong>: <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a> &rarr;
+        <strong>Latest Post</strong>:
+        <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a>
+        &rarr;
       </div>
     {% endif %}
   </main>

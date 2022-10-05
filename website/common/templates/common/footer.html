@@ -4,9 +4,7 @@
   <div class="content has-text-centered">
     {% if online_accounts %}
       <p class="is-size-3">
-        {% for online_account in online_accounts %}
-          <a href="{{ online_account.url }}" title="{{ online_account.name }}"><i class="{{ online_account.icon }}"></i></a>
-        {% endfor %}
+        {% for online_account in online_accounts %}<a href="{{ online_account.url }}" title="{{ online_account.name }}"><i class="{{ online_account.icon }}"></i></a>{% endfor %}
       </p>
     {% endif %}
     <p class="is-size-6">
@@ -14,11 +12,7 @@
     </p>
     <p id="to-top" class="is-size-7">
       <a class="scroll-top">To top</a>
-      <a
-        id="to-top-elevator"
-        data-main-audio="{% static 'contrib/elevator-js/elevator.mp3' %}"
-        data-end-audio="{% static 'contrib/elevator-js/ding.mp3' %}"
-      >
+      <a id="to-top-elevator" data-main-audio="{% static 'contrib/elevator-js/elevator.mp3' %}" data-end-audio="{% static 'contrib/elevator-js/ding.mp3' %}">
         <em>in style</em>
       </a>
     </p>

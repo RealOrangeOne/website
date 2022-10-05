@@ -6,13 +6,15 @@
       <figure class="media-left column is-3 image-column">
         {% if page.list_image_url %}
           <a href="{% pageurl page %}" class="image">
-            <img src="{{ page.list_image_url }}" loading="lazy" decoding="async" />
+            <img src="{{ page.list_image_url }}" alt="" loading="lazy" decoding="async" />
           </a>
         {% endif %}
       </figure>
       <div class="media-content column">
         <div>
-          <h2 class="title is-3"><a href="{% pageurl page %}">{{ page.title }}</a></h2>
+          <h2 class="title is-3">
+            <a href="{% pageurl page %}">{{ page.title }}</a>
+          </h2>
           {% include "common/content-details.html" %}
           <p>{{ page.summary }}</p>
         </div>

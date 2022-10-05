@@ -107,20 +107,15 @@ mypy:
   script:
     - mypy .
 
-curlylint:
+djlint:
   extends: .python_test_template
   script:
-    - curlylint .
+    - djlint website/ --lint --check
 
 gunicorn_check:
   extends: .python_test_template
   script:
     - gunicorn --check-config --config etc/gunicorn.conf.py
-
-djhtml:
-  extends: .python_test_template
-  script:
-    - find website/ -name '*.html' | xargs djhtml --check --tabwidth 2
 
 npm_lint:
   image: node:18-slim

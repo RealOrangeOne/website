@@ -2,9 +2,7 @@
 
 <nav class="navbar is-family-code" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item home-link" href="{{ homepage_url }}">
-      /home/theorangeone
-    </a>
+    <a class="navbar-item home-link" href="{{ homepage_url }}">/home/theorangeone</a>
 
     <a role="button" class="navbar-burger" id="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar">
       <span aria-hidden="true"></span>
@@ -16,9 +14,7 @@
   <div id="navbar" class="navbar-menu">
     <div class="navbar-start">
       {% for nav_page in nav_pages %}
-        <a class="navbar-item" href="{% pageurl nav_page %}">
-          ~/{{ nav_page.slug }}
-        </a>
+        <a class="navbar-item" href="{% pageurl nav_page %}">~/{{ nav_page.slug }}</a>
       {% endfor %}
     </div>
 

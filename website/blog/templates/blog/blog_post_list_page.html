@@ -5,7 +5,7 @@
     {% for page in listing_pages %}
       {% ifchanged %}
         <h3 id="date-{{ page.date|date:'Y-m' }}" class="date-header">
-          <time datetime="{{ page.date|date:'Y-m' }}" title='{{ page.date|date:"F Y" }}'>
+          <time datetime="{{ page.date|date:'Y-m' }}" title="{{ page.date|date:'F Y' }}">
             {{ page.date|date:"Y-m" }}
           </time>
         </h3>

@@ -11,9 +11,7 @@
 {% endblock %}
 
 {% block main_content %}
-  {% if page.hero_image_url %}
-    <img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt=""/>
-  {% endif %}
+  {% if page.hero_image_url %}<img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt=""/>{% endif %}
 
   {% if page.get_view_restrictions.exists %}
     <section class="notification is-danger" id="view-restriction-banner">
@@ -28,9 +26,7 @@
           <div class="column">
             {% include "common/breadcrumbs.html" with parents=page.get_parent_pages %}
             <h1 class="title is-spaced">{{ page.hero_title }}</h1>
-            {% if page.subtitle %}
-              <h2 class="subtitle is-size-4">{{ page.subtitle|richtext }}</h2>
-            {% endif %}
+            {% if page.subtitle %}<h2 class="subtitle is-size-4">{{ page.subtitle|richtext }}</h2>{% endif %}
 
             {% include "common/content-details.html" %}
           </div>
@@ -58,7 +54,9 @@
                 </div>
               {% endif %}
 
-              <button class="button is-radiusless scroll-top">Top <i class="fas fa-angle-up ml-2" aria-hidden="true"></i></button>
+              <button class="button is-radiusless scroll-top">
+                Top <i class="fas fa-angle-up ml-2" aria-hidden="true"></i>
+              </button>
             {% endblock %}
           </div>
         </div>
