@@ -9,7 +9,6 @@ from django.utils.text import slugify, smart_split
 from more_itertools import ilen
 from wagtail.models import Page
 from wagtail.models import get_page_models as get_wagtail_page_models
-from wagtail.query import PageQuerySet
 
 HEADER_TAGS = ["h2", "h3", "h4", "h5", "h6"]
 
