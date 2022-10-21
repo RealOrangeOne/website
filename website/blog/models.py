@@ -1,7 +1,6 @@
 from typing import Any, Optional, Type
 
 from django.db import models
-from django.db.models.functions import TruncMonth
 from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
@@ -25,22 +24,10 @@ class BlogPostListPage(BaseListingPage):
 
     @cached_property
     def table_of_contents(self) -> list[TocEntry]:
-        post_months = sorted(
-            {
-                dt.strftime("%Y-%m")
-                for dt in self.get_paginator_page()
-                .object_list.annotate(
-                    post_month=TruncMonth("date", output_field=models.DateField())
-                )
-                .values_list("post_month", flat=True)
-            },
-            reverse=True,
-        )
-
-        return [
-            TocEntry(post_month, "date-" + post_month, 0, [])
-            for post_month in post_months
-        ]
+        """
+        Showing an accurate ToC is complex alongside pagination
+        """
+        return []
 
     def get_listing_pages(self) -> models.QuerySet:
         return (
