@@ -15,7 +15,9 @@
 {% block post_content %}
   <section class="container">
     {% for page in listing_pages %}
-      {% include "common/listing-item.html" %}
+      {% block listing_item %}
+        {% include "common/listing-item.html" %}
+      {% endblock %}
     {% endfor %}
   </section>
 
