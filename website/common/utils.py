@@ -76,10 +76,9 @@ def extract_text(html: str) -> str:
     """
     Get the plain text of some HTML.
     """
-    lines = (
-        text.strip(" \n") for text in BeautifulSoup(html, "lxml").find_all(text=True)
+    return (
+        BeautifulSoup(html.replace("<p", " <p"), "lxml").get_text().replace("\n", " ")
     )
-    return " ".join(line for line in lines if line)
 
 
 def truncate_string(text: str, words: int) -> str:

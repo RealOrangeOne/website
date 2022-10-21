@@ -101,6 +101,10 @@ class ExtractTextTestCase(SimpleTestCase):
             extract_text("<p>Paragraph 1</p>\n<p>Paragraph 2</p>"),
             "Paragraph 1 Paragraph 2",
         )
+        self.assertEqual(
+            extract_text("New <a>stuff</a>."),
+            "New stuff.",
+        )
 
     def test_plain_text(self) -> None:
         self.assertEqual(extract_text("Hello there!"), "Hello there!")
