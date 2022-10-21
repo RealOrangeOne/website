@@ -397,6 +397,14 @@ python-versions = ">=3.6"
 Django = ">=2.2"
 
 [[package]]
+name = "django3-cache-decorator"
+version = "0.5.2"
+description = "Easily add caching to functions within a django project."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "djangorestframework"
 version = "3.13.1"
 description = "Web APIs for Django, made easy."
@@ -1461,7 +1469,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "ebe98ffb0ca3eecc013a5d4ff58665bdbba2806da83d08ccb3acdbf03bda39b0"
+content-hash = "78d386497d4f46ead5da6c395a16ce50d9f9846cb20bf39bf2932bf5db5d4316"
 
 [metadata.files]
 anyascii = [
@@ -1720,6 +1728,10 @@ django-taggit = [
 django-treebeard = [
     {file = "django-treebeard-4.5.1.tar.gz", hash = "sha256:80150017725239702054e5fa64dc66e383dc13ac262c8d47ee5a82cb005969da"},
     {file = "django_treebeard-4.5.1-py3-none-any.whl", hash = "sha256:7c2b1cdb1e9b46d595825186064a1228bc4d00dbbc186db5b0b9412357fba91c"},
+]
+django3-cache-decorator = [
+    {file = "django3-cache-decorator-0.5.2.tar.gz", hash = "sha256:d41409aa18c5bd1a99d48632373336d9787cb94025807ff3161804044a9f8abe"},
+    {file = "django3_cache_decorator-0.5.2-py3-none-any.whl", hash = "sha256:c8dc082bad6fa0598b5c26b30b15062aff5072ce649202fb82db2b49bfa454b3"},
 ]
 djangorestframework = [
     {file = "djangorestframework-3.13.1-py3-none-any.whl", hash = "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"},

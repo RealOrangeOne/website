@@ -16,7 +16,7 @@
     {% if latest_blog_post %}
       <div class="box latest">
         <strong>Latest Post</strong>:
-        <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a>
+        <a href="{{ latest_blog_post.1 }}">{{ latest_blog_post.0 }}</a>
         &rarr;
       </div>
     {% endif %}
