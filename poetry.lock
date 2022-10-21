@@ -1349,6 +1349,13 @@ description = "Easily add shortcut icons to any wagtail site."
 category = "main"
 optional = false
 python-versions = "*"
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/RealOrangeOne/wagtail-favicon"
+reference = "fd43adb98e52b6be9f5a9270391a74ec796727ef"
+resolved_reference = "fd43adb98e52b6be9f5a9270391a74ec796727ef"
 
 [[package]]
 name = "wagtail-generic-chooser"
@@ -1469,7 +1476,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "78d386497d4f46ead5da6c395a16ce50d9f9846cb20bf39bf2932bf5db5d4316"
+content-hash = "f6da9caa3c3ae5c679306187ebd43253f97278c387327cc0952b3910ecb3363c"
 
 [metadata.files]
 anyascii = [
@@ -2371,10 +2378,7 @@ wagtail-factories = [
     {file = "wagtail_factories-3.1.0-py2.py3-none-any.whl", hash = "sha256:26b42998420005ab556f714e72e4a53427aac59ae595c66d1379a2c141f92be5"},
     {file = "wagtail_factories-3.1.0.tar.gz", hash = "sha256:ea366dc1d399e9c24218366fc80a104f51c3f18469ed19c576e15023a226c942"},
 ]
-wagtail-favicon = [
-    {file = "wagtail-favicon-0.2.0.tar.gz", hash = "sha256:53d4e591119802e0693d531b4d63b586c2c839fa9dc942d5b47ae465f8ee8ef2"},
-    {file = "wagtail_favicon-0.2.0-py2.py3-none-any.whl", hash = "sha256:fa05fc06ed11d741509d5484ff50f0b9824964c82505b8dabc4d066411a54e2e"},
-]
+wagtail-favicon = []
 wagtail-generic-chooser = [
     {file = "wagtail-generic-chooser-0.4.1.tar.gz", hash = "sha256:ff447d226851dc7e7719f1154229ac966ba0d9a997c6402d8e2171cd770c1e6e"},
     {file = "wagtail_generic_chooser-0.4.1-py3-none-any.whl", hash = "sha256:2fb930414812cc689ae8e6ae299d68c4f8dfe31c48e6c987e2f7d78fea034428"},
