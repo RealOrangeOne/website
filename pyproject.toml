@@ -32,7 +32,7 @@ wagtail-favicon = {git = "https://github.com/RealOrangeOne/wagtail-favicon", rev
 django-sri = "0.5.0"
 wagtail-2fa = "1.6.0"
 django-health-check = "3.17.0"
-wagtail-autocomplete = {git = "https://github.com/wagtail/wagtail-autocomplete", rev = "03f46a0c256989690d0a43fc21fe0f37f9ede765"}
+wagtail-autocomplete = "0.9.0"
 Wand = "^0.6.10"
 django3-cache-decorator = "^0.5.2"
 

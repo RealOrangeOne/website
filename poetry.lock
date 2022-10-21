@@ -1295,12 +1295,11 @@ test = ["coverage (==5.5)", "flake8 (==3.9.2)", "flake8-blind-except (==0.2.0)",
 
 [[package]]
 name = "wagtail-autocomplete"
-version = "0.8.1"
+version = "0.9.0"
 description = "An Autocomplete edit handler for Pages, Snippets, and more."
 category = "main"
 optional = false
 python-versions = "*"
-develop = false
 
 [package.dependencies]
 wagtail = ">=2.15"
@@ -1308,12 +1307,6 @@ wagtail = ">=2.15"
 [package.extras]
 docs = ["Sphinx (>=1.7)", "sphinx-rtd-theme (>=0.4.0)"]
 test = ["beautifulsoup4 (>=4.8)", "html5lib (>=0.999999999)", "pytest (>=3.5)", "pytest-django (>=3.2)", "pytest-pythonpath (>=0.7.2)", "tox"]
-
-[package.source]
-type = "git"
-url = "https://github.com/wagtail/wagtail-autocomplete"
-reference = "03f46a0c256989690d0a43fc21fe0f37f9ede765"
-resolved_reference = "03f46a0c256989690d0a43fc21fe0f37f9ede765"
 
 [[package]]
 name = "wagtail-draftail-snippet"
@@ -1476,7 +1469,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "f6da9caa3c3ae5c679306187ebd43253f97278c387327cc0952b3910ecb3363c"
+content-hash = "9c77456122ef853131cdca942dc23fe917bb98d14294cdd154b7bdcf5d1432e2"
 
 [metadata.files]
 anyascii = [
@@ -2370,7 +2363,10 @@ wagtail-2fa = [
     {file = "wagtail-2fa-1.6.0.tar.gz", hash = "sha256:fd543bb94f848f9f6db4747b408237c773d51b06b71331a2a0f881390b11aebf"},
     {file = "wagtail_2fa-1.6.0-py3-none-any.whl", hash = "sha256:a27b37b8ac6b179066b31f5548a5a01a58a1664c198c102482caf333cc0f5739"},
 ]
-wagtail-autocomplete = []
+wagtail-autocomplete = [
+    {file = "wagtail-autocomplete-0.9.0.tar.gz", hash = "sha256:b64828d35f370453c84bc4094174872822798e54414f5fb9fc8a43c2a6c3e727"},
+    {file = "wagtail_autocomplete-0.9.0-py3-none-any.whl", hash = "sha256:d85789543308d344447656725b9aac8d1c4c6fb271221a3340008a3c9f2ab6fa"},
+]
 wagtail-draftail-snippet = [
     {file = "wagtail-draftail-snippet-0.4.1.tar.gz", hash = "sha256:b6b17648df76f23b0178e9cc8c91f9bba22799f33e4ae6a32a6f6c1e883d9b1c"},
 ]
