@@ -27,7 +27,7 @@
             <i class="fas fa-lg fa-tags"></i>
           </a>
         </span>
-        {% for tag in page.tags.all %}
+        {% for tag in page.tags.all|dictsort:"slug" %}
           <span><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
         {% endfor %}
       </div>
