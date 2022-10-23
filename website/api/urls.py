@@ -1,8 +1,6 @@
-from django.urls import include, path, re_path
-from django.views.generic import RedirectView
-from drf_yasg import openapi
-from drf_yasg.views import get_schema_view
+from django.urls import include, path
 from rest_framework import permissions
+from rest_framework.schemas import get_schema_view
 
 from . import views
 
@@ -15,11 +13,9 @@ api_urlpatterns = [
 ]
 
 schema_view = get_schema_view(
-    openapi.Info(
-        title="Website API",
-        default_version="v1",
-        description="Random API endpoints for cool things",
-    ),
+    title="Website API",
+    version="v1",
+    description="Random API endpoints for cool things",
     public=True,
     permission_classes=[permissions.AllowAny],
     patterns=[
@@ -29,15 +25,10 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    re_path(
-        r"^swagger(?P<format>\.json|\.yaml)$",
-        schema_view.without_ui(cache_timeout=60 * 60),
-        name="schema-json",
-    ),
     path(
-        "swagger/",
-        schema_view.with_ui("swagger", cache_timeout=60 * 60),
-        name="schema-swagger-ui",
+        "schema/",
+        schema_view,
+        name="schema",
     ),
-    path("", RedirectView.as_view(pattern_name="api:schema-swagger-ui"), name="index"),
+    path("", views.SwaggerRedirectView.as_view(), name="index"),
 ] + api_urlpatterns

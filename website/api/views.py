@@ -1,4 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.http.request import HttpRequest
+from django.urls import reverse
+from django.views.generic import RedirectView
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -50,4 +53,13 @@ class LMOTFYAPIView(ListAPIView):
             BlogPostPage.objects.live()
             .public()
             .select_related("hero_image", "hero_unsplash_photo")
+        )
+
+
+class SwaggerRedirectView(RedirectView):
+    SWAGGER_EDITOR_URL = "https://editor.swagger.io/?url="
+
+    def get(self, request: HttpRequest) -> HttpResponseRedirect:
+        return HttpResponseRedirect(
+            self.SWAGGER_EDITOR_URL + request.build_absolute_uri(reverse("api:schema"))
         )

@@ -75,3 +75,14 @@ class LMOTFYAPIViewTestCase(APITestCase):
         self.assertEqual(result["title"], "Post exact")
         self.assertEqual(result["full_url"], self.exact.full_url)
         self.assertEqual(result["date"], self.exact.date.isoformat())
+
+
+class SchemaTestCase(APISimpleTestCase):
+    def test_schema_redirect(self) -> None:
+        response = self.client.get(reverse("api:index"), follow=False)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(reverse("api:schema"), response.url)
+
+    def test_schema(self) -> None:
+        response = self.client.get(reverse("api:schema"))
+        self.assertEqual(response.status_code, 200)

@@ -67,7 +67,8 @@ INSTALLED_APPS = [
     "wagtail_draftail_snippet",
     "wagtailautocomplete",
     "django_rq",
-    "drf_yasg",
+    "rest_framework",
+    "corsheaders",
     "wagtail_favicon",
     "plausible",
     "plausible.contrib.wagtail",
@@ -92,6 +93,7 @@ MIDDLEWARE = [
     "django.middleware.gzip.GZipMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -210,6 +212,8 @@ WAGTAILSEARCH_BACKENDS = {
 
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
 
+CORS_ALLOWED_ORIGINS = [WAGTAILADMIN_BASE_URL]
+
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
 WAGTAIL_FRONTEND_LOGIN_URL = "/admin/login/"
@@ -316,6 +320,8 @@ if DEBUG:
     # Add Wagtail styleguide
     INSTALLED_APPS.append("wagtail.contrib.styleguide")
 
+    CORS_ALLOWED_ORIGINS = []
+    CORS_ALLOW_ALL_ORIGINS = True
 
 SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False, "SECURITY_DEFINITIONS": {}}
 
