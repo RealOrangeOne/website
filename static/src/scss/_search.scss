@@ -14,7 +14,7 @@ body.page-searchpage {
     max-width: 80%;
   }
 
-  #search-indicator.htmx-request {
+  .htmx-request {
     animation: search-loading 1.5s linear infinite;
   }
 
@@ -44,5 +44,13 @@ body.page-searchpage {
 
   .listing-item {
     margin-top: 2rem;
+  }
+
+  .search-page-indicator {
+    width: 100%;
+
+    &:not(.htmx-request) {
+      display: none;
+    }
   }
 }
