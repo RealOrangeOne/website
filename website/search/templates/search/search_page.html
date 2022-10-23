@@ -25,10 +25,9 @@
         {% include "search/enter-search-term.html" %}
       {% endif %}
     </div>
-  </section>
-{% endblock %}
 
-{% block extra_js %}
-  {{ block.super }}
-  <script async defer type="text/javascript" src="{% static 'js/search.js' %}" integrity="{% sri_integrity_static 'js/search.js' %}"></script>
+    <div class="htmx-indicator" id="search-page-indicator">
+      <i class="fas fa-circle-notch"></i>
+    </div>
+  </section>
 {% endblock %}

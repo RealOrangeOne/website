@@ -4,11 +4,13 @@
   {% include "common/listing-item.html" %}
 {% endfor %}
 
-{% if not results and page_num == 1 %}<p>No results found</p>{% endif %}
+{% if not results and page_num == 1 %}
+  <p>No results found</p>
+  <p id="result-count" hx-swap-oob="true"></p>
+{% else %}
+  <p id="result-count" hx-swap-oob="true">Found {{ paginator.count }} results</p>
+{% endif %}
 
 {% if results.has_next %}
-  <span hx-get="{{ search_url }}{% querystring page=results.next_page_number %}" hx-trigger="revealed" hx-indicator="#search-page-indicator-{{ results.next_page_number }}" hx-swap="outerHTML"></span>
-  <div class="icon mt-5 mx-auto htmx-indicator search-page-indicator" id="search-page-indicator-{{ results.next_page_number }}">
-    <i class="fas fa-circle-notch"></i>
-  </div>
+  <span hx-get="{{ search_url }}{% querystring page=results.next_page_number %}" hx-trigger="revealed" hx-indicator="#search-page-indicator" hx-swap="outerHTML"></span>
 {% endif %}

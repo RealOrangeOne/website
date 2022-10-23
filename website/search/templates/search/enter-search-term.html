@@ -1,1 +1,3 @@
 <p>Enter a search term (of at least {{ MIN_SEARCH_LENGTH }} characters) to search</p>
+
+{% if request.htmx %}<p id="result-count" hx-swap-oob="true"></p>{% endif %}

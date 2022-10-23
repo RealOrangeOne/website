@@ -14,17 +14,15 @@ body.page-searchpage {
     max-width: 80%;
   }
 
-  .htmx-request {
+  .htmx-request i {
     animation: search-loading 1.5s linear infinite;
   }
 
   #search-results > p {
     font-size: 1.5rem;
     text-align: center;
-  }
-
-  #result-count {
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
   }
 
   input[type="search"] {
@@ -46,8 +44,9 @@ body.page-searchpage {
     margin-top: 2rem;
   }
 
-  .search-page-indicator {
-    width: 100%;
+  #search-page-indicator {
+    text-align: center;
+    margin-top: 1.5rem;
 
     &:not(.htmx-request) {
       display: none;
