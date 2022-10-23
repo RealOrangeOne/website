@@ -1,0 +1,8 @@
+{% load wagtailadmin_tags %}
+
+<li>
+  {% icon name="tag" %}
+  <a href="{% url 'wagtailadmin_explore' list_page.id %}">
+    <span>{{ tags }}</span> Tags
+  </a>
+</li>
