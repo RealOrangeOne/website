@@ -404,7 +404,7 @@ pytz = "*"
 
 [[package]]
 name = "djlint"
-version = "1.18.0"
+version = "1.19.2"
 description = "HTML Template Linter and Formatter"
 category = "dev"
 optional = false
@@ -416,7 +416,7 @@ colorama = ">=0.4.4,<0.5.0"
 cssbeautifier = ">=1.14.4,<2.0.0"
 html-tag-names = ">=0.1.2,<0.2.0"
 html-void-elements = ">=0.1.0,<0.2.0"
-importlib-metadata = ">=4.11.0,<5.0.0"
+importlib-metadata = ">=5.0.0,<6.0.0"
 jsbeautifier = ">=1.14.4,<2.0.0"
 pathspec = ">=0.10.0,<0.11.0"
 PyYAML = ">=6.0,<7.0"
@@ -653,7 +653,7 @@ python-versions = ">=3.5"
 
 [[package]]
 name = "importlib-metadata"
-version = "4.13.0"
+version = "5.0.0"
 description = "Read metadata from Python packages"
 category = "dev"
 optional = false
@@ -1372,7 +1372,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "0b68c6467929c30d68077dd04b4ffde9260cc720c36ce001bd72ce4c8a69b5d8"
+content-hash = "adbc4338c3f7a3f3a7bef6a0d06f764ff664486f0ae9b1b0f98062cee37062f8"
 
 [metadata.files]
 anyascii = [
@@ -1637,8 +1637,8 @@ djangorestframework = [
     {file = "djangorestframework-3.13.1.tar.gz", hash = "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee"},
 ]
 djlint = [
-    {file = "djlint-1.18.0-py3-none-any.whl", hash = "sha256:ec414f46b5575985cb782d20b2c805247dc9d8b8b876d2745e570591587a94e8"},
-    {file = "djlint-1.18.0.tar.gz", hash = "sha256:f6b07793d8687e31c6a1d3c34d88cc3a352d66a0f0444286618cf5edfdb2207d"},
+    {file = "djlint-1.19.2-py3-none-any.whl", hash = "sha256:2bc246654c4f24c7acc5bca1a00192ba898565b66308c1435778c2306bffeca4"},
+    {file = "djlint-1.19.2.tar.gz", hash = "sha256:2cf4fd16365a9998c21ee35446cbf46160353babd6fcc0bd0aff893d9abcbe77"},
 ]
 draftjs-exporter = [
     {file = "draftjs_exporter-2.1.7-py3-none-any.whl", hash = "sha256:d415a9964690a2cddb66a31ef32dd46c277e9b80434b94e39e3043188ed83e33"},
@@ -1717,8 +1717,8 @@ idna = [
     {file = "idna-3.3.tar.gz", hash = "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"},
 ]
 importlib-metadata = [
-    {file = "importlib_metadata-4.13.0-py3-none-any.whl", hash = "sha256:8a8a81bcf996e74fee46f0d16bd3eaa382a7eb20fd82445c3ad11f4090334116"},
-    {file = "importlib_metadata-4.13.0.tar.gz", hash = "sha256:dd0173e8f150d6815e098fd354f6414b0f079af4644ddfe90c71e2fc6174346d"},
+    {file = "importlib_metadata-5.0.0-py3-none-any.whl", hash = "sha256:ddb0e35065e8938f867ed4928d0ae5bf2a53b7773871bfe6bcc7e4fcdc7dea43"},
+    {file = "importlib_metadata-5.0.0.tar.gz", hash = "sha256:da31db32b304314d044d3c12c79bd59e307889b287ad12ff387b3500835fc2ab"},
 ]
 isort = [
     {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},
