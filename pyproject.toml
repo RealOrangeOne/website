@@ -55,7 +55,7 @@ flake8-comprehensions = "3.10.0"
 flake8-mutable = "1.2.0"
 flake8-print = "5.0.0"
 flake8-tuple = "0.4.1"
-djlint = "1.18.0"
+djlint = "1.19.2"
 
 [build-system]
 requires = ["poetry-core"]
