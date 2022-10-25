@@ -60,7 +60,7 @@ poetry:
 test_python:
   extends: .python_test_template
   services:
-    - postgres:14-alpine
+    - postgres:15-alpine
   variables:
     POSTGRES_HOST_AUTH_METHOD: trust
     DATABASE_URL: postgres://postgres@postgres/postgres
