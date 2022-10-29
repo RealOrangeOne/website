@@ -1,4 +1,5 @@
 from django.template import Library
+from wagtail.models import Page
 
 from website.contrib.singleton_page.utils import SingletonPageCache
 from website.home.models import HomePage
@@ -19,4 +20,5 @@ def navbar(context: dict) -> dict:
         .filter(show_in_menus=True)
         .order_by("title"),
         "search_page_url": SingletonPageCache.get_url(SearchPage, request),
+        "guestbook_page": Page.objects.filter(slug="guestbook").first(),
     }
