@@ -19,11 +19,6 @@
     </div>
 
     <div class="navbar-end is-hidden-touch mr-2">
-      <a class="navbar-item navbar-icon is-link" id="dark-mode-toggle" title="Toggle dark mode">
-        <span class="icon">
-          <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
-        </span>
-      </a>
       {% if guestbook_page %}
         <a class="navbar-item navbar-icon" href="{% pageurl guestbook_page %}" title="{{ guestbook_page.title }}">
           <span class="icon">
@@ -38,6 +33,11 @@
           </span>
         </a>
       {% endif %}
+      <a class="navbar-item navbar-icon is-link" id="dark-mode-toggle" title="Toggle dark mode">
+        <span class="icon">
+          <i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i>
+        </span>
+      </a>
     </div>
   </div>
 </nav>
