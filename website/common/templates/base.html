@@ -48,7 +48,7 @@
     <script async defer type="text/javascript" src="{% static 'contrib/htmx/htmx.min.js' %}" integrity="{% sri_integrity_static 'contrib/htmx/htmx.min.js' %}"></script>
 
     {# Not async to avoid bright flashes #}
-    <script type="text/javascript" src="{% static 'js/dark-mode.js' %}" integrity="{% sri_integrity_static 'js/dark-mode.js' %}"></script>
+    {% sri_static "js/dark-mode.js" %}
 
     {% block extra_js %}{% endblock %}
 
