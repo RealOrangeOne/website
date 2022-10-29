@@ -37,7 +37,7 @@ python-versions = ">=3.5"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
-tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
+tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "beautifulsoup4"
@@ -100,7 +100,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode-backport = ["unicodedata2"]
+unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -305,7 +305,7 @@ testing = ["django-modelcluster"]
 
 [[package]]
 name = "django-plausible"
-version = "0.3.0"
+version = "0.4.0"
 description = "Django module to provide easy Plausible integration, with Wagtail support"
 category = "main"
 optional = false
@@ -677,9 +677,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
+pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements-deprecated-finder = ["pip-api", "pipreqs"]
+requirements_deprecated_finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jsbeautifier"
@@ -947,7 +947,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
+use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rq"
@@ -984,7 +984,7 @@ falcon = ["falcon (>=1.4)"]
 fastapi = ["fastapi (>=0.79.0)"]
 flask = ["blinker (>=1.1)", "flask (>=0.11)"]
 httpx = ["httpx (>=0.16.0)"]
-pure-eval = ["asttokens", "executing", "pure-eval"]
+pure_eval = ["asttokens", "executing", "pure-eval"]
 pyspark = ["pyspark (>=2.4.4)"]
 quart = ["blinker (>=1.1)", "quart (>=0.16.1)"]
 rq = ["rq (>=0.6)"]
@@ -1372,7 +1372,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "90042b20f464381265784f0aba3c9162708a942252b6e57afd8d7bd6a5998ad7"
+content-hash = "2fa205bd17be3d23d23481f3e6d6b7d95b19fd925398dcb5c599ac66b4cf6578"
 
 [metadata.files]
 anyascii = [
@@ -1603,8 +1603,8 @@ django-permissionedforms = [
     {file = "django_permissionedforms-0.1-py2.py3-none-any.whl", hash = "sha256:d341a961a27cc77fde8cc42141c6ab55cc1f0cb886963cc2d6967b9674fa47d6"},
 ]
 django-plausible = [
-    {file = "django-plausible-0.3.0.tar.gz", hash = "sha256:7e6a3cea3408d15a42ffbe9bd25ec73ba73bd3861c4cd95f6efde3fbdd3a2b46"},
-    {file = "django_plausible-0.3.0-py3-none-any.whl", hash = "sha256:875cd8355a82e37b57d9165aaecfc8604736db6edb672cabb46cd52626337544"},
+    {file = "django-plausible-0.4.0.tar.gz", hash = "sha256:0e8b90504807812f7416265d5e42377e1bf0cf102610abf4b4331d1f1bcc9383"},
+    {file = "django_plausible-0.4.0-py3-none-any.whl", hash = "sha256:c81e0ba88fa476f435ec907a5d7eda9848495e725789c23b62c926eace215bf5"},
 ]
 django-redis = [
     {file = "django-redis-5.2.0.tar.gz", hash = "sha256:8a99e5582c79f894168f5865c52bd921213253b7fd64d16733ae4591564465de"},
