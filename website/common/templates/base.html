@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri cache %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -30,7 +30,9 @@
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
 
-    {% navbar %}
+    {% cache 1800 "navbar" request.is_preview %}
+      {% navbar %}
+    {% endcache %}
 
     {% block main %}
       <main>
@@ -38,7 +40,9 @@
       </main>
     {% endblock %}
 
-    {% footer %}
+    {% cache 1800 "footer" request.is_preview %}
+      {% footer %}
+    {% endcache %}
 
     <script async defer type="text/javascript" src="{% static 'js/base.js' %}" integrity="{% sri_integrity_static 'js/base.js' %}"></script>
     <script async defer type="text/javascript" src="{% static 'contrib/htmx/htmx.min.js' %}" integrity="{% sri_integrity_static 'contrib/htmx/htmx.min.js' %}"></script>
