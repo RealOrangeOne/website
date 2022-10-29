@@ -43,6 +43,10 @@ class BlogPostListPage(BaseListingPage):
 
         return BlogPostPageFeed
 
+    @cached_property
+    def tag_list_page_url(self) -> Optional[str]:
+        return SingletonPageCache.get_url(BlogPostTagListPage)
+
 
 class BlogPostPage(BaseContentPage):
     subpage_types: list[Any] = []
