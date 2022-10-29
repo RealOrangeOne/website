@@ -41,8 +41,8 @@ class SpotifyPlaylistPage(BaseContentPage):
     ]
 
     @property
-    def table_of_contents(self) -> list:
-        return []
+    def show_table_of_contents(self) -> bool:
+        return False
 
     @cached_property
     def reading_time(self) -> timedelta:

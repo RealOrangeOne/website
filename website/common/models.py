@@ -97,6 +97,10 @@ class BaseContentPage(BasePage, MetadataMixin):
         return get_table_of_contents(self.content_html)
 
     @cached_property
+    def show_table_of_contents(self) -> bool:
+        return len(self.table_of_contents) >= 3
+
+    @cached_property
     def reading_time(self) -> timedelta:
         """
         https://help.medium.com/hc/en-us/articles/214991667-Read-time
@@ -204,8 +208,8 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         return context
 
     @cached_property
-    def table_of_contents(self) -> list[TocEntry]:
-        return []
+    def show_table_of_contents(self) -> bool:
+        return False
 
     @cached_property
     def show_reading_time(self) -> bool:

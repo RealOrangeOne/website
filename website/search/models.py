@@ -10,7 +10,7 @@ from wagtail.models import Page
 from wagtail.search.utils import parse_query_string
 
 from website.common.models import BaseContentPage
-from website.common.utils import TocEntry, get_page_models
+from website.common.utils import get_page_models
 
 from .serializers import MIN_SEARCH_LENGTH, SearchParamsSerializer
 
@@ -29,8 +29,8 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         return False
 
     @cached_property
-    def table_of_contents(self) -> list[TocEntry]:
-        return []
+    def show_table_of_contents(self) -> bool:
+        return False
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)

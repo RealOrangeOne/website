@@ -23,11 +23,8 @@ class BlogPostListPage(BaseListingPage):
     ]
 
     @cached_property
-    def table_of_contents(self) -> list[TocEntry]:
-        """
-        Showing an accurate ToC is complex alongside pagination
-        """
-        return []
+    def show_table_of_contents(self) -> bool:
+        return False
 
     def get_listing_pages(self) -> models.QuerySet:
         return (
