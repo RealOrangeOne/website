@@ -393,7 +393,7 @@ SESSION_COOKIE_HTTPONLY = True
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-PERMISSIONS_POLICY = {
+PERMISSIONS_POLICY: dict[str, list] = {
     "accelerometer": [],
     "ambient-light-sensor": [],
     "autoplay": [],
