@@ -27,7 +27,7 @@
     "stylelint-config-standard-scss": "6.0.0"
   },
   "dependencies": {
-    "@fontsource/fira-code": "4.5.11",
+    "@fontsource/fira-code": "4.5.12",
     "@fortawesome/fontawesome-free": "6.2.0",
     "@ledge/is-ie-11": "7.0.0",
     "bulma": "0.9.4",
