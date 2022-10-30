@@ -392,7 +392,7 @@ SESSION_COOKIE_HTTPONLY = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 if not DEBUG:
-    SECURE_HSTS_SECONDS = 86400  # 1 day
+    SECURE_HSTS_SECONDS = 2592000  # 30 days
 
 if sentry_dsn := env("SENTRY_DSN"):
     import sentry_sdk
