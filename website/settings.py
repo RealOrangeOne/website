@@ -103,6 +103,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
+    "csp.middleware.CSPMiddleware",
 ]
 
 ROOT_URLCONF = "website.urls"
@@ -212,10 +213,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 WAGTAILADMIN_BASE_URL = f"https://{BASE_HOSTNAME}"
 
-CORS_ALLOWED_ORIGINS = [
-    WAGTAILADMIN_BASE_URL,
-    "https://editor.swagger.io"
-]
+CORS_ALLOWED_ORIGINS = [WAGTAILADMIN_BASE_URL, "https://editor.swagger.io"]
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
@@ -396,6 +394,9 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 if not DEBUG:
     SECURE_HSTS_SECONDS = 2592000  # 30 days
+
+    CSP_BLOCK_ALL_MIXED_CONTENT = True
+    CSP_UPGRADE_INSECURE_REQUESTS = True
 
 if sentry_dsn := env("SENTRY_DSN"):
     import sentry_sdk
