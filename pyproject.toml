@@ -38,6 +38,7 @@ django-cors-headers = "^3.13.0"
 uritemplate = "^4.1.1"
 PyYAML = "^6.0"
 django-csp = "^3.7"
+django-permissions-policy = "^4.13.0"
 
 
 [tool.poetry.group.dev.dependencies]

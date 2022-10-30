@@ -319,6 +319,17 @@ Django = "*"
 testing = ["django-modelcluster"]
 
 [[package]]
+name = "django-permissions-policy"
+version = "4.13.0"
+description = "Set the draft security HTTP header Permissions-Policy (previously Feature-Policy) on your Django app."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-plausible"
 version = "0.4.0"
 description = "Django module to provide easy Plausible integration, with Wagtail support"
@@ -1387,7 +1398,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "8d2f240eaa055939613b5fcd9f364df73c8488de9fe3aa9e68c691ff7ad7c3d5"
+content-hash = "24f28337794e9b5a60a33b8993b98de7815fdc9603d8ffc6cb258ee56c29f996"
 
 [metadata.files]
 anyascii = [
@@ -1620,6 +1631,10 @@ django-otp = [
 django-permissionedforms = [
     {file = "django-permissionedforms-0.1.tar.gz", hash = "sha256:4340bb20c4477fffb13b4cc5cccf9f1b1010b64f79956c291c72d2ad2ed243f8"},
     {file = "django_permissionedforms-0.1-py2.py3-none-any.whl", hash = "sha256:d341a961a27cc77fde8cc42141c6ab55cc1f0cb886963cc2d6967b9674fa47d6"},
+]
+django-permissions-policy = [
+    {file = "django-permissions-policy-4.13.0.tar.gz", hash = "sha256:c340f822de6ea48888b8620214f98f516c53501d0f54de53d172715ab94e0da2"},
+    {file = "django_permissions_policy-4.13.0-py3-none-any.whl", hash = "sha256:2c9aa83a7bb49d32f9bb77384d3fcf81b141f18df3c2bcf8810a154860a22e63"},
 ]
 django-plausible = [
     {file = "django-plausible-0.4.0.tar.gz", hash = "sha256:0e8b90504807812f7416265d5e42377e1bf0cf102610abf4b4331d1f1bcc9383"},
