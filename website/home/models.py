@@ -52,7 +52,7 @@ class HomePage(BasePage, WagtailImageMetadataMixin):
         return self.search_description
 
     def get_object_title(self) -> str:
-        return ""
+        return self.html_title
 
     def get_context(self, request: HttpRequest) -> dict:
         from website.search.models import SearchPage

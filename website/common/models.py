@@ -32,6 +32,7 @@ from .utils import (
     TocEntry,
     count_words,
     extract_text,
+    get_site_title,
     get_table_of_contents,
     truncate_string,
 )
@@ -56,6 +57,10 @@ class BasePage(Page):
     @cached_property
     def html_title(self) -> str:
         return self.seo_title or self.title
+
+    @cached_property
+    def html_title_tag(self) -> str:
+        return f"{self.html_title} :: {get_site_title()}"
 
     @cached_property
     def hero_title(self) -> str:

@@ -4,7 +4,11 @@
 
 {% block body_class %}page-404{% endblock %}
 
-{% block title %}Page not found{% endblock %}
+{% block title %}
+  Page not found
+  {% wagtail_site as current_site %}
+  {% if current_site and current_site.site_name %}:: {{ current_site.site_name }}{% endif %}
+{% endblock %}
 
 {% block main_content %}
   <marquee {% if homepage.image %}style="background-image: url({% image_url homepage.image 'width-1200' %})"{% endif %} class="outer" direction="down" behavior="alternate" scrolldelay="15" truespeed scrollamount="2">

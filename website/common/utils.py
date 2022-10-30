@@ -6,8 +6,9 @@ from bs4 import BeautifulSoup, SoupStrainer
 from django.conf import settings
 from django.http.request import HttpRequest
 from django.utils.text import slugify, smart_split
+from django_cache_decorator import django_cache_decorator
 from more_itertools import ilen
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.models import get_page_models as get_wagtail_page_models
 
 HEADER_TAGS = ["h2", "h3", "h4", "h5", "h6"]
@@ -96,3 +97,8 @@ def heading_id(heading: str) -> str:
     if slug[0].isdigit():
         return "ref-" + slug
     return slug
+
+
+@django_cache_decorator(time=300)
+def get_site_title() -> str:
+    return Site.objects.values_list("site_name", flat=True).first()
