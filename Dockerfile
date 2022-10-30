@@ -49,7 +49,7 @@ COPY --chown=website ./etc ./etc
 COPY --chown=website ./manage.py ./manage.py
 COPY --chown=website ./website ./website
 
-RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear -v3
+RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear
 
 CMD python manage.py migrate --noinput && gunicorn -c etc/gunicorn.conf.py
 
