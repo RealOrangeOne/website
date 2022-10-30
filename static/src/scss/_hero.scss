@@ -32,11 +32,6 @@ section.hero {
     box-shadow: $shadow;
     position: sticky;
     top: 0;
-
-    .breadcrumb,
-    .subtitle {
-      display: none;
-    }
   }
 
   .hero-body {
