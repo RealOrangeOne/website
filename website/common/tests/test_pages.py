@@ -59,7 +59,7 @@ class ListingPageTestCase(TestCase):
         self.assertContains(response, self.page.reverse_subpage("feed"))
 
     def test_feed_accessible(self) -> None:
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(13):
             response = self.client.get(
                 self.page.url + self.page.reverse_subpage("feed")
             )
