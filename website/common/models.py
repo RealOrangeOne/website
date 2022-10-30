@@ -239,7 +239,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         return self.feed_class(
             self.get_listing_pages(),
             self.get_full_url(request),
-            self.html_title,
+            self.html_title_tag,
         )(request)
 
 
