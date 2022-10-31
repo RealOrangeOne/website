@@ -1276,8 +1276,8 @@ develop = false
 [package.source]
 type = "git"
 url = "https://github.com/RealOrangeOne/wagtail-favicon"
-reference = "fd43adb98e52b6be9f5a9270391a74ec796727ef"
-resolved_reference = "fd43adb98e52b6be9f5a9270391a74ec796727ef"
+reference = "4586efaac746085338fc7d61713006d9adc62d2e"
+resolved_reference = "4586efaac746085338fc7d61713006d9adc62d2e"
 
 [[package]]
 name = "wagtail-generic-chooser"
@@ -1398,7 +1398,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "6ce731f9d33a264d0a096e0d1ed2ef460892f0bae4fcad83ae531f0c181ae881"
+content-hash = "d71cbe44646175c801ee8ea123254c9ffac057f9adb7e02e1a056a6ea8667b53"
 
 [metadata.files]
 anyascii = [

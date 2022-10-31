@@ -27,7 +27,7 @@ wagtail-metadata = "4.0.1"
 humanize = "4.4.0"
 django-plausible = "0.4.0"
 sentry-sdk = "1.10.1"
-wagtail-favicon = {git = "https://github.com/RealOrangeOne/wagtail-favicon", rev = "fd43adb98e52b6be9f5a9270391a74ec796727ef"}
+wagtail-favicon = {git = "https://github.com/RealOrangeOne/wagtail-favicon", rev = "4586efaac746085338fc7d61713006d9adc62d2e"}
 django-sri = "0.5.0"
 wagtail-2fa = "1.6.0"
 django-health-check = "3.17.0"
