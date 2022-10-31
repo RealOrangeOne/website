@@ -11,6 +11,8 @@ section.hero {
   margin-bottom: 1.5rem;
   background-color: $white;
   display: block;
+  position: sticky;
+  top: 0;
 
   @include dark-mode {
     background-color: $dark-mode-background;
@@ -30,8 +32,6 @@ section.hero {
 
   &.stuck {
     box-shadow: $shadow;
-    position: sticky;
-    top: 0;
   }
 
   .hero-body {
