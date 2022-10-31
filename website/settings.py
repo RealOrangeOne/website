@@ -412,6 +412,9 @@ PERMISSIONS_POLICY: dict[str, list] = {
     "usb": [],
 }
 
+# Disable default CSP which blocks all remote content
+CSP_DEFAULT_SRC = None
+
 if not DEBUG:
     SECURE_HSTS_SECONDS = 2592000  # 30 days
 
