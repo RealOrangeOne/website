@@ -2,7 +2,6 @@ from django.http import HttpResponseRedirect
 from django.http.request import HttpRequest
 from django.urls import reverse
 from django.views.generic import RedirectView
-from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -42,10 +41,8 @@ class LMOTFYAPIView(ListAPIView):
     Let Me Orange That For You
     """
 
-    filter_backends = [filters.WagtailSearchFilter, OrderingFilter]
+    filter_backends = [filters.WagtailSearchFilter]
     serializer_class = serializers.LMOTFYSerializer
-    ordering_fields = ["title", "date", "relevance"]
-    ordering = ["relevance"]
     pagination_class = CustomPageNumberPagination
 
     def get_queryset(self) -> PageQuerySet:

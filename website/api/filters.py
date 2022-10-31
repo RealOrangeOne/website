@@ -17,6 +17,6 @@ class WagtailSearchFilter(SearchFilter):
             return queryset.annotate(relevance=Value(0)).none()
 
         filters, query = parse_query_string(search_query)
-        results = queryset.search(query).annotate_score("relevance")
+        results = queryset.search(query, order_by_relevance=True)
 
         return results.get_queryset()
