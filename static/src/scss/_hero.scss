@@ -11,8 +11,6 @@ section.hero {
   margin-bottom: 1.5rem;
   background-color: $white;
   display: block;
-  position: sticky;
-  top: 0;
 
   @include dark-mode {
     background-color: $dark-mode-background;
@@ -28,10 +26,6 @@ section.hero {
     @include dark-mode {
       color: $dark-mode-text;
     }
-  }
-
-  &.stuck {
-    box-shadow: $shadow;
   }
 
   .hero-body {
@@ -107,6 +101,21 @@ section.hero {
 
   .content-details {
     margin-bottom: 0.25rem;
+  }
+
+  @include mobile {
+    .hero-buttons {
+      display: none;
+    }
+  }
+
+  @include tablet {
+    position: sticky;
+    top: 0;
+
+    &.stuck {
+      box-shadow: $shadow;
+    }
   }
 }
 
