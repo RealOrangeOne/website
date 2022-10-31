@@ -37,7 +37,7 @@ python-versions = ">=3.5"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
-tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
+tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "beautifulsoup4"
@@ -100,7 +100,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode_backport = ["unicodedata2"]
+unicode-backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -703,9 +703,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements_deprecated_finder = ["pip-api", "pipreqs"]
+requirements-deprecated-finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jsbeautifier"
@@ -973,7 +973,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
+use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rq"
@@ -1010,7 +1010,7 @@ falcon = ["falcon (>=1.4)"]
 fastapi = ["fastapi (>=0.79.0)"]
 flask = ["blinker (>=1.1)", "flask (>=0.11)"]
 httpx = ["httpx (>=0.16.0)"]
-pure_eval = ["asttokens", "executing", "pure-eval"]
+pure-eval = ["asttokens", "executing", "pure-eval"]
 pyspark = ["pyspark (>=2.4.4)"]
 quart = ["blinker (>=1.1)", "quart (>=0.16.1)"]
 rq = ["rq (>=0.6)"]
@@ -1205,7 +1205,7 @@ testing = ["Jinja2 (>=3.0,<3.2)", "azure-mgmt-cdn (>=5.1,<6.0)", "azure-mgmt-fro
 
 [[package]]
 name = "wagtail-2fa"
-version = "1.6.0"
+version = "1.6.3"
 description = "Two factor authentication for Wagtail"
 category = "main"
 optional = false
@@ -1398,7 +1398,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d71cbe44646175c801ee8ea123254c9ffac057f9adb7e02e1a056a6ea8667b53"
+content-hash = "3377b1641a9228a57e00ef289b5cd7eaf01024f2a7843aa9158972fda905adaa"
 
 [metadata.files]
 anyascii = [
@@ -2198,8 +2198,8 @@ wagtail = [
     {file = "wagtail-3.0.3.tar.gz", hash = "sha256:23b3e541401355ea183372582050ea52b049c956dd5b506197f957bb68423ab3"},
 ]
 wagtail-2fa = [
-    {file = "wagtail-2fa-1.6.0.tar.gz", hash = "sha256:fd543bb94f848f9f6db4747b408237c773d51b06b71331a2a0f881390b11aebf"},
-    {file = "wagtail_2fa-1.6.0-py3-none-any.whl", hash = "sha256:a27b37b8ac6b179066b31f5548a5a01a58a1664c198c102482caf333cc0f5739"},
+    {file = "wagtail-2fa-1.6.3.tar.gz", hash = "sha256:169a057ae4ed57a5b8958de81176d8b7f0b7ca9819d587500a58f0ea91430325"},
+    {file = "wagtail_2fa-1.6.3-py3-none-any.whl", hash = "sha256:23dd1b115f109ac40b560581311838bae65fa5bc7b94d7baa1b3b8ef87d653b0"},
 ]
 wagtail-autocomplete = [
     {file = "wagtail-autocomplete-0.9.0.tar.gz", hash = "sha256:b64828d35f370453c84bc4094174872822798e54414f5fb9fc8a43c2a6c3e727"},
