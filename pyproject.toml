@@ -6,7 +6,7 @@ authors = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = "4.0.6"
+Django = "4.0.8"
 wagtail = "3.0.3"
 django-environ = "0.9.0"
 whitenoise = {version = "6.2.0", extras = ["brotli"]}
