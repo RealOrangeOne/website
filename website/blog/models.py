@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
+from wagtail.search import index
 from wagtailautocomplete.edit_handlers import AutocompletePanel
 
 from website.common.models import BaseContentPage, BaseListingPage
@@ -55,6 +56,10 @@ class BlogPostPage(BaseContentPage):
     promote_panels = BaseContentPage.promote_panels + [
         FieldPanel("date"),
         AutocompletePanel("tags"),
+    ]
+
+    search_fields = BaseContentPage.search_fields + [
+        index.RelatedFields("tags", [index.SearchField("title", boost=1)])
     ]
 
     @cached_property
