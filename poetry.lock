@@ -37,7 +37,7 @@ python-versions = ">=3.5"
 dev = ["cloudpickle", "coverage[toml] (>=5.0.2)", "furo", "hypothesis", "mypy (>=0.900,!=0.940)", "pre-commit", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "sphinx", "sphinx-notfound-page", "zope.interface"]
 docs = ["furo", "sphinx", "sphinx-notfound-page", "zope.interface"]
 tests = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins", "zope.interface"]
-tests-no-zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
+tests_no_zope = ["cloudpickle", "coverage[toml] (>=5.0.2)", "hypothesis", "mypy (>=0.900,!=0.940)", "pympler", "pytest (>=4.3.0)", "pytest-mypy-plugins"]
 
 [[package]]
 name = "beautifulsoup4"
@@ -100,7 +100,7 @@ optional = false
 python-versions = ">=3.6.0"
 
 [package.extras]
-unicode-backport = ["unicodedata2"]
+unicode_backport = ["unicodedata2"]
 
 [[package]]
 name = "click"
@@ -703,9 +703,9 @@ python-versions = ">=3.6.1,<4.0"
 
 [package.extras]
 colors = ["colorama (>=0.4.3,<0.5.0)"]
-pipfile-deprecated-finder = ["pipreqs", "requirementslib"]
+pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
 plugins = ["setuptools"]
-requirements-deprecated-finder = ["pip-api", "pipreqs"]
+requirements_deprecated_finder = ["pip-api", "pipreqs"]
 
 [[package]]
 name = "jsbeautifier"
@@ -973,7 +973,7 @@ urllib3 = ">=1.21.1,<1.27"
 
 [package.extras]
 socks = ["PySocks (>=1.5.6,!=1.5.7)"]
-use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
+use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "rq"
@@ -1010,7 +1010,7 @@ falcon = ["falcon (>=1.4)"]
 fastapi = ["fastapi (>=0.79.0)"]
 flask = ["blinker (>=1.1)", "flask (>=0.11)"]
 httpx = ["httpx (>=0.16.0)"]
-pure-eval = ["asttokens", "executing", "pure-eval"]
+pure_eval = ["asttokens", "executing", "pure-eval"]
 pyspark = ["pyspark (>=2.4.4)"]
 quart = ["blinker (>=1.1)", "quart (>=0.16.1)"]
 rq = ["rq (>=0.6)"]
@@ -1239,14 +1239,14 @@ test = ["beautifulsoup4 (>=4.8)", "html5lib (>=0.999999999)", "pytest (>=3.5)", 
 
 [[package]]
 name = "wagtail-draftail-snippet"
-version = "0.4.1"
+version = "0.4.2"
 description = "Associate RichTextBlock text content to a snippet model."
 category = "main"
 optional = false
 python-versions = "==3.*,>=3.6.0"
 
 [package.dependencies]
-wagtail = ">=2.5.0,<4.0"
+wagtail = ">=2.15.0,<4.0"
 
 [[package]]
 name = "wagtail-factories"
@@ -1398,7 +1398,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "26c09e362c1f739a3dffdd1ab942dccc76a8b5e73633d52bd421ef7dcbbbcb6d"
+content-hash = "3c56dcf21160ce4e0544c6e55e41ec7f821340ca87f343fc4adaf9f555c078ab"
 
 [metadata.files]
 anyascii = [
@@ -2206,7 +2206,7 @@ wagtail-autocomplete = [
     {file = "wagtail_autocomplete-0.9.0-py3-none-any.whl", hash = "sha256:d85789543308d344447656725b9aac8d1c4c6fb271221a3340008a3c9f2ab6fa"},
 ]
 wagtail-draftail-snippet = [
-    {file = "wagtail-draftail-snippet-0.4.1.tar.gz", hash = "sha256:b6b17648df76f23b0178e9cc8c91f9bba22799f33e4ae6a32a6f6c1e883d9b1c"},
+    {file = "wagtail-draftail-snippet-0.4.2.tar.gz", hash = "sha256:8036b3f57cbd3accfbde2f6606d66079aa75ab1b572e68802d988890ab806be3"},
 ]
 wagtail-factories = [
     {file = "wagtail_factories-3.1.0-py2.py3-none-any.whl", hash = "sha256:26b42998420005ab556f714e72e4a53427aac59ae595c66d1379a2c141f92be5"},
