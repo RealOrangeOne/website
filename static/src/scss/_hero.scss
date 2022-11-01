@@ -103,6 +103,10 @@ section.hero {
     margin-bottom: 0.25rem;
   }
 
+  .hero-buttons .button {
+    margin-right: 0 !important;
+  }
+
   @include mobile {
     .hero-buttons {
       display: none;
