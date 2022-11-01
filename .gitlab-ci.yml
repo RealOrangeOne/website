@@ -33,7 +33,7 @@ poetry:
   before_script:
     - apt-get update --yes
     - apt-get install --yes build-essential libpq-dev git
-    - pip install poetry==1.2.0
+    - pip install poetry==1.2.2
     - poetry config cache-dir $CI_PROJECT_DIR/.poetry-cache
   script:
     - python -m venv env
