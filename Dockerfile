@@ -28,8 +28,6 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
 
 RUN curl -fsSL https://github.com/aptible/supercronic/releases/download/v0.2.1/supercronic-linux-amd64 -o /usr/local/bin/supercronic && chmod +x /usr/local/bin/supercronic
 
-RUN pip install --no-cache poetry==1.2.2
-
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1
 
@@ -38,10 +36,9 @@ EXPOSE 8000
 USER website
 
 RUN python -m venv $VIRTUAL_ENV
-COPY --chown=website pyproject.toml poetry.lock ./
+COPY --chown=website requirements.txt ./
 
-# Clear the poetry and pip caches, as `--no-cache` doesn't do anything
-RUN poetry install --without=dev && rm -rf $HOME/.cache
+RUN pip install --no-cache -r requirements.txt
 
 COPY --chown=website --from=frontend ./static/build ./static/build
 
@@ -65,6 +62,7 @@ RUN curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
 # Restore user
 USER website
 
-RUN poetry install --no-cache
+COPY --chown=website dev-requirements.txt ./
+RUN pip install --no-cache -r dev-requirements.txt
 
 CMD sleep infinity
