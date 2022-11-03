@@ -11,3 +11,34 @@ custom_blocks="cache"
 
 [tool.djlint.per-file-ignores]
 "_snippet_link.html" = "H025"
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+skip_glob = "env/*"
+
+[tool.mypy]
+no_implicit_optional = true
+warn_unused_ignores = true
+strict_optional = true
+check_untyped_defs = true
+ignore_missing_imports = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+exclude = [
+  '^docker/dev/volumes',
+  '^env'
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if settings.DEBUG"
+]
+omit = [
+  "*/migrations/*",
+]
