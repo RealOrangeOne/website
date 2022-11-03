@@ -7,7 +7,7 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["patch"],
-      "matchDepTypes": ["dev", "devDependencies"],
+      "schedule": ["every weekend"],
       "enabled": false
     }
   ]
