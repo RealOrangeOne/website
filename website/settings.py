@@ -13,6 +13,7 @@ env = environ.Env(
     SEO_INDEX=(bool, False),
     SENTRY_DSN=(str, ""),
     TEST=(bool, False),
+    ALLOWED_HOSTS=(list, ["*"]),
 )
 
 # Read local secrets
@@ -24,7 +25,7 @@ TEST = env("TEST")
 SECRET_KEY = env("SECRET_KEY")
 
 BASE_HOSTNAME = env("BASE_HOSTNAME")
-ALLOWED_HOSTS = ["*"] if DEBUG else [BASE_HOSTNAME]
+ALLOWED_HOSTS = env("ALLOWED_HOSTS")
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
