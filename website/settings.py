@@ -94,6 +94,7 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "enforce_host.EnforceHostMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -420,6 +421,9 @@ if not DEBUG:
 
     CSP_BLOCK_ALL_MIXED_CONTENT = True
     CSP_UPGRADE_INSECURE_REQUESTS = True
+
+    if not TEST:
+        ENFORCE_HOST = BASE_HOSTNAME
 
 if sentry_dsn := env("SENTRY_DSN"):
     import sentry_sdk
