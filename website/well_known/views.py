@@ -1,11 +1,13 @@
 from datetime import timedelta
 
+from django.conf import settings
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse
+from django.http.response import Http404, HttpResponse
 from django.utils import timezone
 from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import cache_control, cache_page
 from django.views.generic import TemplateView
+from proxy.views import proxy_view
 
 from website.contact.models import ContactPage
 from website.contrib.singleton_page.utils import SingletonPageCache
@@ -46,3 +48,14 @@ class MatrixServerView(TemplateView):
 class MatrixClientView(TemplateView):
     template_name = "well-known/matrix-client.json"
     content_type = "application/json"
+
+
+@cache_page(60)
+def activitypub_proxy(request: HttpRequest) -> HttpResponse:
+    if not settings.ACTIVITYPUB_HOST:
+        raise Http404
+
+    return proxy_view(
+        request,
+        f"https://{settings.ACTIVITYPUB_HOST}{request.path}",
+    )

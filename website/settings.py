@@ -14,6 +14,7 @@ env = environ.Env(
     SENTRY_DSN=(str, ""),
     TEST=(bool, False),
     ALLOWED_HOSTS=(list, ["*"]),
+    ACTIVITYPUB_HOST=(str, ""),
 )
 
 # Read local secrets
@@ -304,6 +305,8 @@ WAGTAIL_MODERATION_ENABLED = False
 
 UNSPLASH_CLIENT_ID = env("UNSPLASH_CLIENT_ID")
 SPOTIFY_PROXY_HOST = env("SPOTIFY_PROXY_HOST")
+
+ACTIVITYPUB_HOST = env("ACTIVITYPUB_HOST")
 
 SEO_INDEX = env("SEO_INDEX")
 

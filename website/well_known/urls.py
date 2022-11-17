@@ -20,4 +20,19 @@ urlpatterns = [
         views.MatrixClientView.as_view(),
         name="matrix-client",
     ),
+    path(
+        "webfinger",
+        views.activitypub_proxy,
+        name="webfinger",
+    ),
+    path(
+        "hostmeta",
+        views.activitypub_proxy,
+        name="hostmeta",
+    ),
+    path(
+        "nodeinfo",
+        views.activitypub_proxy,
+        name="nodeinfo",
+    ),
 ]
