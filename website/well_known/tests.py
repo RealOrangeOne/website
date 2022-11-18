@@ -48,7 +48,7 @@ class ActivityPubProxyView(TestCase):
         reverse("well-known:nodeinfo"),
     ]
 
-    def setUp(self):
+    def setUp(self) -> None:
         super().setUp()
 
         proxy_view_patcher = patch("website.well_known.views.proxy_view")
@@ -58,7 +58,7 @@ class ActivityPubProxyView(TestCase):
         self.proxy_view.return_value = HttpResponse()
 
     @override_settings(ACTIVITYPUB_HOST="activitypub.example.com")
-    def test_urls(self):
+    def test_urls(self) -> None:
         for path in self.PROXIED_PATHS:
             with self.subTest(path):
                 response = self.client.get(path)
@@ -70,7 +70,7 @@ class ActivityPubProxyView(TestCase):
                 self.assertEqual(response["Cache-Control"], "max-age=60")
 
     @override_settings(ACTIVITYPUB_HOST="")
-    def test_unconfigured(self):
+    def test_unconfigured(self) -> None:
         for path in self.PROXIED_PATHS:
             with self.subTest(path):
                 response = self.client.get(path)
