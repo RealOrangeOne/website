@@ -27,7 +27,7 @@ Wand==0.6.10
 django3-cache-decorator==0.5.2
 django-cors-headers==3.13.0
 django-csp==3.7
-django-permissions-policy==4.13.0
+django-permissions-policy==4.14.0
 django-enforce-host==1.1.0
 django-proxy==1.2.1
 
