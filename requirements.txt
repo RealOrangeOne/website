@@ -1,7 +1,7 @@
 Django==4.0.8
 wagtail==3.0.3
 django-environ==0.9.0
-whitenoise[brotli]==6.2.0
+whitenoise[brotli]==6.3.0
 Pygments==2.13.0
 beautifulsoup4==4.9.3
 lxml==4.9.1
