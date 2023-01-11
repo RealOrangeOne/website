@@ -21,7 +21,7 @@ static:
     expire_in: 2 hours
 
 pip:
-  image: python:3.10-slim
+  image: python:3.11-slim
   stage: build
   variables:
     PIP_CACHE_DIR: $CI_PROJECT_DIR/.pip-cache
@@ -43,7 +43,7 @@ pip:
     expire_in: 2 hours
 
 .python_test_template:
-  image: python:3.10-slim
+  image: python:3.11-slim
   stage: test
   dependencies:
     - pip
