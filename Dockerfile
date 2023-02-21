@@ -22,6 +22,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     libpq-dev \
     curl \
     git \
+    nginx \
     # wand dependencies
     libmagickwand-6.q16-6 libmagickwand-6.q16hdri-6 \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
@@ -32,6 +33,8 @@ ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1
 
 EXPOSE 8000
+
+RUN ln -fs /app/etc/nginx.conf /etc/nginx/sites-available/default
 
 USER website
 
