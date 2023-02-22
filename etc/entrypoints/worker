@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+exec python manage.py rqworker --with-scheduler

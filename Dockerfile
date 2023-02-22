@@ -51,7 +51,7 @@ COPY --chown=website ./website ./website
 
 RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear
 
-CMD python manage.py migrate --noinput && gunicorn -c etc/gunicorn.conf.py
+CMD ["/app/etc/entrypoints/web"]
 
 # Just dev stuff
 FROM production as dev
