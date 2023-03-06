@@ -4,6 +4,7 @@ from django.conf import settings
 from django.urls import include, path, re_path
 from django.views.decorators.cache import cache_control, cache_page
 from django.views.defaults import server_error
+from django.views.generic import RedirectView
 from django.views.static import serve
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -44,6 +45,10 @@ urlpatterns = [
     path(".health/", include("health_check.urls")),
     path("", include("website.legacy.urls")),
     path("api/", include("website.api.urls", namespace="api")),
+    path(
+        "@jake",
+        RedirectView.as_view(url=f"https://{settings.ACTIVITYPUB_HOST}/@jake"),
+    ),
     path("", include(favicon_urls)),
 ]
 
