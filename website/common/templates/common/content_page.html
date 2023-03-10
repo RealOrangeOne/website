@@ -12,7 +12,10 @@
 
 {% block post_content %}
   {% include "common/shareon.html" %}
-  {% include "common/comments.html" %}
+
+  {% if not request.is_preview %}
+    {% include "common/comments.html" %}
+  {% endif %}
 {% endblock %}
 
 {% block extra_css %}
