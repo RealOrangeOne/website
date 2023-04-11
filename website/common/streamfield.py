@@ -106,9 +106,14 @@ def get_content_html(html: str) -> str:
         if not isinstance(block, IGNORE_PLAINTEXT_BLOCKS)
     ]
 
-    return str(
-        BeautifulSoup(html, "lxml", parse_only=SoupStrainer(class_=block_classes))
-    )
+    soup = BeautifulSoup(html, "lxml", parse_only=SoupStrainer(class_=block_classes))
+
+    # If the first block is a tangent, remove it
+    first_block = soup.find("div", class_=block_classes)
+    if first_block and first_block.attrs["class"][0].endswith("tangent"):
+        first_block.extract()
+
+    return str(soup)
 
 
 def add_heading_anchors(html: str) -> str:
