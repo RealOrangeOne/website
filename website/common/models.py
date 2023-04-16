@@ -266,7 +266,8 @@ class ReferralLink(models.Model, index.Indexed):
 @register_setting(icon="arrow-down")
 class FooterSetting(BaseSetting):
     icons = StreamField(
-        [("icon", SnippetChooserBlock("contact.OnlineAccount", icon="user"))]
+        [("icon", SnippetChooserBlock("contact.OnlineAccount", icon="user"))],
+        use_json_field=True,
     )
 
     panels = [FieldPanel("icons")]

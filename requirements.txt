@@ -1,27 +1,26 @@
 Django==4.0.10
-wagtail==3.0.3
+wagtail==4.1.4
 django-environ==0.9.0
 whitenoise[brotli]==6.4.0
-Pygments==2.14.0
-beautifulsoup4==4.9.3
+Pygments==2.15.0
+beautifulsoup4==4.11.2
 lxml==4.9.1
 requests==2.28.1
-wagtail-generic-chooser==0.5
+wagtail-generic-chooser==0.5.1
 django-rq==2.7.0
 django-redis==5.2.0
-wagtail-draftail-snippet==0.4.2
 gunicorn==20.1.0
 psycopg2==2.9.5
 djangorestframework
 django-htmx==1.14.0
-wagtail-metadata==4.0.2
+wagtail-metadata==4.0.3
 humanize==4.6.0
 django-plausible==0.4.0
 sentry-sdk==1.15.0
 django-sri==0.5.0
-wagtail-2fa==1.6.3
+wagtail-2fa==1.6.5
 django-health-check==3.17.0
-wagtail-autocomplete==0.9.0
+wagtail-autocomplete==0.10.0
 Wand==0.6.10
 django3-cache-decorator==0.5.2
 django-cors-headers==3.14.0
@@ -36,3 +35,6 @@ PyYAML
 
 # Use custom `wagtail-favicon` with performance improvements
 git+https://github.com/RealOrangeOne/wagtail-favicon@4586efaac746085338fc7d61713006d9adc62d2e
+
+# Use custom `wagtail-draftail-snippet` with support for Wagtail 4.1
+git+https://github.com/RealOrangeOne/wagtail-draftail-snippet@0924ab12b1ca205b94ccd9a34ecc446d7ac422e5
