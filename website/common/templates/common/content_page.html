@@ -11,9 +11,9 @@
 {% endblock %}
 
 {% block post_content %}
-  {% include "common/shareon.html" %}
-
   {% if not request.is_preview %}
+    {% include "common/shareon.html" %}
+
     {% include "common/comments.html" %}
   {% endif %}
 {% endblock %}
