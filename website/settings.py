@@ -147,7 +147,9 @@ WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
 RQ_QUEUES = {}
 
 USE_REDIS_QUEUE = False
-if queue_store := env.cache("QUEUE_STORE_URL", default=None):
+if queue_store := env.cache(
+    "QUEUE_STORE_URL", default=None, backend="django_redis.cache.RedisCache"
+):
     CACHES["rq"] = queue_store
     USE_REDIS_QUEUE = True
     RQ_QUEUES["default"] = {"USE_REDIS_CACHE": "rq"}
