@@ -14,7 +14,7 @@ from django.utils.text import slugify
 from django.views.decorators.cache import cache_page
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
 from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model_string
 from wagtail.images.views.serve import generate_image_url
@@ -264,7 +264,7 @@ class ReferralLink(models.Model, index.Indexed):
 
 
 @register_setting(icon="arrow-down")
-class FooterSetting(BaseSetting):
+class FooterSetting(BaseGenericSetting):
     icons = StreamField(
         [("icon", SnippetChooserBlock("contact.OnlineAccount", icon="user"))],
         use_json_field=True,
