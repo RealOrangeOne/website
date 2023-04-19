@@ -4,15 +4,9 @@ from django.utils.safestring import mark_safe
 from pygments import highlight
 from pygments.formatters.html import HtmlFormatter
 from pygments.lexers import find_lexer_class, get_all_lexers
+from pygments.lexers.python import PythonConsoleLexer, PythonLexer
 from pygments.lexers.special import TextLexer
-from wagtail.blocks import (
-    BooleanBlock,
-    CharBlock,
-    ChoiceBlock,
-    StructBlock,
-    StructValue,
-    TextBlock,
-)
+from wagtail.blocks import CharBlock, ChoiceBlock, StructBlock, StructValue, TextBlock
 
 
 def get_language_choices() -> Iterator[tuple[str, str]]:
@@ -21,6 +15,8 @@ def get_language_choices() -> Iterator[tuple[str, str]]:
 
 
 class CodeStructValue(StructValue):
+    LANGUAGE_DISPLAY_MAPPING = {PythonConsoleLexer.name: PythonLexer.name}
+
     def code(self) -> str:
         lexer = find_lexer_class(self["language"])()
         formatter = HtmlFormatter(
@@ -32,10 +28,16 @@ class CodeStructValue(StructValue):
         if filename := self["filename"]:
             return filename
 
-        if (language := self["language"]) != TextLexer.name:
-            return language
+        if self["language"] != TextLexer.name:
+            return self.language_display()
 
         return ""
+
+    def language_display(self) -> str:
+        """
+        Map ugly language names to something more useful
+        """
+        return self.LANGUAGE_DISPLAY_MAPPING.get(self["language"], self["language"])
 
 
 class CodeBlock(StructBlock):
@@ -44,7 +46,6 @@ class CodeBlock(StructBlock):
         choices=get_language_choices,
     )
     source = TextBlock()
-    always_show_header = BooleanBlock(default=False, required=False)
 
     class Meta:
         icon = "code"

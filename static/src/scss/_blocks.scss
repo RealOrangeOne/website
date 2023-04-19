@@ -78,21 +78,37 @@ div.block-tangent {
 }
 
 div.block-code {
+  position: relative;
+
   .code-header {
+    position: absolute;
     font-family: $family-code;
-    background-color: $grey-lighter;
-    font-size: 80%;
-    padding: 0.25rem 1rem;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    padding-right: 0.5rem;
 
-    @include dark-mode {
-      background-color: $grey-darker;
+    .tag {
+      border-radius: 0 !important;
+      cursor: default;
     }
-  }
 
-  &:not(:hover) .code-header:not(.always-show) {
-    visibility: hidden;
+    .code-copy-tag {
+      background-color: transparent;
+      color: $dark;
+
+      @include dark-mode {
+        color: $dark-mode-text;
+      }
+    }
+
+    .language-tag {
+      background-color: $primary-light;
+
+      @include dark-mode {
+        background-color: $primary-dark;
+        color: $white;
+      }
+    }
   }
 
   .highlight {

@@ -1,7 +1,7 @@
 {% if value.header_text %}
-  <div class="code-header {% if value.always_show_header %}always-show{% endif %}">
-    <span title="{{ value.language }}">{{ value.header_text }}</span>
-    <span>
+  <div class="code-header tags">
+    {% if value.header_text %}<span class="tag ml-auto mr-5 language-tag" title="{{ value.language }}">{{ value.header_text }}</span>{% endif %}
+    <span class="tag code-copy-tag">
       <i class="fa-regular fa-clipboard is-clickable code-copy" title="Copy to clipboard"></i>
     </span>
   </div>
