@@ -80,6 +80,14 @@ div.block-tangent {
 div.block-code {
   position: relative;
 
+  .highlight {
+    pre,
+    span,
+    & {
+      @include dark-mode;
+    }
+  }
+
   .code-header {
     position: absolute;
     font-family: $family-code;
@@ -103,19 +111,17 @@ div.block-code {
 
     .language-tag {
       background-color: $primary-light;
+      font-weight: $weight-medium;
 
       @include dark-mode {
         background-color: $primary-dark;
         color: $white;
       }
-    }
-  }
 
-  .highlight {
-    pre,
-    span,
-    & {
-      @include dark-mode;
+      &.linguist-color span {
+        // HACK: Naive inverse threshold of the colour for optimum contrast
+        filter: contrast(1000) grayscale(100) invert(1);
+      }
     }
   }
 }

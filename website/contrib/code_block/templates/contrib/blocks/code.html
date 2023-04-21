@@ -1,6 +1,10 @@
 {% if value.header_text %}
-  <div class="code-header tags">
-    {% if value.header_text %}<span class="tag ml-auto mr-5 language-tag" title="{{ value.language }}">{{ value.header_text }}</span>{% endif %}
+  <div class="code-header">
+    {% if value.header_text %}
+      <span class="tag ml-auto mr-5 language-tag {% if value.colour %}linguist-color{% endif %}" title="{{ value.language }}" {% if value.colour %}style="background-color: {{ value.colour }}"{% endif %}>
+        <span {% if value.colour %}style="color: {{ value.colour }}"{% endif %}>{{ value.header_text }}</span>
+      </span>
+    {% endif %}
     <span class="tag code-copy-tag">
       <i class="fa-regular fa-clipboard is-clickable code-copy" title="Copy to clipboard"></i>
     </span>
