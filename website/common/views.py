@@ -12,7 +12,9 @@ from django.views.generic import TemplateView
 from wagtail.models import Page
 from wagtail.query import PageQuerySet
 
+from website.contrib.singleton_page.utils import SingletonPageCache
 from website.home.models import HomePage
+from website.search.models import SearchPage
 
 from .models import BaseContentPage, BasePage
 
@@ -29,6 +31,7 @@ class Error404View(TemplateView):
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         context["homepage"] = HomePage.objects.get()
+        context["search_url"] = SingletonPageCache.get_url(SearchPage, self.request)
         return context
 
 
