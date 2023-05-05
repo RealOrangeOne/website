@@ -6,7 +6,5 @@
       <img src="{% image_url value.image 'width-1500' %}" alt="{{ value.caption|richtext|extract_text }}" loading="lazy" decoding="async" />
     </a>
   </div>
-  <figcaption>
-    {{ value.caption|richtext }}
-  </figcaption>
+  <figcaption>{{ value.caption|richtext }}</figcaption>
 </figure>

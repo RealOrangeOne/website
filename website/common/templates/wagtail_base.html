@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block main_content %}
-  {% if page.hero_image_url %}<img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt=""/>{% endif %}
+  {% if page.hero_image_url %}<img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt="" />{% endif %}
 
   {% if page.get_view_restrictions.exists %}
     <section class="notification is-danger" id="view-restriction-banner">
