@@ -23,7 +23,7 @@ class UnsplashPhotoCreateView(CreateView):
             WagtailAdminModelForm
         ] = self.edit_handler.get_form_class()
 
-        class CreateFormClass(EditHandlerForm):  # type: ignore[valid-type,misc]
+        class CreateFormClass(EditHandlerForm):
             def clean(self) -> None:
                 cleaned_data = super().clean()
                 try:
