@@ -48,9 +48,10 @@
 
     {% block extra_js %}{% endblock %}
 
-    {% if not request.user.is_authenticated or not request.is_preview %}
-      {% plausible %}
-    {% endif %}
-
+    {% block plausible %}
+      {% if not request.user.is_authenticated or not request.is_preview %}
+        {% plausible %}
+      {% endif %}
+    {% endblock %}
   </body>
 </html>

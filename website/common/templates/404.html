@@ -4,6 +4,9 @@
 
 {% block body_class %}page-404{% endblock %}
 
+{# Disable Plausible on 404 page #}
+{% block plausible %}{% endblock %}
+
 {% block title %}
   Page not found
   {% wagtail_site as current_site %}
