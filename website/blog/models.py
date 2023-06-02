@@ -97,8 +97,8 @@ class BlogPostPage(BaseContentPage):
 
         similar_posts = similar_posts.annotate(
             similarity=(models.F("tag_similarity") * 2)
-            * (models.F("title_similarity") * 10)
-            * (models.F("subtitle_similarity"))
+            + (models.F("title_similarity") * 10)
+            + (models.F("subtitle_similarity"))
         ).order_by("-similarity")[:3]
 
         return similar_posts
