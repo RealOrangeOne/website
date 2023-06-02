@@ -1,1 +1,19 @@
 {% extends "common/content_page.html" %}
+
+{% load cache util_tags %}
+
+{% block post_content %}
+  {{ block.super }}
+
+  {% cache FRAGMENT_CACHE_TTL|jitter:FRAGMENT_CACHE_TTL_JITTER "similar-content" page.id request.is_preview %}
+    <section class="container similar-content" id="similar-content">
+      <h2 class="subtitle is-size-2">Similar content</h2>
+
+      {% for page in page.get_similar_posts %}
+        {% block listing_item %}
+          {% include "common/listing-item.html" %}
+        {% endblock %}
+      {% endfor %}
+    </section>
+  {% endcache %}
+{% endblock %}

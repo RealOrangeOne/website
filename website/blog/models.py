@@ -1,5 +1,6 @@
 from typing import Any, Optional, Type
 
+from django.contrib.postgres.search import TrigramSimilarity
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -65,6 +66,37 @@ class BlogPostPage(BaseContentPage):
     @cached_property
     def tag_list_page_url(self) -> Optional[str]:
         return SingletonPageCache.get_url(BlogPostTagListPage)
+
+    def get_similar_posts(self) -> models.QuerySet:
+        try:
+            listing_pages = BlogPostListPage.objects.get().get_listing_pages()
+        except BlogPostListPage.DoesNotExist:
+            return BlogPostPage.objects.none()
+
+        similar_posts = listing_pages.exclude(id=self.id).annotate(
+            title_similarity=TrigramSimilarity("title", self.title),
+            # If this page has no subtitle, ignore it as part of similarity
+            subtitle_similarity=TrigramSimilarity("subtitle", self.subtitle)
+            if self.subtitle
+            else models.Value(1),
+        )
+
+        page_tags = list(self.tags.values_list("id", flat=True))
+        similar_posts = similar_posts.annotate(
+            # If this page has no tags, ignore it as part of similarity
+            tag_similarity=models.Count("tags", filter=models.Q(tags__in=page_tags))
+            / len(page_tags)
+            if page_tags
+            else models.Value(1)
+        )
+
+        similar_posts = similar_posts.annotate(
+            similarity=(models.F("tag_similarity") * 2)
+            * (models.F("title_similarity") * 10)
+            * (models.F("subtitle_similarity"))
+        ).order_by("-similarity")[:3]
+
+        return similar_posts
 
 
 class BlogPostTagListPage(BaseListingPage):
