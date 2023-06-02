@@ -79,6 +79,7 @@ test_python:
 django_checks:
   extends: .python_test_template
   script:
+    - apt-get update && apt-get install --yes libpq-dev
     - ./manage.py check
     - ./manage.py makemigrations --check --noinput
 
@@ -110,6 +111,7 @@ djlint:
 gunicorn_check:
   extends: .python_test_template
   script:
+    - apt-get update && apt-get install --yes libpq-dev
     - gunicorn --check-config --config etc/gunicorn.conf.py
 
 npm_lint:
