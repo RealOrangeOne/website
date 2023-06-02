@@ -74,7 +74,7 @@ class BlogPostPage(BaseContentPage):
         except BlogPostListPage.DoesNotExist:
             return BlogPostPage.objects.none()
 
-        similar_posts = listing_pages.exclude(id=self.id).annotate(
+        similar_posts = listing_pages.exclude(id=self.id).alias(
             title_similarity=TrigramSimilarity("title", self.title),
             # If this page has no subtitle, ignore it as part of similarity
             subtitle_similarity=TrigramSimilarity("subtitle", self.subtitle)
@@ -83,7 +83,7 @@ class BlogPostPage(BaseContentPage):
         )
 
         page_tags = list(self.tags.values_list("id", flat=True))
-        similar_posts = similar_posts.annotate(
+        similar_posts = similar_posts.alias(
             # If this page has no tags, ignore it as part of similarity
             # NB: Cast to a float, because `COUNT` returns a `bigint`.
             tag_similarity=Cast(
