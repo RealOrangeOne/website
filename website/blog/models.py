@@ -2,6 +2,7 @@ from typing import Any, Optional, Type
 
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db import models
+from django.db.models.functions import Cast
 from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
@@ -84,7 +85,11 @@ class BlogPostPage(BaseContentPage):
         page_tags = list(self.tags.values_list("id", flat=True))
         similar_posts = similar_posts.annotate(
             # If this page has no tags, ignore it as part of similarity
-            tag_similarity=models.Count("tags", filter=models.Q(tags__in=page_tags))
+            # NB: Cast to a float, because `COUNT` returns a `bigint`.
+            tag_similarity=Cast(
+                models.Count("tags", filter=models.Q(tags__in=page_tags)),
+                output_field=models.FloatField(),
+            )
             / len(page_tags)
             if page_tags
             else models.Value(1)
