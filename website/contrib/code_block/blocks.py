@@ -8,6 +8,7 @@ from pygments.lexers import find_lexer_class, get_all_lexers
 from pygments.lexers.python import PythonConsoleLexer, PythonLexer
 from pygments.lexers.shell import BashLexer, BashSessionLexer
 from pygments.lexers.special import TextLexer
+from pygments.lexers.sql import PostgresConsoleLexer, PostgresLexer
 from wagtail.blocks import CharBlock, ChoiceBlock, StructBlock, StructValue, TextBlock
 
 from .utils import get_linguist_colours
@@ -19,9 +20,17 @@ def get_language_choices() -> Iterator[tuple[str, str]]:
 
 
 class CodeStructValue(StructValue):
-    LANGUAGE_DISPLAY_MAPPING = {PythonConsoleLexer.name: PythonLexer.name}
+    LANGUAGE_DISPLAY_MAPPING = {
+        PythonConsoleLexer.name: PythonLexer.name,
+        PostgresLexer.name: "PostgreSQL",
+    }
 
-    LINGUIST_MAPPING = {BashLexer.name: "Shell", BashSessionLexer.name: "Shell"}
+    LINGUIST_MAPPING = {
+        BashLexer.name: "Shell",
+        BashSessionLexer.name: "Shell",
+        PostgresLexer.name: "PLpgSQL",
+        PostgresConsoleLexer.name: "PLpgSQL",
+    }
 
     def code(self) -> str:
         lexer = find_lexer_class(self["language"])()
