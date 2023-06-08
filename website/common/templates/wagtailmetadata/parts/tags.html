@@ -19,5 +19,5 @@
 
 {% block meta %}
   {{ block.super }}
-  <meta name="canonical" content="{{ object.get_meta_url }}" />
+  <link rel="canonical" href="{{ object.get_meta_url }}" />
 {% endblock %}
