@@ -22,3 +22,6 @@ mkcontrib fira-code node_modules/@fontsource/fira-code/latin.css
 mkcontrib fira-code/files node_modules/@fontsource/fira-code/files/fira-code-latin-*
 mkcontrib htmx node_modules/htmx.org/dist/{htmx.min.js,ext}
 mkcontrib glightbox node_modules/glightbox/dist/css/glightbox.min.css
+
+# HACK: Make sure Google lighthouse can tell we're using `font-display: swap`
+find $CONTRIB_DIR/fira-code -type f -exec sed -i 's/var(--fontsource-display, swap)/swap/g' {} \;
