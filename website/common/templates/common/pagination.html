@@ -4,13 +4,13 @@
   {% if page.has_previous %}
     <a class="pagination-previous" href="{% querystring page=page.previous_page_number %}">&larr;</a>
   {% else %}
-    <a class="pagination-previous is-disabled">&larr;</a>
+    <span class="pagination-previous is-disabled">&larr;</span>
   {% endif %}
 
   {% if page.has_next %}
     <a class="pagination-next" href="{% querystring page=page.next_page_number %}">&rarr;</a>
   {% else %}
-    <a class="pagination-next is-disabled">&rarr;</a>
+    <span class="pagination-next is-disabled">&rarr;</span>
   {% endif %}
 
   <ul class="pagination-list">
@@ -30,7 +30,7 @@
     {% endif %}
 
     <li>
-      <a class="pagination-link is-current" aria-label="Page {{ page.number }}" aria-current="page">{{ page.number }}</a>
+      <a class="pagination-link is-current" aria-label="Page {{ page.number }}" aria-current="page" href="{% querystring page=page.number %}">{{ page.number }}</a>
     </li>
 
     {% if page.has_next %}
