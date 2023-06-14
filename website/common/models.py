@@ -24,6 +24,7 @@ from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.models import register_snippet
 from wagtailmetadata.models import MetadataMixin
 
+from website.contrib.unsplash.models import SIZES as UNSPLASH_SIZES
 from website.contrib.unsplash.widgets import UnsplashPhotoChooser
 
 from .serializers import PaginationSerializer
@@ -143,26 +144,35 @@ class BaseContentPage(BasePage, MetadataMixin):
     def plain_text(self) -> str:
         return extract_text(self.content_html)
 
-    def hero_url(self, unsplash_size: str, wagtail_image_spec: str) -> Optional[str]:
+    def hero_url(
+        self, image_size: str, wagtail_image_spec_extra: Optional[str] = None
+    ) -> Optional[str]:
         if self.hero_unsplash_photo_id is not None:
-            return self.hero_unsplash_photo.get_image_urls()[unsplash_size]
+            return self.hero_unsplash_photo.get_image_urls()[image_size]
         elif self.hero_image_id is not None:
+            image_width = UNSPLASH_SIZES[image_size]
+            wagtail_image_spec = f"width-{image_width}"
+            if wagtail_image_spec_extra:
+                wagtail_image_spec += wagtail_image_spec_extra
             return generate_image_url(self.hero_image, wagtail_image_spec)
         return None
 
     @cached_property
+    def hero_image_urls(self) -> dict:
+        return {width: self.hero_url(size) for size, width in UNSPLASH_SIZES.items()}
+
     def hero_image_url(self) -> Optional[str]:
-        return self.hero_url("full", "width-2000")
+        return self.hero_url("full")
 
     @cached_property
     def list_image_url(self) -> Optional[str]:
-        return self.hero_url("small", "width-400")
+        return self.hero_url("small")
 
     def get_meta_url(self) -> str:
         return self.full_url
 
     def get_meta_image_url(self, request: HttpRequest) -> Optional[str]:
-        return self.hero_url("regular", "width-1000|format-png")
+        return self.hero_url("regular", "|format-png")
 
     def get_meta_title(self) -> str:
         return self.html_title

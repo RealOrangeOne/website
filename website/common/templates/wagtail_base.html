@@ -13,7 +13,7 @@
 {% block main_content %}
   {% if page.hero_image_url %}
     <picture>
-      {% if page.list_image_url %}<source srcset="{{ page.list_image_url }}" media="(max-width: 800px)" />{% endif %}
+      {% for width, image_url in page.hero_image_urls.items %}<source srcset="{{ image_url }}" media="(max-width: {{ width }}px)" />{% endfor %}
 
       <img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt="" />
     </picture>

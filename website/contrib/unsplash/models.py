@@ -13,6 +13,9 @@ class ImageURLs(TypedDict):
     thumb: str
 
 
+SIZES = {"full": 2000, "regular": 1080, "small": 400, "thumb": 200}
+
+
 class UnsplashPhoto(index.Indexed, models.Model):
     unsplash_id = models.CharField(unique=True, max_length=11, db_index=True)
     data = models.JSONField()
