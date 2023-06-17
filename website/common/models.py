@@ -159,10 +159,13 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     @cached_property
     def hero_image_urls(self) -> dict:
-        return {width: self.hero_url(size) for size, width in UNSPLASH_SIZES.items()}
+        return {
+            int(width * 1.5): self.hero_url(size)
+            for size, width in UNSPLASH_SIZES.items()
+        }
 
     def hero_image_url(self) -> Optional[str]:
-        return self.hero_url("full")
+        return self.hero_url("regular")
 
     @cached_property
     def list_image_url(self) -> Optional[str]:
