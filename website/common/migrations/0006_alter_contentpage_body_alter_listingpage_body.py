@@ -11,7 +11,6 @@ import website.contrib.code_block.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("common", "0005_remove_footersetting_site"),
     ]

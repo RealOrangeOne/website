@@ -11,7 +11,6 @@ import website.contrib.code_block.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("contact", "0001_initial"),
     ]

@@ -6,7 +6,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("common", "0003_alter_contentpage_body_alter_listingpage_body"),
     ]

@@ -11,7 +11,6 @@ import website.contrib.code_block.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("blog", "0003_alter_blogpostcollectionlistpage_body_and_more"),
     ]

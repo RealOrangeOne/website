@@ -11,7 +11,6 @@ import website.contrib.code_block.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("spotify", "0003_alter_spotifyplaylistpage_body"),
     ]

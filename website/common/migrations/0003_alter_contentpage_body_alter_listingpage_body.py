@@ -11,7 +11,6 @@ import website.contrib.code_block.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("common", "0002_alter_contentpage_body_alter_listingpage_body"),
     ]

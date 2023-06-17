@@ -53,7 +53,6 @@ def remove_homepage(
 
 
 class Migration(migrations.Migration):
-
     run_before = [
         ("wagtailcore", "0053_locale_model"),
     ]

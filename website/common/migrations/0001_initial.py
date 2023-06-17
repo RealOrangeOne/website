@@ -16,7 +16,6 @@ import website.contrib.code_block.blocks
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
