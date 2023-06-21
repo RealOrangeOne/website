@@ -15,6 +15,10 @@
             {% include "common/listing-item.html" %}
           {% endblock %}
         {% endfor %}
+
+        <p class="subtitle view-all">
+          <a href="{{ page.blog_post_list_page_url }}">View all &rarr;</a>
+        </p>
       </section>
     {% endcache %}
   {% endif %}

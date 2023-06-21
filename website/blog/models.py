@@ -68,6 +68,10 @@ class BlogPostPage(BaseContentPage):
     def tag_list_page_url(self) -> Optional[str]:
         return SingletonPageCache.get_url(BlogPostTagListPage)
 
+    @cached_property
+    def blog_post_list_page_url(self) -> Optional[str]:
+        return SingletonPageCache.get_url(BlogPostListPage)
+
     def get_similar_posts(self) -> models.QuerySet:
         try:
             listing_pages = BlogPostListPage.objects.get().get_listing_pages()
