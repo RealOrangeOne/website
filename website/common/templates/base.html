@@ -14,6 +14,8 @@
 
     {% block extra_head %}{% endblock %}
 
+    <link rel="alternate" type="application/rss+xml" href="{% url 'feed' %}" />
+
     <script async type="text/javascript" src="{% static 'js/ie11-deterrent.js' %}" integrity="{% sri_integrity_static 'js/ie11-deterrent.js' %}"></script>
 
     {% sri_static "css/base.css" %}
