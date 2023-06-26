@@ -12,7 +12,7 @@ from website.common.models import BasePage
 from website.contrib.singleton_page.utils import SingletonPageCache
 
 
-@django_cache_decorator(time=21600)
+@django_cache_decorator(time=600)
 def get_latest_blog_post() -> Optional[Tuple[str, str]]:
     from website.blog.models import BlogPostPage
 

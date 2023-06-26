@@ -27,6 +27,6 @@ class SingletonPageCache:
 
             url = page.get_url(request)
 
-            cache.set(cache_key, url, 86400)
+            cache.set(cache_key, url, 10800)
 
         return url
