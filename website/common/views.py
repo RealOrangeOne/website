@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any
+from typing import Any, Optional
 
 from django.contrib.syndication.views import Feed
 from django.http.request import HttpRequest
@@ -100,3 +100,17 @@ class ContentPageFeed(AllPagesFeed):
 
     def item_updateddate(self, item: BaseContentPage) -> datetime:
         return item.last_published_at
+
+    def item_enclosure_url(self, item: BaseContentPage) -> Optional[str]:
+        hero_image_url = item.hero_image_url()
+
+        if hero_image_url and hero_image_url.startswith("/"):
+            return self.request.build_absolute_uri(hero_image_url)
+
+        return hero_image_url
+
+    def item_enclosure_mime_type(self, item: BaseContentPage) -> str:
+        return ""
+
+    def item_enclosure_length(self, item: BaseContentPage) -> int:
+        return 0
