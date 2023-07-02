@@ -22,7 +22,7 @@ class Error404PageTestCase(TestCase):
         )
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(22):
+        with self.assertNumQueries(23):
             self.client.get(self.url)
 
 

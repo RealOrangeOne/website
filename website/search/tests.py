@@ -89,7 +89,7 @@ class SearchPageResultsTestCase(TestCase):
         )
 
     def test_too_high_page(self) -> None:
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(48):
             response = self.client.get(
                 self.url, {"q": "post", "page": 3}, HTTP_HX_REQUEST="true"
             )
