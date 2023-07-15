@@ -19,7 +19,7 @@ class UnsplashPhotoCreateView(CreateView):
         """
         Modify form class to validate unsplash id and save data to model1
         """
-        EditHandlerForm: Type[
+        EditHandlerForm: Type[  # noqa: N806
             WagtailAdminModelForm
         ] = self.edit_handler.get_form_class()
 
@@ -31,7 +31,7 @@ class UnsplashPhotoCreateView(CreateView):
                         cleaned_data["unsplash_id"]
                     )
                 except ValueError as e:
-                    raise ValidationError(str(e))
+                    raise ValidationError(str(e)) from e
 
             def save(self, commit: bool = True) -> UnsplashPhoto:
                 self.instance.data = self._unsplash_photo_data

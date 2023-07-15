@@ -19,7 +19,7 @@ def get_linguist_colours() -> dict[str, str]:
     linguist_data = yaml.safe_load(response.text)
 
     return {
-        language.lower(): l["color"]
-        for language, l in linguist_data.items()
-        if l.get("color")
+        language.lower(): data["color"]
+        for language, data in linguist_data.items()
+        if data.get("color")
     }

@@ -80,8 +80,8 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
             # HACK: Search results aren't a queryset, so we can't call `.specific` on it. This forces it to one as efficiently as possible
             results.object_list = results.object_list.get_queryset().specific()
 
-        except EmptyPage:
-            raise Http404
+        except EmptyPage as e:
+            raise Http404 from e
 
         context["results"] = results
 

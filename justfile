@@ -32,17 +32,16 @@ coverage:
   coverage html
 
 format:
+  ruff check . --fix
   black .
-  isort .
   djlint website/ --reformat
   npm run format
 
 lint: lint_python lint_node
 
 lint_python:
+  ruff check .
   black --check .
-  isort --check .
-  flake8
   mypy . --show-error-codes
   djlint website/ --lint --check
 

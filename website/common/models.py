@@ -3,9 +3,8 @@ from typing import Any, Optional, Type
 
 from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 from django.contrib.syndication.views import Feed
-from django.core.paginator import EmptyPage
+from django.core.paginator import EmptyPage, Paginator
 from django.core.paginator import Page as PaginatorPage
-from django.core.paginator import Paginator
 from django.db import models
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
@@ -48,7 +47,7 @@ class BasePage(Page):
         abstract = True
 
     @classproperty
-    def body_class(cls) -> str:
+    def body_class(cls) -> str:  # noqa: N805
         return "page-" + slugify(cls.__name__)
 
     def get_parent_pages(self) -> PageQuerySet:
@@ -225,8 +224,8 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         paginator = Paginator(self.get_listing_pages(), per_page=self.PAGE_SIZE)
         try:
             return paginator.page(self.serializer.validated_data["page"])
-        except EmptyPage:
-            raise Http404
+        except EmptyPage as e:
+            raise Http404 from e
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)

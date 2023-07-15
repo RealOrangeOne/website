@@ -8,7 +8,9 @@ from website.utils.queue import enqueue_or_sync
 def refresh_cache(page_id: int) -> None:
     page = SpotifyPlaylistPage.objects.get(id=page_id)
     cache.delete(page.playlist_cache_key)
-    page.playlist_data  # Prime cache
+
+    # Prime cache
+    page.playlist_data  # noqa: B018
 
 
 class Command(BaseCommand):

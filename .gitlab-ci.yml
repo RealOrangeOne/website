@@ -88,15 +88,10 @@ black:
   script:
     - black --check .
 
-isort:
+ruff:
   extends: .python_test_template
   script:
-    - isort --check .
-
-flake8:
-  extends: .python_test_template
-  script:
-    - flake8
+    - ruff check .
 
 mypy:
   extends: .python_test_template
