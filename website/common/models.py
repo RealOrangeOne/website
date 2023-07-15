@@ -133,7 +133,12 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     @cached_property
     def summary(self) -> str:
-        return truncate_string(self.plain_text, 50)
+        summary = truncate_string(self.plain_text, 50)
+
+        if summary and summary != self.plain_text and not summary.endswith("."):
+            summary += "…"
+
+        return summary
 
     @cached_property
     def body_html(self) -> str:
@@ -149,7 +154,7 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     @cached_property
     def plain_text(self) -> str:
-        return extract_text(self.content_html)
+        return extract_text(self.content_html).strip()
 
     def hero_url(
         self, image_size: str, wagtail_image_spec_extra: Optional[str] = None
