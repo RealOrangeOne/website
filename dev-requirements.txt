@@ -1,7 +1,7 @@
 -r requirements.txt
 
 honcho==1.1.0
-black==23.3.0
+black==23.7.0
 django-browser-reload==1.8.0
 django-debug-toolbar
 types-requests==2.31.0.1
