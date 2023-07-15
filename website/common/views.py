@@ -16,7 +16,7 @@ from website.contrib.singleton_page.utils import SingletonPageCache
 from website.home.models import HomePage
 from website.search.models import SearchPage
 
-from .models import BaseContentPage, BasePage
+from .models import BasePage
 
 
 class Error404View(TemplateView):
@@ -67,7 +67,13 @@ class AllPagesFeed(Feed):
         return super().__call__(request, *args, **kwargs)
 
     def items(self) -> PageQuerySet:
-        return Page.objects.live().public().exclude(depth__lte=2)
+        return (
+            Page.objects.live()
+            .public()
+            .exclude(depth__lte=2)
+            .specific()
+            .order_by("-last_published_at")
+        )
 
     def item_title(self, item: BasePage) -> str:
         return item.title
@@ -81,6 +87,23 @@ class AllPagesFeed(Feed):
     def item_updateddate(self, item: BasePage) -> datetime:
         return item.last_published_at
 
+    def item_description(self, item: BasePage) -> str:
+        return getattr(item, "summary", None) or item.title
+
+    def item_enclosure_url(self, item: BasePage) -> Optional[str]:
+        if not hasattr(item, "hero_image_url"):
+            return ""
+
+        hero_image_url = item.hero_image_url()
+
+        if hero_image_url and hero_image_url.startswith("/"):
+            return self.request.build_absolute_uri(hero_image_url)
+
+        return hero_image_url
+
+    item_enclosure_mime_type = ""
+    item_enclosure_length = 0
+
 
 class ContentPageFeed(AllPagesFeed):
     def __init__(self, posts: PageQuerySet, link: str, title: str):
@@ -91,26 +114,3 @@ class ContentPageFeed(AllPagesFeed):
 
     def items(self) -> PageQuerySet:
         return self.posts
-
-    def item_description(self, item: BaseContentPage) -> str:
-        return item.summary
-
-    def item_pubdate(self, item: BaseContentPage) -> datetime:
-        return item.first_published_at
-
-    def item_updateddate(self, item: BaseContentPage) -> datetime:
-        return item.last_published_at
-
-    def item_enclosure_url(self, item: BaseContentPage) -> Optional[str]:
-        hero_image_url = item.hero_image_url()
-
-        if hero_image_url and hero_image_url.startswith("/"):
-            return self.request.build_absolute_uri(hero_image_url)
-
-        return hero_image_url
-
-    def item_enclosure_mime_type(self, item: BaseContentPage) -> str:
-        return ""
-
-    def item_enclosure_length(self, item: BaseContentPage) -> int:
-        return 0
