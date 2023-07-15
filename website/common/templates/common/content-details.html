@@ -1,4 +1,4 @@
-{% load wagtailcore_tags humanize_tags cache util_tags %}
+{% load wagtailcore_tags cache util_tags %}
 
 {% cache FRAGMENT_CACHE_TTL|jitter:FRAGMENT_CACHE_TTL_JITTER "content-details" page.id request.is_preview %}
   <div class="content-details field is-grouped">
@@ -16,7 +16,7 @@
         <span class="icon">
           <i class="far fa-lg fa-clock"></i>
         </span>
-        <span>{{ page.reading_time|naturaldelta }}</span>
+        <span>{{ page.reading_time_display }}</span>
       </div>
     {% endif %}
 

@@ -1,6 +1,7 @@
 from datetime import timedelta
 from typing import Any, Optional, Type
 
+from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 from django.contrib.syndication.views import Feed
 from django.core.paginator import EmptyPage
 from django.core.paginator import Page as PaginatorPage
@@ -8,6 +9,7 @@ from django.core.paginator import Paginator
 from django.db import models
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
@@ -112,6 +114,12 @@ class BaseContentPage(BasePage, MetadataMixin):
         https://help.medium.com/hc/en-us/articles/214991667-Read-time
         """
         return timedelta(seconds=(self.word_count / 265) * 60)
+
+    @cached_property
+    def reading_time_display(self) -> str:
+        return NaturalTimeFormatter.string_for(
+            timezone.now() - self.reading_time
+        ).removesuffix(" ago")
 
     @cached_property
     def show_reading_time(self) -> bool:

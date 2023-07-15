@@ -1,12 +1,10 @@
 {% extends "wagtailmetadata/parts/tags.html" %}
 
-{% load humanize_tags %}
-
 {% block twitter %}
   {{ block.super }}
   {% if object.show_reading_time %}
     <meta name="twitter:label1" content="Reading time" />
-    <meta name="twitter:data1" content="{{ object.reading_time|naturaldelta }}" />
+    <meta name="twitter:data1" content="{{ object.reading_time_display }}" />
   {% endif %}
 {% endblock %}
 
