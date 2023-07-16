@@ -4,6 +4,7 @@ from typing import Any, Optional
 from django.contrib.syndication.views import Feed
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
+from django.templatetags.static import static
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control, cache_page
@@ -12,6 +13,7 @@ from django.views.generic import TemplateView
 from wagtail.models import Page
 from wagtail.query import PageQuerySet
 
+from website.common.utils import get_site_title
 from website.contrib.singleton_page.utils import SingletonPageCache
 from website.home.models import HomePage
 from website.search.models import SearchPage
@@ -56,15 +58,35 @@ class KeybaseView(TemplateView):
 
 
 class AllPagesFeed(Feed):
-    link = "/feed/"
-    title = "All pages feed"
+    link = "/"
+
+    def __init__(self) -> None:
+        self.style_tag = f'<?xml-stylesheet href="{static("contrib/pretty-feed-v3.xsl")}" type="text/xsl"?>'.encode()
+        super().__init__()
 
     @method_decorator(cache_page(60 * 60))
     def __call__(
         self, request: HttpRequest, *args: list, **kwargs: dict
     ) -> HttpResponse:
         self.request = request
-        return super().__call__(request, *args, **kwargs)
+        response = super().__call__(request, *args, **kwargs)
+
+        # Override Content-Type to allow styles
+        response.headers["content-type"] = "application/xml"
+
+        # Inject styles
+        opening_xml = response.content.find(b"?>") + 2
+        response.content = (
+            response.content[:opening_xml]
+            + b"\n"
+            + self.style_tag
+            + response.content[opening_xml:]
+        )
+
+        return response
+
+    def title(self) -> str:
+        return f"All Pages Feed :: {get_site_title()}"
 
     def items(self) -> PageQuerySet:
         return (
@@ -109,8 +131,11 @@ class ContentPageFeed(AllPagesFeed):
     def __init__(self, posts: PageQuerySet, link: str, title: str):
         self.posts = posts
         self.link = link
-        self.title = title
+        self._title = title
         super().__init__()
+
+    def title(self) -> str:
+        return self._title
 
     def items(self) -> PageQuerySet:
         return self.posts

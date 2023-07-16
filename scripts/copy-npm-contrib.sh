@@ -23,5 +23,7 @@ mkcontrib fira-code/files node_modules/@fontsource/fira-code/files/fira-code-lat
 mkcontrib htmx node_modules/htmx.org/dist/{htmx.min.js,ext}
 mkcontrib glightbox node_modules/glightbox/dist/css/glightbox.min.css
 
+curl -sf -L https://raw.githubusercontent.com/genmon/aboutfeeds/main/tools/pretty-feed-v3.xsl -o $CONTRIB_DIR/pretty-feed-v3.xsl
+
 # HACK: Make sure Google lighthouse can tell we're using `font-display: swap`
 find $CONTRIB_DIR/fira-code -type f -exec sed -i 's/var(--fontsource-display, swap)/swap/g' {} \;

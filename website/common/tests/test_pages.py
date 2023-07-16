@@ -64,4 +64,5 @@ class ListingPageTestCase(TestCase):
                 self.page.url + self.page.reverse_subpage("feed")
             )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "application/rss+xml; charset=utf-8")
+        self.assertEqual(response["Content-Type"], "application/xml")
+        self.assertContains(response, "xml-stylesheet")
