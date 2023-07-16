@@ -1,5 +1,7 @@
 FROM node:19-slim as frontend
 
+RUN apt-get update --yes --quiet && apt-get install --yes --quiet curl
+
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit - -progress=false --omit=dev
 
