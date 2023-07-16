@@ -80,9 +80,11 @@ test_python:
 
 django_checks:
   extends: .python_test_template
+  dependencies:
+    - pip
+    - static
   script:
     - apt-get update && apt-get install --yes libpq-dev
-    - ./manage.py collectstatic --noinput --clear
     - ./manage.py check
     - ./manage.py makemigrations --check --noinput
 
