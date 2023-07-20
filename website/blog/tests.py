@@ -17,7 +17,7 @@ class BlogPostPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(48):
+        with self.assertNumQueries(47):
             self.client.get(self.page.url)
 
 
@@ -76,7 +76,7 @@ class BlogPostListPageTestCase(TestCase):
         self.assertContains(response, self.page.reverse_subpage("feed"))
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(45):
+        with self.assertNumQueries(44):
             self.client.get(self.page.url)
 
     def test_feed_accessible(self) -> None:

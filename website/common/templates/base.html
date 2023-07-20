@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri cache contact_tags %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri cache %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -16,7 +16,7 @@
 
     <link rel="alternate" type="application/rss+xml" href="{% url 'feed' %}" />
 
-    {% mastodon_link %}
+    <link rel="me" href="https://{{ ACTIVITYPUB_HOST }}/@jake" />
 
     <script async type="text/javascript" src="{% static 'js/ie11-deterrent.js' %}" integrity="{% sri_integrity_static 'js/ie11-deterrent.js' %}"></script>
 

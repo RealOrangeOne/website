@@ -10,4 +10,5 @@ def global_vars(request: HttpRequest) -> dict:
         "DEBUG": settings.DEBUG,
         "FRAGMENT_CACHE_TTL": fragment_cache_ttl,
         "FRAGMENT_CACHE_TTL_JITTER": fragment_cache_ttl * 0.1,
+        "ACTIVITYPUB_HOST": settings.ACTIVITYPUB_HOST,
     }
