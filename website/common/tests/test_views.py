@@ -16,7 +16,7 @@ class Error404PageTestCase(TestCase):
         )
 
     def test_actual_404_no_url_match(self) -> None:
-        response = self.client.get("/favicon.ico")
+        response = self.client.get("/missing.file")
         self.assertContains(
             response, "<h1>There's nothing here!</h1>", html=True, status_code=404
         )

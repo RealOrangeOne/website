@@ -9,9 +9,11 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control, cache_page
 from django.views.defaults import ERROR_404_TEMPLATE_NAME
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView, TemplateView
 from wagtail.models import Page
 from wagtail.query import PageQuerySet
+from wagtail_favicon.models import FaviconSettings
+from wagtail_favicon.utils import get_rendition_url
 
 from website.common.utils import get_site_title
 from website.contrib.singleton_page.utils import SingletonPageCache
@@ -139,3 +141,15 @@ class ContentPageFeed(AllPagesFeed):
 
     def items(self) -> PageQuerySet:
         return self.posts
+
+
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
+class FaviconView(RedirectView):
+    def get_redirect_url(self) -> str:
+        favicon_settings = FaviconSettings.for_request(self.request)
+        size = FaviconSettings.icon_sizes[0]
+
+        # Force image to PNG
+        return get_rendition_url(
+            favicon_settings.base_favicon_image, f"fill-{size}|format-png"
+        )

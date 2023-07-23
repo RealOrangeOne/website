@@ -14,7 +14,13 @@ from wagtail.images.views.serve import ServeView
 from wagtail_favicon.urls import urls as favicon_urls
 from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
 
-from website.common.views import AllPagesFeed, KeybaseView, RobotsView, page_not_found
+from website.common.views import (
+    AllPagesFeed,
+    FaviconView,
+    KeybaseView,
+    RobotsView,
+    page_not_found,
+)
 
 urlpatterns = [
     path("admin/autocomplete/", include(autocomplete_admin_urls)),
@@ -49,6 +55,7 @@ urlpatterns = [
         "@jake",
         RedirectView.as_view(url=f"https://{settings.ACTIVITYPUB_HOST}/@jake"),
     ),
+    path("favicon.ico", FaviconView.as_view()),
     path("", include(favicon_urls)),
 ]
 
