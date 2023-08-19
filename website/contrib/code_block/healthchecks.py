@@ -5,7 +5,10 @@ from .utils import _get_linguist_colours
 
 class GitHubLinguistHealthCheckBackend(BaseHealthCheckBackend):
     def check_status(self) -> None:
-        colours = _get_linguist_colours()
+        try:
+            colours = _get_linguist_colours()
+        except Exception as e:
+            self.add_error(str(e))
 
         if colours is None:
             self.add_error("No colours provided")
