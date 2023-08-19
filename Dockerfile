@@ -1,4 +1,4 @@
-FROM node:19-slim as frontend
+FROM node:20-slim as frontend
 
 RUN apt-get update --yes --quiet && apt-get install --yes --quiet curl
 
@@ -60,7 +60,7 @@ FROM production as dev
 
 # Swap user, so the following tasks can be run as root
 USER root
-RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - && apt-get install -y nodejs
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
 RUN apt-get install -y postgresql-client inotify-tools
 RUN curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
 

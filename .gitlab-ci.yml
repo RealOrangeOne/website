@@ -4,7 +4,7 @@ stages:
   - deploy
 
 static:
-  image: node:19-slim
+  image: node:20-slim
   stage: build
   cache:
     key: npm-$CI_COMMIT_REF_SLUG
@@ -116,7 +116,7 @@ gunicorn_check:
     - gunicorn --check-config --config etc/gunicorn.conf.py
 
 npm_lint:
-  image: node:19-slim
+  image: node:20-slim
   stage: test
   dependencies:
     - static
