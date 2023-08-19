@@ -11,9 +11,8 @@ PYGMENTS_VERSION_SLUG = PYGMENTS_VERSION.replace(".", "-")
 LINGUIST_DATA_URL = "https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml"
 
 
-@cache
-@django_cache_decorator(time=21600)
-def get_linguist_colours() -> dict[str, str]:
+@django_cache_decorator(time=600)
+def _get_linguist_colours() -> dict[str, str]:
     response = requests.get(LINGUIST_DATA_URL)
 
     response.raise_for_status()
@@ -25,3 +24,9 @@ def get_linguist_colours() -> dict[str, str]:
         for language, data in linguist_data.items()
         if data.get("color")
     }
+
+
+@cache
+@django_cache_decorator(time=21600)
+def get_linguist_colours() -> dict[str, str]:
+    return _get_linguist_colours()
