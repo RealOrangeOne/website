@@ -1,0 +1,20 @@
+$support-pill-size: 50px;
+$support-pill-position: 1.5rem;
+
+.tag.support-pill {
+  display: flex;
+  position: fixed;
+  right: $support-pill-position;
+  bottom: $support-pill-position;
+  align-items: center;
+  justify-content: center;
+  border-radius: math.div($support-pill-size, 2);
+  width: $support-pill-size;
+  height: $support-pill-size;
+  font-size: 100%;
+  z-index: $dropdown-content-z;
+
+  @include mobile {
+    display: none;
+  }
+}

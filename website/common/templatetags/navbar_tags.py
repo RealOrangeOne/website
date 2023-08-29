@@ -22,3 +22,11 @@ def navbar(context: dict) -> dict:
         "search_page_url": SingletonPageCache.get_url(SearchPage, request),
         "guestbook_page": Page.objects.filter(slug="guestbook").first(),
     }
+
+
+@register.inclusion_tag("common/support-pill.html", takes_context=True)
+def support_pill(context: dict) -> dict:
+    return {
+        "page": context["page"],
+        "support_page": Page.objects.filter(slug="support").first(),
+    }

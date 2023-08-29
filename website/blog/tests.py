@@ -17,7 +17,7 @@ class BlogPostPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(47):
+        with self.assertNumQueries(48):
             self.client.get(self.page.url)
 
 

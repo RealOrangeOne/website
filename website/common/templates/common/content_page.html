@@ -1,6 +1,6 @@
 {% extends "wagtail_base.html" %}
 
-{% load static sri %}
+{% load static sri navbar_tags %}
 
 {% block content %}
   {% if page.body_html %}
@@ -15,6 +15,10 @@
     {% include "common/shareon.html" %}
 
     {% include "common/comments.html" %}
+
+    {% if not request.user.is_authenticated %}
+      {% support_pill %}
+    {% endif %}
   {% endif %}
 {% endblock %}
 

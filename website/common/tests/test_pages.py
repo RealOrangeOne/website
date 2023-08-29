@@ -35,7 +35,7 @@ class ContentPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(38):
+        with self.assertNumQueries(39):
             self.client.get(self.page.url)
 
 
