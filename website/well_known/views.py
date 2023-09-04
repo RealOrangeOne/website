@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control, cache_page
 from django.views.generic import TemplateView
 from proxy.views import proxy_view
+from requests.exceptions import RequestException
 
 from website.contact.models import ContactPage
 from website.contrib.singleton_page.utils import SingletonPageCache
@@ -55,7 +56,10 @@ def activitypub_proxy(request: HttpRequest) -> HttpResponse:
     if not settings.ACTIVITYPUB_HOST:
         raise Http404
 
-    return proxy_view(
-        request,
-        f"https://{settings.ACTIVITYPUB_HOST}{request.path}",
-    )
+    try:
+        return proxy_view(
+            request,
+            f"https://{settings.ACTIVITYPUB_HOST}{request.path}",
+        )
+    except RequestException:
+        return HttpResponse(status_code=502)
