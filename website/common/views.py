@@ -103,7 +103,7 @@ class AllPagesFeed(Feed):
         return item.title
 
     def item_link(self, item: BasePage) -> str:
-        return item.get_full_url(request=self.request)
+        return item.get_full_url(request=self.request) + "?utm_medium=rss"
 
     def item_pubdate(self, item: BasePage) -> datetime:
         return item.first_published_at
