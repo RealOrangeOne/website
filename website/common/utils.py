@@ -13,6 +13,8 @@ from wagtail.models import get_page_models as get_wagtail_page_models
 
 HEADER_TAGS = ["h2", "h3", "h4", "h5", "h6"]
 
+requests_session = requests.Session()
+
 
 @dataclass
 class TocEntry:
@@ -113,6 +115,6 @@ def get_site_title() -> str:
 @django_cache_decorator(time=21600)
 def get_url_mime_type(url: str) -> Optional[str]:
     try:
-        return requests.head(url).headers.get("Content-Type")
+        return requests_session.head(url).headers.get("Content-Type")
     except requests.exceptions.RequestException:
         return None

@@ -1,17 +1,18 @@
-import requests
 from django.conf import settings
+
+from website.common.utils import requests_session
 
 API_LIMIT = 50
 
 
 def is_valid_playlist(playlist_id: str) -> bool:
-    return requests.get(
+    return requests_session.get(
         f"https://{settings.SPOTIFY_PROXY_HOST}/v1/playlists/{playlist_id}"
     ).ok
 
 
 def get_playlist(playlist_id: str) -> dict:
-    playlist_response = requests.get(
+    playlist_response = requests_session.get(
         f"https://{settings.SPOTIFY_PROXY_HOST}/v1/playlists/{playlist_id}",
         params={"fields": "name,external_urls.spotify,tracks.total,description"},
     )
@@ -20,7 +21,7 @@ def get_playlist(playlist_id: str) -> dict:
 
     tracks = []
     for offset in range(0, playlist_data["tracks"]["total"], API_LIMIT):
-        tracks_response = requests.get(
+        tracks_response = requests_session.get(
             f"https://{settings.SPOTIFY_PROXY_HOST}/v1/playlists/{playlist_id}/tracks",
             params={
                 "offset": str(offset),

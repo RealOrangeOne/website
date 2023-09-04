@@ -1,9 +1,10 @@
 from functools import cache
 from importlib.metadata import version
 
-import requests
 import yaml
 from django_cache_decorator import django_cache_decorator
+
+from website.common.utils import requests_session
 
 PYGMENTS_VERSION = version("pygments")
 PYGMENTS_VERSION_SLUG = PYGMENTS_VERSION.replace(".", "-")
@@ -13,7 +14,7 @@ LINGUIST_DATA_URL = "https://raw.githubusercontent.com/github/linguist/master/li
 
 @django_cache_decorator(time=600)
 def _get_linguist_colours() -> dict[str, str]:
-    response = requests.get(LINGUIST_DATA_URL)
+    response = requests_session.get(LINGUIST_DATA_URL)
 
     response.raise_for_status()
 
