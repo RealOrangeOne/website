@@ -115,17 +115,22 @@ class AllPagesFeed(Feed):
         return getattr(item, "summary", None) or item.title
 
     def item_enclosure_url(self, item: BasePage) -> Optional[str]:
-        if not hasattr(item, "hero_image_url"):
+        if not hasattr(item, "get_meta_image_url"):
             return ""
 
-        hero_image_url = item.hero_image_url()
+        image_url = item.get_meta_image_url(self.request)
 
-        if hero_image_url and hero_image_url.startswith("/"):
-            return self.request.build_absolute_uri(hero_image_url)
+        if image_url and image_url.startswith("/"):
+            return self.request.build_absolute_uri(image_url)
 
-        return hero_image_url
+        return image_url
 
-    item_enclosure_mime_type = ""
+    def item_enclosure_mime_type(self, item: BasePage) -> str:
+        if not hasattr(item, "get_meta_image_mime"):
+            return ""
+
+        return item.get_meta_image_mime() or ""
+
     item_enclosure_length = 0
 
 

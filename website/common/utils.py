@@ -1,7 +1,8 @@
 from dataclasses import dataclass
 from itertools import islice, pairwise
-from typing import Iterable, Type
+from typing import Iterable, Optional, Type
 
+import requests
 from bs4 import BeautifulSoup, SoupStrainer
 from django.conf import settings
 from django.http.request import HttpRequest
@@ -107,3 +108,11 @@ def heading_id(heading: str) -> str:
 @django_cache_decorator(time=300)
 def get_site_title() -> str:
     return Site.objects.values_list("site_name", flat=True).first()
+
+
+@django_cache_decorator(time=21600)
+def get_url_mime_type(url: str) -> Optional[str]:
+    try:
+        return requests.head(url).headers.get("Content-Type")
+    except requests.exceptions.RequestException:
+        return None

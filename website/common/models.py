@@ -36,6 +36,7 @@ from .utils import (
     extract_text,
     get_site_title,
     get_table_of_contents,
+    get_url_mime_type,
     truncate_string,
 )
 
@@ -188,6 +189,16 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     def get_meta_image_url(self, request: HttpRequest) -> Optional[str]:
         return self.hero_url("regular", "|format-png")
+
+    def get_meta_image_mime(self) -> Optional[str]:
+        if self.hero_unsplash_photo_id is not None:
+            return get_url_mime_type(self.hero_url("regular"))
+
+        elif self.hero_image_id is not None:
+            # We force these to PNG in `get_meta_image_url`
+            return "image/png"
+
+        return None
 
     def get_meta_title(self) -> str:
         return self.html_title
