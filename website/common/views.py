@@ -99,6 +99,9 @@ class AllPagesFeed(Feed):
             .order_by("-last_published_at")
         )
 
+    def item_guid(self, item: BasePage) -> str:
+        return item.get_full_url(request=self.request)
+
     def item_title(self, item: BasePage) -> str:
         return item.title
 
