@@ -8,7 +8,7 @@ class SpotifyHealthCheckBackend(BaseHealthCheckBackend):
     def check_status(self) -> None:
         try:
             requests_session.get(
-                f"https://{settings.SPOTIFY_PROXY_HOST}/.health/"
+                settings.SPOTIFY_PROXY_URL + "/.health/"
             ).raise_for_status()
         except Exception as e:
             self.add_error(str(e))

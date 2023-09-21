@@ -9,7 +9,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     BASE_HOSTNAME=(str, "example.com"),
     UNSPLASH_CLIENT_ID=(str, ""),
-    SPOTIFY_PROXY_HOST=(str, ""),
+    SPOTIFY_PROXY_URL=(str, ""),
     SEO_INDEX=(bool, False),
     SENTRY_DSN=(str, ""),
     TEST=(bool, False),
@@ -307,7 +307,7 @@ WAGTAIL_WORKFLOW_ENABLED = False
 WAGTAIL_MODERATION_ENABLED = False
 
 UNSPLASH_CLIENT_ID = env("UNSPLASH_CLIENT_ID")
-SPOTIFY_PROXY_HOST = env("SPOTIFY_PROXY_HOST")
+SPOTIFY_PROXY_URL = env("SPOTIFY_PROXY_URL")
 
 ACTIVITYPUB_HOST = env("ACTIVITYPUB_HOST")
 

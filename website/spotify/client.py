@@ -7,13 +7,13 @@ API_LIMIT = 50
 
 def is_valid_playlist(playlist_id: str) -> bool:
     return requests_session.get(
-        f"https://{settings.SPOTIFY_PROXY_HOST}/v1/playlists/{playlist_id}"
+        settings.SPOTIFY_PROXY_URL + f"/v1/playlists/{playlist_id}"
     ).ok
 
 
 def get_playlist(playlist_id: str) -> dict:
     playlist_response = requests_session.get(
-        f"https://{settings.SPOTIFY_PROXY_HOST}/v1/playlists/{playlist_id}",
+        settings.SPOTIFY_PROXY_URL + f"/v1/playlists/{playlist_id}",
         params={"fields": "name,external_urls.spotify,tracks.total,description"},
     )
     playlist_response.raise_for_status()
@@ -22,7 +22,7 @@ def get_playlist(playlist_id: str) -> dict:
     tracks = []
     for offset in range(0, playlist_data["tracks"]["total"], API_LIMIT):
         tracks_response = requests_session.get(
-            f"https://{settings.SPOTIFY_PROXY_HOST}/v1/playlists/{playlist_id}/tracks",
+            settings.SPOTIFY_PROXY_URL + f"/v1/playlists/{playlist_id}/tracks",
             params={
                 "offset": str(offset),
                 "limit": str(API_LIMIT),
