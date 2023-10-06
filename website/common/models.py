@@ -216,7 +216,7 @@ class ContentPage(BaseContentPage):
 
 
 class BaseListingPage(RoutablePageMixin, BaseContentPage):
-    PAGE_SIZE = 20
+    PAGE_SIZE = 30
     subtitle = None
 
     content_panels = [

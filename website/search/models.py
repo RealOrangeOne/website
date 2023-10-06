@@ -19,7 +19,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
     max_count = 1
     subpage_types: list = []
     parent_page_types = ["home.HomePage"]
-    PAGE_SIZE = 10
+    PAGE_SIZE = 12
 
     # Exclude singleton pages from search results
     EXCLUDED_PAGE_TYPES = {page for page in get_page_models() if page.max_count == 1}
