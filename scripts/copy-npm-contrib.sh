@@ -20,8 +20,6 @@ mkcontrib elevator-js node_modules/elevator.js/demo/music/*
 mkcontrib shareon node_modules/shareon/dist/{shareon.iife.*,shareon.min.css*}
 mkcontrib fira-code node_modules/@fontsource/fira-code/latin.css
 mkcontrib fira-code/files node_modules/@fontsource/fira-code/files/fira-code-latin-*
-mkcontrib htmx node_modules/htmx.org/dist/{htmx.min.js,ext}
-mkcontrib glightbox node_modules/glightbox/dist/css/glightbox.min.css
 
 curl -sf -L https://raw.githubusercontent.com/genmon/aboutfeeds/main/tools/pretty-feed-v3.xsl -o $CONTRIB_DIR/pretty-feed-v3.xsl
 

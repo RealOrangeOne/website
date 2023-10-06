@@ -2,6 +2,8 @@ const Elevator = require("elevator.js");
 const debounce = require("lodash.debounce");
 const throttle = require("lodash.throttle");
 
+require("htmx.org");
+
 const HERO = document.querySelector("section.hero");
 const ROOT = document.querySelector(":root");
 
