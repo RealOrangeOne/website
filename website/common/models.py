@@ -1,5 +1,6 @@
 from datetime import timedelta
 from typing import Any, Optional, Type
+from urllib.parse import urlencode
 
 from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 from django.contrib.syndication.views import Feed
@@ -268,6 +269,12 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         if not self.serializer.is_valid():
             return HttpResponseBadRequest()
         return super().index_route(request)
+
+    def get_meta_url(self) -> str:
+        query_data = self.serializer.validated_data.copy()
+        if query_data["page"] == 1:
+            del query_data["page"]
+        return super().get_meta_url() + urlencode(query_data)
 
     @route(r"^feed/$")
     @method_decorator(cache_page(60 * 30))
