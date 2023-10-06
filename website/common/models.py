@@ -205,7 +205,7 @@ class BaseContentPage(BasePage, MetadataMixin):
         return self.html_title
 
     def get_meta_description(self) -> str:
-        return self.summary
+        return self.summary or self.get_meta_title()
 
     def get_object_title(self) -> str:
         return ""
