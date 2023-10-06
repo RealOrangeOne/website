@@ -37,6 +37,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         context["search_query"] = request.GET.get("q", "")
         context["search_url"] = self.reverse_subpage("results")
         context["MIN_SEARCH_LENGTH"] = MIN_SEARCH_LENGTH
+        context["SEO_INDEX"] = False
         return context
 
     @route(r"^results/$")
