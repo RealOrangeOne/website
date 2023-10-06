@@ -3,7 +3,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from django.views.generic import RedirectView
 
-from website.blog.models import BlogPostListPage
+from website.blog.models import BlogPostListPage, BlogPostTagListPage, BlogPostTagPage
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
@@ -16,3 +16,11 @@ class PostsFeedView(RedirectView):
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class AllPagesFeedView(RedirectView):
     pattern_name = "feed"
+
+
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
+class TagsView(RedirectView):
+    def get_redirect_url(self, slug: str) -> str:
+        get_object_or_404(BlogPostTagListPage)
+        tag = get_object_or_404(BlogPostTagPage, slug=slug)
+        return tag.get_url(request=self.request)
