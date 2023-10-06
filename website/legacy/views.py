@@ -19,8 +19,14 @@ class AllPagesFeedView(RedirectView):
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
-class TagsView(RedirectView):
+class TagView(RedirectView):
     def get_redirect_url(self, slug: str) -> str:
-        get_object_or_404(BlogPostTagListPage)
         tag = get_object_or_404(BlogPostTagPage, slug=slug)
         return tag.get_url(request=self.request)
+
+
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
+class TagsView(RedirectView):
+    def get_redirect_url(self) -> str:
+        tag_list = get_object_or_404(BlogPostTagListPage)
+        return tag_list.get_url(request=self.request)
