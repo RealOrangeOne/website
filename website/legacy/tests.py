@@ -14,11 +14,11 @@ class PostsFeedViewTestCase(TestCase):
     def test_redirects(self) -> None:
         response = self.client.get("/posts/index.xml")
         self.assertRedirects(
-            response, self.page.url + self.page.reverse_subpage("feed")
+            response, self.page.url + self.page.reverse_subpage("feed"), status_code=301
         )
 
 
 class AllPagesFeedViewTestCase(TestCase):
     def test_redirects(self) -> None:
         response = self.client.get("/index.xml")
-        self.assertRedirects(response, reverse("feed"))
+        self.assertRedirects(response, reverse("feed"), status_code=301)

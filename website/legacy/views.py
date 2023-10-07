@@ -8,6 +8,8 @@ from website.blog.models import BlogPostListPage, BlogPostTagListPage, BlogPostT
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class PostsFeedView(RedirectView):
+    permanent = True
+
     def get_redirect_url(self) -> str:
         post_list = get_object_or_404(BlogPostListPage)
         return post_list.url + post_list.reverse_subpage("feed")
@@ -16,10 +18,13 @@ class PostsFeedView(RedirectView):
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class AllPagesFeedView(RedirectView):
     pattern_name = "feed"
+    permanent = True
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class TagView(RedirectView):
+    permanent = True
+
     def get_redirect_url(self, slug: str) -> str:
         tag = get_object_or_404(BlogPostTagPage, slug=slug)
         return tag.get_url(request=self.request)
