@@ -95,6 +95,10 @@ section.hero {
     padding-bottom: unset;
   }
 
+  .columns {
+    margin-bottom: unset !important;
+  }
+
   nav.breadcrumb {
     margin-bottom: 0 !important;
   }
@@ -120,6 +124,21 @@ section.hero {
     &.stuck {
       box-shadow: $shadow;
     }
+  }
+
+  .scroll-indicator-container {
+    height: 5px;
+
+    #scroll-indicator {
+      transition-duration: 0.5s;
+      transition-property: background-color;
+      height: 100%;
+      width: 50%;
+    }
+  }
+
+  &.stuck #scroll-indicator {
+    background-color: $primary;
   }
 }
 
