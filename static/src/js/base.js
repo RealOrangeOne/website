@@ -25,7 +25,10 @@ function scrollToElement(element, behavior = "smooth") {
 }
 
 function handleHeroStuck() {
-  if (HERO.getBoundingClientRect().top <= 0) {
+  if (
+    HERO.getBoundingClientRect().top <= 0 &&
+    window.getComputedStyle(HERO).position === "sticky"
+  ) {
     HERO.classList.add("stuck");
   } else {
     HERO.classList.remove("stuck");
