@@ -1,17 +1,33 @@
 require("lite-youtube-embed");
 const GLightbox = require("glightbox");
+const clamp = require("lodash.clamp");
 
 const SCROLL_INDICATOR = document.getElementById("scroll-indicator");
 const CONTENT = document.querySelector(".container.content");
 
-window.addEventListener("load", () => {
-  GLightbox({});
-});
+function handleScrollIndicator() {
+  // How far down the page does the content start?
+  const initialScroll = CONTENT.getBoundingClientRect().top + window.scrollY;
 
-window.addEventListener("scroll", () => {
-  const winScroll =
-    document.body.scrollTop || document.documentElement.scrollTop;
-  const height = CONTENT.getBoundingClientRect().height;
-  const scrolled = Math.min((winScroll / height) * 100, 100);
-  SCROLL_INDICATOR.style.width = `${scrolled}%`;
+  const contentHeight = CONTENT.getBoundingClientRect().height;
+
+  // How far down the page do we consider the content "read"?
+  const scrollTarget = window.innerHeight * 0.75;
+
+  const scrolled =
+    (window.scrollY - initialScroll + scrollTarget) / contentHeight;
+
+  const scrolledPercentage = clamp(scrolled * 100, 0, 100);
+
+  SCROLL_INDICATOR.style.width = `${scrolledPercentage.toFixed(2)}%`;
+}
+
+window.addEventListener("load", () => {
+  window.addEventListener("resize", handleScrollIndicator);
+  window.addEventListener("scroll", handleScrollIndicator);
+
+  GLightbox({});
+
+  // Initialize the indicator
+  handleScrollIndicator();
 });

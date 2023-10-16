@@ -89,6 +89,7 @@ window.addEventListener("load", () => {
 
 window.addEventListener("DOMContentLoaded", () => {
   setHeroHeight();
+  handleHeroStuck();
 
   if (window.location.hash <= 1) {
     return;

@@ -130,10 +130,10 @@ section.hero {
     height: 5px;
 
     #scroll-indicator {
-      transition-duration: 0.5s;
+      transition-duration: 0.3s;
       transition-property: background-color;
       height: 100%;
-      width: 50%;
+      width: 0%;
     }
   }
 
