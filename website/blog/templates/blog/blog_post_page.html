@@ -10,15 +10,16 @@
       <section class="container similar-content" id="similar-content">
         <h2 class="subtitle is-size-2">Similar content</h2>
 
+        <p class="view-all">
+          <a href="{{ page.blog_post_list_page_url }}">View all &rarr;</a>
+        </p>
+
         {% for page in page.get_similar_posts %}
           {% block listing_item %}
             {% include "common/listing-item.html" %}
           {% endblock %}
         {% endfor %}
 
-        <p class="subtitle view-all">
-          <a href="{{ page.blog_post_list_page_url }}">View all &rarr;</a>
-        </p>
       </section>
     {% endcache %}
   {% endif %}

@@ -4,12 +4,14 @@ section#similar-content {
   align-items: center;
   margin-top: 2rem;
 
-  .subtitle {
+  h2 {
     color: inherit;
+    margin-bottom: 0;
   }
 
   .view-all {
-    margin: $block-spacing 0;
+    margin-top: 0.25rem;
+    margin-bottom: 0.5rem;
   }
 
   .media {
