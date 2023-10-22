@@ -274,7 +274,13 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         query_data = self.serializer.validated_data.copy()
         if query_data["page"] == 1:
             del query_data["page"]
-        return super().get_meta_url() + "?" + urlencode(query_data)
+
+        url = super().get_meta_url()
+
+        if not query_data:
+            return url
+
+        return url + "?" + urlencode(query_data)
 
     @route(r"^feed/$")
     @method_decorator(cache_page(60 * 30))

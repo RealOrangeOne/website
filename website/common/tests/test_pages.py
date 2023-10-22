@@ -2,7 +2,7 @@ from django.template.loader import get_template
 from django.test import SimpleTestCase, TestCase
 
 from website.common.factories import ContentPageFactory, ListingPageFactory
-from website.common.models import BasePage
+from website.common.models import BaseListingPage, BasePage
 from website.common.utils import get_page_models
 from website.home.models import HomePage
 
@@ -66,3 +66,16 @@ class ListingPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "application/xml")
         self.assertContains(response, "xml-stylesheet")
+
+    def test_meta_url(self) -> None:
+        response = self.client.get(self.page.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["page"].get_meta_url(), self.page.full_url)
+
+    def test_meta_url_with_page(self) -> None:
+        ContentPageFactory.create_batch(BaseListingPage.PAGE_SIZE, parent=self.page)
+        response = self.client.get(self.page.url, {"page": 2})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context["page"].get_meta_url(), self.page.full_url + "?page=2"
+        )
