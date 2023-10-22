@@ -34,7 +34,9 @@
             <h1 class="title is-spaced">{{ page.hero_title }}</h1>
             {% if page.subtitle %}<h2 class="subtitle is-size-4">{{ page.subtitle|richtext }}</h2>{% endif %}
 
-            {% include "common/content-details.html" %}
+            {% block content_details %}
+              {% include "common/content-details.html" %}
+            {% endblock %}
           </div>
           <div class="column is-narrow dropdown-wrapper hero-buttons is-grouped">
             {% block hero_buttons %}

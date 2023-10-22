@@ -12,6 +12,12 @@
   {{ block.super }}
 {% endblock %}
 
+{% block content_details %}
+  {{ block.super }}
+
+  {% if listing_pages.has_other_pages %}<p>Showing {{ listing_pages.start_index }}&mdash;{{ listing_pages.end_index }} of {{ listing_pages.paginator.count }}.</p>{% endif %}
+{% endblock %}
+
 {% block post_content %}
   <section class="container">
     {% for page in listing_pages %}
