@@ -2,15 +2,15 @@
 
 <nav class="pagination is-centered" role="navigation" aria-label="pagination">
   {% if page.has_previous %}
-    <a class="pagination-previous" href="{% querystring page=page.previous_page_number %}">&larr;</a>
+    <a class="pagination-previous" href="{% querystring page=page.previous_page_number %}"><i class="fas fa-arrow-left" aria-hidden="true"></i></a>
   {% else %}
-    <span class="pagination-previous is-disabled">&larr;</span>
+    <span class="pagination-previous is-disabled"><i class="fas fa-arrow-left" aria-hidden="true"></i></span>
   {% endif %}
 
   {% if page.has_next %}
-    <a class="pagination-next" href="{% querystring page=page.next_page_number %}">&rarr;</a>
+    <a class="pagination-next" href="{% querystring page=page.next_page_number %}"><i class="fas fa-arrow-right" aria-hidden="true"></i></a>
   {% else %}
-    <span class="pagination-next is-disabled">&rarr;</span>
+    <span class="pagination-next is-disabled"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
   {% endif %}
 
   <ul class="pagination-list">
