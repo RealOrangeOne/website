@@ -27,6 +27,7 @@ django-csp==3.7
 django-permissions-policy==4.17.0
 django-enforce-host==1.1.0
 django-proxy==1.2.2
+wagtail-lite-youtube-embed==0.1.0
 
 # DRF OpenAPI dependencies
 uritemplate

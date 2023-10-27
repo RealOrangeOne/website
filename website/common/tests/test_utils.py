@@ -2,25 +2,12 @@ from django.conf import settings
 from django.test import SimpleTestCase
 from wagtail.rich_text import features as richtext_feature_registry
 
-from website.common.embed import YouTubeLiteEmbedFinder
 from website.common.utils import (
     count_words,
     extract_text,
     get_table_of_contents,
     heading_id,
 )
-
-
-class YouTubeLiteEmbedFinderTestCase(SimpleTestCase):
-    def test_finds_video_id(self) -> None:
-        self.assertEqual(
-            YouTubeLiteEmbedFinder._get_video_id(
-                '<iframe width="200" height="113" src="https://www.youtube.com/embed/dQw4w9WgXcQ?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title=""></iframe>'
-            ),
-            "dQw4w9WgXcQ",
-        )
-        with self.assertRaises(ValueError):
-            YouTubeLiteEmbedFinder._get_video_id("something-else")
 
 
 class TableOfContentsTestCase(SimpleTestCase):

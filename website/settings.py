@@ -233,7 +233,7 @@ WAGTAILIMAGES_IMAGE_MODEL = "images.CustomImage"
 
 WAGTAILEMBEDS_FINDERS = [
     {
-        "class": "website.common.embed.YouTubeLiteEmbedFinder",
+        "class": "lite_youtube_embed.LiteYouTubeEmbedFinder",
     },
     {
         "class": "wagtail.embeds.finders.oembed",
