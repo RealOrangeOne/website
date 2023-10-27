@@ -51,6 +51,8 @@ COPY --chown=website ./etc ./etc
 COPY --chown=website ./manage.py ./manage.py
 COPY --chown=website ./website ./website
 
+RUN cat ./etc/bashrc.sh >> ~/.bashrc
+
 RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear
 
 CMD ["/app/etc/entrypoints/web"]
@@ -58,10 +60,14 @@ CMD ["/app/etc/entrypoints/web"]
 # Just dev stuff
 FROM production as dev
 
+COPY --chown=website .nvmrc ./
+RUN curl https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash \
+    && bash --login -c "nvm install --no-progress && nvm alias default $(nvm run --silent --version)"
+
 # Swap user, so the following tasks can be run as root
 USER root
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
-RUN apt-get install -y postgresql-client inotify-tools
+
+RUN apt-get update --yes --quiet && apt-get install -y postgresql-client inotify-tools
 RUN curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/bin
 
 # Restore user
