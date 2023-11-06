@@ -14,6 +14,10 @@ function handleDarkMode(darkMode) {
   } else {
     htmlTag.classList.remove(DARK_MODE_CLASS);
   }
+
+  if (window.REMARK42) {
+    window.REMARK42.changeTheme(darkMode ? "dark" : "light");
+  }
 }
 
 if (window.localStorage.getItem(STORAGE_KEY) === null) {

@@ -1,5 +1,13 @@
-<section class="container">
-  <div id="commento"></div>
+<section class="container comments">
+  <div id="remark42"></div>
 </section>
 
-<script async defer src="https://commento.theorangeone.net/js/commento.js"></script>
+<script>
+  var remark_config = {
+    host: 'https://remark.theorangeone.net',
+    site_id: 'theorangeone',
+    no_footer: true
+  }
+</script>
+
+<script type="module" async defer src="https://remark.theorangeone.net/web/embed.mjs"></script>
