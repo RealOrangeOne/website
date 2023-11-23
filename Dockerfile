@@ -25,6 +25,7 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     curl \
     git \
     nginx \
+    libnginx-mod-http-headers-more-filter \
     # wand dependencies
     libmagickwand-6.q16-6 libmagickwand-6.q16hdri-6 \
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
