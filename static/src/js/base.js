@@ -91,8 +91,13 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("DOMContentLoaded", () => {
-  setHeroHeight();
-  handleHeroStuck();
+  if (HERO) {
+    setHeroHeight();
+    handleHeroStuck();
+
+    window.addEventListener("resize", debounce(setHeroHeight, 2000));
+    window.addEventListener("scroll", throttle(handleHeroStuck, 100));
+  }
 
   if (window.location.hash <= 1) {
     return;
@@ -111,8 +116,3 @@ window.addEventListener("DOMContentLoaded", () => {
 
   scrollToElement(scrollTarget, "auto");
 });
-
-if (HERO) {
-  window.addEventListener("resize", debounce(setHeroHeight, 2000));
-  window.addEventListener("scroll", throttle(handleHeroStuck, 100));
-}
