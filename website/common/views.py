@@ -89,7 +89,7 @@ class AllPagesFeed(Feed):
 
         return response
 
-    def feed_extra_kwargs(self, obj):
+    def feed_extra_kwargs(self, obj: None) -> dict:
         return {**super().feed_extra_kwargs(obj), "request": self.request}
 
     def title(self) -> str:
@@ -124,9 +124,10 @@ class AllPagesFeed(Feed):
     def item_description(self, item: BasePage) -> str:
         return getattr(item, "summary", None) or item.title
 
-    def item_categories(self, item: BasePage):
+    def item_categories(self, item: BasePage) -> Optional[list[str]]:
         if tags := getattr(item, "tags", None):
             return tags.order_by("slug").values_list("slug", flat=True)
+        return None
 
     def item_enclosure_url(self, item: BasePage) -> Optional[str]:
         if not hasattr(item, "get_meta_image_url"):
