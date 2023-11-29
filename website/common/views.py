@@ -114,7 +114,7 @@ class AllPagesFeed(Feed):
         return item.get_full_url(request=self.request) + "?utm_medium=rss"
 
     def item_pubdate(self, item: BasePage) -> datetime:
-        if item_date := item.date:
+        if item_date := getattr(item, "date", None):
             return datetime.combine(item_date, time())
         return item.first_published_at
 
@@ -123,6 +123,10 @@ class AllPagesFeed(Feed):
 
     def item_description(self, item: BasePage) -> str:
         return getattr(item, "summary", None) or item.title
+
+    def item_categories(self, item: BasePage):
+        if tags := getattr(item, "tags", None):
+            return tags.order_by("slug").values_list("slug", flat=True)
 
     def item_enclosure_url(self, item: BasePage) -> Optional[str]:
         if not hasattr(item, "get_meta_image_url"):

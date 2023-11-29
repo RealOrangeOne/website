@@ -80,7 +80,7 @@ class BlogPostListPageTestCase(TestCase):
             self.client.get(self.page.url)
 
     def test_feed_accessible(self) -> None:
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(14):
             response = self.client.get(
                 self.page.url + self.page.reverse_subpage("feed")
             )
