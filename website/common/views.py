@@ -20,6 +20,7 @@ from website.contrib.singleton_page.utils import SingletonPageCache
 from website.home.models import HomePage
 from website.search.models import SearchPage
 
+from .feed_generators import CustomFeed
 from .models import BasePage
 
 
@@ -60,6 +61,7 @@ class KeybaseView(TemplateView):
 
 
 class AllPagesFeed(Feed):
+    feed_type = CustomFeed
     link = "/"
 
     def __init__(self) -> None:
@@ -86,6 +88,9 @@ class AllPagesFeed(Feed):
         )
 
         return response
+
+    def feed_extra_kwargs(self, obj):
+        return {**super().feed_extra_kwargs(obj), "request": self.request}
 
     def title(self) -> str:
         return f"All Pages Feed :: {get_site_title()}"
