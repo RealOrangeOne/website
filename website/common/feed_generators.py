@@ -5,6 +5,7 @@ class CustomFeed(DefaultFeed):
     """
     A custom feed generator with additional features.
     """
+
     def __init__(self, request, **kwargs):
         super().__init__(**kwargs)
         self.request = request

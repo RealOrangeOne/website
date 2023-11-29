@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, time
 from typing import Any, Optional
 
 from django.contrib.syndication.views import Feed
@@ -114,6 +114,8 @@ class AllPagesFeed(Feed):
         return item.get_full_url(request=self.request) + "?utm_medium=rss"
 
     def item_pubdate(self, item: BasePage) -> datetime:
+        if item_date := item.date:
+            return datetime.combine(item_date, time())
         return item.first_published_at
 
     def item_updateddate(self, item: BasePage) -> datetime:

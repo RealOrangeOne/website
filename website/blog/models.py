@@ -1,4 +1,4 @@
-from typing import Any, Optional, Type
+from typing import Any, Optional
 
 from django.contrib.postgres.search import TrigramSimilarity
 from django.db import models
@@ -12,7 +12,6 @@ from wagtailautocomplete.edit_handlers import AutocompletePanel
 
 from website.common.models import BaseContentPage, BaseListingPage
 from website.common.utils import TocEntry
-from website.common.views import ContentPageFeed
 from website.contrib.singleton_page.utils import SingletonPageCache
 
 
@@ -36,12 +35,6 @@ class BlogPostListPage(BaseListingPage):
             .public()
             .order_by("-date", "title")
         )
-
-    @property
-    def feed_class(self) -> Type[ContentPageFeed]:
-        from .views import BlogPostPageFeed
-
-        return BlogPostPageFeed
 
     @cached_property
     def tag_list_page_url(self) -> Optional[str]:
@@ -132,12 +125,6 @@ class BlogPostTagPage(BaseListingPage):
         blog_list_page = BlogPostListPage.objects.get()
         return blog_list_page.get_listing_pages().filter(tags=self)
 
-    @property
-    def feed_class(self) -> Type[ContentPageFeed]:
-        from .views import BlogPostPageFeed
-
-        return BlogPostPageFeed
-
 
 class BlogPostCollectionListPage(BaseListingPage):
     subpage_types: list[Any] = []
@@ -166,9 +153,3 @@ class BlogPostCollectionPage(BaseListingPage):
             .public()
             .order_by("-date", "title")
         )
-
-    @property
-    def feed_class(self) -> Type[ContentPageFeed]:
-        from .views import BlogPostPageFeed
-
-        return BlogPostPageFeed
