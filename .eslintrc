@@ -1,6 +1,7 @@
 {
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:unicorn/recommended"
   ],
   "parserOptions": {
     "ecmaVersion": 6
@@ -8,5 +9,10 @@
   "env": {
     "browser": true,
     "node": true
+  },
+  "rules": {
+    "unicorn/prefer-module": 0,
+    "unicorn/prefer-query-selector": 0,
+    "unicorn/prefer-optional-catch-binding": 0
   }
 }

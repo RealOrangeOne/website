@@ -44,18 +44,18 @@ window.addEventListener("load", () => {
     navbar.classList.toggle("is-active");
   });
 
-  document.querySelectorAll(".scroll-top").forEach((element) => {
+  for (const element of document.querySelectorAll(".scroll-top")) {
     element.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
-  });
+  }
 
-  document.querySelectorAll("#table-of-contents li a").forEach((element) => {
+  for (const element of document.querySelectorAll("#table-of-contents li a")) {
     element.addEventListener("click", (event) => {
       event.preventDefault();
       scrollToElement(document.querySelector(event.target.hash));
     });
-  });
+  }
 
   const elevatorButton = document.getElementById("to-top-elevator");
   new Elevator({
@@ -65,12 +65,12 @@ window.addEventListener("load", () => {
     preloadAudio: false,
   });
 
-  document.querySelectorAll(".block-code").forEach((codeBlock) => {
+  for (const codeBlock of document.querySelectorAll(".block-code")) {
     const clipboardIcon = codeBlock.querySelector(".code-copy");
 
     // There may not be an icon
     if (!clipboardIcon) {
-      return;
+      continue;
     }
 
     clipboardIcon.addEventListener("click", (event) => {
@@ -87,7 +87,7 @@ window.addEventListener("load", () => {
           }, 3000);
         });
     });
-  });
+  }
 });
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -103,10 +103,10 @@ window.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  let scrollTarget = null;
+  let scrollTarget;
   try {
     scrollTarget = document.getElementById(window.location.hash.slice(1));
-  } catch (e) {
+  } catch (error) {
     // Probably an invalid selector - just ignore it
   }
 
