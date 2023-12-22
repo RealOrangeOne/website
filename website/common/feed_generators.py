@@ -17,7 +17,7 @@ class CustomFeed(DefaultFeed):
     def add_root_elements(self, handler: SimplerXMLGenerator) -> None:
         super().add_root_elements(handler)
         handler.startElement("image", {})
-        handler.addQuickElement("url", self.request.build_absolute_uri("favicon.ico"))
+        handler.addQuickElement("url", self.request.build_absolute_uri("/favicon.ico"))
         handler.addQuickElement("title", self.feed["title"])
         handler.addQuickElement("link", self.feed["link"])
         handler.endElement("image")
