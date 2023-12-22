@@ -3,16 +3,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from django.views.generic import RedirectView
 
-from website.blog.models import BlogPostListPage, BlogPostTagListPage, BlogPostTagPage
-
-
-@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
-class PostsFeedView(RedirectView):
-    permanent = True
-
-    def get_redirect_url(self) -> str:
-        post_list = get_object_or_404(BlogPostListPage)
-        return post_list.url + post_list.reverse_subpage("feed")
+from website.blog.models import BlogPostTagListPage, BlogPostTagPage
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")

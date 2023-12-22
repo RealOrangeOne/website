@@ -1,19 +1,17 @@
 from datetime import timedelta
-from typing import Any, Optional, Type
+from typing import Any, Optional
 from urllib.parse import urlencode
 
 from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
-from django.contrib.syndication.views import Feed
 from django.core.paginator import EmptyPage, Paginator
 from django.core.paginator import Page as PaginatorPage
 from django.db import models
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
+from django.shortcuts import redirect
 from django.utils import timezone
-from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
-from django.views.decorators.cache import cache_page
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
@@ -257,12 +255,6 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
     def show_reading_time(self) -> bool:
         return False
 
-    @property
-    def feed_class(self) -> Type[Feed]:
-        from .views import ContentPageFeed
-
-        return ContentPageFeed
-
     @route(r"^$")
     def index_route(self, request: HttpRequest) -> HttpResponse:
         self.serializer = PaginationSerializer(data=request.GET)
@@ -283,13 +275,8 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         return url + "?" + urlencode(query_data)
 
     @route(r"^feed/$")
-    @method_decorator(cache_page(60 * 30))
     def feed(self, request: HttpRequest) -> HttpResponse:
-        return self.feed_class(
-            self.get_listing_pages(),
-            self.get_full_url(request),
-            self.html_title_tag,
-        )(request)
+        return redirect("feed", permanent=True)
 
 
 class ListingPage(BaseListingPage):

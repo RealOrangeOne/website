@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.urls import reverse
 
 from website.home.models import HomePage
 
@@ -73,17 +74,13 @@ class BlogPostListPageTestCase(TestCase):
         response = self.client.get(self.page.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["listing_pages"]), 2)
-        self.assertContains(response, self.page.reverse_subpage("feed"))
 
     def test_queries(self) -> None:
         with self.assertNumQueries(44):
             self.client.get(self.page.url)
 
     def test_feed_accessible(self) -> None:
-        with self.assertNumQueries(14):
-            response = self.client.get(
-                self.page.url + self.page.reverse_subpage("feed")
-            )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "application/xml")
-        self.assertContains(response, "xml-stylesheet")
+        response = self.client.get(self.page.url + self.page.reverse_subpage("feed"))
+        self.assertRedirects(
+            response, reverse("feed"), status_code=301, fetch_redirect_response=True
+        )

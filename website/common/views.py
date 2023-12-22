@@ -93,7 +93,7 @@ class AllPagesFeed(Feed):
         return {**super().feed_extra_kwargs(obj), "request": self.request}
 
     def title(self) -> str:
-        return f"All Pages Feed :: {get_site_title()}"
+        return f"Feed :: {get_site_title()}"
 
     def items(self) -> PageQuerySet:
         return (
@@ -147,20 +147,6 @@ class AllPagesFeed(Feed):
         return item.get_meta_image_mime() or ""
 
     item_enclosure_length = 0
-
-
-class ContentPageFeed(AllPagesFeed):
-    def __init__(self, posts: PageQuerySet, link: str, title: str):
-        self.posts = posts
-        self.link = link
-        self._title = title
-        super().__init__()
-
-    def title(self) -> str:
-        return self._title
-
-    def items(self) -> PageQuerySet:
-        return self.posts
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")

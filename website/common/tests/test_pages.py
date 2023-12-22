@@ -1,5 +1,6 @@
 from django.template.loader import get_template
 from django.test import SimpleTestCase, TestCase
+from django.urls import reverse
 
 from website.common.factories import ContentPageFactory, ListingPageFactory
 from website.common.models import BaseListingPage, BasePage
@@ -58,14 +59,11 @@ class ListingPageTestCase(TestCase):
         self.assertEqual(len(response.context["listing_pages"]), 2)
         self.assertContains(response, self.page.reverse_subpage("feed"))
 
-    def test_feed_accessible(self) -> None:
-        with self.assertNumQueries(13):
-            response = self.client.get(
-                self.page.url + self.page.reverse_subpage("feed")
-            )
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response["Content-Type"], "application/xml")
-        self.assertContains(response, "xml-stylesheet")
+    def test_feed_redirects(self) -> None:
+        response = self.client.get(self.page.url + self.page.reverse_subpage("feed"))
+        self.assertRedirects(
+            response, reverse("feed"), status_code=301, fetch_redirect_response=True
+        )
 
     def test_meta_url(self) -> None:
         response = self.client.get(self.page.url)

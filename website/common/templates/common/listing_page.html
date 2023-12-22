@@ -1,15 +1,8 @@
 {% extends "common/content_page.html" %}
 
-{% load wagtailroutablepage_tags wagtailadmin_tags %}
-
-{% block extra_head %}
-  {{ block.super }}
-  <link rel="alternate" type="application/rss+xml" href="{% routablepageurl page 'feed' %}" />
-{% endblock %}
+{% load wagtailadmin_tags %}
 
 {% block hero_buttons %}
-  <a class="button is-radiusless" href="{% routablepageurl page 'feed' %}" title="View feed"><i class="fas fa-rss" aria-hidden="true"></i></a>
-
   {% if listing_pages.has_previous %}
     <a class="button is-radiusless" href="{% querystring page=listing_pages.previous_page_number %}" title="Previous page"><i class="fas fa-arrow-left" aria-hidden="true"></i></a>
   {% endif %}
