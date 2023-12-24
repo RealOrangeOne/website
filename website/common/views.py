@@ -21,7 +21,7 @@ from website.home.models import HomePage
 from website.search.models import SearchPage
 
 from .feed_generators import CustomFeed
-from .models import BasePage
+from .models import BaseListingPage, BasePage
 
 
 class Error404View(TemplateView):
@@ -100,6 +100,7 @@ class AllPagesFeed(Feed):
             Page.objects.live()
             .public()
             .exclude(depth__lte=2)
+            .not_type(BaseListingPage)
             .specific()
             .order_by("-last_published_at")
         )
