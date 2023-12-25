@@ -55,7 +55,7 @@ class SearchPageResultsTestCase(TestCase):
         cls.url = cls.page.url + cls.page.reverse_subpage("results")
 
     def test_returns_results(self) -> None:
-        with self.assertNumQueries(12):
+        with self.assertNumQueries(24):
             response = self.client.get(self.url, {"q": "post"}, HTTP_HX_REQUEST="true")
         self.assertEqual(response.status_code, 200)
 

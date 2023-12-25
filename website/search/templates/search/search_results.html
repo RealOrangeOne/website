@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags %}
 
 {% for page in results %}
-  {% include "common/listing-item.html" %}
+  {% include "common/listing-item.html" with breadcrumbs=True %}
 {% endfor %}
 
 {% if not results and page_num == 1 %}
