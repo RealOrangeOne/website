@@ -9,7 +9,7 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.models import Page
 from wagtail.search.utils import parse_query_string
 
-from website.common.models import BaseContentPage
+from website.common.models import BaseContentPage, BaseListingPage
 from website.common.utils import get_page_models
 
 from .serializers import MIN_SEARCH_LENGTH, SearchParamsSerializer
@@ -22,7 +22,10 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
     PAGE_SIZE = 12
 
     # Exclude singleton pages from search results
-    EXCLUDED_PAGE_TYPES = {page for page in get_page_models() if page.max_count == 1}
+    EXCLUDED_PAGE_TYPES = {
+        *(page for page in get_page_models() if page.max_count == 1),
+        BaseListingPage,
+    }
 
     @cached_property
     def show_reading_time(self) -> bool:
