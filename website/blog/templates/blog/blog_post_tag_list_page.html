@@ -12,6 +12,9 @@
           </p>
           <p class="subtitle is-6">{{ page.summary }}</p>
         </div>
+        <div class="media-right">
+          {% with posts_count=page.get_listing_pages.count %}<p class="subtitle is-6 has-text-weight-light">{{ posts_count }} post{{ posts_count|pluralize }}</p>{% endwith %}
+        </div>
       </div>
     </div>
   </div>
