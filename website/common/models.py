@@ -1,15 +1,15 @@
 from datetime import timedelta
+from math import ceil
 from typing import Any, Optional
 from urllib.parse import urlencode
 
-from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 from django.core.paginator import EmptyPage, Paginator
 from django.core.paginator import Page as PaginatorPage
 from django.db import models
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
-from django.utils import timezone
+from django.template.defaultfilters import pluralize
 from django.utils.functional import cached_property, classproperty
 from django.utils.text import slugify
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -116,16 +116,28 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     @cached_property
     def reading_time_display(self) -> str:
-        return NaturalTimeFormatter.string_for(
-            timezone.now() - self.reading_time
-        ).removesuffix(" ago")
+        reading_time_seconds = ceil(self.reading_time.total_seconds())
+
+        # Show nothing if under a minute. Probably won't be shown anyway
+        if reading_time_seconds < 60:
+            return ""
+
+        # If under an hour, show minutes
+        if reading_time_seconds < 3600:
+            minutes = ceil(reading_time_seconds / 60)
+
+            return f"{minutes} minute{pluralize(minutes)}"
+
+        # After that, show hours
+        hours = ceil(reading_time_seconds / 60 / 60)
+        return f"{hours} hour{pluralize(hours)}"
 
     @cached_property
     def show_reading_time(self) -> bool:
         """
-        Only show reading time if it's longer than 2 minutes
+        Only show reading time if it's longer than 2 minutes (rounded)
         """
-        return self.reading_time.total_seconds() >= 120
+        return ceil(self.reading_time.total_seconds() / 60) >= 2
 
     @cached_property
     def word_count(self) -> int:
