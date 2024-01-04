@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+  <ShortName>{{ site_title }}</ShortName>
+  <Description>{{ site_title }}</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  {% if favicon_url %}
+  <Image type="image/png">{{ favicon_url }}</Image>
+  {% endif %}
+  <Url type="text/html" template="{{ search_page_url }}?q={searchTerms}"/>
+  <Url type="application/x-suggestions+json" template="{{ search_suggestions_url }}?q={searchTerms}"/>
+</OpenSearchDescription>

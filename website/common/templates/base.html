@@ -14,6 +14,8 @@
 
     {% block extra_head %}{% endblock %}
 
+    <link rel="search" type="application/opensearchdescription+xml" href="{% url 'opensearch' %}" title="Orange search" />
+
     <link rel="alternate" type="application/rss+xml" href="{% url 'feed' %}" />
 
     <link rel="me" href="https://{{ ACTIVITYPUB_HOST }}/@jake" />

@@ -1,4 +1,5 @@
 from django.core.paginator import EmptyPage, Paginator
+from django.db import models
 from django.http.request import HttpRequest
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
 from django.template.response import TemplateResponse
@@ -43,6 +44,13 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         context["SEO_INDEX"] = False
         return context
 
+    def get_listing_pages(self) -> models.QuerySet:
+        return (
+            Page.objects.live()
+            .public()
+            .not_type(self.__class__, *self.EXCLUDED_PAGE_TYPES)
+        )
+
     @route(r"^results/$")
     @method_decorator(require_GET)
     def results(self, request: HttpRequest) -> HttpResponse:
@@ -68,12 +76,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         }
 
         filters, query = parse_query_string(search_query)
-        pages = (
-            Page.objects.live()
-            .public()
-            .not_type(self.__class__, *self.EXCLUDED_PAGE_TYPES)
-            .search(query, order_by_relevance=True)
-        )
+        pages = self.get_listing_pages().search(query, order_by_relevance=True)
 
         paginator = Paginator(pages, self.PAGE_SIZE)
         context["paginator"] = paginator

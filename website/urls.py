@@ -50,6 +50,7 @@ urlpatterns = [
     path("feed/", AllPagesFeed(), name="feed"),
     path(".health/", include("health_check.urls")),
     path("", include("website.legacy.urls")),
+    path("", include("website.search.urls")),
     path("api/", include("website.api.urls", namespace="api")),
     path(
         "@jake",

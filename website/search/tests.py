@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
+from django.urls import reverse
 
 from website.common.factories import ContentPageFactory
 from website.home.models import HomePage
@@ -127,3 +128,30 @@ class SearchPageResultsTestCase(TestCase):
         with self.assertNumQueries(7):
             response = self.client.get(self.url)
         self.assertEqual(response.status_code, 400)
+
+
+class OpenSearchTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.home_page = HomePage.objects.get()
+        cls.page = SearchPageFactory(parent=cls.home_page)
+
+        for i in range(6):
+            ContentPageFactory(parent=cls.home_page, title=f"Post {i}")
+
+    def test_opensearch_description(self) -> None:
+        with self.assertNumQueries(11):
+            response = self.client.get(reverse("opensearch"))
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, self.page.get_url())
+        self.assertContains(response, reverse("opensearch-suggestions"))
+
+    def test_opensearch_suggestions(self) -> None:
+        with self.assertNumQueries(4):
+            response = self.client.get(reverse("opensearch-suggestions"), {"q": "post"})
+        self.assertEqual(response.status_code, 200)
+
+        data = response.json()
+        self.assertEqual(data[0], "post")
+        self.assertEqual(data[1], [f"Post {i}" for i in range(5)])
