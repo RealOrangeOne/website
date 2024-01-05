@@ -1,5 +1,3 @@
-import random
-
 from django.template import Library
 from django.utils.encoding import force_str
 from wagtail.models import Page
@@ -18,11 +16,6 @@ def do_range(stop: int) -> range:
 @register.simple_tag(takes_context=True)
 def pagefullurl(context: dict, page: Page) -> str:
     return page.get_full_url(context["request"])
-
-
-@register.filter()
-def jitter(original: float, jitter: float) -> float:
-    return random.uniform(original + jitter, original - jitter)
 
 
 @register.filter()

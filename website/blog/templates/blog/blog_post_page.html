@@ -1,26 +1,26 @@
 {% extends "common/content_page.html" %}
 
-{% load cache util_tags %}
+{% load wagtail_cache %}
 
 {% block post_content %}
   {{ block.super }}
 
   {% if not request.is_preview %}
-    {% cache FRAGMENT_CACHE_TTL|jitter:FRAGMENT_CACHE_TTL_JITTER "similar-content" page.id request.is_preview %}
-      <section class="container similar-content" id="similar-content">
-        <h2 class="subtitle is-size-2">Similar content</h2>
+    {% wagtailpagecache FRAGMENT_CACHE_TTL "similar-content" %}
+    <section class="container similar-content" id="similar-content">
+      <h2 class="subtitle is-size-2">Similar content</h2>
 
-        <p class="view-all">
-          <a href="{{ page.blog_post_list_page_url }}">View all &rarr;</a>
-        </p>
+      <p class="view-all">
+        <a href="{{ page.blog_post_list_page_url }}">View all &rarr;</a>
+      </p>
 
-        {% for page in page.get_similar_posts %}
-          {% block listing_item %}
-            {% include "common/listing-item.html" %}
-          {% endblock %}
-        {% endfor %}
+      {% for page in page.get_similar_posts %}
+        {% block listing_item %}
+          {% include "common/listing-item.html" %}
+        {% endblock %}
+      {% endfor %}
 
-      </section>
-    {% endcache %}
-  {% endif %}
+    </section>
+  {% endwagtailpagecache %}
+{% endif %}
 {% endblock %}

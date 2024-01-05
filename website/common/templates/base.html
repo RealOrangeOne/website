@@ -1,4 +1,4 @@
-{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri cache %}
+{% load static wagtailcore_tags wagtailuserbar navbar_tags footer_tags plausible_wagtail favicon_tags sri wagtail_cache %}
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -32,31 +32,31 @@
   <body class="{% block body_class %}{% endblock %}">
     {% wagtailuserbar %}
 
-    {% cache 1800 "navbar" request.is_preview %}
-      {% navbar %}
-    {% endcache %}
+    {% wagtailcache 1800 "navbar" %}
+    {% navbar %}
+  {% endwagtailcache %}
 
-    {% block main %}
-      <main>
-        {% block main_content %}{% endblock %}
-      </main>
-    {% endblock %}
+  {% block main %}
+    <main>
+      {% block main_content %}{% endblock %}
+    </main>
+  {% endblock %}
 
-    {% cache 1800 "footer" request.is_preview %}
-      {% footer %}
-    {% endcache %}
+  {% wagtailcache 1800 "footer" %}
+  {% footer %}
+{% endwagtailcache %}
 
-    {# Not async to avoid bright flashes #}
-    {% sri_static "js/dark-mode.js" %}
+{# Not async to avoid bright flashes #}
+{% sri_static "js/dark-mode.js" %}
 
-    <script async defer type="text/javascript" src="{% static 'js/base.js' %}" integrity="{% sri_integrity_static 'js/base.js' %}"></script>
+<script async defer type="text/javascript" src="{% static 'js/base.js' %}" integrity="{% sri_integrity_static 'js/base.js' %}"></script>
 
-    {% block extra_js %}{% endblock %}
+{% block extra_js %}{% endblock %}
 
-    {% block plausible %}
-      {% if not request.user.is_authenticated or not request.is_preview %}
-        {% plausible %}
-      {% endif %}
-    {% endblock %}
-  </body>
+{% block plausible %}
+  {% if not request.user.is_authenticated or not request.is_preview %}
+    {% plausible %}
+  {% endif %}
+{% endblock %}
+</body>
 </html>

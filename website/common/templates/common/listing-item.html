@@ -1,27 +1,27 @@
-{% load wagtailcore_tags cache util_tags %}
+{% load wagtailcore_tags wagtail_cache util_tags %}
 
-{% cache FRAGMENT_CACHE_TTL|jitter:FRAGMENT_CACHE_TTL_JITTER "listing-item" page.id request.is_preview breadcrumbs %}
-  <article class="media listing-item">
-    <div class="columns">
-      <figure class="media-left column is-3 image-column">
-        {% if page.list_image_url %}
-          <a href="{% pageurl page %}" class="image" title="{{ page.title }}">
-            <img src="{{ page.list_image_url }}" alt="" loading="lazy" decoding="async" />
-          </a>
+{% wagtailpagecache FRAGMENT_CACHE_TTL "listing-item" breadcrumbs %}
+<article class="media listing-item">
+  <div class="columns">
+    <figure class="media-left column is-3 image-column">
+      {% if page.list_image_url %}
+        <a href="{% pageurl page %}" class="image" title="{{ page.title }}">
+          <img src="{{ page.list_image_url }}" alt="" loading="lazy" decoding="async" />
+        </a>
+      {% endif %}
+    </figure>
+    <div class="media-content column">
+      <div>
+        {% if breadcrumbs %}
+          {% include "common/breadcrumbs.html" with parents=page.get_parent_pages %}
         {% endif %}
-      </figure>
-      <div class="media-content column">
-        <div>
-          {% if breadcrumbs %}
-            {% include "common/breadcrumbs.html" with parents=page.get_parent_pages %}
-          {% endif %}
-          <h2 class="title is-3">
-            <a href="{% pageurl page %}">{{ page.title }}</a>
-          </h2>
-          {% include "common/content-details.html" %}
-          <p>{{ page.summary }}</p>
-        </div>
+        <h2 class="title is-3">
+          <a href="{% pageurl page %}">{{ page.title }}</a>
+        </h2>
+        {% include "common/content-details.html" %}
+        <p>{{ page.summary }}</p>
       </div>
     </div>
-  </article>
-{% endcache %}
+  </div>
+</article>
+{% endwagtailpagecache %}
