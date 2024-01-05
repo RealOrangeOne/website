@@ -398,9 +398,6 @@ SESSION_COOKIE_AGE = 2419200  # About a month
 CSRF_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_HTTPONLY = True
 
-# https://github.com/wagtail/wagtail-autocomplete/issues/149
-CSRF_COOKIE_HTTPONLY = False
-
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 PERMISSIONS_POLICY: dict[str, list] = {
