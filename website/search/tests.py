@@ -56,7 +56,7 @@ class SearchPageResultsTestCase(TestCase):
         cls.url = cls.page.url + cls.page.reverse_subpage("results")
 
     def test_returns_results(self) -> None:
-        with self.assertNumQueries(24):
+        with self.assertNumQueries(23):
             response = self.client.get(self.url, {"q": "post"}, HTTP_HX_REQUEST="true")
         self.assertEqual(response.status_code, 200)
 
@@ -90,7 +90,7 @@ class SearchPageResultsTestCase(TestCase):
         )
 
     def test_too_high_page(self) -> None:
-        with self.assertNumQueries(49):
+        with self.assertNumQueries(42):
             response = self.client.get(
                 self.url, {"q": "post", "page": 30}, HTTP_HX_REQUEST="true"
             )
@@ -111,21 +111,21 @@ class SearchPageResultsTestCase(TestCase):
         self.assertContains(response, "No results found")
 
     def test_no_query(self) -> None:
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(6):
             response = self.client.get(self.url, HTTP_HX_REQUEST="true")
         self.assertEqual(response.status_code, 200)
 
         self.assertTemplateUsed(response, "search/enter-search-term.html")
 
     def test_empty_query(self) -> None:
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(6):
             response = self.client.get(self.url, {"q": ""}, HTTP_HX_REQUEST="true")
         self.assertEqual(response.status_code, 200)
 
         self.assertTemplateUsed(response, "search/enter-search-term.html")
 
     def test_not_htmx(self) -> None:
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(6):
             response = self.client.get(self.url)
         self.assertEqual(response.status_code, 400)
 
@@ -140,7 +140,7 @@ class OpenSearchTestCase(TestCase):
             ContentPageFactory(parent=cls.home_page, title=f"Post {i}")
 
     def test_opensearch_description(self) -> None:
-        with self.assertNumQueries(11):
+        with self.assertNumQueries(8):
             response = self.client.get(reverse("opensearch"))
         self.assertEqual(response.status_code, 200)
 

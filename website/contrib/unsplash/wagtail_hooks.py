@@ -3,11 +3,11 @@ from typing import Type
 from django.core.exceptions import ValidationError
 from django.http.response import Http404
 from django.utils.html import format_html
+from wagtail import hooks
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
 from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
-from wagtail.core import hooks
 
 from .models import UnsplashPhoto
 from .utils import get_unsplash_photo

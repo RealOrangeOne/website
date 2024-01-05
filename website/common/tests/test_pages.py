@@ -36,7 +36,7 @@ class ContentPageTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(39):
+        with self.assertNumQueries(32):
             self.client.get(self.page.url)
 
 
@@ -53,7 +53,7 @@ class ListingPageTestCase(TestCase):
         ContentPageFactory(parent=cls.page)
 
     def test_accessible(self) -> None:
-        with self.assertNumQueries(42):
+        with self.assertNumQueries(35):
             response = self.client.get(self.page.url)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["listing_pages"]), 2)
