@@ -6,12 +6,12 @@
   <section class="container search-controls">
     <div class="field">
       <p class="control has-icons-left has-icons-right">
-        <input type="search" class="input" name="q" placeholder="Search" hx-get="{{ search_url }}" hx-trigger="keyup changed delay:200ms, search{% if search_query %}, load{% endif %}" hx-target="#search-results" autocomplete="off" value="{{ search_query }}" hx-indicator="#search-indicator" />
-        <span class="icon is-small is-left">
+        <input type="search" class="input" name="q" placeholder="Search" hx-get="{{ search_url }}" hx-trigger="keyup changed delay:200ms, search{% if search_query %}, load{% endif %}" hx-target="#search-results" autocomplete="off" value="{{ search_query }}" hx-indicator=".search-indicator" />
+        <span class="icon is-small is-left htmx-indicator search-indicator" id="search-icon">
           <i class="fas fa-search"></i>
         </span>
-        <span class="icon is-small is-right htmx-indicator" id="search-indicator">
-          <i class="fas fa-circle-notch"></i>
+        <span class="icon is-small is-left htmx-indicator search-indicator">
+          <i class="fas fa-spinner fa-pulse"></i>
         </span>
       </p>
     </div>
@@ -27,7 +27,7 @@
     </div>
 
     <div class="htmx-indicator" id="search-page-indicator">
-      <i class="fas fa-circle-notch"></i>
+      <i class="fas fa-spinner fa-pulse"></i>
     </div>
   </section>
 {% endblock %}
