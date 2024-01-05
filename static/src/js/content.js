@@ -23,11 +23,13 @@ function handleScrollIndicator() {
 }
 
 window.addEventListener("load", () => {
-  window.addEventListener("resize", handleScrollIndicator);
-  window.addEventListener("scroll", handleScrollIndicator);
+  if (CONTENT && SCROLL_INDICATOR) {
+    window.addEventListener("resize", handleScrollIndicator);
+    window.addEventListener("scroll", handleScrollIndicator);
+
+    // Initialize the indicator
+    handleScrollIndicator();
+  }
 
   GLightbox({});
-
-  // Initialize the indicator
-  handleScrollIndicator();
 });
