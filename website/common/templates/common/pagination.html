@@ -1,14 +1,14 @@
 {% load wagtailadmin_tags %}
 
-<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+<nav class="pagination is-centered" role="navigation" title="pagination">
   {% if page.has_previous %}
-    <a class="pagination-previous" href="{% querystring page=page.previous_page_number %}"><i class="fas fa-arrow-left" aria-hidden="true"></i></a>
+    <a class="pagination-previous" title="Go to page {{ page.previous_page_number }}" href="{% querystring page=page.previous_page_number %}"><i class="fas fa-arrow-left" aria-hidden="true"></i></a>
   {% else %}
     <span class="pagination-previous is-disabled"><i class="fas fa-arrow-left" aria-hidden="true"></i></span>
   {% endif %}
 
   {% if page.has_next %}
-    <a class="pagination-next" href="{% querystring page=page.next_page_number %}"><i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+    <a class="pagination-next" title="Go to page {{ page.next_page_number }}" href="{% querystring page=page.next_page_number %}"><i class="fas fa-arrow-right" aria-hidden="true"></i></a>
   {% else %}
     <span class="pagination-next is-disabled"><i class="fas fa-arrow-right" aria-hidden="true"></i></span>
   {% endif %}
@@ -16,7 +16,7 @@
   <ul class="pagination-list">
     {% if page.has_previous and page.previous_page_number != 1 %}
       <li>
-        <a class="pagination-link" aria-label="Goto page 1" href="{% querystring page=1 %}">1</a>
+        <a class="pagination-link" aria-label="Go to page 1" href="{% querystring page=1 %}">1</a>
       </li>
       <li>
         <span class="pagination-ellipsis">&hellip;</span>
@@ -25,17 +25,17 @@
 
     {% if page.has_previous %}
       <li>
-        <a class="pagination-link" aria-label="Goto page {{ page.previous_page_number }}" href="{% querystring page=page.previous_page_number %}">{{ page.previous_page_number }}</a>
+        <a class="pagination-link" title="Go to page {{ page.previous_page_number }}" href="{% querystring page=page.previous_page_number %}">{{ page.previous_page_number }}</a>
       </li>
     {% endif %}
 
     <li>
-      <a class="pagination-link is-current" aria-label="Page {{ page.number }}" aria-current="page" href="{% querystring page=page.number %}">{{ page.number }}</a>
+      <a class="pagination-link is-current" title="Page {{ page.number }}" aria-current="page" href="{% querystring page=page.number %}">{{ page.number }}</a>
     </li>
 
     {% if page.has_next %}
       <li>
-        <a class="pagination-link" aria-label="Goto page {{ page.next_page_number }}" href="{% querystring page=page.next_page_number %}">{{ page.next_page_number }}</a>
+        <a class="pagination-link" title="Go to page {{ page.next_page_number }}" href="{% querystring page=page.next_page_number %}">{{ page.next_page_number }}</a>
       </li>
     {% endif %}
 
@@ -44,7 +44,7 @@
         <span class="pagination-ellipsis">&hellip;</span>
       </li>
       <li>
-        <a class="pagination-link" aria-label="Goto page {{ page.paginator.num_pages }}" href="{% querystring page=page.paginator.num_pages %}">{{ page.paginator.num_pages }}</a>
+        <a class="pagination-link" title="Go to page {{ page.paginator.num_pages }}" href="{% querystring page=page.paginator.num_pages %}">{{ page.paginator.num_pages }}</a>
       </li>
     {% endif %}
   </ul>
