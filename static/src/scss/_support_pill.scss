@@ -1,4 +1,4 @@
-$support-pill-size: 50px;
+$support-pill-size: 60px;
 $support-pill-position: 1.5rem;
 
 .tag.support-pill {
@@ -13,6 +13,11 @@ $support-pill-position: 1.5rem;
   height: $support-pill-size;
   font-size: 100%;
   z-index: $dropdown-content-z;
+  padding: none;
+
+  &:hover {
+    background-color: $primary-dark;
+  }
 
   @include mobile {
     display: none;
