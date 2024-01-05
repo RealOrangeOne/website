@@ -1,8 +1,8 @@
-{% load util_tags %}
+{% load wagtailcore_tags %}
 
 <section class="container has-text-centered shareon-container" id="shareon">
   <p>Share this page</p>
-  <div class="shareon" data-title="{{ page.title }}" data-url="{% pagefullurl page %}">
+  <div class="shareon" data-title="{{ page.title }}" data-url="{% fullpageurl page %}">
     <a class="facebook" title="Share on Facebook"></a>
     <a class="linkedin" title="Share on LinkedIn"></a>
     <a class="mastodon" title="Share on Mastodon"></a>
