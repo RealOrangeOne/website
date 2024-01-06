@@ -37,4 +37,4 @@ PyYAML
 git+https://github.com/RealOrangeOne/wagtail-favicon@b892165e047b35c46d7244109b9ad9226d32a213
 
 # Use custom `wagtail-draftail-snippet` with support for Wagtail 5.x
-git+https://github.com/aaronhaslett/wagtail-draftail-snippet@347cf41b29e0aa1ef43b53632ef29f07967a19e1
+git+https://github.com/RealOrangeOne/wagtail-draftail-snippet@74ed858bd958a066d5aee295c9848257107b1546
