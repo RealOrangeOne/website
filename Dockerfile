@@ -11,7 +11,7 @@ COPY ./static/src ./static/src
 RUN npm run build
 
 # The actual container
-FROM python:3.11-slim as production
+FROM python:3.12-slim as production
 
 ENV VIRTUAL_ENV=/venv
 
