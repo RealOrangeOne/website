@@ -5,6 +5,7 @@ from typing import Iterable, Optional, Type
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
 from django.conf import settings
+from django.db import models
 from django.http.request import HttpRequest
 from django.utils.text import re_words, slugify
 from django_cache_decorator import django_cache_decorator
@@ -117,4 +118,14 @@ def get_url_mime_type(url: str) -> Optional[str]:
     try:
         return requests_session.head(url).headers.get("Content-Type")
     except requests.exceptions.RequestException:
+        return None
+
+
+def get_or_none(queryset: models.QuerySet) -> models.Model:
+    """
+    Helper method to get a single instance, or None if there is not exactly 1 matches
+    """
+    try:
+        return queryset.get()
+    except (queryset.model.DoesNotExist, queryset.model.MultipleObjectsReturned):
         return None

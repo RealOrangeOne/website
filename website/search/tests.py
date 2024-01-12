@@ -140,18 +140,85 @@ class OpenSearchTestCase(TestCase):
             ContentPageFactory(parent=cls.home_page, title=f"Post {i}")
 
     def test_opensearch_description(self) -> None:
-        with self.assertNumQueries(8):
+        with self.assertNumQueries(6):
             response = self.client.get(reverse("opensearch"))
         self.assertEqual(response.status_code, 200)
 
-        self.assertContains(response, self.page.get_url())
+        self.assertContains(response, reverse("go"))
         self.assertContains(response, reverse("opensearch-suggestions"))
 
     def test_opensearch_suggestions(self) -> None:
-        with self.assertNumQueries(4):
+        with self.assertNumQueries(3):
             response = self.client.get(reverse("opensearch-suggestions"), {"q": "post"})
         self.assertEqual(response.status_code, 200)
 
         data = response.json()
         self.assertEqual(data[0], "post")
         self.assertEqual(data[1], [f"Post {i}" for i in range(5)])
+
+
+class GoViewTestCase(TestCase):
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.home_page = HomePage.objects.get()
+        cls.search_page = SearchPageFactory(parent=cls.home_page)
+
+        cls.post_1 = ContentPageFactory(
+            parent=cls.home_page, title="Post Title 1", slug="post-slug-1"
+        )
+        cls.post_2 = ContentPageFactory(
+            parent=cls.home_page, title="Post Title 2", slug="post-slug-2"
+        )
+
+    def test_by_title(self) -> None:
+        with self.assertNumQueries(5):
+            response = self.client.get(reverse("go"), {"q": self.post_1.title})
+
+        self.assertRedirects(
+            response, self.post_1.get_url(), fetch_redirect_response=True
+        )
+
+    def test_by_slug(self) -> None:
+        with self.assertNumQueries(7):
+            response = self.client.get(reverse("go"), {"q": self.post_2.slug})
+
+        self.assertRedirects(
+            response, self.post_2.get_url(), fetch_redirect_response=True
+        )
+
+    def test_no_match(self) -> None:
+        with self.assertNumQueries(6):
+            response = self.client.get(reverse("go"), {"q": "Something else"})
+
+        self.assertRedirects(
+            response,
+            self.search_page.get_url() + "?q=Something+else",
+            fetch_redirect_response=True,
+        )
+
+    def test_no_query(self) -> None:
+        with self.assertNumQueries(3):
+            response = self.client.get(reverse("go"))
+
+        self.assertRedirects(
+            response, self.search_page.get_url(), fetch_redirect_response=True
+        )
+
+    def test_multiple_matches(self) -> None:
+        ContentPageFactory(parent=self.home_page, title=self.post_1.title)
+
+        with self.assertNumQueries(6):
+            response = self.client.get(reverse("go"), {"q": self.post_1.title})
+
+        self.assertRedirects(
+            response,
+            self.search_page.get_url() + f"?q={self.post_1.title}",
+            fetch_redirect_response=True,
+        )
+
+    def test_no_search_page(self) -> None:
+        self.search_page.delete()
+
+        response = self.client.get(reverse("go"))
+
+        self.assertEqual(response.status_code, 404)

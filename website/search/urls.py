@@ -9,4 +9,5 @@ urlpatterns = [
         views.OpenSearchSuggestionsView.as_view(),
         name="opensearch-suggestions",
     ),
+    path("go/", views.GoView.as_view(), name="go"),
 ]

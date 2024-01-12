@@ -1,18 +1,17 @@
-from django.http import HttpRequest, JsonResponse
-from django.shortcuts import get_object_or_404
+from django.http import Http404, HttpRequest, JsonResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_control
-from django.views.generic import TemplateView, View
+from django.views.decorators.cache import cache_control, cache_page
+from django.views.generic import RedirectView, TemplateView, View
 from wagtail.search.utils import parse_query_string
 from wagtail_favicon.models import FaviconSettings
 from wagtail_favicon.utils import get_rendition_url
 
-from website.common.utils import get_site_title
+from website.common.utils import get_or_none, get_site_title
 from website.contrib.singleton_page.utils import SingletonPageCache
 
 from .models import SearchPage
-from .serializers import SearchParamsSerializer
+from .serializers import SearchParamSerializer
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
@@ -32,9 +31,7 @@ class OpenSearchView(TemplateView):
                 )
             )
 
-        context["search_page_url"] = self.request.build_absolute_uri(
-            SingletonPageCache.get_url(SearchPage, self.request)
-        )
+        context["search_page_url"] = self.request.build_absolute_uri(reverse("go"))
         context["search_suggestions_url"] = self.request.build_absolute_uri(
             reverse("opensearch-suggestions")
         )
@@ -47,17 +44,15 @@ class OpenSearchView(TemplateView):
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class OpenSearchSuggestionsView(View):
     def get(self, request: HttpRequest) -> JsonResponse:
-        serializer = SearchParamsSerializer(data=request.GET)
+        serializer = SearchParamSerializer(data=request.GET)
 
         if not serializer.is_valid():
             return JsonResponse(serializer.errors, status=400)
 
-        search_page = get_object_or_404(SearchPage)
-
         filters, query = parse_query_string(serializer.validated_data["q"])
 
         results = (
-            search_page.get_listing_pages()
+            SearchPage.get_listing_pages()
             .search(query, order_by_relevance=True)[:5]
             .get_queryset()
         )
@@ -69,3 +64,27 @@ class OpenSearchSuggestionsView(View):
             ],
             safe=False,
         )
+
+
+@method_decorator(cache_page(60 * 60), name="dispatch")
+class GoView(RedirectView):
+    def get_redirect_url(self) -> str:
+        serializer = SearchParamSerializer(data=self.request.GET)
+        search_page_url = SingletonPageCache.get_url(SearchPage, self.request)
+
+        if search_page_url is None:
+            raise Http404
+
+        if not serializer.is_valid():
+            return search_page_url
+
+        query = serializer.validated_data["q"]
+        pages = SearchPage.get_listing_pages()
+
+        if title_match := get_or_none(pages.filter(title__iexact=query)):
+            return title_match.get_url(request=self.request)
+
+        if slug_match := get_or_none(pages.filter(slug__iexact=query)):
+            return slug_match.get_url(request=self.request)
+
+        return f"{search_page_url}?{self.request.GET.urlencode()}"

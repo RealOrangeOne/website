@@ -13,7 +13,7 @@ from wagtail.search.utils import parse_query_string
 from website.common.models import BaseContentPage, BaseListingPage
 from website.common.utils import get_page_models
 
-from .serializers import MIN_SEARCH_LENGTH, SearchParamsSerializer
+from .serializers import MIN_SEARCH_LENGTH, SearchPageParamsSerializer
 
 
 class SearchPage(RoutablePageMixin, BaseContentPage):
@@ -44,11 +44,12 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         context["SEO_INDEX"] = False
         return context
 
-    def get_listing_pages(self) -> models.QuerySet:
+    @classmethod
+    def get_listing_pages(cls) -> models.QuerySet:
         return (
             Page.objects.live()
             .public()
-            .not_type(self.__class__, *self.EXCLUDED_PAGE_TYPES)
+            .not_type(cls.__class__, *cls.EXCLUDED_PAGE_TYPES)
         )
 
     @route(r"^results/$")
@@ -57,7 +58,7 @@ class SearchPage(RoutablePageMixin, BaseContentPage):
         if not request.htmx:
             return HttpResponseBadRequest()
 
-        serializer = SearchParamsSerializer(data=request.GET)
+        serializer = SearchPageParamsSerializer(data=request.GET)
 
         if not serializer.is_valid():
             return TemplateResponse(
