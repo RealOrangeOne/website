@@ -58,6 +58,11 @@ urlpatterns = [
     ),
     path("favicon.ico", FaviconView.as_view()),
     path("", include(favicon_urls)),
+    re_path(
+        r"^%s(?P<path>.*)$" % re.escape(settings.MEDIA_URL.lstrip("/")),
+        cache_control(max_age=60 * 60)(serve),
+        {"document_root": settings.MEDIA_ROOT},
+    ),
 ]
 
 
@@ -71,15 +76,6 @@ if settings.DEBUG:
 
     # Add django-debug-toolbar
     urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
-
-    urlpatterns.append(
-        # Media is served by nginx in production
-        re_path(
-            r"^%s(?P<path>.*)$" % re.escape(settings.MEDIA_URL.lstrip("/")),
-            cache_control(max_age=60 * 60)(serve),
-            {"document_root": settings.MEDIA_ROOT},
-        )
-    )
 
 
 if settings.DEBUG or settings.TEST:

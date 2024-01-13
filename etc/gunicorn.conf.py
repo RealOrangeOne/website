@@ -6,5 +6,5 @@ max_requests = 1200
 max_requests_jitter = 50
 forwarded_allow_ips = "*"
 
-# Run an additional thread so the GIL isn't sitting completely idle
-threads = 2
+# Run additional threads so the GIL isn't sitting completely idle
+threads = 4
