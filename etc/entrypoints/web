@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-python manage.py migrate --noinput
-
-exec gunicorn -c etc/gunicorn.conf.py

@@ -1,0 +1,7 @@
+#!/command/with-contenv bash
+
+set -e
+
+cd /app
+
+exec s6-setuidgid website python manage.py rqworker --with-scheduler

@@ -10,5 +10,13 @@
       "schedule": ["every weekend"],
       "enabled": false
     }
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": ["ENV S6_OVERLAY_VERSION=(?<currentValue>.*?)\\n"],
+      "depNameTemplate": "just-containers/s6-overlay",
+      "datasourceTemplate": "github-releases"
+    }
   ]
 }

@@ -1,0 +1,7 @@
+#!/command/with-contenv bash
+
+set -e
+
+cd /app
+
+exec nginx -g "daemon off;"

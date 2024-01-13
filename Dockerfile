@@ -15,6 +15,9 @@ FROM python:3.12-slim as production
 
 ENV VIRTUAL_ENV=/venv
 
+# renovate: datasource=github-tags depName=gchq/cyberchef
+ENV S6_OVERLAY_VERSION=3.1.6.2
+
 RUN useradd website --create-home -u 1000 && mkdir /app $VIRTUAL_ENV && chown -R website /app $VIRTUAL_ENV
 
 WORKDIR /app
@@ -31,6 +34,9 @@ RUN apt-get update --yes --quiet && apt-get install --yes --quiet --no-install-r
     && apt-get autoremove && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fsSL https://github.com/aptible/supercronic/releases/download/v0.2.1/supercronic-linux-amd64 -o /usr/local/bin/supercronic && chmod +x /usr/local/bin/supercronic
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
+ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
+RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
     PYTHONUNBUFFERED=1
@@ -56,7 +62,11 @@ RUN cat ./etc/bashrc.sh >> ~/.bashrc
 
 RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear
 
-CMD ["/app/etc/entrypoints/web"]
+COPY ./etc/s6-rc.d /etc/s6-overlay/s6-rc.d
+
+# Become root at the last minute for s6
+USER root
+ENTRYPOINT [ "/init" ]
 
 # Just dev stuff
 FROM production as dev
@@ -74,4 +84,5 @@ USER website
 COPY --chown=website dev-requirements.txt ./
 RUN pip install --no-cache -r dev-requirements.txt
 
+ENTRYPOINT []
 CMD sleep infinity

@@ -4,7 +4,6 @@ services:
     build:
       context: ../../
       target: dev
-    init: true
     environment:
       - QUEUE_STORE_URL=redis://redis/0
       - DEBUG=true
