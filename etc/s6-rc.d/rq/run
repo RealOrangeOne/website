@@ -4,4 +4,4 @@ set -e
 
 cd /app
 
-exec s6-setuidgid website python manage.py rqworker --with-scheduler
+exec python manage.py rqworker --with-scheduler

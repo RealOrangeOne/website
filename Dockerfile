@@ -43,7 +43,7 @@ ENV PATH=$VIRTUAL_ENV/bin:$PATH \
 
 EXPOSE 8000
 
-RUN ln -fs /app/etc/nginx.conf /etc/nginx/sites-available/default
+RUN ln -fs /app/etc/nginx.conf /etc/nginx/sites-available/default && chown -R website /var/log/nginx
 
 USER website
 
@@ -64,8 +64,6 @@ RUN SECRET_KEY=none python manage.py collectstatic --noinput --clear
 
 COPY ./etc/s6-rc.d /etc/s6-overlay/s6-rc.d
 
-# Become root at the last minute for s6
-USER root
 ENTRYPOINT [ "/init" ]
 
 # Just dev stuff

@@ -11,6 +11,8 @@ services:
       - DATABASE_URL=postgres://website:website@db/website
     volumes:
       - ../../:/app
+    tmpfs:
+      - /tmp
     depends_on:
       - redis
       - db

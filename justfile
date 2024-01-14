@@ -9,7 +9,7 @@ DEV_COMPOSE := justfile_directory() + "/docker/dev/docker-compose.yml"
 build:
   docker-compose -f {{ DEV_COMPOSE }} pull
   docker-compose -f {{ DEV_COMPOSE }} build
-  docker-compose -f {{ DEV_COMPOSE }} run --user=website --rm --no-deps web -c "npm ci"
+  docker-compose -f {{ DEV_COMPOSE }} run --entrypoint=bash --rm --no-deps web -c "npm ci"
 
 @compose +ARGS:
   docker-compose -f {{ DEV_COMPOSE }} {{ ARGS }}
@@ -50,7 +50,7 @@ lint_python:
 
 @sh:
   docker-compose -f {{ DEV_COMPOSE }} up -d
-  docker-compose -f {{ DEV_COMPOSE }} exec --user=website web bash
+  docker-compose -f {{ DEV_COMPOSE }} exec web bash
 
 @down:
   docker-compose -f {{ DEV_COMPOSE }} down
