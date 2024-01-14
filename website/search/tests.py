@@ -179,7 +179,7 @@ class GoViewTestCase(TestCase):
         )
 
     def test_by_slug(self) -> None:
-        with self.assertNumQueries(7):
+        with self.assertNumQueries(6):
             response = self.client.get(reverse("go"), {"q": self.post_2.slug})
 
         self.assertRedirects(
