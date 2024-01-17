@@ -14,6 +14,6 @@ class UnsplashPhotoChooser(AdminChooser):
 
     def get_title(self, instance: UnsplashPhoto) -> str:
         return format_html(
-            "<img src='{}' width=165 loading='lazy' decoding='async'>",
+            "<img src='{}' width=165 loading='lazy' decoding='async' referrerpolicy='no-referrer'>",
             instance.get_thumbnail_url(),
         )

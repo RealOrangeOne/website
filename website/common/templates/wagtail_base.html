@@ -15,7 +15,7 @@
     <picture>
       {% for width, image_url in page.hero_image_urls.items reversed %}<source srcset="{{ image_url }}" media="(max-width: {{ width }}px)" />{% endfor %}
 
-      <img class="hero" src="{{ page.hero_image_url }}" decoding="async" alt="{{ page.hero_image_alt }}" />
+      <img class="hero" src="{{ page.hero_image_url }}" referrerpolicy="no-referrer" decoding="async" alt="{{ page.hero_image_alt }}" />
     </picture>
   {% endif %}
 
