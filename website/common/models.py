@@ -195,6 +195,13 @@ class BaseContentPage(BasePage, MetadataMixin):
     def list_image_url(self) -> Optional[str]:
         return self.hero_url("small")
 
+    @cached_property
+    def hero_image_alt(self) -> str:
+        if self.hero_unsplash_photo_id is None:
+            return ""
+
+        return self.hero_unsplash_photo.data.get("description", "")
+
     def get_meta_url(self) -> str:
         return self.full_url
 
