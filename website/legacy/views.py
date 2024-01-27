@@ -17,7 +17,7 @@ class TagView(RedirectView):
     permanent = True
 
     def get_redirect_url(self, slug: str) -> str:
-        tag = get_object_or_404(BlogPostTagPage, slug=slug)
+        tag = get_object_or_404(BlogPostTagPage.objects.public().live(), slug=slug)
         return tag.get_url(request=self.request)
 
 

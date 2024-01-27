@@ -127,7 +127,7 @@ class AllPagesFeed(Feed):
 
     def item_categories(self, item: BasePage) -> Optional[list[str]]:
         if tags := getattr(item, "tags", None):
-            return tags.order_by("slug").values_list("slug", flat=True)
+            return tags.public().live().order_by("slug").values_list("slug", flat=True)
         return None
 
     def item_enclosure_url(self, item: BasePage) -> Optional[str]:

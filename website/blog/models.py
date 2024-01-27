@@ -79,7 +79,7 @@ class BlogPostPage(BaseContentPage):
             else models.Value(1),
         )
 
-        page_tags = list(self.tags.values_list("id", flat=True))
+        page_tags = list(self.tags.public().live().values_list("id", flat=True))
         similar_posts = similar_posts.alias(
             # If this page has no tags, ignore it as part of similarity
             # NB: Cast to a float, because `COUNT` returns a `bigint`.
