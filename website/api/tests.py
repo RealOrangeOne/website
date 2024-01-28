@@ -86,3 +86,20 @@ class SchemaTestCase(APISimpleTestCase):
     def test_schema(self) -> None:
         response = self.client.get(reverse("api:schema"))
         self.assertEqual(response.status_code, 200)
+
+
+class LatestPostsAPIViewTestCase(APITestCase):
+    url = reverse("api:latest-posts")
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.home_page = HomePage.objects.get()
+
+        for i in range(4):
+            BlogPostPageFactory(parent=cls.home_page, title=f"Post {i}")
+
+    def test_accessible(self) -> None:
+        with self.assertNumQueries(5):
+            response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["count"], 4)

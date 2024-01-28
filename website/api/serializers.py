@@ -36,3 +36,14 @@ class LMOTFYSerializer(serializers.ModelSerializer):
             return self.context["request"].build_absolute_uri(image_url)
 
         return image_url
+
+
+class LatestPostSerializer(serializers.ModelSerializer):
+    full_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = BlogPostPage
+        fields = read_only_fields = ["full_url", "title", "date"]
+
+    def get_full_url(self, page: Page) -> str:
+        return page.get_full_url(request=self.context["request"])

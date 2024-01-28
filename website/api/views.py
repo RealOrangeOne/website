@@ -60,3 +60,20 @@ class SwaggerRedirectView(RedirectView):
         return HttpResponseRedirect(
             self.SWAGGER_EDITOR_URL + request.build_absolute_uri(reverse("api:schema"))
         )
+
+
+class LatestPostsAPIView(ListAPIView):
+    """
+    List my latest blog posts
+    """
+
+    serializer_class = serializers.LatestPostSerializer
+    pagination_class = CustomPageNumberPagination
+
+    def get_queryset(self) -> PageQuerySet:
+        return (
+            BlogPostPage.objects.live()
+            .public()
+            .only("id", "url_path", "title", "date")
+            .order_by("-date")
+        )

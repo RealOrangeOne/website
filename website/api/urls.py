@@ -10,6 +10,7 @@ api_urlpatterns = [
     path("ping/", views.PingAPIView.as_view(), name="ping"),
     path("page-links/", views.PageLinksAPIView.as_view(), name="page-links"),
     path("lmotfy/", views.LMOTFYAPIView.as_view(), name="lmotfy"),
+    path("latest-posts/", views.LatestPostsAPIView.as_view(), name="latest-posts"),
 ]
 
 schema_view = get_schema_view(
