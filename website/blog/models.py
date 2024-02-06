@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
+from wagtail.models import PageQuerySet
 from wagtail.search import index
 from wagtailautocomplete.edit_handlers import AutocompletePanel
 
@@ -60,6 +61,19 @@ class BlogPostPage(BaseContentPage):
     @cached_property
     def tag_list_page_url(self) -> Optional[str]:
         return SingletonPageCache.get_url(BlogPostTagListPage)
+
+    @cached_property
+    def tags_list(self) -> models.QuerySet:
+        """
+        Use this to get a page's tags.
+        """
+        tags = self.tags.order_by("slug")
+
+        # In drafts, `django-modelcluster` doesn't support these filters
+        if isinstance(tags, PageQuerySet):
+            return tags.public().live()
+
+        return tags
 
     @cached_property
     def blog_post_list_page_url(self) -> Optional[str]:

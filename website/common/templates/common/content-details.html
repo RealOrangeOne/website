@@ -20,14 +20,14 @@
     </div>
   {% endif %}
 
-  {% if page.tags.public.live.all %}
+  {% if page.tags_list %}
     <div class="icon-text is-family-code">
       <span class="icon">
         <a href="{{ page.tag_list_page_url }}" title="View all tags">
           <i class="fas fa-lg fa-tags"></i>
         </a>
       </span>
-      {% for tag in page.tags.public.live.all|dictsort:"slug" %}
+      {% for tag in page.tags_list %}
         <span><a title="{{ tag.name }}" href="{% pageurl tag %}">#{{ tag.slug }}</a></span>
       {% endfor %}
     </div>

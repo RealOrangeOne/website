@@ -15,6 +15,7 @@ from wagtail.query import PageQuerySet
 from wagtail_favicon.models import FaviconSettings
 from wagtail_favicon.utils import get_rendition_url
 
+from website.blog.models import BlogPostPage
 from website.common.utils import get_site_title
 from website.contrib.singleton_page.utils import SingletonPageCache
 from website.home.models import HomePage
@@ -126,8 +127,8 @@ class AllPagesFeed(Feed):
         return getattr(item, "summary", None) or item.title
 
     def item_categories(self, item: BasePage) -> Optional[list[str]]:
-        if tags := getattr(item, "tags", None):
-            return tags.public().live().order_by("slug").values_list("slug", flat=True)
+        if isinstance(item, BlogPostPage):
+            return item.tags_list.values_list("slug", flat=True)
         return None
 
     def item_enclosure_url(self, item: BasePage) -> Optional[str]:
