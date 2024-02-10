@@ -1,8 +1,5 @@
-from typing import Optional, Tuple
-
 from django.db import models
 from django.http.request import HttpRequest
-from django_cache_decorator import django_cache_decorator
 from wagtail.admin.panels import FieldPanel
 from wagtail.images import get_image_model_string
 from wagtail.images.models import Image
@@ -10,20 +7,6 @@ from wagtailmetadata.models import WagtailImageMetadataMixin
 
 from website.common.models import BasePage
 from website.contrib.singleton_page.utils import SingletonPageCache
-
-
-@django_cache_decorator(time=600)
-def get_latest_blog_post() -> Optional[Tuple[str, str]]:
-    from website.blog.models import BlogPostPage
-
-    try:
-        latest_blog_post = (
-            BlogPostPage.objects.live().public().defer_streamfields().latest("date")
-        )
-    except BlogPostPage.DoesNotExist:
-        return None
-
-    return latest_blog_post.title, latest_blog_post.get_url()
 
 
 class HomePage(BasePage, WagtailImageMetadataMixin):
@@ -55,9 +38,22 @@ class HomePage(BasePage, WagtailImageMetadataMixin):
         return self.html_title
 
     def get_context(self, request: HttpRequest) -> dict:
+        from website.blog.models import BlogPostListPage, BlogPostPage
         from website.search.models import SearchPage
 
         context = super().get_context(request)
-        context["latest_blog_post"] = get_latest_blog_post()
+        context["recent_posts"] = list(
+            BlogPostPage.objects.live()
+            .public()
+            .defer_streamfields()
+            .order_by("-date")[:7]
+        )
+        context["latest_blog_post"] = (
+            context["recent_posts"].pop(0) if context["recent_posts"] else None
+        )
         context["search_page_url"] = SingletonPageCache.get_url(SearchPage, request)
+        context["blog_post_list_url"] = SingletonPageCache.get_url(
+            BlogPostListPage, request
+        )
+
         return context

@@ -1,0 +1,16 @@
+{% load wagtail_cache wagtailcore_tags %}
+
+{% wagtailpagecache FRAGMENT_CACHE_TTL "homepage-card" %}
+<div class="column is-one-third-widescreen is-half">
+  <div class="card">
+    <div class="card-image">
+      <a href="{% pageurl page %}">
+        <figure class="image is-16by9">
+          <img src="{{ page.list_image_url }}" alt="{{ page.hero_image_alt }}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+          <p class="has-text-weight-light">{{ page.title }}</p>
+        </figure>
+      </a>
+    </div>
+  </div>
+</div>
+{% endwagtailpagecache %}

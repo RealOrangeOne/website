@@ -4,21 +4,38 @@
 
 {% block main %}
   <main {% if page.image %}style="background-image: url({% image_url page.image 'width-1200' %})"{% endif %}>
-    <div class="heading-wrapper">
-      <h1>{{ page.heading }}</h1>
-      {% if search_page_url %}
-        <form action="{{ search_page_url }}">
-          <input id="search-input" class="input" type="text" placeholder="Search" name="q" />
-        </form>
+    <div class="top-section">
+      <div class="heading-wrapper">
+        <h1>{{ page.heading }}</h1>
+        {% if search_page_url %}
+          <form action="{{ search_page_url }}">
+            <input id="search-input" class="input" type="text" placeholder="Search" name="q" />
+          </form>
+        {% endif %}
+      </div>
+
+      {% if latest_blog_post %}
+        <div class="box latest is-size-5">
+          <strong>Latest Post</strong>:
+          <a href="{% pageurl latest_blog_post %}">{{ latest_blog_post.title }}</a>
+          &rarr;
+        </div>
       {% endif %}
     </div>
 
-    {% if latest_blog_post %}
-      <div class="box latest">
-        <strong>Latest Post</strong>:
-        <a href="{{ latest_blog_post.1 }}">{{ latest_blog_post.0 }}</a>
-        &rarr;
+    <section class="container content recent-posts">
+      <h2 class="has-text-centered has-text-white is-size-3">Recent Posts</h2>
+      <div class="columns content-list is-multiline">
+        {% for page in recent_posts %}
+          {% include "home/home_page_card.html" %}
+        {% endfor %}
       </div>
-    {% endif %}
+
+      {% if blog_post_list_url %}
+        <div class="box">
+          <a href="{{ blog_post_list_url }}">View more &rarr;</a>
+        </div>
+      {% endif %}
+    </section>
   </main>
 {% endblock %}
