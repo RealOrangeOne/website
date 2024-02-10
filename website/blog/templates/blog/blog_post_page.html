@@ -1,11 +1,11 @@
 {% extends "common/content_page.html" %}
 
-{% load wagtail_cache %}
+{% load wagtail_cache navbar_tags %}
 
 {% block post_content %}
-  {{ block.super }}
-
   {% if not request.is_preview %}
+    {% include "common/shareon.html" %}
+
     {% wagtailpagecache FRAGMENT_CACHE_TTL "similar-content" %}
     <section class="container similar-content" id="similar-content">
       <h2 class="subtitle is-size-2">Similar content</h2>
@@ -22,5 +22,11 @@
 
     </section>
   {% endwagtailpagecache %}
+
+  {% include "common/comments.html" %}
+
+  {% if not request.user.is_authenticated %}
+    {% support_pill %}
+  {% endif %}
 {% endif %}
 {% endblock %}
