@@ -1,10 +1,6 @@
 body.page-homepage {
   min-height: 100vh;
 
-  @include tablet {
-    height: 100vh;
-  }
-
   main {
     background-repeat: no-repeat;
     background-size: cover;
@@ -24,11 +20,8 @@ body.page-homepage {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 2rem;
     margin-bottom: 1rem;
-
-    @include mobile {
-      margin: 2rem;
-    }
   }
 
   h1 {
@@ -78,7 +71,7 @@ body.page-homepage {
   }
 
   .content-list {
-    width: 100%;
+    width: 90%;
 
     .card-image {
       overflow: hidden;
