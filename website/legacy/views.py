@@ -13,6 +13,12 @@ class AllPagesFeedView(RedirectView):
 
 
 @method_decorator(cache_control(max_age=60 * 60), name="dispatch")
+class PageLinksView(RedirectView):
+    pattern_name = "api:page-links"
+    permanent = True
+
+
+@method_decorator(cache_control(max_age=60 * 60), name="dispatch")
 class TagView(RedirectView):
     permanent = True
 

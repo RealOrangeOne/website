@@ -10,4 +10,5 @@ urlpatterns = [
     path("tags/<slug:slug>/", views.TagView.as_view()),
     path("tags/", views.TagsView.as_view()),
     path("categories/", views.TagsView.as_view()),
+    path("index.json", views.PageLinksView.as_view()),
 ]
