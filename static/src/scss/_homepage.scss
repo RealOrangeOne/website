@@ -83,7 +83,7 @@ body.page-homepage {
       object-fit: cover;
       position: absolute;
       transition: filter 0.25s;
-      filter: brightness(0.9);
+      filter: brightness(0.85);
     }
 
     p {
@@ -93,7 +93,7 @@ body.page-homepage {
       padding: 0.5rem;
       transition: background-color 0.25s;
       width: 100%;
-      background-color: rgb(0 0 0 / 50%);
+      background-color: rgb(0 0 0 / 55%);
     }
 
     figure {
@@ -107,7 +107,7 @@ body.page-homepage {
       }
 
       p {
-        background-color: rgb(0 0 0 / 70%);
+        background-color: rgb(0 0 0 / 75%);
       }
     }
   }
