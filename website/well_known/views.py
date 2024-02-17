@@ -1,4 +1,5 @@
 from datetime import timedelta
+from urllib.parse import urljoin
 
 from django.conf import settings
 from django.http.request import HttpRequest
@@ -56,10 +57,13 @@ def activitypub_proxy(request: HttpRequest) -> HttpResponse:
     if not settings.ACTIVITYPUB_HOST:
         raise Http404
 
+    activitypub_url = urljoin(
+        "https://" + settings.ACTIVITYPUB_HOST,
+        request.path,
+        allow_fragments=True,
+    )
+
     try:
-        return proxy_view(
-            request,
-            f"https://{settings.ACTIVITYPUB_HOST}{request.path}",
-        )
+        return proxy_view(request, activitypub_url)
     except RequestException:
         return HttpResponse(status_code=502)
