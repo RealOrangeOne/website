@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "website.utils",
     "website.well_known",
     "website.legacy",
+    "website.talks",
     "website.contrib.code_block",
     "website.contrib.mermaid_block",
     "website.contrib.unsplash",

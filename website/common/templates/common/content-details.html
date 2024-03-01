@@ -32,5 +32,27 @@
       {% endfor %}
     </div>
   {% endif %}
+
+  {% if page.slides_url %}
+    <span class="icon-text">
+      <a href="{{ page.slides_url }}">
+        <span class="icon">
+          <i class="fas fa-lg fa-images"></i>
+        </span>
+        <span>Slides</span>
+      </a>
+    </span>
+  {% endif %}
+
+  {% if page.video_url %}
+    <span class="icon-text">
+      <a href="{{ page.video_url }}">
+        <span class="icon">
+          <i class="fas fa-lg fa-film"></i>
+        </span>
+        <span>Video</span>
+      </a>
+    </span>
+  {% endif %}
 </div>
 {% endwagtailpagecache %}

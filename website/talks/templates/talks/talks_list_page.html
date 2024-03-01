@@ -2,18 +2,13 @@
 
 {% load wagtailroutablepage_tags %}
 
-{% block hero_buttons %}
-  <a class="button is-radiusless" href="{{ page.tag_list_page_url }}" title="View tags"><i class="fas fa-tags" aria-hidden="true"></i></a>
-  {{ block.super }}
-{% endblock %}
-
 {% block post_content %}
   <section class="container listing">
     {% for page in listing_pages %}
       {% ifchanged %}
-        <h2 id="date-{{ page.date|date:'Y-m' }}" class="date-header">
-          <time datetime="{{ page.date|date:'Y-m' }}" title="{{ page.date|date:'F Y' }}">
-            {{ page.date|date:"Y-m" }}
+        <h2 id="date-{{ page.date.year }}" class="date-header">
+          <time datetime="{{ page.date.year }}" title="{{ page.date.year }}">
+            {{ page.date.year }}
           </time>
         </h2>
       {% endifchanged %}

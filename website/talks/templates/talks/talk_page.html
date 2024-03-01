@@ -1,0 +1,11 @@
+{% extends "common/content_page.html" %}
+
+{% load wagtailembeds_tags %}
+
+{% block pre_content %}
+  {% if page.video_url %}
+    <section class="container mb-5 content">
+      <div class="block-embed">{% embed page.video_url %}</div>
+    </section>
+  {% endif %}
+{% endblock %}
