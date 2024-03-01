@@ -263,7 +263,12 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
 
     def get_context(self, request: HttpRequest) -> dict:
         context = super().get_context(request)
-        context["listing_pages"] = self.get_paginator_page()
+        listing_pages = self.get_paginator_page()
+        context["listing_pages"] = listing_pages
+
+        # Show listing images if at least 1 page has an image
+        context["show_listing_images"] = any(p.list_image_url for p in listing_pages)
+
         return context
 
     @cached_property

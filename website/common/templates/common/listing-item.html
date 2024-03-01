@@ -1,9 +1,9 @@
 {% load wagtailcore_tags wagtail_cache util_tags %}
 
-{% wagtailpagecache FRAGMENT_CACHE_TTL "listing-item" breadcrumbs %}
+{% wagtailpagecache FRAGMENT_CACHE_TTL "listing-item" breadcrumbs show_listing_images %}
 <article class="media listing-item">
   <div class="columns">
-    <figure class="media-left column is-3 image-column">
+    <figure class="media-left column is-{{ show_listing_images|yesno:'3,1' }} image-column">
       {% if page.list_image_url %}
         <a href="{% pageurl page %}" class="image" title="{{ page.title }}">
           <img src="{{ page.list_image_url }}" alt="{{ page.hero_image_alt }}" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
