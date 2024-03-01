@@ -24,6 +24,9 @@ class TalkPage(BaseContentPage):
     slides_url = models.URLField(blank=True)
     video_url = models.URLField(blank=True)
 
+    location_name = models.CharField(max_length=64, blank=True)
+    location_url = models.URLField(blank=True)
+
     content_panels = BaseContentPage.content_panels + [
         MultiFieldPanel(
             [
@@ -31,6 +34,13 @@ class TalkPage(BaseContentPage):
                 FieldPanel("video_url"),
             ],
             heading="Media",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("location_name"),
+                FieldPanel("location_url"),
+            ],
+            heading="Location",
         ),
         FieldPanel("duration"),
     ]

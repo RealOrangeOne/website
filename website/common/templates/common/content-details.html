@@ -54,5 +54,16 @@
       </a>
     </span>
   {% endif %}
+
+  {% if page.location_name and page.location_url %}
+    <span class="icon-text">
+      <a href="{{ page.location_url }}">
+        <span class="icon">
+          <i class="fas fa-lg fa-map-marker-alt"></i>
+        </span>
+        <span>{{ page.location_name }}</span>
+      </a>
+    </span>
+  {% endif %}
 </div>
 {% endwagtailpagecache %}
