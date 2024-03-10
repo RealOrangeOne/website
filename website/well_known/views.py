@@ -66,4 +66,4 @@ def activitypub_proxy(request: HttpRequest) -> HttpResponse:
     try:
         return proxy_view(request, activitypub_url)
     except RequestException:
-        return HttpResponse(status_code=502)
+        return HttpResponse(status=502)
