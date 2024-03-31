@@ -64,6 +64,7 @@ class KeybaseView(TemplateView):
 class AllPagesFeed(Feed):
     feed_type = CustomFeed
     link = "/"
+    description_template = "feed-description.html"
 
     def __init__(self) -> None:
         self.style_tag = f'<?xml-stylesheet href="{static("contrib/pretty-feed-v3.xsl")}" type="text/xsl"?>'.encode()
@@ -122,9 +123,6 @@ class AllPagesFeed(Feed):
 
     def item_updateddate(self, item: BasePage) -> datetime:
         return item.last_published_at
-
-    def item_description(self, item: BasePage) -> str:
-        return getattr(item, "summary", None) or item.title
 
     def item_categories(self, item: BasePage) -> Optional[list[str]]:
         if isinstance(item, BlogPostPage):

@@ -1,0 +1,9 @@
+{% load wagtailcore_tags %}
+
+{% spaceless %}
+  {{ obj.content_html | truncatewords_html:75 | safe }}
+
+  <p>
+    <a href="{% fullpageurl obj %}">Continue Reading&hellip;</a>
+  </p>
+{% endspaceless %}
