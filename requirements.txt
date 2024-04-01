@@ -32,6 +32,7 @@ wagtail-lite-youtube-embed==0.1.0
 # DRF OpenAPI dependencies
 uritemplate
 PyYAML
+inflection
 
 # Use custom `wagtail-favicon` with performance improvements
 git+https://github.com/RealOrangeOne/wagtail-favicon@b892165e047b35c46d7244109b9ad9226d32a213
