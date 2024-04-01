@@ -11,7 +11,7 @@ from django.http.response import Http404, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.template.defaultfilters import pluralize
 from django.utils.functional import cached_property, classproperty
-from django.utils.text import slugify
+from django.utils.text import Truncator, slugify
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
@@ -31,12 +31,10 @@ from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
 from .utils import (
     TocEntry,
-    count_words,
     extract_text,
     get_site_title,
     get_table_of_contents,
     get_url_mime_type,
-    truncate_string,
 )
 
 
@@ -141,16 +139,11 @@ class BaseContentPage(BasePage, MetadataMixin):
 
     @cached_property
     def word_count(self) -> int:
-        return count_words(self.plain_text)
+        return len(self.plain_text.split())
 
     @cached_property
     def summary(self) -> str:
-        summary = truncate_string(self.plain_text, 50)
-
-        if summary and summary != self.plain_text and not summary.endswith("."):
-            summary += "…"
-
-        return summary
+        return Truncator(self.plain_text).words(50)
 
     @cached_property
     def body_html(self) -> str:
