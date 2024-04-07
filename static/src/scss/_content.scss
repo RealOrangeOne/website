@@ -56,6 +56,9 @@ section.content {
 .gslide-image img {
   object-fit: contain !important;
 
+  // Manually set sizes, as mermaid images are very small
+  width: 80vw !important;
+
   &[src*="mermaid.ink"] {
     @include dark-mode {
       filter: invert(100%);
