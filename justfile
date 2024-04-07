@@ -52,5 +52,9 @@ lint_python:
   docker-compose -f {{ DEV_COMPOSE }} up -d
   docker-compose -f {{ DEV_COMPOSE }} exec web bash
 
+@sh-root:
+  docker-compose -f {{ DEV_COMPOSE }} up -d
+  docker-compose -f {{ DEV_COMPOSE }} exec --user=root web bash
+
 @down:
   docker-compose -f {{ DEV_COMPOSE }} down
