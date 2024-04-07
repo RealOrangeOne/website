@@ -375,6 +375,11 @@ LOGGING = {
             "level": "WARNING",
             "propagate": False,
         },
+        "wagtail.images": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
+        },
         "django.request": {
             "handlers": ["console"],
             "level": "ERROR",
