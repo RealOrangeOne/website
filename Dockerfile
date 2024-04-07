@@ -15,7 +15,7 @@ FROM python:3.12-slim as production
 
 ENV VIRTUAL_ENV=/venv
 
-# renovate: datasource=github-tags depName=gchq/cyberchef
+# renovate: datasource=github-tags depName=just-containers/s6-overlay
 ENV S6_OVERLAY_VERSION=3.1.6.2
 
 RUN useradd website --create-home -u 1000 && mkdir /app $VIRTUAL_ENV && chown -R website /app $VIRTUAL_ENV
