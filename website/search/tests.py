@@ -38,7 +38,7 @@ class SearchPageTestCase(TestCase):
 
         self.assertEqual(search_input.attrs["name"], "q")
         self.assertEqual(search_input.attrs["hx-get"], "results/")
-        self.assertEqual(search_input.attrs["value"], "")
+        self.assertEqual(search_input.attrs.get("value", ""), "")
 
         self.assertEqual(len(soup.select(search_input.attrs["hx-target"])), 1)
         self.assertEqual(len(soup.select(search_input.attrs["hx-indicator"])), 2)
