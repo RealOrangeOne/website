@@ -100,7 +100,7 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "enforce_host.EnforceHostMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django_minify_html.middleware.MinifyHtmlMiddleware",
+    "website.common.middleware.CustomMinifyHtmlMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
