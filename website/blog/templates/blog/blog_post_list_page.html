@@ -1,7 +1,5 @@
 {% extends "common/listing_page.html" %}
 
-{% load wagtailroutablepage_tags %}
-
 {% block hero_buttons %}
   <a class="button is-radiusless" href="{{ page.tag_list_page_url }}" title="View tags"><i class="fas fa-tags" aria-hidden="true"></i></a>
   {{ block.super }}

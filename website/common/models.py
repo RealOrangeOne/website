@@ -295,6 +295,13 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
     def feed(self, request: HttpRequest) -> HttpResponse:
         return redirect("feed", permanent=True)
 
+    @route(r"^random/$")
+    def random(self, request: HttpRequest) -> HttpResponse:
+        page = self.get_listing_pages().order_by("?").first()
+        if page is None:
+            return redirect(self.get_url(request=request), permanent=False)
+        return redirect(page.get_url(request=request), permanent=False)
+
 
 class ListingPage(BaseListingPage):
     pass

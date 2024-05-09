@@ -1,8 +1,10 @@
 {% extends "common/content_page.html" %}
 
-{% load wagtailadmin_tags %}
+{% load wagtailadmin_tags wagtailroutablepage_tags %}
 
 {% block hero_buttons %}
+  <a class="button is-radiusless" href="{% routablepageurl page 'random' %}" title="View random"><i class="fas fa-dice" aria-hidden="true"></i></a>
+
   {% if listing_pages.has_previous %}
     <a class="button is-radiusless" href="{% querystring page=listing_pages.previous_page_number %}" title="Previous page"><i class="fas fa-arrow-left" aria-hidden="true"></i></a>
   {% endif %}

@@ -77,3 +77,12 @@ class ListingPageTestCase(TestCase):
         self.assertEqual(
             response.context["page"].get_meta_url(), self.page.full_url + "?page=2"
         )
+
+    def test_random(self) -> None:
+        url = self.page.url + self.page.reverse_subpage("random")
+        with self.assertNumQueries(10):
+            response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertIn(
+            response.url, [page.get_url() for page in self.page.get_listing_pages()]
+        )
