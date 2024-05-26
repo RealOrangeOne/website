@@ -6,7 +6,7 @@ django-browser-reload==1.12.1
 django-debug-toolbar
 types-requests
 mypy==1.8.0
-wagtail-factories==4.1.0
+wagtail-factories==4.2.1
 coverage==7.4.0
 djlint==1.34.1
 types-pyyaml
