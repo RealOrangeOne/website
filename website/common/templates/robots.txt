@@ -1,8 +1,7 @@
 User-agent: *
-{% if SEO_INDEX %}
-Allow: /
-{% else %}
-Disallow: /
-{% endif %}
+{% if SEO_INDEX %}Allow: /{% else %}Disallow: /{% endif %}
+
+# https://github.com/ai-robots-txt/ai.robots.txt
+{{ ai_robots_txt }}
 
 Sitemap: {{ sitemap }}

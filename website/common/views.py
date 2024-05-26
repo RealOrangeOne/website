@@ -23,6 +23,7 @@ from website.search.models import SearchPage
 
 from .feed_generators import CustomFeed
 from .models import BaseListingPage, BasePage
+from .utils import get_ai_robots_txt
 
 
 class Error404View(TemplateView):
@@ -52,6 +53,7 @@ class RobotsView(TemplateView):
     def get_context_data(self, **kwargs: dict) -> dict:
         context = super().get_context_data(**kwargs)
         context["sitemap"] = self.request.build_absolute_uri(reverse("sitemap"))
+        context["ai_robots_txt"] = get_ai_robots_txt()
         return context
 
 

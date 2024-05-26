@@ -112,3 +112,13 @@ def get_or_none(queryset: models.QuerySet) -> models.Model:
         return queryset.get()
     except (queryset.model.DoesNotExist, queryset.model.MultipleObjectsReturned):
         return None
+
+
+@django_cache_decorator(time=21600)
+def get_ai_robots_txt() -> str:
+    """
+    https://github.com/ai-robots-txt/ai.robots.txt
+    """
+    return requests_session.get(
+        "https://raw.githubusercontent.com/ai-robots-txt/ai.robots.txt/main/robots.txt"
+    ).content.decode()
