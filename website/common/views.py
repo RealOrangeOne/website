@@ -23,7 +23,7 @@ from website.search.models import SearchPage
 
 from .feed_generators import CustomFeed
 from .models import BaseListingPage, BasePage
-from .utils import get_ai_robots_txt
+from .utils import extend_query_params, get_ai_robots_txt
 
 
 class Error404View(TemplateView):
@@ -116,7 +116,9 @@ class AllPagesFeed(Feed):
         return item.title
 
     def item_link(self, item: BasePage) -> str:
-        return item.get_full_url(request=self.request) + "?utm_medium=rss"
+        return extend_query_params(
+            item.get_full_url(request=self.request), {"utm_medium": "rss"}
+        )
 
     def item_pubdate(self, item: BasePage) -> datetime:
         if item_date := getattr(item, "date", None):

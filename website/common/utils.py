@@ -1,14 +1,17 @@
 from dataclasses import dataclass
 from itertools import pairwise
-from typing import Optional, Type
+from typing import Any, Optional, Type
+from urllib.parse import urlsplit, urlunsplit
 
 import requests
 from bs4 import BeautifulSoup, SoupStrainer
 from django.conf import settings
 from django.db import models
+from django.http import QueryDict
 from django.http.request import HttpRequest
 from django.utils.text import slugify
 from django_cache_decorator import django_cache_decorator
+from metadata_parser import MetadataParser
 from wagtail.models import Page, Site
 from wagtail.models import get_page_models as get_wagtail_page_models
 
@@ -122,3 +125,21 @@ def get_ai_robots_txt() -> str:
     return requests_session.get(
         "https://raw.githubusercontent.com/ai-robots-txt/ai.robots.txt/main/robots.txt"
     ).content.decode()
+
+
+@django_cache_decorator(time=21600)
+def get_page_metadata(url: str) -> MetadataParser:
+    return MetadataParser(url=url, search_head_only=True)
+
+
+def extend_query_params(url: str, params: dict[str, Any]) -> str:
+    scheme, netloc, path, query, fragment = urlsplit(url)
+    query_dict = QueryDict(query, mutable=True)
+
+    for k, v in params.items():
+        if v is None:
+            del query_dict[k]
+        else:
+            query_dict[k] = v
+
+    return urlunsplit((scheme, netloc, path, query_dict.urlencode(), fragment))

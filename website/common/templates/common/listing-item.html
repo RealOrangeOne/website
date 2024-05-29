@@ -16,7 +16,10 @@
           {% include "common/breadcrumbs.html" with parents=page.get_parent_pages %}
         {% endif %}
         <h2 class="title is-3">
-          <a href="{% pageurl page %}">{{ page.title }}</a>
+          <a href="{% pageurl page %}">
+            {{ page.title }}
+            {% if page.is_external %}<i class="fa-solid fa-arrow-up-right-from-square" title="This page is from a external source"></i>{% endif %}
+          </a>
         </h2>
         {% include "common/content-details.html" %}
         <p>{{ page.summary }}</p>

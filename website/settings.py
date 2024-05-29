@@ -391,6 +391,11 @@ LOGGING = {
             "level": "WARNING",
             "propagate": False,
         },
+        "metadata_parser": {
+            "handlers": ["console"],
+            "level": "CRITICAL",
+            "propagate": False,
+        },
     },
 }
 

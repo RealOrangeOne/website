@@ -7,7 +7,7 @@ from wagtail.search.utils import parse_query_string
 from wagtail_favicon.models import FaviconSettings
 from wagtail_favicon.utils import get_rendition_url
 
-from website.common.utils import get_or_none, get_site_title
+from website.common.utils import extend_query_params, get_or_none, get_site_title
 from website.contrib.singleton_page.utils import SingletonPageCache
 
 from .models import SearchPage
@@ -87,4 +87,4 @@ class GoView(RedirectView):
         if slug_match := get_or_none(pages.filter(slug__iexact=query)):
             return slug_match.get_url(request=self.request)
 
-        return f"{search_page_url}?{self.request.GET.urlencode()}"
+        return extend_query_params(search_page_url, self.request.GET)

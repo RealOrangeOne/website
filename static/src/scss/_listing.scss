@@ -18,6 +18,17 @@
 
   .title {
     margin-bottom: 0;
+
+    a {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      i {
+        font-size: 50%;
+      }
+    }
   }
 
   .content-details {

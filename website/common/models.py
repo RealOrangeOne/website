@@ -1,7 +1,6 @@
 from datetime import timedelta
 from math import ceil
 from typing import Any, Optional
-from urllib.parse import urlencode
 
 from django.core.paginator import EmptyPage, Paginator
 from django.core.paginator import Page as PaginatorPage
@@ -31,6 +30,7 @@ from .serializers import PaginationSerializer
 from .streamfield import add_heading_anchors, get_blocks, get_content_html
 from .utils import (
     TocEntry,
+    extend_query_params,
     extract_text,
     get_site_title,
     get_table_of_contents,
@@ -181,6 +181,7 @@ class BaseContentPage(BasePage, MetadataMixin):
             for size, width in UNSPLASH_SIZES.items()
         }
 
+    @cached_property
     def hero_image_url(self) -> Optional[str]:
         return self.hero_url("regular")
 
@@ -286,10 +287,7 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
 
         url = super().get_meta_url()
 
-        if not query_data:
-            return url
-
-        return url + "?" + urlencode(query_data)
+        return extend_query_params(url, query_data)
 
     @route(r"^feed/$")
     def feed(self, request: HttpRequest) -> HttpResponse:

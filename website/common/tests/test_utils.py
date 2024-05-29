@@ -3,6 +3,7 @@ from django.test import SimpleTestCase
 from wagtail.rich_text import features as richtext_feature_registry
 
 from website.common.utils import (
+    extend_query_params,
     extract_text,
     get_table_of_contents,
     heading_id,
@@ -111,3 +112,25 @@ class HeadingIDTestCase(SimpleTestCase):
         self.assertEqual(heading_id("123"), "ref-123")
         self.assertEqual(heading_id("test"), "test")
         self.assertEqual(heading_id("Look, a title!"), "look-a-title")
+
+
+class ExtendQueryParamsTestCase(SimpleTestCase):
+    def test_params(self) -> None:
+        self.assertEqual(
+            extend_query_params("https://example.com", {"foo": "bar"}),
+            "https://example.com?foo=bar",
+        )
+        self.assertEqual(
+            extend_query_params("https://example.com?foo=bar", {"bar": "foo"}),
+            "https://example.com?foo=bar&bar=foo",
+        )
+        self.assertEqual(
+            extend_query_params("https://example.com?foo=baz", {"foo": "baz"}),
+            "https://example.com?foo=baz",
+        )
+
+    def test_removes_param(self) -> None:
+        self.assertEqual(
+            extend_query_params("https://example.com?foo=bar", {"foo": None}),
+            "https://example.com",
+        )
