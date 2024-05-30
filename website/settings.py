@@ -320,14 +320,15 @@ if DEBUG:
     INSTALLED_APPS.append("django_browser_reload")
     MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
 
-    # Add django-debug-toolbar
-    INSTALLED_APPS.append("debug_toolbar")
-    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
-    DEBUG_TOOLBAR_CONFIG = {
-        "SHOW_TOOLBAR_CALLBACK": "website.common.utils.show_toolbar_callback",
-        "RESULTS_CACHE_SIZE": 5,
-        "SHOW_COLLAPSED": True,
-    }
+    if not TEST:
+        # Add django-debug-toolbar
+        INSTALLED_APPS.append("debug_toolbar")
+        MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+        DEBUG_TOOLBAR_CONFIG = {
+            "SHOW_TOOLBAR_CALLBACK": "website.common.utils.show_toolbar_callback",
+            "RESULTS_CACHE_SIZE": 5,
+            "SHOW_COLLAPSED": True,
+        }
 
     # Add Wagtail styleguide
     INSTALLED_APPS.append("wagtail.contrib.styleguide")
