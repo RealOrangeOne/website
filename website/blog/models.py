@@ -94,7 +94,9 @@ class BlogPostPage(BaseContentPage):
 
     def get_similar_posts(self) -> models.QuerySet:
         try:
-            listing_pages = BlogPostListPage.objects.get().get_listing_pages()
+            listing_pages = BlogPostPage.objects.filter(
+                id__in=BlogPostListPage.objects.get().get_listing_pages()
+            )
         except BlogPostListPage.DoesNotExist:
             return BlogPostPage.objects.none()
 
