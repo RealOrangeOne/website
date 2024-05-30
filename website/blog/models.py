@@ -93,28 +93,35 @@ class BlogPostPage(BaseContentPage):
         return SingletonPageCache.get_url(BlogPostListPage)
 
     def get_similar_posts(self) -> models.QuerySet:
-        try:
-            listing_pages = BlogPostPage.objects.filter(
-                id__in=BlogPostListPage.objects.get().get_listing_pages()
-            )
-        except BlogPostListPage.DoesNotExist:
-            return BlogPostPage.objects.none()
+        listing_pages = BlogPostListPage.objects.get().get_listing_pages()
 
         similar_posts = listing_pages.exclude(id=self.id).alias(
             title_similarity=TrigramSimilarity("title", self.title),
         )
 
         page_tags = list(self.tags.public().live().values_list("id", flat=True))
+        # If this page has no tags, ignore it as part of similarity
+        divisor = len(page_tags) if page_tags else models.Value(1)
         similar_posts = similar_posts.alias(
-            # If this page has no tags, ignore it as part of similarity
             # NB: Cast to a float, because `COUNT` returns a `bigint`.
-            tag_similarity=Cast(
-                models.Count("tags", filter=models.Q(tags__in=page_tags)),
+            _blog_tag_similarity=Cast(
+                models.Count(
+                    "blogpostpage__tags",
+                    filter=models.Q(blogpostpage__tags__in=page_tags),
+                ),
                 output_field=models.FloatField(),
             )
-            / len(page_tags)
-            if page_tags
-            else models.Value(1)
+            / divisor,
+            _external_tag_similarity=Cast(
+                models.Count(
+                    "externalblogpostpage__tags",
+                    filter=models.Q(externalblogpostpage__tags__in=page_tags),
+                ),
+                output_field=models.FloatField(),
+            )
+            / divisor,
+            tag_similarity=models.F("_blog_tag_similarity")
+            + models.F("_external_tag_similarity"),
         )
 
         similar_posts = similar_posts.annotate(
@@ -148,19 +155,11 @@ class BlogPostTagPage(BaseListingPage):
     def get_listing_pages(self) -> models.QuerySet:
         blog_list_page = BlogPostListPage.objects.get()
         listing_pages = blog_list_page.get_listing_pages()
-        blog_post_tags = list(
-            BlogPostPage.objects.filter(id__in=listing_pages, tags=self).values_list(
-                "id", flat=True
-            )
-        )
-        external_post_tags = list(
-            ExternalBlogPostPage.objects.filter(
-                id__in=listing_pages, tags=self
-            ).values_list("id", flat=True)
-        )
+
         return listing_pages.filter(
-            id__in=blog_post_tags + external_post_tags
-        ).specific()
+            models.Q(blogpostpage__tags=self)
+            | models.Q(externalblogpostpage__tags=self)
+        ).distinct()
 
 
 class BlogPostCollectionListPage(BaseListingPage):
