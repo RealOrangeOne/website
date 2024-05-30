@@ -298,7 +298,8 @@ class BaseListingPage(RoutablePageMixin, BaseContentPage):
         page = self.get_listing_pages().order_by("?").first()
         if page is None:
             response = redirect(self.get_url(request=request), permanent=False)
-        response = redirect(page.get_url(request=request), permanent=False)
+        else:
+            response = redirect(page.get_url(request=request), permanent=False)
         response.headers["X-Robots-Tag"] = "noindex"
         return response
 
