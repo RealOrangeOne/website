@@ -7,7 +7,6 @@ beautifulsoup4
 lxml==5.2.1
 requests
 wagtail-generic-chooser==0.6
-django-rq==2.10.1
 django-redis==5.4.0
 gunicorn==22.0.0
 psycopg==3.1.18
@@ -41,3 +40,6 @@ git+https://github.com/RealOrangeOne/wagtail-favicon@b892165e047b35c46d7244109b9
 
 # Use custom `wagtail-draftail-snippet` with support for Wagtail 5.x
 git+https://github.com/RealOrangeOne/wagtail-draftail-snippet@74ed858bd958a066d5aee295c9848257107b1546
+
+# Background tasks!
+git+https://github.com/RealOrangeOne/django-tasks@92ec776fccb6a9f8cc5305e75e8846633e26b643

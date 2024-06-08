@@ -4,4 +4,4 @@ set -e
 
 cd /app
 
-exec python manage.py rqworker --with-scheduler
+exec python manage.py db_worker -v3 --interval 10

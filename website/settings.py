@@ -69,7 +69,6 @@ INSTALLED_APPS = [
     "generic_chooser",
     "wagtail_draftail_snippet",
     "wagtailautocomplete",
-    "django_rq",
     "rest_framework",
     "corsheaders",
     "wagtail_favicon",
@@ -80,6 +79,7 @@ INSTALLED_APPS = [
     "django_otp",
     "django_otp.plugins.otp_totp",
     "django_minify_html",
+    "django_tasks.backends.database",
     "health_check",
     "health_check.db",
     "health_check.cache",
@@ -146,16 +146,10 @@ CACHES = {
 # https://docs.wagtail.io/en/v2.13/reference/settings.html#redirects
 WAGTAIL_REDIRECTS_FILE_STORAGE = "cache"
 
-RQ_QUEUES = {}
-
-USE_REDIS_QUEUE = False
-if queue_store := env.cache(
-    "QUEUE_STORE_URL", default=None, backend="django_redis.cache.RedisCache"
-):
-    CACHES["rq"] = queue_store
-    USE_REDIS_QUEUE = True
-    RQ_QUEUES["default"] = {"USE_REDIS_CACHE": "rq"}
-
+if TEST:
+    TASKS = {"default": {"BACKEND": "django_tasks.backends.immediate.ImmediateBackend"}}
+else:
+    TASKS = {"default": {"BACKEND": "django_tasks.backends.database.DatabaseBackend"}}
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -448,12 +442,11 @@ if sentry_dsn := env("SENTRY_DSN"):
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
     from sentry_sdk.integrations.redis import RedisIntegration
-    from sentry_sdk.integrations.rq import RqIntegration
     from sentry_sdk.utils import get_default_release
 
     sentry_kwargs = {
         "dsn": sentry_dsn,
-        "integrations": [DjangoIntegration(), RqIntegration(), RedisIntegration()],
+        "integrations": [DjangoIntegration(), RedisIntegration()],
         "release": get_default_release(),
     }
 

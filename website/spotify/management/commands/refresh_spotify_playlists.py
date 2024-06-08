@@ -1,10 +1,11 @@
 from django.core.cache import cache
 from django.core.management.base import BaseCommand
+from django_tasks import task
 
 from website.spotify.models import SpotifyPlaylistPage
-from website.utils.queue import enqueue_or_sync
 
 
+@task()
 def refresh_cache(page_id: int) -> None:
     page = SpotifyPlaylistPage.objects.get(id=page_id)
     cache.delete(page.playlist_cache_key)
@@ -15,5 +16,7 @@ def refresh_cache(page_id: int) -> None:
 
 class Command(BaseCommand):
     def handle(self, *args: list, **options: dict) -> None:
-        for page in SpotifyPlaylistPage.objects.all().defer_streamfields().iterator():
-            enqueue_or_sync(refresh_cache, args=[page.id])
+        for page_id in (
+            SpotifyPlaylistPage.objects.all().values_list("id", flat=True).iterator()
+        ):
+            refresh_cache.enqueue(page_id)
