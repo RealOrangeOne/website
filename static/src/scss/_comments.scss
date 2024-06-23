@@ -1,0 +1,46 @@
+section.comments {
+  margin-top: 2rem;
+}
+
+.comentario-text-muted,
+.comentario-root,
+.comentario-card .comentario-name {
+  @include dark-mode {
+    color: $dark-mode-text !important;
+  }
+}
+
+.comentario-add-comment-host,
+.comentario-comment-editor textarea,
+.comentario-toolbar.comentario-disabled {
+  background-color: transparent !important;
+}
+
+.comentario-add-comment-host:not(.comentario-editor-inserted) {
+  border: 1px solid color.adjust($white, $alpha: -0.5) !important;
+}
+
+.comentario-comment-editor textarea {
+  background-color: transparent !important;
+  @include dark-mode {
+    color: $dark-mode-text !important;
+  }
+}
+
+.comentario-footer a {
+  color: $link !important;
+}
+
+.comentario-btn-link {
+  color: $link !important;
+}
+
+.comentario-card {
+  @include dark-mode {
+    border-top: 1px solid color.adjust($white, $alpha: -0.5);
+
+    p {
+      color: $dark-mode-text;
+    }
+  }
+}
