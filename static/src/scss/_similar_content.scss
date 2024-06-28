@@ -15,8 +15,8 @@ section#similar-content {
   }
 
   .media {
-    @include desktop {
-      transform: scale(85%);
-    }
+    transform: scale(85%);
+    margin-top: 0;
+    padding-top: 0;
   }
 }
