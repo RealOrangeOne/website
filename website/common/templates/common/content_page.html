@@ -10,6 +10,13 @@
   {% endif %}
 {% endblock %}
 
+{% block post_toc %}
+  <hr class="dropdown-divider" />
+  <li>
+    <a href="#comments">Comments</a>
+  </li>
+{% endblock %}
+
 {% block post_content %}
   {% if not request.is_preview %}
     {% include "common/shareon.html" %}
