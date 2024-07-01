@@ -1,7 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:base",
+    "replacements:all",
+    "workarounds:all"
   ],
   "prConcurrentLimit": 0,
   "packageRules": [
