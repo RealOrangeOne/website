@@ -6,13 +6,6 @@
     "workarounds:all"
   ],
   "prConcurrentLimit": 0,
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["patch"],
-      "schedule": ["every weekend"],
-      "enabled": false
-    }
-  ],
   "regexManagers": [
     {
       "fileMatch": ["^Dockerfile$"],
@@ -20,5 +13,6 @@
       "depNameTemplate": "just-containers/s6-overlay",
       "datasourceTemplate": "github-releases"
     }
-  ]
+  ],
+  "dependencyDashboardApproval": true
 }
