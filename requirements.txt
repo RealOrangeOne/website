@@ -9,7 +9,7 @@ requests
 wagtail-generic-chooser==0.6
 django-redis==5.4.0
 gunicorn==22.0.0
-psycopg==3.1.18
+psycopg==3.2.1
 djangorestframework
 django-htmx==1.17.2
 wagtail-metadata==5.0.0
