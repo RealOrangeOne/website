@@ -11,7 +11,7 @@ from django.http import QueryDict
 from django.http.request import HttpRequest
 from django.utils.text import slugify
 from django_cache_decorator import django_cache_decorator
-from metadata_parser import MetadataParser
+from metadata_parser import MetadataParser, ParsedResult
 from wagtail.models import Page, Site
 from wagtail.models import get_page_models as get_wagtail_page_models
 
@@ -128,8 +128,13 @@ def get_ai_robots_txt() -> str:
 
 
 @django_cache_decorator(time=21600)
-def get_page_metadata(url: str) -> MetadataParser:
-    return MetadataParser(url=url, search_head_only=True)
+def get_page_metadata(url: str) -> ParsedResult:
+    metadata = MetadataParser(url=url, search_head_only=True).parsed_result
+
+    # HACK: BeautifulSoup doesn't pickle nicely, and so can't be cached
+    metadata.soup = None
+
+    return metadata
 
 
 def extend_query_params(url: str, params: dict[str, Any]) -> str:

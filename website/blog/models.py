@@ -7,7 +7,7 @@ from django.db.models.functions import Cast, Coalesce
 from django.http import HttpRequest, HttpResponse, HttpResponsePermanentRedirect
 from django.utils import timezone
 from django.utils.functional import cached_property
-from metadata_parser import MetadataParser
+from metadata_parser import ParsedResult
 from modelcluster.fields import ParentalManyToManyField
 from wagtail.admin.panels import FieldPanel
 from wagtail.models import Page, PageQuerySet, Site
@@ -239,7 +239,7 @@ class ExternalBlogPostPage(BaseContentPage):
         return tags
 
     @cached_property
-    def metadata(self) -> MetadataParser:
+    def metadata(self) -> ParsedResult:
         return get_page_metadata(self.external_url)
 
     @cached_property

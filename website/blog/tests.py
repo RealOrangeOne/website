@@ -1,3 +1,5 @@
+import pickle
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -96,7 +98,9 @@ class ExternalBlogPostPageTestCase(TestCase):
     def setUpTestData(cls) -> None:
         cls.home_page = HomePage.objects.get()
         cls.blog_post_list_page = BlogPostListPageFactory(parent=cls.home_page)
-        cls.page = ExternalBlogPostPageFactory(parent=cls.blog_post_list_page)
+        cls.page = ExternalBlogPostPageFactory(
+            parent=cls.blog_post_list_page, external_url="https://example.com"
+        )
 
     def test_redirects(self) -> None:
         with self.assertNumQueries(10):
@@ -107,3 +111,11 @@ class ExternalBlogPostPageTestCase(TestCase):
             status_code=301,
             fetch_redirect_response=False,
         )
+
+    def test_metadata(self) -> None:
+        metadata = self.page.metadata
+
+        self.assertIsNone(metadata.soup)
+
+        # Confirm it can pickle
+        pickle.dumps(metadata)
