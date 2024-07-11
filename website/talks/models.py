@@ -12,6 +12,14 @@ class TalksListPage(BaseListingPage):
     max_count = 1
     subpage_types = ["talks.TalkPage"]
 
+    def get_listing_pages(self) -> models.QuerySet:
+        return (
+            TalkPage.objects.live()
+            .public()
+            .descendant_of(self)
+            .order_by("-date", "title")
+        )
+
 
 class TalkPage(BaseContentPage):
     subpage_types: list[Any] = []

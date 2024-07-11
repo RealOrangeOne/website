@@ -37,7 +37,7 @@ class TalksListPageTestCase(TestCase):
         self.assertEqual(len(response.context["listing_pages"]), 2)
 
     def test_queries(self) -> None:
-        with self.assertNumQueries(35):
+        with self.assertNumQueries(34):
             self.client.get(self.page.url)
 
     def test_feed_accessible(self) -> None:
