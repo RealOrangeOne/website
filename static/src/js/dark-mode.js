@@ -3,6 +3,7 @@ const STORAGE_KEY = "dark-mode";
 
 const htmlTag = document.getElementsByTagName("html")[0];
 const darkModeToggle = document.getElementById("dark-mode-toggle");
+const comentarioComments = document.getElementsByTagName("comentario-comments");
 
 const matchesDarkMode = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -13,6 +14,10 @@ function handleDarkMode(darkMode) {
     htmlTag.classList.add(DARK_MODE_CLASS);
   } else {
     htmlTag.classList.remove(DARK_MODE_CLASS);
+  }
+
+  for (const commentElement of comentarioComments) {
+    commentElement.setAttribute("theme", darkMode ? "dark" : "light");
   }
 }
 
