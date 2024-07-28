@@ -36,7 +36,7 @@
     "esbuild": "0.20.2",
     "glightbox": "3.3.0",
     "htmx.org": "1.9.2",
-    "lite-youtube-embed": "0.3.0",
+    "lite-youtube-embed": "0.3.2",
     "lodash.clamp": "4.0.3",
     "lodash.debounce": "4.0.8",
     "lodash.throttle": "4.1.1",
