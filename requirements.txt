@@ -1,5 +1,5 @@
 Django==4.2.15
-wagtail==5.2.6
+wagtail==6.2.2
 django-environ==0.11.2
 whitenoise[brotli]==6.6.0
 Pygments==2.18.0
