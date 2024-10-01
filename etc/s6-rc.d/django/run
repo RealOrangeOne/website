@@ -4,4 +4,4 @@ set -e
 
 cd /app
 
-exec gunicorn -c etc/gunicorn.conf.py
+exec granian website.wsgi:application

@@ -39,7 +39,14 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLA
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz
 
 ENV PATH=$VIRTUAL_ENV/bin:$PATH \
-    PYTHONUNBUFFERED=1
+    PYTHONUNBUFFERED=1 \
+    GRANIAN_INTERFACE=wsgi \
+    GRANIAN_HOST=0.0.0.0 \
+    GRANIAN_PORT=8080 \
+    GRANIAN_WORKERS_LIFETIME=1800 \
+    GRANIAN_RESPAWN_INTERVAL=10 \
+    GRANIAN_PROCESS_NAME=website \
+    GRANIAN_RESPAWN_FAILED_WORKERS=1
 
 EXPOSE 8000
 
