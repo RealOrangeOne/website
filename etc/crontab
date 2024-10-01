@@ -3,4 +3,5 @@
 @daily ./manage.py update_unsplash_photos
 @daily ./manage.py rebuild_references_index
 @weekly ./manage.py refresh_spotify_playlists
+@weekly ./manage.py prune_db_task_results
 */10 * * * * ./manage.py publish_scheduled_pages
