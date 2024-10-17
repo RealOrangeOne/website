@@ -13,6 +13,8 @@
 
   <meta name="article:modified_time" content="{{ object.last_published_at|date:'c' }}" />
   {% if object.date %}<meta name="article:published_time" content="{{ object.date|date:'c' }}" />{% endif %}
+
+  <meta name="fediverse:creator" content="@jake@theorangeone.net" />
 {% endblock %}
 
 {% block meta %}
