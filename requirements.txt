@@ -22,7 +22,7 @@ Wand==0.6.13
 django3-cache-decorator==0.5.2
 django-cors-headers==4.3.1
 django-csp==3.7
-django-permissions-policy==4.18.0
+django-permissions-policy==4.23.0
 django-enforce-host==1.1.0
 django-proxy==1.2.2
 wagtail-lite-youtube-embed==0.1.0
