@@ -6,6 +6,8 @@ stages:
 static:
   image: node:20-slim
   stage: build
+  only:
+    - master
   cache:
     key: npm-$CI_COMMIT_REF_SLUG
     paths:
@@ -25,6 +27,8 @@ static:
 pip:
   image: python:3.12-slim
   stage: build
+  only:
+    - master
   variables:
     PIP_CACHE_DIR: $CI_PROJECT_DIR/.pip-cache
   cache:
@@ -136,8 +140,6 @@ container:
     DOCKER_BUILDKIT: 1
   dependencies: []
   stage: deploy
-  only:
-    - master
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
