@@ -42,6 +42,6 @@
     "lodash.throttle": "4.1.1",
     "npm-run-all2": "5.0.0",
     "sass": "1.75.0",
-    "shareon": "2.4.0"
+    "shareon": "^2.6.0"
   }
 }
