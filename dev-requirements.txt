@@ -10,5 +10,5 @@ wagtail-factories==4.1.0
 coverage==7.4.0
 djlint==1.34.1
 types-pyyaml
-ruff==0.1.11
+ruff==0.8.4
 setuptools  # required for Honcho to work on Python 3.12+
