@@ -33,7 +33,7 @@
     "@ledge/is-ie-11": "7.0.0",
     "bulma": "0.9.4",
     "elevator.js": "1.0.1",
-    "esbuild": "0.20.2",
+    "esbuild": "0.24.2",
     "glightbox": "3.3.0",
     "htmx.org": "2.0.1",
     "lite-youtube-embed": "0.3.2",
